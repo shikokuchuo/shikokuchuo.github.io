@@ -1,0 +1,40 @@
+---
+title: "Authenticating photography using cryptographic hashing"
+description: |
+  A proof of concept using R
+categories:
+  - R
+  - photography
+  - cryptography
+author:
+  - name: shikokuchuo
+date: 05-01-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+R is an open source programming language popular amongst statisticians and data scientists. The power of the R framework is enhanced through the tens of thousands of packages contributed by the open source community that extends and enhances R. ^[The largest listing of packages may be found at The Comprehensive R Archive Network: https://cloud.r-project.org/]
+
+The below code is a simple proof of concept of using cryptographic hashing as a method for authentification of original photographic files. The code simply retrieves the files in a certain folder and loads them into R using the imager ^[imager R package: https://dahtah.github.io/imager/] package and plots them, here on the page, but it could easily be another output device such as writing to jpeg or pdf. At the same time, the original file is run through a sha256 cryptographic hash from the openssl ^[openssl R package: https://github.com/jeroen/openssl] package. sha256 is a one-way algorithm that takes an input and generates a hexadecimal sequence 64 long. As the input file may be arbitrarily large, it can easily be seen that the information loss in arriving at the hash precludes the possibility of going in the other direction i.e. retrieving the original data from the hash. The properties of the hashing algorithm include that small changes to the input file can result in completely different hash values. The chances of collision i.e. two different data files generating the exact same hash is vanishingly small.
+
+```{r index, out.width="100%"}
+
+photos <- file.path("_images", list.files("_images"))
+develop <- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = do.call(rbind, lapply(photos, develop)))
+
+```
+<aside>
+Note: sha256 hashes are of the original files. Saving and hashing the images on this page would produce completely different hashes.
+</aside>
+
+The output image along with the sha256 hash of the original can then be published together. The photographer is then able to freely share their work, which does not then need to be downsized, degraded or watermarked, as long as the data of the original file has undergone some form of transformation (that is not trivially reversible) to produce the output. The hash is the proof of authenticity of the original, which only the original artist possesses.
+
+To prove authorship, the artist just needs to run the above function again, which would produce the same output and same hash values, and is an example of the benefits of reproducibility in writing R code.
+
+Equivalent to the example demonstrated here, the workflow of digital photographers is often to take a RAW camera file, and perform edits using photo processing software ^[A popular example of such photo-editing software is the open source Darktable https://www.darktable.org/], before generating an output. Software generally keeps the RAW file intact as a form of "digital negative", but adds the edits in a layer stored separately either as a "sidecar" file or in a database etc. depending on the software. Photographers often take the output and store a best quality version as their "master". Our approach would differ in treating the RAW file as the "original", which allows a high-quality output to then be published along with the sha256 of the RAW file. The artist retains the RAW file, along with the sidecar file and software that generates the output, as proof of authorship. This works of course only where the artist can ensure reproducibility of the output, and using open source software where the edits are stored transparently in a human-readable format would afford greater confidence in such a workflow.

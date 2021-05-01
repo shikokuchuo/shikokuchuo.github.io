@@ -1,0 +1,15 @@
+---
+title: "Shikokuchuo, Japan 愛媛県四国中央市"
+---
+
+```{r setup, echo = FALSE}
+
+library(leaflet)
+library(magrittr)
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng = 133.5490, lat = 33.9804, zoom = 13)
+
+```
+
