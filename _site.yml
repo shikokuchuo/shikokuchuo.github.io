@@ -29,7 +29,6 @@ base_url: https://shikokuchuo.net/
 collections:
   posts:
     share: [twitter, linkedin]
-    categories: true
     feed_items_max: false
 output_dir: "docs"
 theme: shikokuchuo.css

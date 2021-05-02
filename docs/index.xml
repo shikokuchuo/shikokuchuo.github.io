@@ -12,15 +12,21 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 May 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Resources for global sustainability</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/2021-05-02-resources</link>
+      <description>A compendium</description>
+      <guid>https://shikokuchuo.net/posts/2021-05-02-resources</guid>
+      <pubDate>Sun, 02 May 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/2021-05-02-resources/resources_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Authenticating photography using cryptographic hashing</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/2021-05-01-authenticating</link>
       <description>A proof of concept using R</description>
-      <category>R</category>
-      <category>photography</category>
-      <category>cryptography</category>
       <guid>https://shikokuchuo.net/posts/2021-05-01-authenticating</guid>
       <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/2021-05-01-authenticating/authenticating_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>

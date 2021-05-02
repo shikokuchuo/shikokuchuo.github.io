@@ -111,12 +111,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","categories","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Authenticating photography using cryptographic hashing"]},{"type":"character","attributes":{},"value":["A proof of concept using R\n"]},{"type":"character","attributes":{},"value":["R","photography","cryptography"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo"]}]}]},{"type":"character","attributes":{},"value":["05-01-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Authenticating photography using cryptographic hashing"]},{"type":"character","attributes":{},"value":["A proof of concept using R\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo"]}]}]},{"type":"character","attributes":{},"value":["05-01-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["authenticating_files/anchor-4.2.2/anchor.min.js","authenticating_files/bowser-1.9.3/bowser.min.js","authenticating_files/distill-2.2.21/template.v2.js","authenticating_files/figure-html5/index-1.png","authenticating_files/figure-html5/index-2.png","authenticating_files/figure-html5/index-3.png","authenticating_files/figure-html5/index-4.png","authenticating_files/header-attrs-2.7/header-attrs.js","authenticating_files/jquery-1.11.3/jquery.min.js","authenticating_files/popper-2.6.0/popper.min.js","authenticating_files/tippy-6.2.7/tippy-bundle.umd.min.js","authenticating_files/tippy-6.2.7/tippy-light-border.css","authenticating_files/tippy-6.2.7/tippy.css","authenticating_files/tippy-6.2.7/tippy.umd.min.js","authenticating_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["authenticating_files/figure-html5/index-1.png","authenticating_files/figure-html5/index-2.png","authenticating_files/figure-html5/index-3.png","authenticating_files/figure-html5/index-4.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1467,11 +1467,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-title">
 <h1>Authenticating photography using cryptographic hashing</h1>
 <!--radix_placeholder_categories-->
-<div class="dt-tags">
-<div class="dt=tag">R</div>
-<div class="dt=tag">photography</div>
-<div class="dt=tag">cryptography</div>
-</div>
 <!--/radix_placeholder_categories-->
 <p><p>A proof of concept using R</p></p>
 </div>
@@ -1483,9 +1478,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#reproducible-r-code-and-authentification">Reproducible R code and authentification</a></li>
+<li><a href="#as-applied-to-a-digital-photography-workflow">As applied to a digital photography workflow</a></li>
+</ul>
+</nav>
+</div>
+<h3 id="reproducible-r-code-and-authentification">Reproducible R code and authentification</h3>
 <p>R is an open source programming language popular amongst statisticians and data scientists. The power of the R framework is enhanced through the tens of thousands of packages contributed by the open source community that extends and enhances R. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>The below code is a simple proof of concept of using cryptographic hashing as a method for authentification of original photographic files. The code simply retrieves the files in a certain folder and loads them into R using the imager <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> package and plots them, here on the page, but it could easily be another output device such as writing to jpeg or pdf. At the same time, the original file is run through a sha256 cryptographic hash from the openssl <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> package. sha256 is a one-way algorithm that takes an input and generates a hexadecimal sequence 64 long. As the input file may be arbitrarily large, it can easily be seen that the information loss in arriving at the hash precludes the possibility of going in the other direction i.e. retrieving the original data from the hash. The properties of the hashing algorithm include that small changes to the input file can result in completely different hash values. The chances of collision i.e. two different data files generating the exact same hash is vanishingly small.</p>
-<div class="layout-chunk" data-layout="l-body">
+<div class="layout-chunk" data-layout="l-body-outset">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>photos</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='st'>"_images"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='st'>"_images"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>develop</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
@@ -1496,7 +1501,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>sha256 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>rbind</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>photos</span>, <span class='va'>develop</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="authenticating_files/figure-html5/index-1.png" width="100%" /><img src="authenticating_files/figure-html5/index-2.png" width="100%" /><img src="authenticating_files/figure-html5/index-3.png" width="100%" /><img src="authenticating_files/figure-html5/index-4.png" width="100%" /></p>
+<p><img src="authenticating_files/figure-html5/index-1.png" width="624" /><img src="authenticating_files/figure-html5/index-2.png" width="624" /><img src="authenticating_files/figure-html5/index-3.png" width="624" /><img src="authenticating_files/figure-html5/index-4.png" width="624" /></p>
 <pre><code>                                                            sha256
 1 cba0450d38b74f2585868d2aa026a96de735a8f73a54889366d62bbdfdcc8661
 2 a63b055e11765cf36fa065be413b0bb5deb89d6cfba0c9feac7b9946e9c76ece
@@ -1508,7 +1513,9 @@ Note: sha256 hashes are of the original files. Saving and hashing the images on 
 </aside>
 <p>The output image along with the sha256 hash of the original can then be published together. The photographer is then able to freely share their work, which does not then need to be downsized, degraded or watermarked, as long as the data of the original file has undergone some form of transformation (that is not trivially reversible) to produce the output. The hash is the proof of authenticity of the original, which only the original artist possesses.</p>
 <p>To prove authorship, the artist just needs to run the above function again, which would produce the same output and same hash values, and is an example of the benefits of reproducibility in writing R code.</p>
-<p>Equivalent to the example demonstrated here, the workflow of digital photographers is often to take a RAW camera file, and perform edits using photo processing software <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, before generating an output. Software generally keeps the RAW file intact as a form of “digital negative”, but adds the edits in a layer stored separately either as a “sidecar” file or in a database etc. depending on the software. Photographers often take the output and store a best quality version as their “master”. Our approach would differ in treating the RAW file as the “original”, which allows a high-quality output to then be published along with the sha256 of the RAW file. The artist retains the RAW file, along with the sidecar file and software that generates the output, as proof of authorship. This works of course only where the artist can ensure reproducibility of the output, and using open source software where the edits are stored transparently in a human-readable format would afford greater confidence in such a workflow.</p>
+<h3 id="as-applied-to-a-digital-photography-workflow">As applied to a digital photography workflow</h3>
+<p>Equivalent to the example demonstrated here, the workflow of digital photographers is often to take a RAW camera file, and perform edits using photo processing software <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, before generating an output. Software generally keeps the RAW file intact as a form of “digital negative”, but adds the edits in a layer stored separately either as a “sidecar” file or in a database etc. depending on the software. Photographers often take the output and store a best quality version as their “master”.</p>
+<p>Our approach would differ in treating the RAW file as the “original”, which allows a high-quality output to then be published along with the sha256 of the RAW file. The artist retains the RAW file, along with the sidecar file and software that generates the output, as proof of authorship. This works of course only where the artist can ensure reproducibility of the output, and using open source software where the edits are stored transparently in a human-readable format would afford greater confidence in such a workflow.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
