@@ -1,0 +1,132 @@
+---
+title: "R: The State of the Art"
+description: |
+  For AI developers / data analysts / machine learning scientists / statisticians
+author:
+  - name: shikokuchuo
+date: 05-03-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+develop <- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = develop(photos))
+
+```
+<aside> One morning in Shikokuchuo </aside>
+
+### Distill
+
+https://rstudio.github.io/distill
+
+A publication format for scientific and technical writing, native to the web.
+
+This website was created using Distill.
+
+Positives:
+
+- Use markdown / html / css / js interchangeably
+- Use R markdown to run R code (more convenient than you may think)
+- Self-contained (no dependency on Hugo or Jekyll, no lock-in or future maintenance)
+- Clean and attractive defaults
+- Mainly "just works"
+
+### Github Actions with R
+
+[Read the quick reference guide](https://orchid00.github.io/actions_sandbox/).
+
+Not just for continuous integration.
+
+Github actions allow cron jobs to run your R scripts at specified times, all with a simple yaml configuration file.
+
+### RSelenium
+
+When you need to programmatically drive a web browser to scrape information, perhaps behind a login screen or when the server rendering prevents a simpler approach.
+
+*Step-by-step use instructions*
+
+Prerequisites: JRE or JDK installed on your system, Mozilla Firefox
+
+1. Install the [RSelenium](https://github.com/ropensci/RSelenium) package from CRAN:
+
+```{r rselenium, eval=FALSE}
+
+install.packages("RSelenium")
+
+```
+
+2. Go to https://selenium-release.storage.googleapis.com/index.html
+
+Download selenium-server-standalone-4.0.0-alpha-2.jar (or whatever is the latest 'selenium-server-standalone' file)
+
+3. Go to https://github.com/mozilla/geckodriver
+
+Download the latest Mozilla geckodriver release, and place in same directory as the jar file
+
+4. At the terminal, first cd to the directory where your two new files are, then run: 
+
+```{r rseleniumt, eval=FALSE}
+
+java -jar selenium-server-standalone-4.0.0-alpha-2.jar
+
+```
+
+5. R quick-start code reference:
+
+```{r rseleniumqs, eval=FALSE}
+
+library(RSelenium)
+library(keyring)
+library(rvest)
+library(magrittr)
+
+# Start Selenium Session
+remDr <- remoteDriver(
+  remoteServerAddr = "localhost",
+  port = 4444L,
+  browserName = "firefox"
+)
+
+remDr$open()
+
+# Navigate to login page
+remDr$navigate("https://[website.com]/login")
+Sys.sleep(5) # Give page time to load
+
+# Find 'username' element and send 'saved_user' as input
+webElem1 <- remDr$findElement(using = "xpath", "//input[@name = 'username']")
+webElem1$sendKeysToElement(list(key_get("saved_user")))
+
+# Find 'password' element and send 'saved_pass' and 'enter' keystroke as input
+webElem2 <- remDr$findElement(using = "xpath", "//input[@name = 'password']")
+webElem2$sendKeysToElement(list(key_get("saved_pass"), key = "enter"))
+Sys.sleep(5) # Give page time to load
+
+# Navigate to desired page and download source
+remDr$navigate("https://[website.com]/somepage")
+Sys.sleep(5) # Give page time to load
+html <- remDr$getPageSource()[[1]] %>% read_html()
+
+# Use further rvest commands to extract required data
+# ...
+
+# End Selenium Session
+remDr$close()
+
+```
+<aside>
+1. Customise the URLs as required.
+
+2. Customise the xpath to locate the desired input fields as they are actually named on your site.
+
+3. 'saved_user' and 'saved_pass' are values already stored using the [keyring](https://github.com/r-lib/keyring) package and retrieved here using the 'key_get' command. It is never a good idea to store plain text credentials in an R script.
+</aside>

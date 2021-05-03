@@ -19,7 +19,7 @@ develop <- function(x) {
   paste0(openssl::sha256(file(x)))
 }
 par(mar = c(0, 0, 0, 0))
-data.frame(sha256 = do.call(rbind, lapply(photos, develop)))
+data.frame(sha256 = develop(photos))
 
 ```
 <aside> Dawn over Shikokuchuo </aside>
@@ -38,17 +38,13 @@ Nobel Prize Laureates and Other Experts Issue Urgent Call for Action After ‘Ou
 
 https://www.nationalacademies.org/news/2021/04/nobel-prize-laureates-and-other-experts-issue-urgent-call-for-action-after-our-planet-our-future-summit
 
-### BBC
+### Openlearn, The Open University
 
 Greta Thunberg: A Year to change the World
 
-https://bbc.co.uk/ayeartochangetheworld
+Follow Greta over an extraordinary year in which she comes of age as she takes her fight against climate change to a global stage.
 
-### Coursera
-
-Solving Complex Problems Specialization - uses the framework of Big History to combine knowledge across the sciences and humanities to provide a foundation for thinking and research in new ways. One of the creators of the course, Professor David Christian, has presented on topics including "Interdisciplinary Approaches to Solving 21st Century Challenges" at the World Economic Forum (WEF).
-
-https://www.coursera.org/specializations/solving-complex-problems
+https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the-world
 
 ### TED
 
