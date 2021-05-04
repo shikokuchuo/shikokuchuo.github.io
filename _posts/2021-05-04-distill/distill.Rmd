@@ -1,7 +1,7 @@
 ---
-title: "R | Distill"
+title: "Distill for R Markdown"
 description: |
-  Quickstart guide
+  Web publishing optimised for scientific and technical communication
 author:
   - name: shikokuchuo
 date: 05-04-2021
@@ -24,23 +24,26 @@ data.frame(sha256 = develop(photos))
 ```
 <aside>Shikokuchuo</aside>
 
+### Created using Distill
+
+This website was created using [Distill](https://pkgs.rstudio.com/distill/) for R Markdown, a web publishing format optimised for scientific and technical communication.
+
+### Key advantages
+
+- R markdown to run R code (and all the possibility that brings)
+- Use markdown / html interchangeably
+- No dependency on Hugo or Jekyll, so no lock-in or need to maintain those stacks
+- Out-of-the-box support for mobile
+- Clean and attractive defaults
+- Mainly "just works"
+
 ### Installation
 
-This website is created using [Distill](https://pkgs.rstudio.com/distill/) for R, a publication format for scientific and technical writing, native to the web.
-
-Install release version from CRAN:
+Install release version of Distill from CRAN:
 
 ```{r distillinst, eval=FALSE}
 install.packages("distill")
 ```
-
-### Key advantages
-
-- R markdown to run R code (more convenient than you may first think)
-- Use markdown / html interchangeably
-- No dependency on Hugo or Jekyll, so no lock-in or need to maintain those stacks
-- Clean and attractive defaults, yet css themeable
-- Mainly "just works"
 
 ### Distill blog hosted on Github Pages step-by-step instructions
 
@@ -51,13 +54,13 @@ distill::create_blog(dir = "blog", title = "My New Blog", gh_pages = TRUE)
 ```
 
 2. Make some inital changes to _site.yml. Select the 'build' tab in RStudio and hit 'Build Website'. This will generate the website. <br /><br />
-**Note: building the website does not generate blog posts.** Each time the website is re-built, only the .Rmd files in the base directory will automatically be re-generated.
+**Note: building the website does not generate blog posts.** Each time the website is re-built, only the .Rmd files in the base directory will be automatically re-generated.
 
 3. Modify the yaml front matter and content of the example blog post. Then hit 'Knit' in RStudio to generate the post. <br /><br />
 **Note: after every change made to posts or after creating a new post, you must knit each post separately.** The listings page is then automatically updated.
 
-4. Create README.md and CNAME file in /blog for your Github repository.
-<aside> README.md is optional but expected practice for your repository. CNAME is a text file containing the domain name if using a custom domain.</aside>
+4. Create README.md and CNAME in /blog for your Github repository.
+<aside> README.md is optional but usual practice. CNAME is a text file containing the domain name if using a custom domain.</aside>
 
 5. Create a new repository at [Github](https://github.com/).
 
@@ -71,7 +74,9 @@ git branch -M main
 git remote add origin git@github.com:username/nameofnew.git
 git push -u origin main
 ```
-<aside><br />Replace 'username/nameofnew.git' as appropriate.</aside>
+<aside>
+Replace 'username/nameofnew.git' as appropriate.
+</aside>
 
 7. At Github, under your new repository, go to Settings >> Pages, set your source branch to 'main', and folder to 'docs'.<br />
 Optionally tick 'Enforce HTTPS'. <br />

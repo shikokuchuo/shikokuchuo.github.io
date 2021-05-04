@@ -1,7 +1,7 @@
 ---
-title: "R | Github Actions"
+title: "Github Actions with R"
 description: |
-  Quickstart guide
+  Deploy and automate your code to the cloud
 author:
   - name: shikokuchuo
 date: 05-04-2021

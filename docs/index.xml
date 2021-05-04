@@ -14,28 +14,28 @@
     <generator>Distill</generator>
     <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>R | Distill</title>
+      <title>Distill for R Markdown</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/2021-05-04-distill</link>
-      <description>Quickstart guide</description>
+      <description>Web publishing optimised for scientific and technical communication</description>
       <guid>https://shikokuchuo.net/posts/2021-05-04-distill</guid>
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/2021-05-04-distill/distill_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
-      <title>R | Github Actions</title>
+      <title>Github Actions with R</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/2021-05-04-ghactions</link>
-      <description>Quickstart guide</description>
+      <description>Deploy and automate your code to the cloud</description>
       <guid>https://shikokuchuo.net/posts/2021-05-04-ghactions</guid>
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/2021-05-04-ghactions/ghactions_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
-      <title>R | Selenium WebDriver</title>
+      <title>R | Selenium</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/2021-05-03-rselenium</link>
-      <description>Quickstart guide</description>
+      <description>Programmatically drive a web browser</description>
       <guid>https://shikokuchuo.net/posts/2021-05-03-rselenium</guid>
       <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/2021-05-03-rselenium/rselenium_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>

@@ -1,7 +1,7 @@
 ---
-title: "R | Selenium WebDriver"
+title: "R | Selenium"
 description: |
-  Quickstart guide
+  Programmatically drive a web browser
 author:
   - name: shikokuchuo
 date: 05-03-2021
@@ -115,3 +115,8 @@ remDr$close()
 
 3. 'saved_user' and 'saved_pass' are values already stored using the [keyring](https://github.com/r-lib/keyring) package and retrieved here using the 'key_get' command. It is never a good idea to store plain text credentials in an R script.
 </aside>
+
+### Reference
+
+Basic vignette: https://docs.ropensci.org/RSelenium/articles/basics.html
+
