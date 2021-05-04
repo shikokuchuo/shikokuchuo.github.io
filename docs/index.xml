@@ -12,15 +12,33 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 03 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>R: The State of the Art</title>
+      <title>R | Distill</title>
       <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/2021-05-03-r</link>
-      <description>Distill, Github Actions and RSelenium</description>
-      <guid>https://shikokuchuo.net/posts/2021-05-03-r</guid>
+      <link>https://shikokuchuo.net/posts/2021-05-04-distill</link>
+      <description>Quickstart guide</description>
+      <guid>https://shikokuchuo.net/posts/2021-05-04-distill</guid>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/2021-05-04-distill/distill_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>R | Github Actions</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/2021-05-04-ghactions</link>
+      <description>Quickstart guide</description>
+      <guid>https://shikokuchuo.net/posts/2021-05-04-ghactions</guid>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/2021-05-04-ghactions/ghactions_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>R | Selenium WebDriver</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/2021-05-03-rselenium</link>
+      <description>Quickstart guide</description>
+      <guid>https://shikokuchuo.net/posts/2021-05-03-rselenium</guid>
       <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/2021-05-03-r/r_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content url="https://shikokuchuo.net/posts/2021-05-03-rselenium/rselenium_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Resources for global sustainability</title>

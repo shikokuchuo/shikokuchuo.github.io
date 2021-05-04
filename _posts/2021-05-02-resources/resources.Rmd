@@ -34,15 +34,35 @@ Video: Our future in the Anthropocene biosphere
 
 ### The National Academies of Sciences, Engineering, and Medicine
 
-Nobel Prize Laureates and Other Experts Issue Urgent Call for Action After ‘Our Planet, Our Future’ Summit
+More than 100 leading scientists including many Nobel Prize winners issued a statement following two days of scientific deliberations at the first Nobel Prize Summit, 26-28 April 2021.
 
+Excerpts from the statement:
+
+```{r statement, echo=TRUE, eval=FALSE}
+Global heating and habitat loss amount to nothing less than a vast and
+uncontrolled experiment on Earth’s life-support system.
+
+Time is running out to prevent irreversible changes.
+
+The remaining carbon budget for a 67% probability of not exceeding 1.5°C global
+warming will be exhausted before 2030. 
+
+Global sustainability offers the only viable path to human safety, equity,
+health, and progress.
+
+Humanity is waking up late to the challenges and opportunities of active
+planetary stewardship. But we *are* waking up.
+
+```
+
+Full text:
 https://www.nationalacademies.org/news/2021/04/nobel-prize-laureates-and-other-experts-issue-urgent-call-for-action-after-our-planet-our-future-summit
 
 ### Openlearn, The Open University
 
 Greta Thunberg: A Year to change the World
 
-Follow Greta over an extraordinary year in which she comes of age as she takes her fight against climate change to a global stage.
+Encounters with some of the world’s leading scientists and economists allow the series to examine what the latest science tells us about what can be done to avert the worst effects of climate change.
 
 https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the-world
 

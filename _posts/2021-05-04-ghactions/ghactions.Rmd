@@ -1,0 +1,81 @@
+---
+title: "R | Github Actions"
+description: |
+  Quickstart guide
+author:
+  - name: shikokuchuo
+date: 05-04-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+develop <- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = develop(photos))
+
+```
+<aside>Shikokuchuo</aside>
+
+### Github Actions with R
+
+Set up a cron job to run your R scripts at specified times.
+
+Enabled with a simple yaml configuration file.
+
+Save the following as main.yml in .github/workflows of your Github repository:
+
+```{r yml, eval=FALSE}
+name: Raction
+on:
+  schedule:
+    - cron: '30 22 * * 1-5'
+jobs:
+  render:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v1
+      - name: Install dependencies
+        run: |
+          install.packages(c("magrittr", "purrr"), type = "win.binary")
+        shell: Rscript {0}
+      - name: Script
+        run: Rscript nameofscript.R
+      - name: Commit files
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email "actions@github.com"
+          git add output/*
+          git commit -am "commit on $(date)"
+          git push origin main
+        env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
+```
+<aside>
+1. This example cron job runs every Mon-Fri at 22.30.
+
+2. Customize your R packages to install.
+
+3. Make sure to change nameofscript.R to your actual script name.
+
+4. Assumes your script writes files to the 'output' directory, change if necessary.
+
+5. Assumes your repository branch is 'main', change if necessary.
+
+6. Note that this script is run on a Windows VM using Windows R binary packages. This is currently much faster than building a lot of dependencies on Linux (which is also prone to failure).
+</aside>
+
+### Reference
+
+The Github Actions with R reference: <br />
+https://orchid00.github.io/actions_sandbox/
