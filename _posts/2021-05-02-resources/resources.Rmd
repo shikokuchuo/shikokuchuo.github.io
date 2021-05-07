@@ -32,6 +32,18 @@ Video: Our future in the Anthropocene biosphere
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5pAONwIKor8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+### Svalbard Global Seed Vault
+
+Safeguarding Seeds for the Future
+
+Established and funded by the Norwegian Ministry of Agriculture and Food.
+
+Provides safe, free and long-term storage of seed duplicates from all genebanks and nations participating in the global community’s joint effort to ensure the world’s future food supply. 
+
+The facility serves a humanitarian purpose and is part of the international system for conserving plant genetic diversity guided by the UN organisation for Food and Agriculture (FAO).
+
+https://www.seedvault.no/
+
 ### The National Academies of Sciences, Engineering, and Medicine
 
 More than 100 leading scientists including many Nobel Prize winners issued a statement following two days of scientific deliberations at the first Nobel Prize Summit, 26-28 April 2021.
@@ -68,7 +80,9 @@ https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the
 
 ### TED
 
-Stephen Hawking, "Questioning the universe", TED February 2008
+Stephen Hawking <br />
+*Questioning the universe* <br />
+TED February 2008
 
 <div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/lang/en/stephen_hawking_questioning_the_universe" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
 
@@ -84,21 +98,3 @@ What can a technologist do about climate change?
 Bret Victor: A personal view.
 
 http://worrydream.com/ClimateChange/
-
-### Svalbard Global Seed Vault
-
-Safeguarding Seeds for the Future
-
-Established and fully-funded by the Norwegian Ministry of Agriculture and Food.
-
-Offers safe, free and long-term storage of seed duplicates from all genebanks and nations participating in the global community’s joint effort to ensure the world’s future food supply. 
-
-The facility serves a humanitarian purpose and is part of the international system for conserving plant genetic diversity guided by the UN organisation for Food and Agriculturen (FAO).
-
-While there may be a role for the Seed Vault in the event of a global catastrophe, its value is considered to lie much more in providing back-up to individual collections in the event that the original samples, and their duplicates in conventional genebanks, are lost due to natural disasters, human conflict, changing policies, mismanagement, or any other circumstances.
-
-Svalbard is the Norwegian archipelago half way between the North Pole and Mainland Norway. Even though Svalbard is affected by global warming, it is still expected to remain one of world’s coldest places. The seeds are placed in the chambers inside the frozen mountain and artifical cooling plants keep the temperatures at a constant minus 18C. The permafrost in the mountains surrounding the Seed Vault can ensure the seeds are kept cold for a long time, even in the event of no artificial cooling.
-
-https://www.seedvault.no/
-
-

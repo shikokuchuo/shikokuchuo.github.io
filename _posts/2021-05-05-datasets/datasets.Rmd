@@ -35,7 +35,8 @@ tibble::tribble(
   "Quandl", "https://www.quandl.com/", "Quandl",
   "Yahoo Finance", "https://finance.yahoo.com/", "Quantmod",
   "Damodaran NYU Stern", "http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html", "",
-  "UCI Machine Learning Repository", "https://archive.ics.uci.edu/ml/index.php", ""
+  "UCI Machine Learning Repository", "https://archive.ics.uci.edu/ml/index.php", "",
+  "Project Gutenberg", "https://www.gutenberg.org/", "gutenbergr"
 ) %>%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0("<a href='", .x, "'>", .x, "</a>"))) %>%
   DT::datatable(escape = FALSE)
