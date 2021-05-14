@@ -1,0 +1,67 @@
+---
+title: "Resources for learning"
+description: |
+  A refined selection of online MOOCs
+author:
+  - name: shikokuchuo
+date: 05-14-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+develop <- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = develop(photos))
+
+```
+<aside> Shikokuchuo <br />
+Iyo Mishima station</aside>
+
+### Duke University Statistics with R Specialization
+
+https://www.coursera.org/specializations/statistics
+
+- Analyze and visualize data in R and create reproducible data analysis reports
+
+- Demonstrate a conceptual understanding of the unified nature of statistical inference
+
+- Perform frequentist and Bayesian statistical inference and modeling to understand natural phenomena and make data-based decisions
+
+- Communicate statistical results correctly, effectively, and in context without relying on statistical jargon
+
+- Critique data-based claims and evaluate data-based decisions
+
+- Wrangle and visualize data with R packages for data analysis.    
+
+You will produce a portfolio of data analysis projects from the Specialization that demonstrates mastery of statistical data analysis from exploratory analysis to inference to modeling, suitable for applying for statistical analysis or data scientist positions.
+
+### Duke University Entrepreneurial Finance: Strategy and Innovation Specialization
+
+https://www.coursera.org/specializations/entrepreneurial-finance
+
+From entrepreneurs to executives, this Specialization provides an opportunity to learn how to advance business innovation in your company and gain insights from leading faculty in the Fuqua School of Business at Duke University. 
+
+- Evaluate entrepreneurial ventures, including high-growth startups, using Excel spreadsheet models
+
+- Discern between the tradeoffs of different financing strategies: loan investments, venture capital, angel investing, and crowdfunding
+
+- How to manage a startup’s financing strategy
+
+- How to build capitalization tables (or “cap tables”) in Excel
+
+- Use cap tables to explore different financing strategies for your startup company and determine which financing decisions are best for your entrepreneurial venture
+
+- Analysis of blockchain technologies
+
+- Identify opportunities to disrupt and innovate business models using blockchain as well as avoid poorly executed applications of blockchain to business
+
+- How to use R programming to calculate the return of a stock portfolio and quantify the market risk of that portfolio
+

@@ -1,4 +1,4 @@
-name: "net"
+name: "shikokuchuo"
 title: "shikokuchuo{net}"
 description: |
   shikokuchuo.net
@@ -22,7 +22,7 @@ navbar:
       href: https://education.rstudio.com/
     - text: "Github"
       icon: fab fa-github
-      href: https://github.com/shikokuchuo/net/
+      href: https://github.com/shikokuchuo/shikokuchuo.github.io/
     - icon: fa fa-rss
       href: index.xml
 base_url: https://shikokuchuo.net/
