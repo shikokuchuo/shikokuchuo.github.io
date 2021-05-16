@@ -19,7 +19,7 @@ navbar:
       href: https://www.stockholmresilience.org/
     - text: "R"
       icon: fab fa-r-project
-      href: https://education.rstudio.com/
+      href: https://shikokuchuo.net/ichimoku/
     - text: "Github"
       icon: fab fa-github
       href: https://github.com/shikokuchuo/shikokuchuo.github.io/
