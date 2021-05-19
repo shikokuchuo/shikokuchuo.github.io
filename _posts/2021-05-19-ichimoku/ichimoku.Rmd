@@ -24,7 +24,7 @@ data.frame(sha256 = develop(photos))
 ```
 <aside> Shikokuchuo </aside>
 
-An implementation of the 'Ichimoku Kinko Hyo' charting system, also commonly known as 'cloud charts' in R.
+An implementation in R of the Ichimoku Kinkō Hyō (一目均衡表) charting system, also commonly known as 'cloud charts'.
 
 The technique is a refinement on candlestick charting originating from Japan, now in widespread use in technical analysis worldwide. Translating to 'one-glance equilibrium chart', it allows the price action and market structure of financial securities to be determined 'at-a-glance'.
 
@@ -66,21 +66,21 @@ Hosted ourselves at: https://shikokuchuo.net/ichimoku/
 
 The system consists of the following chart lines added to a candlestick chart:
 
-**Tenkan-sen**: [conversion line] the mid-point of the highest high and lowest low for the past 9 periods.
+**Tenkan-sen** (転換線): [conversion line] the mid-point of the highest high and lowest low for the past 9 periods.
 
-**Kijun-sen**: [base line] the mid-point of the highest high and lowest low for the past 26 periods.
+**Kijun-sen** (基準線): [base line] the mid-point of the highest high and lowest low for the past 26 periods.
 
-**Senkou span A**: [leading span A] the mid-point of Tenkan-sen and Kijun-sen plotted ahead 26 periods.
+**Senkou span A** (先行帶A): [leading span A] the mid-point of Tenkan-sen and Kijun-sen plotted ahead 26 periods.
 
-**Senkou span B**: [leading span B] the mid-point of the highest high and lowest low for the past 52 periods, plotted ahead 26 periods.
+**Senkou span B** (先行帶B): [leading span B] the mid-point of the highest high and lowest low for the past 52 periods, plotted ahead 26 periods.
 
-**Chikou span**: [lagging span] the current closing price plotted 26 periods behind.
+**Chikou span** (遲行帶): [lagging span] the current closing price plotted 26 periods behind.
 
-The **kumo** [cloud] is the area between Senkou span A and Senkou span B (usually shaded on a chart).
+The **kumo** (雲) [cloud] is the area between Senkou span A and Senkou span B (usually shaded on a chart).
 
 ### Interpretation
 
-Ichimoku Kinko Hyo translates roughly to ‘one-glance equilibrium chart’. It is designed to allow the price action and market structure of financial securities to be determined ‘at-a-glance’ in a highly visual fashion.
+Ichimoku Kinkō Hyō translates roughly to ‘one-glance equilibrium chart’. It is designed to allow the price action and market structure of financial securities to be determined ‘at-a-glance’ in a highly visual fashion.
 
 For example in a strongly upwards-trending market, the candlesticks will be above the Tenkan-sen, which will be above the Kijun-sen, which will be above the cloud, and the Chikou span may not have anything above it.
 
