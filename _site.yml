@@ -36,6 +36,8 @@ rss:
   full_content: true
   categories:
     - R
+    - Resources
+    - Photography
 output_dir: "docs"
 theme: shikokuchuo.css
 output: distill::distill_article
