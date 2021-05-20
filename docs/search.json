@@ -5,14 +5,14 @@
       "title": "Web 3.0 technologies",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-05-19T17:44:37+01:00"
+      "last_modified": "2021-05-20T16:05:44+01:00"
     },
     {
       "path": "map.html",
       "title": "Shikokuchuo, Japan 愛媛県四国中央市",
       "author": [],
       "contents": "\n\n\n{\"x\":{\"options\":{\"crs\":{\"crsClass\":\"L.CRS.EPSG3857\",\"code\":null,\"proj4def\":null,\"projectedBounds\":null,\"options\":{}}},\"calls\":[{\"method\":\"addTiles\",\"args\":[\"//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\",null,null,{\"minZoom\":0,\"maxZoom\":18,\"tileSize\":256,\"subdomains\":\"abc\",\"errorTileUrl\":\"\",\"tms\":false,\"noWrap\":false,\"zoomOffset\":0,\"zoomReverse\":false,\"opacity\":1,\"zIndex\":1,\"detectRetina\":false,\"attribution\":\"&copy; <a href=\\\"http://openstreetmap.org\\\">OpenStreetMap<\\/a> contributors, <a href=\\\"http://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA<\\/a>\"}]}],\"setView\":[[33.9804,133.549],14,[]]},\"evals\":[],\"jsHooks\":[]}\n\n\n\n",
-      "last_modified": "2021-05-19T17:44:37+01:00"
+      "last_modified": "2021-05-20T16:05:44+01:00"
     }
   ],
   "collections": ["posts/posts.json"]
