@@ -28,9 +28,9 @@ data.frame(sha256 = develop(photos))
 
 ### Use case
 
-The use of do.call / lapply is a powerful way to leverage functional programming in R. Typically you write a function that performs some actions and apply it to a list of inputs, which can then be fed into a function that combines everything into a single object.
+The use of the do.call / lapply combination is a powerful way to leverage functional programming in R. In short, you write a function that performs some actions and apply it to a list of inputs, which can then be fed into a function that combines everything into a single object.
 
-Let us take a simple example, where we would like to calculate the ichimoku clouds for a portfolio of stocks, but also preserve the volume data, all in one tidy object.
+Let us take an example, where we would like to calculate the ichimoku clouds for a portfolio of stocks, but also preserve the volume data, all in one tidy object.
 
 ### Setup
 
@@ -105,7 +105,7 @@ To explain:
 
 - This can then be fed into do.call, which calls a function ('rbind') on a list of arguments (the output of lapply i.e. the lists returned by 'process').
 
-The use of do.call / lapply provides for a more succinct and distinctive coding style.
+The use of do.call / lapply provides for a far more succinct and distinctive coding style.
 
 ### Tidy data output
 
