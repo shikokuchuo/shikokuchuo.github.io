@@ -26,14 +26,18 @@ data.frame(sha256 = develop(photos))
 ```
 <aside> Shikokuchuo </aside>
 
+### Use case
+
+The use of do.call / lapply is a powerful way to leverage functional programming in R. Typically you write a function that performs some actions and apply it to a list of inputs, which can then be fed into a function that combines everything into a single object.
+
 Let us take a simple example, where we would like to calculate the ichimoku clouds for a portfolio of stocks, but also preserve the volume data, all in one tidy object.
 
-### Functional programming setup
+### Setup
 
 We could set it up as per the below:
 
 - tickers: a vector defining the stock symbols in our portfolio
-- process: a function that generates a row in a data frame / table
+- process: a function that generates a row in a data frame or matrix
 
 ```{r functional, echo=TRUE}
 library(ichimoku)
@@ -41,7 +45,7 @@ library(ichimoku)
 tickers <- c("C", "MS", "JPM", "GS")
 
 process <- function(x) {
-  # Use getSymbols() from the 'quantmod' package to download pricing data
+  # Use the 'quantmod' package to download pricing data
   pxdata <- quantmod::getSymbols(x, from = "2020-04-15", auto.assign = FALSE)
   # Extract volume column
   volume <- pxdata[, grep("Volume", colnames(pxdata))]
@@ -68,7 +72,7 @@ out <- vector(mode = "list", length = length(tickers))
 # Loop over each element in 'tickers' and save in pre-defined list
 for(i in seq_along(tickers)) out[[i]] <- process(tickers[i])
 
-# Create output matrix by calling rbind on each elemnent of the list
+# Create output matrix by calling rbind on each element of the list
 portfolio <- do.call(rbind, out)
 
 portfolio
@@ -77,7 +81,9 @@ portfolio
 
 This approach takes 3 lines of code.
 
-Furthermore, 'i' and 'out' remain as leftover objects in the global environment. Somewhat messy.
+Furthermore, 'i' and 'out' remain as leftover objects in the global environment.
+
+Somewhat messy.
 
 ### do.call / lapply
 
@@ -97,9 +103,9 @@ To explain:
 
 - First lapply applies to a list or list-like object ('tickers'), a function ('process'). lapply always returns a list.
 
-- This can then be fed into do.call, which calls a function ('cbind') on a list of arguments (the output of lapply i.e. the lists returned by 'process').
+- This can then be fed into do.call, which calls a function ('rbind') on a list of arguments (the output of lapply i.e. the lists returned by 'process').
 
-The use of this do.call / lapply combination for similar tasks provides for a more succinct and distinctive coding style.
+The use of do.call / lapply provides for a more succinct and distinctive coding style.
 
 ### Tidy data output
 
