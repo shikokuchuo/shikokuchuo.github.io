@@ -1,0 +1,120 @@
+---
+title: "do.call / lapply"
+description: |
+  A distinctive coding style for R
+author:
+  - name: shikokuchuo
+date: 05-28-2021
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+develop <- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = develop(photos))
+
+```
+<aside> Shikokuchuo </aside>
+
+Let us take a simple example, where we would like to calculate the ichimoku clouds for a portfolio of stocks, but also preserve the volume data, all in one tidy object.
+
+### Functional programming setup
+
+We could set it up as per the below:
+
+- tickers: a vector defining the stock symbols in our portfolio
+- process: a function that generates a row in a data frame / table
+
+```{r functional, echo=TRUE}
+library(ichimoku)
+
+tickers <- c("C", "MS", "JPM", "GS")
+
+process <- function(x) {
+  # Use getSymbols() from the 'quantmod' package to download pricing data
+  pxdata <- quantmod::getSymbols(x, from = "2020-04-15", auto.assign = FALSE)
+  # Extract volume column
+  volume <- pxdata[, grep("Volume", colnames(pxdata))]
+  # Calculate the cloud by calling ichimoku() from the 'ichimoku' package
+  cloud <- ichimoku(pxdata, ticker = x)
+  # Return a list of ticker, ichimoku cloud object, volume data
+  list(x, cloud, volume)
+}
+
+```
+<aside> Note: the original pricing data is preserved within the ichimoku object.</aside> 
+
+We now want to apply our function to each element of 'tickers' in turn, and then for the results to be combined.
+
+### Loop
+
+One way to achieve this would be to iterate over 'tickers' using a loop:
+
+```{r loop, echo=TRUE}
+
+# Define a list to contain the loop output, specifying the length in advance as good practice
+out <- vector(mode = "list", length = length(tickers))
+
+# Loop over each element in 'tickers' and save in pre-defined list
+for(i in seq_along(tickers)) out[[i]] <- process(tickers[i])
+
+# Create output matrix by calling rbind on each elemnent of the list
+portfolio <- do.call(rbind, out)
+
+portfolio
+
+```
+
+This approach takes 3 lines of code.
+
+Furthermore, 'i' and 'out' remain as leftover objects in the global environment. Somewhat messy.
+
+### do.call / lapply
+
+Instead we can use a do.call / lapply combination to achieve the same result in one line:
+
+```{r lapply, echo=TRUE}
+
+portfolio <- do.call(rbind, lapply(tickers, process))
+
+portfolio
+
+```
+
+There are also no intermediate objects generated that clutter the global environment.
+
+To explain:
+
+- First lapply applies to a list or list-like object ('tickers'), a function ('process'). lapply always returns a list.
+
+- This can then be fed into do.call, which calls a function ('cbind') on a list of arguments (the output of lapply i.e. the lists returned by 'process').
+
+The use of this do.call / lapply combination for similar tasks provides for a more succinct and distinctive coding style.
+
+### Tidy data output
+
+```{r portfolio, echo=TRUE}
+portfolio
+```
+
+'portfolio' is a tidy matrix with a row for each ticker, and a column for each data type.
+
+We can easily access any element of the matrix by specifying its index value, for example the ichimoku cloud for MS by [2,2]:
+
+```{r output, echo=TRUE}
+plot(portfolio[2,2][[1]])
+```
+<aside>Note: Each element of the matrix is wrapped as a list so that they are of equal length. To access the underlying object, the ichimoku cloud in this case, we simply extract it using [[1]].</aside>
+
+^[Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/]
+
