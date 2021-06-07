@@ -17,7 +17,30 @@
       <title>Resources for learning</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/07-learning</link>
-      <description>A curated selection of online MOOCs</description>
+      <description>
+
+
+&lt;p&gt;&lt;img src="file3d727d33f22b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                                                            sha256
+1 deebda75318682cfdc1bb7fe67d313e387a27754afc8edabf60d4fd812495dfb&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Shikokuchuo &lt;br /&gt; Iyo Mishima station
+&lt;/aside&gt;
+&lt;h3 id="coursera-specializations"&gt;Coursera Specializations&lt;/h3&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(magrittr)
+tibble::tribble(
+  ~Institution, ~`Course or Specialization`, ~URL,
+  &amp;quot;Duke University&amp;quot;, &amp;quot;Statistics with R&amp;quot;, &amp;quot;https://www.coursera.org/specializations/statistics&amp;quot;,
+  &amp;quot;Duke University&amp;quot;, &amp;quot;Entrepreneurial Finance: Strategy and Innovation&amp;quot;, &amp;quot;https://www.coursera.org/specializations/entrepreneurial-finance&amp;quot;,
+  &amp;quot;John Hopkins University&amp;quot;, &amp;quot;Mastering Software Development in R&amp;quot;, &amp;quot;https://www.coursera.org/specializations/r&amp;quot;,
+  &amp;quot;Sung Kyun Kwan University&amp;quot;, &amp;quot;The Fundamentals of Data Driven Investment&amp;quot; ,&amp;quot;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&amp;quot;
+) %&amp;gt;%
+  dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
+  DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id="htmlwidget-1fcd11c5144e8bb43cdf" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-1fcd11c5144e8bb43cdf"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">1ce1f05d8dad7364a6ed0bc7434974b6</distill:md5>
       <category>Resources</category>
       <category>Learning</category>
       <guid>https://shikokuchuo.net/posts/07-learning</guid>
@@ -31,7 +54,7 @@
       <description>
 
 
-&lt;p&gt;&lt;img src="file27b76e43b0b9_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file3d72320c7455_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 1124bc02f0f74585e8f434a918970cf6671530e263eff4f1aa330a2b54c93873&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -50,8 +73,8 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-03a52380b0cb2e62a228" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-03a52380b0cb2e62a228"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-1b07776c90853d0725d4" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-1b07776c90853d0725d4"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5 xmlns:distill="https://distill.pub/journal/">40d2f1f2ca6ec60165c722db69b7b319</distill:md5>
       <category>Resources</category>
@@ -67,7 +90,7 @@ tibble::tribble(
       <description>
 
 
-&lt;p&gt;&lt;img src="file27b73a2e1c5a_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file3d724288b03b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 3018cd1a5f671835e3116c2e2c6f937cf335b630cecc7de5d59b4059cff16999&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
