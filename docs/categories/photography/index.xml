@@ -17,7 +17,44 @@
       <title>Authenticating photography using cryptographic hashing</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/01-authenticating</link>
-      <description>A proof of concept using R</description>
+      <description>
+
+
+&lt;h3 id="reproducible-r-code-and-authentification"&gt;Reproducible R code and authentification&lt;/h3&gt;
+&lt;p&gt;R is an open source programming language popular amongst statisticians and data scientists. The power of the R framework is enhanced through the tens of thousands of packages contributed by the open source community that extends and enhances R. &lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The below code is a simple proof of concept of using cryptographic hashing as a method for authentification of original photographic files. The code simply retrieves the files in a certain folder and loads them into R using the imager &lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; package and plots them, here on the page, but it could easily be another output device such as writing to jpeg or pdf. At the same time, the original file is run through a sha256 cryptographic hash from the openssl &lt;a href="#fn3" class="footnote-ref" id="fnref3"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt; package. sha256 is a one-way algorithm that takes an input and generates a hexadecimal sequence 64 long. As the input file may be arbitrarily large, it can easily be seen that the information loss in arriving at the hash precludes the possibility of going in the other direction i.e. retrieving the original data from the hash. The properties of the hashing algorithm include that small changes to the input file can result in completely different hash values. The chances of collision i.e. two different data files generating the exact same hash is vanishingly small.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;photos &amp;lt;- file.path(&amp;quot;_images&amp;quot;, list.files(&amp;quot;_images&amp;quot;))
+develop &amp;lt;- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = do.call(rbind, lapply(photos, develop)))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="file27b722f67238_files/figure-html/index-1.png" width="672" /&gt;&lt;img src="file27b722f67238_files/figure-html/index-2.png" width="672" /&gt;&lt;img src="file27b722f67238_files/figure-html/index-3.png" width="672" /&gt;&lt;img src="file27b722f67238_files/figure-html/index-4.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                                                            sha256
+1 cba0450d38b74f2585868d2aa026a96de735a8f73a54889366d62bbdfdcc8661
+2 a63b055e11765cf36fa065be413b0bb5deb89d6cfba0c9feac7b9946e9c76ece
+3 f06eb35ea2bea1166e3147d30a846069fa5fd969717185d3e27821cea9257999
+4 0e6cc2bf63313153c6f3aa3206a0dc1d3eb41e6a5a570b48ea5021e437672f99&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Note: sha256 hashes are of the original files. Saving and hashing the images on this page would produce completely different hashes.
+&lt;/aside&gt;
+&lt;p&gt;The output image along with the sha256 hash of the original can then be published together. The photographer is then able to freely share their work, which does not then need to be downsized, degraded or watermarked, as long as the data of the original file has undergone some form of transformation (that is not trivially reversible) to produce the output. The hash is the proof of authenticity of the original, which only the original artist possesses.&lt;/p&gt;
+&lt;p&gt;To prove authorship, the artist just needs to run the above function again, which would produce the same output and same hash values, and is an example of the benefits of reproducibility in writing R code.&lt;/p&gt;
+&lt;h3 id="as-applied-to-a-digital-photography-workflow"&gt;As applied to a digital photography workflow&lt;/h3&gt;
+&lt;p&gt;Equivalent to the example demonstrated here, the workflow of digital photographers is often to take a RAW camera file, and perform edits using photo processing software &lt;a href="#fn4" class="footnote-ref" id="fnref4"&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt;, before generating an output. Software generally keeps the RAW file intact as a form of “digital negative”, but adds the edits in a layer stored separately either as a “sidecar” file or in a database etc. depending on the software. Photographers often take the output and store a best quality version as their “master”.&lt;/p&gt;
+&lt;p&gt;Our approach would differ in treating the RAW file as the “original”, which allows a high-quality output to then be published along with the sha256 of the RAW file. The artist retains the RAW file, along with the sidecar file and software that generates the output, as proof of authorship. This works of course only where the artist can ensure reproducibility of the output, and using open source software where the edits are stored transparently in a human-readable format would afford greater confidence in such a workflow.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;The largest listing of packages may be found at The Comprehensive R Archive Network: &lt;a href="https://cloud.r-project.org/" class="uri"&gt;https://cloud.r-project.org/&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;imager R package: &lt;a href="https://dahtah.github.io/imager/" class="uri"&gt;https://dahtah.github.io/imager/&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn3"&gt;&lt;p&gt;openssl R package: &lt;a href="https://github.com/jeroen/openssl" class="uri"&gt;https://github.com/jeroen/openssl&lt;/a&gt;&lt;a href="#fnref3" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn4"&gt;&lt;p&gt;A popular example of such photo-editing software is the open source Darktable &lt;a href="https://www.darktable.org/" class="uri"&gt;https://www.darktable.org/&lt;/a&gt;&lt;a href="#fnref4" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">4820e588e22071f5936cf73049ba894f</distill:md5>
       <category>Photography</category>
       <category>Cryptography</category>
       <guid>https://shikokuchuo.net/posts/01-authenticating</guid>

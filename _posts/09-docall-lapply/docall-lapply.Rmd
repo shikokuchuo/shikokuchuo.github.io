@@ -46,7 +46,7 @@ tickers <- c("C", "MS", "JPM", "GS")
 
 process <- function(x) {
   # Use the 'quantmod' package to download pricing data
-  pxdata <- quantmod::getSymbols(x, from = "2020-04-15", auto.assign = FALSE)
+  pxdata <- quantmod::getSymbols(x, from = "2020-04-15", to = "2021-05-27", auto.assign = FALSE)
   # Extract volume column
   volume <- pxdata[, grep("Volume", colnames(pxdata))]
   # Calculate the cloud by calling ichimoku() from the 'ichimoku' package

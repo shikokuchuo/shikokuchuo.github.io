@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,7 +77,7 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
@@ -1886,7 +1886,10 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2479,7 +2482,7 @@ Shikokuchuo
 
 <span class='va'>process</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='co'># Use the 'quantmod' package to download pricing data</span>
-  <span class='va'>pxdata</span> <span class='op'>&lt;-</span> <span class='fu'>quantmod</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/quantmod/man/getSymbols.html'>getSymbols</a></span><span class='op'>(</span><span class='va'>x</span>, from <span class='op'>=</span> <span class='st'>"2020-04-15"</span>, auto.assign <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  <span class='va'>pxdata</span> <span class='op'>&lt;-</span> <span class='fu'>quantmod</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/quantmod/man/getSymbols.html'>getSymbols</a></span><span class='op'>(</span><span class='va'>x</span>, from <span class='op'>=</span> <span class='st'>"2020-04-15"</span>, to <span class='op'>=</span> <span class='st'>"2021-05-27"</span>, auto.assign <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='co'># Extract volume column</span>
   <span class='va'>volume</span> <span class='op'>&lt;-</span> <span class='va'>pxdata</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grep</a></span><span class='op'>(</span><span class='st'>"Volume"</span>, <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>pxdata</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span>
   <span class='co'># Calculate the cloud by calling ichimoku() from the 'ichimoku' package</span>
@@ -2510,11 +2513,11 @@ Note: the original pricing data is preserved within the ichimoku object.
 <span class='va'>portfolio</span>
 </code></pre>
 </div>
-<pre><code>     [,1]  [,2]        [,3]   
-[1,] &quot;C&quot;   ichimoku,11 xts,283
-[2,] &quot;MS&quot;  ichimoku,11 xts,283
-[3,] &quot;JPM&quot; ichimoku,11 xts,283
-[4,] &quot;GS&quot;  ichimoku,11 xts,283</code></pre>
+<pre><code>     [,1]  [,2]          [,3]   
+[1,] &quot;C&quot;   ichimoku,3696 xts,282
+[2,] &quot;MS&quot;  ichimoku,3696 xts,282
+[3,] &quot;JPM&quot; ichimoku,3696 xts,282
+[4,] &quot;GS&quot;  ichimoku,3696 xts,282</code></pre>
 </div>
 <p>This approach takes 3 lines of code.</p>
 <p>Furthermore, ‘i’ and ‘out’ remain as leftover objects in the global environment.</p>
@@ -2528,11 +2531,11 @@ Note: the original pricing data is preserved within the ichimoku object.
 <span class='va'>portfolio</span>
 </code></pre>
 </div>
-<pre><code>     [,1]  [,2]        [,3]   
-[1,] &quot;C&quot;   ichimoku,11 xts,283
-[2,] &quot;MS&quot;  ichimoku,11 xts,283
-[3,] &quot;JPM&quot; ichimoku,11 xts,283
-[4,] &quot;GS&quot;  ichimoku,11 xts,283</code></pre>
+<pre><code>     [,1]  [,2]          [,3]   
+[1,] &quot;C&quot;   ichimoku,3696 xts,282
+[2,] &quot;MS&quot;  ichimoku,3696 xts,282
+[3,] &quot;JPM&quot; ichimoku,3696 xts,282
+[4,] &quot;GS&quot;  ichimoku,3696 xts,282</code></pre>
 </div>
 <p>There are also no intermediate objects generated that clutter the global environment.</p>
 <p>To explain:</p>
@@ -2547,11 +2550,11 @@ Note: the original pricing data is preserved within the ichimoku object.
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>portfolio</span>
 </code></pre>
 </div>
-<pre><code>     [,1]  [,2]        [,3]   
-[1,] &quot;C&quot;   ichimoku,11 xts,283
-[2,] &quot;MS&quot;  ichimoku,11 xts,283
-[3,] &quot;JPM&quot; ichimoku,11 xts,283
-[4,] &quot;GS&quot;  ichimoku,11 xts,283</code></pre>
+<pre><code>     [,1]  [,2]          [,3]   
+[1,] &quot;C&quot;   ichimoku,3696 xts,282
+[2,] &quot;MS&quot;  ichimoku,3696 xts,282
+[3,] &quot;JPM&quot; ichimoku,3696 xts,282
+[4,] &quot;GS&quot;  ichimoku,3696 xts,282</code></pre>
 </div>
 <p>‘portfolio’ is a tidy matrix with a row for each ticker, and a column for each data type.</p>
 <p>We can easily access any element of the matrix by specifying its index value, for example the ichimoku cloud for MS by [2,2]:</p>
@@ -2610,11 +2613,13 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->
-<!--radix_placeholder_navigation_after_body-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-  <p>© Copyright 2021 shikokuchuo.net<br/> 注意：このサイトは四国中央市役所と関係がありません。</p>
+<p>Â© Copyright 2021 shikokuchuo.net<br> æ³¨æï¼ãã®ãµã¤ãã¯åå½ä¸­å¤®å¸å½¹æã¨é¢ä¿ãããã¾ããã</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
+</body></html>
 
 
 </body>
