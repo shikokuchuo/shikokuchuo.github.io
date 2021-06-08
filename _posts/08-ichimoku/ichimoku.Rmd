@@ -14,12 +14,6 @@ output:
     toc: true
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  fig.height = 6
-)
-```
-
 ```{r index, echo=FALSE}
 
 photos <- file.path("_images", list.files("_images"))
@@ -43,14 +37,14 @@ For both publication-ready and fully-interactive charts for analysis.
 
 Simply ichimoku() and plot().
 
-```{r plot, layout="l-body-outset"}
+```{r plot}
 library(ichimoku)
 TKR <- sample_ohlc_data
 
 cloud <- ichimoku(TKR)
 
-plot(cloud, i = TRUE, from = "2020-05-01", to = "2020-12-03")
-iplot(cloud, from = "2020-05-01", to = "2020-12-03", theme = "dark")
+plot(cloud, from = "2020-05-01", to = "2020-12-03")
+plot(cloud, from = "2020-05-01", to = "2020-12-03", theme = "dark")
 ```
 
 ### Installation
