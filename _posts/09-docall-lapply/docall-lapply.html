@@ -1437,7 +1437,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="docall-lapply_files/header-attrs-2.8/header-attrs.js"></script>
+  <script src="docall-lapply_files/header-attrs-2.8.6/header-attrs.js"></script>
   <script src="docall-lapply_files/jquery-1.11.3/jquery.min.js"></script>
   <script src="docall-lapply_files/popper-2.6.0/popper.min.js"></script>
   <link href="docall-lapply_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1552,11 +1552,11 @@ Note: the original pricing data is preserved within the ichimoku object.
 <span class='va'>portfolio</span>
 </code></pre>
 </div>
-<pre><code>     [,1]  [,2]          [,3]   
-[1,] &quot;C&quot;   ichimoku,3696 xts,282
-[2,] &quot;MS&quot;  ichimoku,3696 xts,282
-[3,] &quot;JPM&quot; ichimoku,3696 xts,282
-[4,] &quot;GS&quot;  ichimoku,3696 xts,282</code></pre>
+<pre><code>     [,1]  [,2]        [,3]   
+[1,] &quot;C&quot;   ichimoku,11 xts,282
+[2,] &quot;MS&quot;  ichimoku,11 xts,282
+[3,] &quot;JPM&quot; ichimoku,11 xts,282
+[4,] &quot;GS&quot;  ichimoku,11 xts,282</code></pre>
 </div>
 <p>This approach takes 3 lines of code.</p>
 <p>Furthermore, ‘i’ and ‘out’ remain as leftover objects in the global environment.</p>
@@ -1570,11 +1570,11 @@ Note: the original pricing data is preserved within the ichimoku object.
 <span class='va'>portfolio</span>
 </code></pre>
 </div>
-<pre><code>     [,1]  [,2]          [,3]   
-[1,] &quot;C&quot;   ichimoku,3696 xts,282
-[2,] &quot;MS&quot;  ichimoku,3696 xts,282
-[3,] &quot;JPM&quot; ichimoku,3696 xts,282
-[4,] &quot;GS&quot;  ichimoku,3696 xts,282</code></pre>
+<pre><code>     [,1]  [,2]        [,3]   
+[1,] &quot;C&quot;   ichimoku,11 xts,282
+[2,] &quot;MS&quot;  ichimoku,11 xts,282
+[3,] &quot;JPM&quot; ichimoku,11 xts,282
+[4,] &quot;GS&quot;  ichimoku,11 xts,282</code></pre>
 </div>
 <p>There are also no intermediate objects generated that clutter the global environment.</p>
 <p>To explain:</p>
@@ -1589,11 +1589,11 @@ Note: the original pricing data is preserved within the ichimoku object.
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>portfolio</span>
 </code></pre>
 </div>
-<pre><code>     [,1]  [,2]          [,3]   
-[1,] &quot;C&quot;   ichimoku,3696 xts,282
-[2,] &quot;MS&quot;  ichimoku,3696 xts,282
-[3,] &quot;JPM&quot; ichimoku,3696 xts,282
-[4,] &quot;GS&quot;  ichimoku,3696 xts,282</code></pre>
+<pre><code>     [,1]  [,2]        [,3]   
+[1,] &quot;C&quot;   ichimoku,11 xts,282
+[2,] &quot;MS&quot;  ichimoku,11 xts,282
+[3,] &quot;JPM&quot; ichimoku,11 xts,282
+[4,] &quot;GS&quot;  ichimoku,11 xts,282</code></pre>
 </div>
 <p>‘portfolio’ is a tidy matrix with a row for each ticker, and a column for each data type.</p>
 <p>We can easily access any element of the matrix by specifying its index value, for example the ichimoku cloud for MS by [2,2]:</p>
