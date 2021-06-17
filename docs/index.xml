@@ -12,7 +12,156 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 28 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Combinations using expand.grid</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/10-combinations</link>
+      <description>
+
+
+&lt;p&gt;&lt;img src="file34cf473b7dec_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                                                            sha256
+1 96e41b3b0fa827b7c9c1f4a7765667064026f9448a78327415264112f7f54dbe&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;It seems that there is no base R function to generate exhaustive combinations of two identical vectors, sometimes desired as function inputs to mapply/vapply. The ‘combn’ function from the ‘utils’ package is required.&lt;/p&gt;
+&lt;p&gt;‘combn’ outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;x &amp;lt;- letters[1:8]
+xlen &amp;lt;- length(x)
+
+combn &amp;lt;- utils::combn(x, 2)
+combn&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;h&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28]
+[1,] &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+[2,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="expand.grid"&gt;expand.grid&lt;/h3&gt;
+&lt;p&gt;‘expand.grid’ from the base package is a useful function in its own right, most well-known perhaps for its use in generating hyperparameter tuning grids in machine learning models.&lt;/p&gt;
+&lt;p&gt;‘expand.grid’ produces a data frame in columns rather than a matrix in rows like ‘combn’. Hence just for demonstration purposes to compare like-for-like, a bit of manipulation is done below to make the output exactly the same format. In real world usage the output of expand.grid can just be used ‘as is’.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;grid &amp;lt;- expand.grid(x, x, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
+grid &amp;lt;- t(as.matrix(grid))
+grid &amp;lt;- rbind(grid[2,], grid[1,])
+rownames(grid) &amp;lt;- NULL
+grid&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;  
+[2,] &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28] [,29] [,30] [,31] [,32]
+[1,] &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+     [,33] [,34] [,35] [,36] [,37] [,38] [,39] [,40] [,41] [,42]
+[1,] &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;  
+[2,] &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;  
+     [,43] [,44] [,45] [,46] [,47] [,48] [,49] [,50] [,51] [,52]
+[1,] &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;  
+[2,] &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;  
+     [,53] [,54] [,55] [,56] [,57] [,58] [,59] [,60] [,61] [,62]
+[1,] &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  
+[2,] &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;  
+     [,63] [,64]
+[1,] &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  
+[2,] &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It can be seen that the output of ‘expand.grid’ is simply all combinations, of which there are 8^2 = 64 in total.&lt;/p&gt;
+&lt;h3 id="ichimokuduplicate"&gt;ichimoku::duplicate&lt;/h3&gt;
+&lt;p&gt;So how to get from the output of ‘expand.grid’ to that of ‘combn’? Well, with the help of a simple algorithm, which has been coded into the ‘duplicate’ function from the ‘ichimoku’ package, expressly for this purpose.&lt;/p&gt;
+&lt;p&gt;From the function documentation: ‘create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors’.&lt;/p&gt;
+&lt;p&gt;Feel free to inspect the code behind the function, but it is simply a case of codifying the sequence of duplicates into a formula.&lt;/p&gt;
+&lt;p&gt;Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order does not matter.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+
+grid1 &amp;lt;- grid[, -duplicate(xlen)]
+grid1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;d&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28] [,29] [,30] [,31] [,32]
+[1,] &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;  
+[2,] &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+     [,33] [,34] [,35] [,36]
+[1,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+[2,] &amp;quot;h&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the ‘identical = TRUE’ argument is set for ‘duplicate’, identical elements are also removed. ‘grid2’ should then be the same as ‘combn’ obtained above.&lt;/p&gt;
+&lt;p&gt;Indeed it can be seen that both ‘identical’ and ‘all.equal’ return TRUE.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;grid2 &amp;lt;- grid[, -duplicate(xlen, identical = TRUE)]
+grid2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;h&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28]
+[1,] &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+[2,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;identical(combn, grid2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;all.equal(combn, grid2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="benchmarking-the-results"&gt;Benchmarking the results&lt;/h3&gt;
+&lt;p&gt;‘Microbenchmark’ can be used to benchmark the performance, where it is usual practice to compare median values.&lt;/p&gt;
+&lt;p&gt;For small vector lengths, expand.grid is not as performant. This is somewhat to be expected given the overhead of working with data frames rather than matrices. However the absolute times are also small so any difference would not matter as much.&lt;/p&gt;
+&lt;p&gt;When the vector length reaches 16, the custom algorithm using expand.grid/duplicate starts to outperform.&lt;/p&gt;
+&lt;p&gt;By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.&lt;/p&gt;
+&lt;p&gt;It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and that is most likely why there can be such an outperformance.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;fn_combn &amp;lt;- function(x) {
+  utils::combn(x, 2)
+}
+
+fn_grid &amp;lt;- function(x) {
+  expand.grid(x, x, KEEP.OUT.ATTRS = FALSE,
+              stringsAsFactors = FALSE)[-duplicate(length(x), identical = TRUE), ]
+}
+
+microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: microseconds
+           expr    min     lq     mean  median     uq     max neval
+ fn_combn(1:16) 69.181 71.549 78.14286 73.9480 78.735 164.560   100
+  fn_grid(1:16) 56.708 59.507 65.52700 61.4205 65.811 198.252   100&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: milliseconds
+             expr       min       lq      mean    median        uq
+ fn_combn(1:1000) 284.20095 287.9277 294.38977 290.50384 294.67032
+  fn_grid(1:1000)  35.41869  38.0489  42.11251  39.15508  40.94597
+      max neval
+ 367.7571   100
+ 113.5726   100&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply and vapply&lt;/h3&gt;
+&lt;p&gt;This type of output is suitable for feeding into functions such as ‘mapply’ or ‘vapply’.&lt;/p&gt;
+&lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into ‘do.call’ with ‘c’ to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;do.call(c, mapply(function(x, y) paste0(x, &amp;quot;&amp;amp;&amp;quot;, y), 
+                  grid2[1, ], grid2[2, ],
+                  SIMPLIFY = FALSE, USE.NAMES = FALSE))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt; [1] &amp;quot;a&amp;amp;b&amp;quot; &amp;quot;a&amp;amp;c&amp;quot; &amp;quot;a&amp;amp;d&amp;quot; &amp;quot;a&amp;amp;e&amp;quot; &amp;quot;a&amp;amp;f&amp;quot; &amp;quot;a&amp;amp;g&amp;quot; &amp;quot;a&amp;amp;h&amp;quot; &amp;quot;b&amp;amp;c&amp;quot; &amp;quot;b&amp;amp;d&amp;quot; &amp;quot;b&amp;amp;e&amp;quot; &amp;quot;b&amp;amp;f&amp;quot;
+[12] &amp;quot;b&amp;amp;g&amp;quot; &amp;quot;b&amp;amp;h&amp;quot; &amp;quot;c&amp;amp;d&amp;quot; &amp;quot;c&amp;amp;e&amp;quot; &amp;quot;c&amp;amp;f&amp;quot; &amp;quot;c&amp;amp;g&amp;quot; &amp;quot;c&amp;amp;h&amp;quot; &amp;quot;d&amp;amp;e&amp;quot; &amp;quot;d&amp;amp;f&amp;quot; &amp;quot;d&amp;amp;g&amp;quot; &amp;quot;d&amp;amp;h&amp;quot;
+[23] &amp;quot;e&amp;amp;f&amp;quot; &amp;quot;e&amp;amp;g&amp;quot; &amp;quot;e&amp;amp;h&amp;quot; &amp;quot;f&amp;amp;g&amp;quot; &amp;quot;f&amp;amp;h&amp;quot; &amp;quot;g&amp;amp;h&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;An equivalent example using ‘vapply’ is given below. ‘vapply’ is also a safe choice for programming as an output template is explicitly specified, here ‘character(1L)’, hence the returned values are all expected to be of type ‘character’ of length ‘1’ otherwise an error is thrown.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;vapply(seq_along(grid2[1L, ]),
+       function(i) paste0(grid2[1L, i], &amp;quot;&amp;amp;&amp;quot;, grid2[2L, i]),
+       character(1L), USE.NAMES = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt; [1] &amp;quot;a&amp;amp;b&amp;quot; &amp;quot;a&amp;amp;c&amp;quot; &amp;quot;a&amp;amp;d&amp;quot; &amp;quot;a&amp;amp;e&amp;quot; &amp;quot;a&amp;amp;f&amp;quot; &amp;quot;a&amp;amp;g&amp;quot; &amp;quot;a&amp;amp;h&amp;quot; &amp;quot;b&amp;amp;c&amp;quot; &amp;quot;b&amp;amp;d&amp;quot; &amp;quot;b&amp;amp;e&amp;quot; &amp;quot;b&amp;amp;f&amp;quot;
+[12] &amp;quot;b&amp;amp;g&amp;quot; &amp;quot;b&amp;amp;h&amp;quot; &amp;quot;c&amp;amp;d&amp;quot; &amp;quot;c&amp;amp;e&amp;quot; &amp;quot;c&amp;amp;f&amp;quot; &amp;quot;c&amp;amp;g&amp;quot; &amp;quot;c&amp;amp;h&amp;quot; &amp;quot;d&amp;amp;e&amp;quot; &amp;quot;d&amp;amp;f&amp;quot; &amp;quot;d&amp;amp;g&amp;quot; &amp;quot;d&amp;amp;h&amp;quot;
+[23] &amp;quot;e&amp;amp;f&amp;quot; &amp;quot;e&amp;amp;g&amp;quot; &amp;quot;e&amp;amp;h&amp;quot; &amp;quot;f&amp;amp;g&amp;quot; &amp;quot;f&amp;amp;h&amp;quot; &amp;quot;g&amp;amp;h&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>3482590168b4ecbec0d448d8534dcd47</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/10-combinations</guid>
+      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/10-combinations/combinations_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>do.call / lapply</title>
       <dc:creator>shikokuchuo</dc:creator>
@@ -20,7 +169,7 @@
       <description>
 
 
-&lt;p&gt;&lt;img src="file203e190e18f6_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf69aaf86b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 2074954df14cc65b017b3e9d4b291353151672d450f2b623acc2a5d253767e42&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -65,11 +214,11 @@ for(i in seq_along(tickers)) out[[i]] &amp;lt;- process(tickers[i])
 portfolio &amp;lt;- do.call(rbind, out)
 
 portfolio&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;     [,1]  [,2]        [,3]   
-[1,] &amp;quot;C&amp;quot;   ichimoku,11 xts,282
-[2,] &amp;quot;MS&amp;quot;  ichimoku,11 xts,282
-[3,] &amp;quot;JPM&amp;quot; ichimoku,11 xts,282
-[4,] &amp;quot;GS&amp;quot;  ichimoku,11 xts,282&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1]  [,2]          [,3]   
+[1,] &amp;quot;C&amp;quot;   ichimoku,3696 xts,282
+[2,] &amp;quot;MS&amp;quot;  ichimoku,3696 xts,282
+[3,] &amp;quot;JPM&amp;quot; ichimoku,3696 xts,282
+[4,] &amp;quot;GS&amp;quot;  ichimoku,3696 xts,282&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This approach takes 3 lines of code.&lt;/p&gt;
 &lt;p&gt;Furthermore, ‘i’ and ‘out’ remain as leftover objects in the global environment.&lt;/p&gt;
 &lt;p&gt;Somewhat messy.&lt;/p&gt;
@@ -78,11 +227,11 @@ portfolio&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;portfolio &amp;lt;- do.call(rbind, lapply(tickers, process))
 
 portfolio&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;     [,1]  [,2]        [,3]   
-[1,] &amp;quot;C&amp;quot;   ichimoku,11 xts,282
-[2,] &amp;quot;MS&amp;quot;  ichimoku,11 xts,282
-[3,] &amp;quot;JPM&amp;quot; ichimoku,11 xts,282
-[4,] &amp;quot;GS&amp;quot;  ichimoku,11 xts,282&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1]  [,2]          [,3]   
+[1,] &amp;quot;C&amp;quot;   ichimoku,3696 xts,282
+[2,] &amp;quot;MS&amp;quot;  ichimoku,3696 xts,282
+[3,] &amp;quot;JPM&amp;quot; ichimoku,3696 xts,282
+[4,] &amp;quot;GS&amp;quot;  ichimoku,3696 xts,282&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There are also no intermediate objects generated that clutter the global environment.&lt;/p&gt;
 &lt;p&gt;To explain:&lt;/p&gt;
 &lt;ul&gt;
@@ -92,15 +241,15 @@ portfolio&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The use of do.call / lapply provides for a far more succinct and distinctive coding style.&lt;/p&gt;
 &lt;h3 id="tidy-data-output"&gt;Tidy data output&lt;/h3&gt;
 &lt;pre class="r"&gt;&lt;code&gt;portfolio&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;     [,1]  [,2]        [,3]   
-[1,] &amp;quot;C&amp;quot;   ichimoku,11 xts,282
-[2,] &amp;quot;MS&amp;quot;  ichimoku,11 xts,282
-[3,] &amp;quot;JPM&amp;quot; ichimoku,11 xts,282
-[4,] &amp;quot;GS&amp;quot;  ichimoku,11 xts,282&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1]  [,2]          [,3]   
+[1,] &amp;quot;C&amp;quot;   ichimoku,3696 xts,282
+[2,] &amp;quot;MS&amp;quot;  ichimoku,3696 xts,282
+[3,] &amp;quot;JPM&amp;quot; ichimoku,3696 xts,282
+[4,] &amp;quot;GS&amp;quot;  ichimoku,3696 xts,282&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;‘portfolio’ is a tidy matrix with a row for each ticker, and a column for each data type.&lt;/p&gt;
 &lt;p&gt;We can easily access any element of the matrix by specifying its index value, for example the ichimoku cloud for MS by [2,2]:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(portfolio[2,2][[1]])&lt;/code&gt;&lt;/pre&gt;
-&lt;img src="file203e190e18f6_files/figure-html/output-1.png" width="672" /&gt;
+&lt;img src="file34cf69aaf86b_files/figure-html/output-1.png" width="672" /&gt;
 &lt;aside&gt;
 Note: Each element of the matrix is wrapped as a list so that they are of equal length. To access the underlying object, the ichimoku cloud in this case, we simply extract it using [[1]].
 &lt;/aside&gt;
@@ -125,7 +274,7 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
       <description>
 
 
-&lt;p&gt;&lt;img src="file203e23c12b59_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf489819f4_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 9b787ca60956d571ad9686d55815fcff38fce9d550ccb1310c0b9c11dfa8069e&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -142,9 +291,9 @@ TKR &amp;lt;- sample_ohlc_data
 cloud &amp;lt;- ichimoku(TKR)
 
 plot(cloud, from = &amp;quot;2020-05-01&amp;quot;, to = &amp;quot;2020-12-03&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file203e23c12b59_files/figure-html/plot-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf489819f4_files/figure-html/plot-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, from = &amp;quot;2020-05-01&amp;quot;, to = &amp;quot;2020-12-03&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file203e23c12b59_files/figure-html/plot-2.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf489819f4_files/figure-html/plot-2.png" width="672" /&gt;&lt;/p&gt;
 &lt;h3 id="installation"&gt;Installation&lt;/h3&gt;
 &lt;p&gt;Install the released version of ichimoku from CRAN:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;ichimoku&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
@@ -175,7 +324,7 @@ plot(cloud, from = &amp;quot;2020-05-01&amp;quot;, to = &amp;quot;2020-12-03&amp
       <category>R</category>
       <category>Quantitative Finance</category>
       <guid>https://shikokuchuo.net/posts/08-ichimoku</guid>
-      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -185,7 +334,7 @@ plot(cloud, from = &amp;quot;2020-05-01&amp;quot;, to = &amp;quot;2020-12-03&amp
       <description>
 
 
-&lt;p&gt;&lt;img src="file203e1e8ab2d9_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf55a8070f_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 deebda75318682cfdc1bb7fe67d313e387a27754afc8edabf60d4fd812495dfb&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -202,8 +351,8 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-d9896e7066e46d8b8c23" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-d9896e7066e46d8b8c23"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-e522c193961855f4bf74" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-e522c193961855f4bf74"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>1ce1f05d8dad7364a6ed0bc7434974b6</distill:md5>
       <category>Resources</category>
@@ -219,7 +368,7 @@ tibble::tribble(
       <description>
 
 
-&lt;p&gt;&lt;img src="file203e5a2a6eac_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf18211bd7_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 1124bc02f0f74585e8f434a918970cf6671530e263eff4f1aa330a2b54c93873&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -238,8 +387,8 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-219201afec6c85647657" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-219201afec6c85647657"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-601716805fb081fbc84f" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-601716805fb081fbc84f"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>40d2f1f2ca6ec60165c722db69b7b319</distill:md5>
       <category>Resources</category>
@@ -255,7 +404,7 @@ tibble::tribble(
       <description>
 
 
-&lt;p&gt;&lt;img src="file203e310b4c79_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf5db481f0_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 db79682f8bee39d7ed9231200fd076ebed92a4471a9f3ce611d0a5a28bb984a3&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -320,7 +469,7 @@ Replace ‘username/nameofnew.git’ as appropriate.
       <description>
 
 
-&lt;p&gt;&lt;img src="file203e6912379_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cfdd64e1c_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 6f5b37d9b73dcd70f3c8b68eabbe00c4a709f2a3e694d964121af145105f1655&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -383,7 +532,7 @@ jobs:
       <description>
 
 
-&lt;p&gt;&lt;img src="file203ea67b69_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf649f44f_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 809e2e2a3967742faea6f9e11e0a4c533511f9710ac41812dcbcae3c78913cac&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -475,7 +624,7 @@ remDr$close()&lt;/code&gt;&lt;/pre&gt;
       <description>
 
 
-&lt;p&gt;&lt;img src="file203e2a4eea32_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cfce3dc9_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 3018cd1a5f671835e3116c2e2c6f937cf335b630cecc7de5d59b4059cff16999&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -553,7 +702,7 @@ develop &amp;lt;- function(x) {
 }
 par(mar = c(0, 0, 0, 0))
 data.frame(sha256 = do.call(rbind, lapply(photos, develop)))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file203e47f27b30_files/figure-html/index-1.png" width="672" /&gt;&lt;img src="file203e47f27b30_files/figure-html/index-2.png" width="672" /&gt;&lt;img src="file203e47f27b30_files/figure-html/index-3.png" width="672" /&gt;&lt;img src="file203e47f27b30_files/figure-html/index-4.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file34cf680781e5_files/figure-html/index-1.png" width="672" /&gt;&lt;img src="file34cf680781e5_files/figure-html/index-2.png" width="672" /&gt;&lt;img src="file34cf680781e5_files/figure-html/index-3.png" width="672" /&gt;&lt;img src="file34cf680781e5_files/figure-html/index-4.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 cba0450d38b74f2585868d2aa026a96de735a8f73a54889366d62bbdfdcc8661
 2 a63b055e11765cf36fa065be413b0bb5deb89d6cfba0c9feac7b9946e9c76ece
