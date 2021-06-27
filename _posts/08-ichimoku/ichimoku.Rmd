@@ -33,18 +33,21 @@ The technique is a refinement on candlestick charting originating from Japan, no
 
 ### Example
 
-For both publication-ready and fully-interactive charts for analysis.
+For publication-ready charts simply ichimoku() and plot():
 
-Simply ichimoku() and plot().
-
-```{r plot}
+```{r plot, layout="l-body-outset"}
 library(ichimoku)
 TKR <- sample_ohlc_data
 
 cloud <- ichimoku(TKR)
 
-plot(cloud, from = "2020-05-01", to = "2020-12-03")
-plot(cloud, from = "2020-05-01", to = "2020-12-03", theme = "dark")
+plot(cloud, window = "2020-04/")
+```
+
+For fully-interactive charts for analysis simply iplot():
+
+```{r iplot, layout="l-body-outset", fig.height=5.5}
+iplot(cloud, window = "2020-04/", theme = "dark")
 ```
 
 ### Installation
@@ -83,7 +86,7 @@ The **kumo** (雲) [cloud] is the area between Senkou span A and Senkou span B (
 
 ### Interpretation
 
-Ichimoku Kinkō Hyō translates roughly to ‘one-glance equilibrium chart’. It is designed to allow the price action and market structure of financial securities to be determined ‘at-a-glance’ in a highly visual fashion.
+Ichimoku Kinkō Hyō can be translated as ‘one-glance equilibrium chart’. It is designed to allow the price action and market structure of financial securities to be determined ‘at-a-glance’ in a highly visual fashion.
 
 For example in a strongly upwards-trending market, the candlesticks will be above the Tenkan-sen, which will be above the Kijun-sen, which will be above the cloud, and the Chikou span may not have anything above it.
 
@@ -93,7 +96,7 @@ More subtle interpretations involve the Chikou span in particular and its action
 
 ### Context
 
-Ichimoku analysis is the latest evolution in refining candlestick charting techniques, which also originated from Japan in the 18th century. Actually developed during the mid-20th century, it gained popularity especially from the late 1990s onwards, and is now used on trading floors worldwide.
+Ichimoku analysis is the latest refinement in candlestick charting techniques, which also originated from Japan back in the 18th century. Actually developed during the mid-20th century, it gained popularity especially from the late 1990s onward, and is now used on trading floors worldwide.
 
 The time periods have traditionally been calculated as 9, 26 and 52 based on manual data analysis performed in Japan in a pre-computer age where there was a 6-day working week resulting in 26 average trading days in a month. Although this bears little relevance to the current day, the use of these time periods has persisted as an ‘industry norm’ or ‘accepted practice’.
 
