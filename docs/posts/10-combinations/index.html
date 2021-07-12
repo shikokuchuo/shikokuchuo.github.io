@@ -85,6 +85,7 @@ code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
+
   <!--radix_placeholder_meta_tags-->
 <title>shikokuchuo{net}: Combinations using expand.grid</title>
 
@@ -133,7 +134,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/jquery-1.11.3/jquery.min.js","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/header-attrs-2.9/header-attrs.js","combinations_files/jquery-1.11.3/jquery.min.js","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2408,13 +2409,13 @@ d-appendix d-footnote-list a.footnote-backlink {
 <a href="../../map.html" aria-label="Map">
 <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
 </a>
-<a href="https://www.stockholmresilience.org/" aria-label="Stockholm Resilience Project">
-<i class="fab fa-pagelines" aria-hidden="true"></i>
+<a href="http://www.statslab.cam.ac.uk/" aria-label="Cambridge Statistical Laboratory">
+<i class="fas fa-flask" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/ichimoku/" aria-label="R">
 <i class="fab fa-r-project" aria-hidden="true"></i>
 </a>
-<a href="https://github.com/shikokuchuo/shikokuchuo.github.io/" aria-label="Github">
+<a href="https://github.com/shikokuchuo/ichimoku/" aria-label="Github">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
 <a href="../../index.xml">
@@ -2597,20 +2598,23 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr    min      lq     mean median      uq      max neval
- fn_combn(1:16) 69.004 79.8855 96.38097 82.623 86.9455 1125.315   100
-  fn_grid(1:16) 58.375 65.3260 88.39985 68.385 74.3390 1612.112   100</code></pre>
+           expr    min      lq     mean  median      uq      max
+ fn_combn(1:16) 54.990 58.3105 74.79391 61.7415 66.6220 1070.623
+  fn_grid(1:16) 53.572 57.6895 79.31850 59.5965 64.5435 1624.614
+ neval
+   100
+   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 221.61736 270.84786 308.13926 301.76968 354.88859
-  fn_grid(1:1000)  33.21555  38.17413  45.47474  41.32577  47.98652
-       max neval
- 411.87651   100
-  95.07325   100</code></pre>
+ fn_combn(1:1000) 217.82045 280.44920 286.58422 283.90596 290.38883
+  fn_grid(1:1000)  31.07142  38.27627  46.59107  40.31613  42.80381
+      max neval
+ 356.4625   100
+ 104.9577   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply and vapply</h3>
 <p>This type of output is suitable for feeding into functions such as ‘mapply’ or ‘vapply’.</p>

@@ -14,15 +14,15 @@ navbar:
     - text: "Map"
       icon: fas fa-map-marker-alt
       href: map.html
-    - text: "Stockholm Resilience Project"
-      icon: fab fa-pagelines
-      href: https://www.stockholmresilience.org/
+    - text: "Cambridge Statistical Laboratory"
+      icon: fas fa-flask
+      href: http://www.statslab.cam.ac.uk/
     - text: "R"
       icon: fab fa-r-project
       href: https://shikokuchuo.net/ichimoku/
     - text: "Github"
       icon: fab fa-github
-      href: https://github.com/shikokuchuo/shikokuchuo.github.io/
+      href: https://github.com/shikokuchuo/ichimoku/
     - icon: fa fa-rss
       href: index.xml
 base_url: https://shikokuchuo.net/

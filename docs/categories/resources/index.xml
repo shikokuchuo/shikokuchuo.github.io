@@ -12,35 +12,12 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 17 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Resources for learning</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/07-learning</link>
-      <description>
-
-
-&lt;p&gt;&lt;img src="file4b434e6875ce_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                                                            sha256
-1 deebda75318682cfdc1bb7fe67d313e387a27754afc8edabf60d4fd812495dfb&lt;/code&gt;&lt;/pre&gt;
-&lt;aside&gt;
-Shikokuchuo &lt;br /&gt; Iyo Mishima station
-&lt;/aside&gt;
-&lt;h3 id="coursera-specializations"&gt;Coursera Specializations&lt;/h3&gt;
-&lt;pre class="r"&gt;&lt;code&gt;library(magrittr)
-tibble::tribble(
-  ~Institution, ~`Course or Specialization`, ~URL,
-  &amp;quot;Duke University&amp;quot;, &amp;quot;Statistics with R&amp;quot;, &amp;quot;https://www.coursera.org/specializations/statistics&amp;quot;,
-  &amp;quot;Duke University&amp;quot;, &amp;quot;Entrepreneurial Finance: Strategy and Innovation&amp;quot;, &amp;quot;https://www.coursera.org/specializations/entrepreneurial-finance&amp;quot;,
-  &amp;quot;John Hopkins University&amp;quot;, &amp;quot;Mastering Software Development in R&amp;quot;, &amp;quot;https://www.coursera.org/specializations/r&amp;quot;,
-  &amp;quot;Sung Kyun Kwan University&amp;quot;, &amp;quot;The Fundamentals of Data Driven Investment&amp;quot; ,&amp;quot;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&amp;quot;
-) %&amp;gt;%
-  dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
-  DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-dc07b9e8b44137684282" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-dc07b9e8b44137684282"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">1ce1f05d8dad7364a6ed0bc7434974b6</distill:md5>
+      <description>A curated selection of online MOOCs</description>
       <category>Resources</category>
       <category>Learning</category>
       <guid>https://shikokuchuo.net/posts/07-learning</guid>
@@ -51,32 +28,7 @@ tibble::tribble(
       <title>Datasets</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/06-datasets</link>
-      <description>
-
-
-&lt;p&gt;&lt;img src="file4b433abc106b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                                                            sha256
-1 1124bc02f0f74585e8f434a918970cf6671530e263eff4f1aa330a2b54c93873&lt;/code&gt;&lt;/pre&gt;
-&lt;aside&gt;
-Shikokuchuo
-&lt;/aside&gt;
-&lt;h3 id="datasets"&gt;Datasets&lt;/h3&gt;
-&lt;pre class="r"&gt;&lt;code&gt;library(magrittr)
-tibble::tribble(
-  ~Source, ~URL, ~Package,
-  &amp;quot;Fred&amp;quot;, &amp;quot;https://fred.stlouisfed.org/&amp;quot;, &amp;quot;Quantmod&amp;quot;,
-  &amp;quot;Quandl&amp;quot;, &amp;quot;https://www.quandl.com/&amp;quot;, &amp;quot;Quandl&amp;quot;,
-  &amp;quot;Yahoo Finance&amp;quot;, &amp;quot;https://finance.yahoo.com/&amp;quot;, &amp;quot;Quantmod&amp;quot;,
-  &amp;quot;Damodaran NYU Stern&amp;quot;, &amp;quot;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&amp;quot;, &amp;quot;&amp;quot;,
-  &amp;quot;UCI Machine Learning Repository&amp;quot;, &amp;quot;https://archive.ics.uci.edu/ml/index.php&amp;quot;, &amp;quot;&amp;quot;,
-  &amp;quot;Project Gutenberg&amp;quot;, &amp;quot;https://www.gutenberg.org/&amp;quot;, &amp;quot;gutenbergr&amp;quot;
-) %&amp;gt;%
-  dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
-  DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-a100dafa45c0d459f4f0" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-a100dafa45c0d459f4f0"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">40d2f1f2ca6ec60165c722db69b7b319</distill:md5>
+      <description>For Econometrics and Machine Learning</description>
       <category>Resources</category>
       <category>Data</category>
       <guid>https://shikokuchuo.net/posts/06-datasets</guid>
@@ -87,64 +39,7 @@ tibble::tribble(
       <title>Resources for global sustainability</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/02-resources</link>
-      <description>
-
-
-&lt;p&gt;&lt;img src="file4b4376308da_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;                                                            sha256
-1 3018cd1a5f671835e3116c2e2c6f937cf335b630cecc7de5d59b4059cff16999&lt;/code&gt;&lt;/pre&gt;
-&lt;aside&gt;
-Dawn over Shikokuchuo
-&lt;/aside&gt;
-&lt;h3 id="stockholm-resilience-center"&gt;Stockholm Resilience Center&lt;/h3&gt;
-&lt;p&gt;Sustainability science for biosphere stewardship, Stockholm University&lt;/p&gt;
-&lt;p&gt;Video: Our future in the Anthropocene biosphere&lt;/p&gt;
-&lt;iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5pAONwIKor8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;
-&lt;/iframe&gt;
-&lt;h3 id="svalbard-global-seed-vault"&gt;Svalbard Global Seed Vault&lt;/h3&gt;
-&lt;p&gt;Safeguarding Seeds for the Future&lt;/p&gt;
-&lt;p&gt;Established and funded by the Norwegian Ministry of Agriculture and Food.&lt;/p&gt;
-&lt;p&gt;Provides safe, free and long-term storage of seed duplicates from all genebanks and nations participating in the global community’s joint effort to ensure the world’s future food supply.&lt;/p&gt;
-&lt;p&gt;The facility serves a humanitarian purpose and is part of the international system for conserving plant genetic diversity guided by the UN organisation for Food and Agriculture (FAO).&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://www.seedvault.no/" class="uri"&gt;https://www.seedvault.no/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="the-national-academies-of-sciences-engineering-and-medicine"&gt;The National Academies of Sciences, Engineering, and Medicine&lt;/h3&gt;
-&lt;p&gt;More than 100 leading scientists including many Nobel Prize winners issued a statement following two days of scientific deliberations at the first Nobel Prize Summit, 26-28 April 2021.&lt;/p&gt;
-&lt;p&gt;Excerpts from the statement:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;Global heating and habitat loss amount to nothing less than a vast and
-uncontrolled experiment on Earth’s life-support system.
-
-Time is running out to prevent irreversible changes.
-
-The remaining carbon budget for a 67% probability of not exceeding 1.5°C global
-warming will be exhausted before 2030. 
-
-Global sustainability offers the only viable path to human safety, equity,
-health, and progress.
-
-Humanity is waking up late to the challenges and opportunities of active
-planetary stewardship. But we *are* waking up.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Full text: &lt;br /&gt; &lt;a href="https://www.nationalacademies.org/news/2021/04/nobel-prize-laureates-and-other-experts-issue-urgent-call-for-action-after-our-planet-our-future-summit" class="uri"&gt;https://www.nationalacademies.org/news/2021/04/nobel-prize-laureates-and-other-experts-issue-urgent-call-for-action-after-our-planet-our-future-summit&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="openlearn-the-open-university"&gt;Openlearn, The Open University&lt;/h3&gt;
-&lt;p&gt;Greta Thunberg: A Year to change the World&lt;/p&gt;
-&lt;p&gt;Encounters with some of the world’s leading scientists and economists allow the series to examine what the latest science tells us about what can be done to avert the worst effects of climate change.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the-world" class="uri"&gt;https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the-world&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="ted"&gt;TED&lt;/h3&gt;
-&lt;p&gt;Stephen Hawking &lt;br /&gt; &lt;em&gt;Questioning the universe&lt;/em&gt; &lt;br /&gt; TED February 2008&lt;/p&gt;
-&lt;div style="max-width:854px"&gt;
-&lt;div style="position:relative;height:0;padding-bottom:56.25%"&gt;
-&lt;iframe src="https://embed.ted.com/talks/lang/en/stephen_hawking_questioning_the_universe" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen&gt;
-&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;aside&gt;
-Transcript: 09:06 | Stephen Hawking: I think it quite likely that we are the only civilization within several hundred light years; otherwise we would have heard radio waves. &lt;strong&gt;The alternative is that civilizations don’t last very long, but destroy themselves&lt;/strong&gt;.
-&lt;/aside&gt;
-&lt;h3 id="ui-design-x-data-science-x-climate-change"&gt;UI design x data science x climate change&lt;/h3&gt;
-&lt;p&gt;What can a technologist do about climate change?&lt;/p&gt;
-&lt;p&gt;Bret Victor: A personal view.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://worrydream.com/ClimateChange/" class="uri"&gt;http://worrydream.com/ClimateChange/&lt;/a&gt;&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">d22ac74580c07992da80f2bac0d6a5d8</distill:md5>
+      <description>A compendium</description>
       <category>Resources</category>
       <category>Sustainability</category>
       <guid>https://shikokuchuo.net/posts/02-resources</guid>

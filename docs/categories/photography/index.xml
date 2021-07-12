@@ -12,7 +12,7 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 17 Jun 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Authenticating photography using cryptographic hashing</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -30,7 +30,7 @@ develop &amp;lt;- function(x) {
 }
 par(mar = c(0, 0, 0, 0))
 data.frame(sha256 = do.call(rbind, lapply(photos, develop)))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file4b437ae423aa_files/figure-html/index-1.png" width="672" /&gt;&lt;img src="file4b437ae423aa_files/figure-html/index-2.png" width="672" /&gt;&lt;img src="file4b437ae423aa_files/figure-html/index-3.png" width="672" /&gt;&lt;img src="file4b437ae423aa_files/figure-html/index-4.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file1ae21a805ff8_files/figure-html/index-1.png" width="672" /&gt;&lt;img src="file1ae21a805ff8_files/figure-html/index-2.png" width="672" /&gt;&lt;img src="file1ae21a805ff8_files/figure-html/index-3.png" width="672" /&gt;&lt;img src="file1ae21a805ff8_files/figure-html/index-4.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 cba0450d38b74f2585868d2aa026a96de735a8f73a54889366d62bbdfdcc8661
 2 a63b055e11765cf36fa065be413b0bb5deb89d6cfba0c9feac7b9946e9c76ece
