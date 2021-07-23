@@ -87,7 +87,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>Combinations using expand.grid</title>
+  <title>Efficient R: Combinations using expand.grid</title>
 
   <meta property="description" itemprop="description" content="A faster way to generate combinations for mapply and vapply"/>
 
@@ -98,21 +98,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="article:author" content="shikokuchuo"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Combinations using expand.grid"/>
+  <meta property="og:title" content="Efficient R: Combinations using expand.grid"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="A faster way to generate combinations for mapply and vapply"/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Combinations using expand.grid"/>
+  <meta property="twitter:title" content="Efficient R: Combinations using expand.grid"/>
   <meta property="twitter:description" content="A faster way to generate combinations for mapply and vapply"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["Combinations using expand.grid"]},{"type":"character","attributes":{},"value":["A faster way to generate combinations for mapply and vapply\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo"]}]}]},{"type":"character","attributes":{},"value":["2021-06-17"]},{"type":"character","attributes":{},"value":["R"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output"]}},"value":[{"type":"character","attributes":{},"value":["Efficient R: Combinations using expand.grid"]},{"type":"character","attributes":{},"value":["A faster way to generate combinations for mapply and vapply\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo"]}]}]},{"type":"character","attributes":{},"value":["2021-06-17"]},{"type":"character","attributes":{},"value":["R"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1459,7 +1459,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Combinations using expand.grid","description":"A faster way to generate combinations for mapply and vapply","authors":[{"author":"shikokuchuo","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-06-17T00:00:00.000+01:00","citationText":"shikokuchuo, 2021"}
+{"title":"Efficient R: Combinations using expand.grid","description":"A faster way to generate combinations for mapply and vapply","authors":[{"author":"shikokuchuo","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-06-17T00:00:00.000+01:00","citationText":"shikokuchuo, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1469,7 +1469,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Combinations using expand.grid</h1>
+<h1>Efficient R: Combinations using expand.grid</h1>
 <!--radix_placeholder_categories-->
 <div class="dt-tags">
 <div class="dt=tag">R</div>
@@ -1491,9 +1491,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#expand.grid">expand.grid</a></li>
-<li><a href="#ichimokuduplicate">ichimoku::duplicate</a></li>
+<li><a href="#ichimokugrid_dup">ichimoku::grid_dup</a></li>
 <li><a href="#benchmarking-the-results">Benchmarking the results</a></li>
-<li><a href="#use-case-mapply-and-vapply">Use case: mapply and vapply</a></li>
+<li><a href="#use-case-mapply-and-vapply">Use case: mapply() and vapply()</a></li>
 </ul>
 </nav>
 </div>
@@ -1506,8 +1506,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 Shikokuchuo
 </aside>
 <h3 id="introduction">Introduction</h3>
-<p>It seems that there is no base R function to generate exhaustive combinations of two identical vectors, sometimes desired as function inputs to mapply/vapply. The ‘combn’ function from the ‘utils’ package is required.</p>
-<p>‘combn’ outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8.</p>
+<p>It seems that there is no base R function to generate exhaustive combinations of two identical vectors, sometimes desired as function inputs to mapply/vapply(). The combn() function from the ‘utils’ package is required.</p>
+<p>utils::combn() outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>]</span>
@@ -1528,8 +1528,8 @@ Shikokuchuo
 [2,] &quot;f&quot;   &quot;g&quot;   &quot;h&quot;   &quot;g&quot;   &quot;h&quot;   &quot;h&quot;  </code></pre>
 </div>
 <h3 id="expand.grid">expand.grid</h3>
-<p>‘expand.grid’ from the base package is a useful function in its own right, most well-known perhaps for its use in generating hyperparameter tuning grids in machine learning models.</p>
-<p>‘expand.grid’ produces a data frame in columns rather than a matrix in rows like ‘combn’. Hence just for demonstration purposes to compare like-for-like, a bit of manipulation is done below to make the output exactly the same format. In real world usage the output of expand.grid can just be used ‘as is’.</p>
+<p>expand.grid() from the base package is a useful function in its own right, most well-known perhaps for its use in generating hyperparameter tuning grids in machine learning models.</p>
+<p>expand.grid() produces a data frame in columns rather than a matrix in rows like utils::combn(). Hence just for demonstration purposes to compare like-for-like, a bit of manipulation is done below to make the output exactly the same. In real world usage the output of expand.grid() can be used ‘as is’ without the additional manipulation.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span>, KEEP.OUT.ATTRS <span class='op'>=</span> <span class='cn'>FALSE</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -1561,17 +1561,16 @@ Shikokuchuo
 [1,] &quot;h&quot;   &quot;h&quot;  
 [2,] &quot;g&quot;   &quot;h&quot;  </code></pre>
 </div>
-<p>It can be seen that the output of ‘expand.grid’ is simply all combinations, of which there are 8^2 = 64 in total.</p>
-<h3 id="ichimokuduplicate">ichimoku::duplicate</h3>
-<p>So how to get from the output of ‘expand.grid’ to that of ‘combn’? Well, with the help of a simple algorithm, which has been coded into the ‘duplicate’ function from the ‘ichimoku’ package, expressly for this purpose.</p>
+<p>It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.</p>
+<h3 id="ichimokugrid_dup">ichimoku::grid_dup</h3>
+<p>So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package, expressly for this purpose.</p>
 <p>From the function documentation: ‘create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors’.</p>
-<p>Feel free to inspect the code behind the function, but it is simply a case of codifying the sequence of duplicates into a formula.</p>
-<p>Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order does not matter.</p>
+<p>Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order of appearance does not matter.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shikokuchuo.net/ichimoku/'>ichimoku</a></span><span class='op'>)</span>
 
-<span class='va'>grid1</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/duplicate.html'>duplicate</a></span><span class='op'>(</span><span class='va'>xlen</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>grid1</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='va'>xlen</span><span class='op'>)</span><span class='op'>]</span>
 <span class='va'>grid1</span>
 </code></pre>
 </div>
@@ -1588,11 +1587,11 @@ Shikokuchuo
 [1,] &quot;f&quot;   &quot;g&quot;   &quot;g&quot;   &quot;h&quot;  
 [2,] &quot;h&quot;   &quot;g&quot;   &quot;h&quot;   &quot;h&quot;  </code></pre>
 </div>
-<p>If the ‘identical = TRUE’ argument is set for ‘duplicate’, identical elements are also removed. ‘grid2’ should then be the same as ‘combn’ obtained above.</p>
-<p>Indeed it can be seen that both ‘identical’ and ‘all.equal’ return TRUE.</p>
+<p>If the ‘omit.id = TRUE’ argument is set for grid_dup(), identical elements are also removed. ‘grid2’ should then be the same as ‘combn’ obtained above.</p>
+<p>Indeed it can be seen that both identical() and all.equal() below return TRUE.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid2</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/duplicate.html'>duplicate</a></span><span class='op'>(</span><span class='va'>xlen</span>, identical <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>]</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid2</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='va'>xlen</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>]</span>
 <span class='va'>grid2</span>
 </code></pre>
 </div>
@@ -1618,9 +1617,9 @@ Shikokuchuo
 </div>
 <h3 id="benchmarking-the-results">Benchmarking the results</h3>
 <p>‘Microbenchmark’ can be used to benchmark the performance, where it is usual practice to compare median values.</p>
-<p>For small vector lengths, expand.grid is not as performant. This is somewhat to be expected given the overhead of working with data frames rather than matrices. However the absolute times are also small so any difference would not matter as much.</p>
-<p>When the vector length reaches 16, the custom algorithm using expand.grid/duplicate starts to outperform.</p>
-<p>By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.</p>
+<p>For small vector lengths, expand.grid() is not as performant. This is somewhat to be expected given the overhead of working with data frames rather than matrices. However the absolute times are also small so any difference would not matter as much.</p>
+<p>When the vector length reaches 16, the custom algorithm using expand.grid()/grid_dup() starts to outperform.</p>
+<p>By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already c. 7x faster.</p>
 <p>It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and that is most likely why there can be such an outperformance.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1630,7 +1629,7 @@ Shikokuchuo
 
 <span class='va'>fn_grid</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span>, KEEP.OUT.ATTRS <span class='op'>=</span> <span class='cn'>FALSE</span>,
-              stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/duplicate.html'>duplicate</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, identical <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>]</span>
+              stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>]</span>
 <span class='op'>}</span>
 
 <span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>)</span><span class='op'>)</span>
@@ -1638,8 +1637,8 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
            expr    min      lq     mean  median      uq      max
- fn_combn(1:16) 54.990 58.3105 74.79391 61.7415 66.6220 1070.623
-  fn_grid(1:16) 53.572 57.6895 79.31850 59.5965 64.5435 1624.614
+ fn_combn(1:16) 55.496 57.4060 71.08251 59.0935 61.1550 1082.228
+  fn_grid(1:16) 51.966 55.6425 77.04816 57.1455 58.9625 1702.133
  neval
    100
    100</code></pre>
@@ -1649,15 +1648,15 @@ Shikokuchuo
 </div>
 <pre><code>Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 217.82045 280.44920 286.58422 283.90596 290.38883
-  fn_grid(1:1000)  31.07142  38.27627  46.59107  40.31613  42.80381
+ fn_combn(1:1000) 212.75953 271.36077 275.02203 273.68879 275.89374
+  fn_grid(1:1000)  33.96233  37.80198  47.34321  39.52345  42.60958
       max neval
- 356.4625   100
- 104.9577   100</code></pre>
+ 336.2719   100
+ 103.9850   100</code></pre>
 </div>
-<h3 id="use-case-mapply-and-vapply">Use case: mapply and vapply</h3>
-<p>This type of output is suitable for feeding into functions such as ‘mapply’ or ‘vapply’.</p>
-<p>A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into ‘do.call’ with ‘c’ to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.</p>
+<h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
+<p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
+<p>A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>c</span>, <span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"&amp;"</span>, <span class='va'>y</span><span class='op'>)</span>, 
@@ -1669,7 +1668,7 @@ Shikokuchuo
 [12] &quot;b&amp;g&quot; &quot;b&amp;h&quot; &quot;c&amp;d&quot; &quot;c&amp;e&quot; &quot;c&amp;f&quot; &quot;c&amp;g&quot; &quot;c&amp;h&quot; &quot;d&amp;e&quot; &quot;d&amp;f&quot; &quot;d&amp;g&quot; &quot;d&amp;h&quot;
 [23] &quot;e&amp;f&quot; &quot;e&amp;g&quot; &quot;e&amp;h&quot; &quot;f&amp;g&quot; &quot;f&amp;h&quot; &quot;g&amp;h&quot;</code></pre>
 </div>
-<p>An equivalent example using ‘vapply’ is given below. ‘vapply’ is also a safe choice for programming as an output template is explicitly specified, here ‘character(1L)’, hence the returned values are all expected to be of type ‘character’ of length ‘1’ otherwise an error is thrown.</p>
+<p>An equivalent example using vapply() is given below. vapply() is also a safe choice for programming as an output template is explicitly specified, here ‘character(1L)’, hence the returned values are all expected to be of type ‘character’ of length ‘1’ otherwise an error is thrown.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>grid2</span><span class='op'>[</span><span class='fl'>1L</span>, <span class='op'>]</span><span class='op'>)</span>,
@@ -1681,6 +1680,7 @@ Shikokuchuo
 [12] &quot;b&amp;g&quot; &quot;b&amp;h&quot; &quot;c&amp;d&quot; &quot;c&amp;e&quot; &quot;c&amp;f&quot; &quot;c&amp;g&quot; &quot;c&amp;h&quot; &quot;d&amp;e&quot; &quot;d&amp;f&quot; &quot;d&amp;g&quot; &quot;d&amp;h&quot;
 [23] &quot;e&amp;f&quot; &quot;e&amp;g&quot; &quot;e&amp;h&quot; &quot;f&amp;g&quot; &quot;f&amp;h&quot; &quot;g&amp;h&quot;</code></pre>
 </div>
+<p>Of the two however, mapply() is marginally faster and should normally be used when iteration is required over multiple arguments.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

@@ -1,5 +1,5 @@
 ---
-title: "Combinations using expand.grid"
+title: "Efficient R: Combinations using expand.grid"
 description: |
   A faster way to generate combinations for mapply and vapply
 author:
@@ -28,9 +28,9 @@ data.frame(sha256 = develop(photos))
 
 ### Introduction
 
-It seems that there is no base R function to generate exhaustive combinations of two identical vectors, sometimes desired as function inputs to mapply/vapply. The 'combn' function from the 'utils' package is required.
+It seems that there is no base R function to generate exhaustive combinations of two identical vectors, sometimes desired as function inputs to mapply/vapply(). The combn() function from the 'utils' package is required.
 
-'combn' outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8. 
+utils::combn() outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8. 
 
 ```{r combn}
 x <- letters[1:8]
@@ -42,9 +42,9 @@ combn
 
 ### expand.grid
 
-'expand.grid' from the base package is a useful function in its own right, most well-known perhaps for its use in generating hyperparameter tuning grids in machine learning models.
+expand.grid() from the base package is a useful function in its own right, most well-known perhaps for its use in generating hyperparameter tuning grids in machine learning models.
 
-'expand.grid' produces a data frame in columns rather than a matrix in rows like 'combn'. Hence just for demonstration purposes to compare like-for-like, a bit of manipulation is done below to make the output exactly the same format. In real world usage the output of expand.grid can just be used 'as is'.
+expand.grid() produces a data frame in columns rather than a matrix in rows like utils::combn(). Hence just for demonstration purposes to compare like-for-like, a bit of manipulation is done below to make the output exactly the same. In real world usage the output of expand.grid() can be used 'as is' without the additional manipulation.
 
 ```{r expand}
 grid <- expand.grid(x, x, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
@@ -54,32 +54,30 @@ rownames(grid) <- NULL
 grid
 ```
 
-It can be seen that the output of 'expand.grid' is simply all combinations, of which there are 8^2 = 64 in total.
+It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.
 
-### ichimoku::duplicate
+### ichimoku::grid_dup
 
-So how to get from the output of 'expand.grid' to that of 'combn'? Well, with the help of a simple algorithm, which has been coded into the 'duplicate' function from the 'ichimoku' package, expressly for this purpose.
+So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package, expressly for this purpose.
 
 From the function documentation: 'create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors'.
 
-Feel free to inspect the code behind the function, but it is simply a case of codifying the sequence of duplicates into a formula.
-
-Using the function as per the below, 'grid1' contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order does not matter.
+Using the function as per the below, 'grid1' contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order of appearance does not matter.
 
 ```{r duplicate}
 library(ichimoku)
 
-grid1 <- grid[, -duplicate(xlen)]
+grid1 <- grid[, -grid_dup(xlen)]
 grid1
 
 ```
 
-If the 'identical = TRUE' argument is set for 'duplicate', identical elements are also removed. 'grid2' should then be the same as 'combn' obtained above.
+If the 'omit.id = TRUE' argument is set for grid_dup(), identical elements are also removed. 'grid2' should then be the same as 'combn' obtained above.
 
-Indeed it can be seen that both 'identical' and 'all.equal' return TRUE.
+Indeed it can be seen that both identical() and all.equal() below return TRUE.
 
 ```{r allequal}
-grid2 <- grid[, -duplicate(xlen, identical = TRUE)]
+grid2 <- grid[, -grid_dup(xlen, omit.id = TRUE)]
 grid2
 
 identical(combn, grid2)
@@ -90,11 +88,11 @@ all.equal(combn, grid2)
 
 'Microbenchmark' can be used to benchmark the performance, where it is usual practice to compare median values.
 
-For small vector lengths, expand.grid is not as performant. This is somewhat to be expected given the overhead of working with data frames rather than matrices. However the absolute times are also small so any difference would not matter as much.
+For small vector lengths, expand.grid() is not as performant. This is somewhat to be expected given the overhead of working with data frames rather than matrices. However the absolute times are also small so any difference would not matter as much.
 
-When the vector length reaches 16, the custom algorithm using expand.grid/duplicate starts to outperform.
+When the vector length reaches 16, the custom algorithm using expand.grid()/grid_dup() starts to outperform.
 
-By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.
+By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already c. 7x faster.
 
 It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and that is most likely why there can be such an outperformance.
 
@@ -105,18 +103,19 @@ fn_combn <- function(x) {
 
 fn_grid <- function(x) {
   expand.grid(x, x, KEEP.OUT.ATTRS = FALSE,
-              stringsAsFactors = FALSE)[-duplicate(length(x), identical = TRUE), ]
+              stringsAsFactors = FALSE)[-grid_dup(length(x), omit.id = TRUE), ]
 }
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))
 microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))
 
 ```
-### Use case: mapply and vapply
 
-This type of output is suitable for feeding into functions such as 'mapply' or 'vapply'.
+### Use case: mapply() and vapply()
 
-A standard use for mapply is when multiple arguments have to be mapped into a function. Here 'simplify = FALSE' is set to have mapply return a list, and fed into 'do.call' with 'c' to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.
+This type of output is suitable for feeding into functions such as mapply() or vapply().
+
+A standard use for mapply is when multiple arguments have to be mapped into a function. Here 'simplify = FALSE' is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.
 
 ```{r mapply}
 do.call(c, mapply(function(x, y) paste0(x, "&", y), 
@@ -125,10 +124,12 @@ do.call(c, mapply(function(x, y) paste0(x, "&", y),
 
 ```
 
-An equivalent example using 'vapply' is given below. 'vapply' is also a safe choice for programming as an output template is explicitly specified, here 'character(1L)', hence the returned values are all expected to be of type 'character' of length '1' otherwise an error is thrown.
+An equivalent example using vapply() is given below. vapply() is also a safe choice for programming as an output template is explicitly specified, here 'character(1L)', hence the returned values are all expected to be of type 'character' of length '1' otherwise an error is thrown.
 
 ```{r vapply}
 vapply(seq_along(grid2[1L, ]),
        function(i) paste0(grid2[1L, i], "&", grid2[2L, i]),
        character(1L), USE.NAMES = FALSE)
 ```
+
+Of the two however, mapply() is marginally faster and should normally be used when iteration is required over multiple arguments.

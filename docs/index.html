@@ -2125,15 +2125,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* Optional: embed custom fonts here with `@import`          */
   /* This must remain at the top of this file.                 */
-  @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Lato&family=M+PLUS+1p&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Open+Sans&family=M+PLUS+1p&display=swap');
 
   html {
     /*-- Main font sizes --*/
-    --title-size:      20px;
-    --body-size:       1.06rem;
+    --title-size:      18px;
+    --body-size:       1rem;
     --code-size:       14px;
     --aside-size:      12px;
-    --fig-cap-size:    13px;
+    --fig-cap-size:    12px;
     /*-- Main font colors --*/
     --title-color:     #000000;
     --header-color:    rgba(0, 0, 0, 0.8);
@@ -2141,10 +2141,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --aside-color:     rgba(0, 0, 0, 0.6);
     --fig-cap-color:   rgba(0, 0, 0, 0.6);
     /*-- Specify custom fonts ~~~ must be imported above   --*/
-    --heading-font:    'Lato', 'M PLUS 1p', sans-serif;
+    --heading-font:    'Open Sans', 'M PLUS 1p', sans-serif;
     --mono-font:       'Fira Code', monospace;
-    --body-font:       'Lato', 'M PLUS 1p', sans-serif;
-    --navbar-font:     'Lato', 'M PLUS 1p', sans-serif;  /* websites + blogs only */
+    --body-font:       'Open Sans', 'M PLUS 1p', sans-serif;
+    --navbar-font:     'Open Sans', 'M PLUS 1p', sans-serif;  /* websites + blogs only */
   }
 
   /*-- ARTICLE METADATA --*/
@@ -2157,13 +2157,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /*-- ARTICLE TABLE OF CONTENTS --*/
   .d-contents {
-    --heading-size:    18px;
-    --contents-size:   13px;
+    --heading-size:    14px;
+    --contents-size:   12px;
   }
 
   /*-- ARTICLE APPENDIX --*/
   d-appendix {
-    --heading-size:    15px;
+    --heading-size:    14px;
     --heading-color:   rgba(0, 0, 0, 0.65);
     --text-size:       0.8em;
     --text-color:      rgba(0, 0, 0, 0.5);
@@ -2173,16 +2173,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /* These properties only apply to Distill sites and blogs  */
 
   .distill-site-header {
-    --title-size:       18px;
+    --title-size:       16px;
     --text-color:       #0F2E3D;
-    --text-size:        15px;
+    --text-size:        13px;
     --hover-color:      #dd424c;
     --bkgd-color:       white;
   }
 
   .distill-site-footer {
     --text-color:       #0F2E3D;
-    --text-size:        14px;
+    --text-size:        13px;
     --hover-color:      #dd424c;
     --bkgd-color:       white;
   }
@@ -2538,10 +2538,29 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption" data-caption="Web 3.0 technologies">Web 3.0 technologies</h1>
+<a href="posts/11-dataframes/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">July 23, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/11-dataframes/dataframes_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Efficient R: Performant data.frame constructors</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>How and when to use an alternative to as.data.frame</p>
+</div>
+</a>
 <a href="posts/10-combinations/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["R"]}</script>
 <div class="metadata">
-<div class="publishedDate">June 16, 2021</div>
+<div class="publishedDate">June 17, 2021</div>
 <div class="dt-authors">
 <div class="dt-author">shikokuchuo</div>
 </div>
@@ -2550,7 +2569,7 @@ function init_posts_list() {
 <img src="posts/10-combinations/combinations_files/figure-html5/index-1.png"/>
 </div>
 <div class="description">
-<h2>Combinations using expand.grid</h2>
+<h2>Efficient R: Combinations using expand.grid</h2>
 <div class="dt-tags">
 <div class="dt-tag">R</div>
 </div>
@@ -2560,7 +2579,7 @@ function init_posts_list() {
 <a href="posts/09-docall-lapply/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["R"]}</script>
 <div class="metadata">
-<div class="publishedDate">May 28, 2021</div>
+<div class="publishedDate">May 27, 2021</div>
 <div class="dt-authors">
 <div class="dt-author">shikokuchuo</div>
 </div>
@@ -2569,11 +2588,11 @@ function init_posts_list() {
 <img src="posts/09-docall-lapply/docall-lapply_files/figure-html5/index-1.png"/>
 </div>
 <div class="description">
-<h2>do.call / lapply</h2>
+<h2>Efficient R: do.call / lapply</h2>
 <div class="dt-tags">
 <div class="dt-tag">R</div>
 </div>
-<p>A distinctive coding style for R</p>
+<p>A distinctive coding style</p>
 </div>
 </a>
 <a href="posts/08-ichimoku/" class="post-preview">
@@ -2625,7 +2644,7 @@ function init_posts_list() {
 </div>
 </div>
 <div class="thumbnail">
-<img src="posts/06-datasets/datasets_files/figure-html5/index-1.png"/>
+<img data-src="posts/06-datasets/datasets_files/figure-html5/index-1.png"/>
 </div>
 <div class="description">
 <h2>Datasets</h2>
@@ -2746,7 +2765,7 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 <ul>
 <li>
 <a href="#category:Articles">Articles</a>
-<span class="category-count">(10)</span>
+<span class="category-count">(11)</span>
 </li>
 <li>
 <a href="#category:Cryptography">Cryptography</a>
@@ -2770,7 +2789,7 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 </li>
 <li>
 <a href="#category:R">R</a>
-<span class="category-count">(6)</span>
+<span class="category-count">(7)</span>
 </li>
 <li>
 <a href="#category:Resources">Resources</a>

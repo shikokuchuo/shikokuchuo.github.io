@@ -35,19 +35,22 @@ The technique is a refinement on candlestick charting originating from Japan, no
 
 For publication-ready charts simply ichimoku() and plot():
 
-```{r plot, layout="l-body-outset"}
+```{r plot}
 library(ichimoku)
 TKR <- sample_ohlc_data
 
 cloud <- ichimoku(TKR)
 
 plot(cloud, window = "2020-04/")
+plot(cloud, window = "2020-04/", theme = "dark")
+plot(cloud, window = "2020-04/", theme = "solarized")
+plot(cloud, window = "2020-04/", theme = "mono")
 ```
 
 For fully-interactive charts for analysis simply iplot():
 
-```{r iplot, layout="l-body-outset", fig.height=5.5}
-iplot(cloud, window = "2020-04/", theme = "dark")
+```{r iplot, layout="l-body-outset", eval=FALSE}
+iplot(cloud, window = "2020-04/")
 ```
 
 ### Installation

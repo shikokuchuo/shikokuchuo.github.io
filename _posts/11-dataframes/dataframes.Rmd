@@ -1,0 +1,175 @@
+---
+title: "Efficient R: Performant data.frame constructors"
+description: |
+  How and when to use an alternative to as.data.frame
+author:
+  - name: shikokuchuo
+date: 2021-07-23
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+develop <- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = develop(photos))
+
+```
+<aside> Shikokuchuo </aside>
+
+### About as.data.frame
+
+data.frame() or as.data.frame() are such ubiquitous functions that we rarely think twice about using them to create dataframes or to convert other objects to dataframes.
+
+However, they are slow. Extremely slow.
+
+This is somewhat surprising considering how much they are used, and given that the 'data.frame' object is the *de facto* standard for tabular data in R, for their constructors to be so inefficient.
+
+However this is the direct result of the presence of a lot of error checking and validation code, which is perhaps understandable for something as widely used. You simply don't know what is going to be thrown at the function and so it needs to try to do its best or fail gracefully.
+
+Below, we demonstrate the inefficiencies of as.data.frame() versus efficient 'data.frame' constructors from the 'ichimoku' package coded for performance.
+
+For benchmarking, the 'microbenchmark' package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 1,000 in the cases below.
+
+### Matrix conversion benchmarking
+
+A 100x10 matrix of random data drawn from the normal distribution is created as the object 'matrix'.
+
+This will be converted into a dataframe using as.data.frame() and ichimoku::matrix_df().
+
+```{r bmatrix}
+
+library(ichimoku)
+library(microbenchmark)
+
+matrix <- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1:10]))
+
+dim(matrix)
+head(matrix)
+
+microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 1000)
+
+identical(as.data.frame(matrix), matrix_df(matrix))
+all.equal(as.data.frame(matrix), matrix_df(matrix))
+
+```
+
+As can be seen, the outputs are identical, but `ichimoku::matrix_df()`, which is designed to be a performant 'data.frame' constructor, *is around twice as fast*.
+
+### xts conversion benchmarking
+
+The 'xts' format is a popular choice for large time series data as each observation is indexed by a unique valid timestamp.
+
+As an example, we use the ichimoku() function from the 'ichimoku' package which creates ichimoku objects inheriting the 'xts' class. We run ichimoku() on the sample data contained within the package to create an 'xts' object 'cloud'.
+
+This will be converted into a dataframe using as.data.frame() and ichimoku::xts_df().
+
+```{r bxts}
+
+library(ichimoku)
+library(microbenchmark)
+
+cloud <- ichimoku(sample_ohlc_data)
+
+xts::is.xts(cloud)
+dim(cloud)
+print(cloud[1:6], plot = FALSE)
+
+microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 1000)
+
+```
+
+It can be seen that `ichimoku::xts_df()`, which is designed to be a performant 'data.frame' constructor, *is over 6x as fast*.
+
+```{r xts}
+
+df1 <- as.data.frame(cloud)
+
+is.data.frame(df1)
+str(df1)
+
+df2 <- xts_df(cloud)
+
+is.data.frame(df2)
+str(df2)
+
+```
+
+The outputs are slightly different as xts_df() preserves the date-time index of 'xts' objects as a new first column 'index' which is POSIXct in format. The default as.data.frame() constructor converts the index into the row names, which is not desirable as the dates are coerced to type 'character'.
+
+So it can be seen that in this case, not only is the performant constructor faster, it is also more fit for purpose.
+
+### When to use performant constructors
+
+1. **Data which is not already a 'data.frame' object being plotted using 'ggplot2'.** For example if you have time series data in the 'xts' format, calling a 'ggplot2' plot method automatically converts the data into a dataframe as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor `ichimoku::xts_df()` *is still almost 4x as fast*.
+
+```{r bfortify}
+
+microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 1000)
+
+```
+
+2. **In a context where performance is critical.** This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.
+
+3. **Within packages.** It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.
+
+### When to question the use of performant constructors
+
+1. **For user-facing functions.** Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable then go ahead and use the performant constructor.
+
+2. **When the constructor needs to handle a range of input types.** as.data.frame() is actually an S3 generic with a variety of methods for different object classes. If required to handle a variety of different types of input, it may be easier (if not more performant) to rely on as.data.frame() rather than write code which handles different scenarios.
+
+### What is a performant constructor
+
+First of all, it is possible to directly use the functions matrix_df() and xts_df() which are exported from the 'ichimoku' package. Given the nature of the R ecosystem, this is indeed encouraged.
+
+However, having seen the advantages of using a performant constructor above, we can now turn to the 'what' for the curious.
+
+What lies behind those functions? Some variation of the below:
+
+```{r notrun, eval=FALSE}
+
+# structure() is used to set the 'class' and other attributes on an object
+structure(list(vec1, vec2, vec3),
+          class = "data.frame",
+          row.names = seq_len(vec1))
+
+```
+
+
+1. A data.frame is simply a list (where each element must be the same length).
+2. It has an attribute 'class' which equals 'data.frame'.
+3. It must have row names, which is usually just an integer sequence. 
+
+Note:
+
+1. The vectors in the list (vec1, vec2, vec3, etc.) must be the same length, othwerwise a corrupt data.frame warning will be generated.
+2. If row names are missing then the data will still be present but dim() will show a 0-row dataframe and its print method will not work.
+3. Row names are not limited to an integer sequence. They can be dates for example. However if dates are set as row names, they are first coerced to type 'character'.
+
+In conclusion, dataframes are not complicated structures but essentially lists with a couple of constraints. Indeed you can see that the underlying data type of a dataframe is just a list:
+
+```{r list}
+
+class(df1)
+typeof(df1)
+
+class(df2)
+typeof(df2)
+
+```
+
+### References
+
+ichimoku R package site: https://shikokuchuo.net/ichimoku/
+
+ichimoku CRAN page: https://CRAN.R-project.org/package=ichimoku
