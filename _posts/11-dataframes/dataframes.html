@@ -1532,28 +1532,28 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>            a          b           c          d          e
-1  1.34323566 -1.1690907  0.04815062  2.0680454  0.1226957
-2 -0.01826682  1.0467029 -1.45108132  1.5642172  0.5183610
-3  0.57150784 -1.0690042 -0.47430752  0.2514176 -0.2342448
-4  0.37009845  0.1737165 -0.02600678 -1.6068281  1.6192898
-5 -0.35465717  1.2008350 -0.25002046  0.1405923 -0.5299942
-6 -0.32284674  0.6909132 -1.42940826 -0.2231922 -0.1278234
-            f          g          h           i          j
-1  0.08310527 -0.6611399  0.6353669 -0.79804784 -1.3970472
-2 -0.06913626 -0.5389408  0.7382096 -0.39962687  0.2200806
-3  1.35926038  0.7899188  0.8671638 -0.31733304  0.7849100
-4  1.05259377 -1.4219800 -1.7392178 -0.19523431  0.3348181
-5  1.52902874  1.8990172 -0.1778638 -0.02785871  2.5241512
-6 -0.64404426 -0.4925897 -0.2876599  0.47959546  1.7068189</code></pre>
+<pre><code>          a          b          c          d          e           f
+1 0.1152820  0.2085092 -0.5278711  1.6789478  1.0474516 -0.84187496
+2 1.0508580  0.7117791 -0.1877526  1.1551386 -1.1845844  0.40880806
+3 1.0024401 -0.1371393  0.4047176  1.7979103  0.3045342  0.38338716
+4 0.2834398 -1.7128378 -0.5531983 -0.2213783 -0.7716079  0.37017385
+5 0.6558237  0.4681448 -0.2677590  1.3080291 -0.7990878 -0.01013323
+6 0.6135490 -1.0129451  0.5368421 -1.3381380 -0.8352379 -0.06482810
+            g          h          i          j
+1  0.06301685 -2.9566801  0.4241670 -0.9792464
+2 -0.38455704 -0.9639204  1.0273531  0.6121698
+3  1.99667809 -1.0936383 -0.6519792  1.7249730
+4  0.48152513 -0.2743781 -0.7155652 -0.5145237
+5  0.55266507  1.2874400  0.8605214 -0.7731047
+6 -0.03012823  0.7107851 -1.5078061  0.9949423</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>1000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                  expr    min      lq     mean median      uq     max
- as.data.frame(matrix) 31.106 32.5455 34.66284 33.452 35.7895 119.179
-     matrix_df(matrix) 14.649 15.7975 17.13778 16.480 17.5665 116.468
+                  expr    min     lq     mean  median     uq     max
+ as.data.frame(matrix) 30.728 32.666 35.13526 33.5645 34.974 108.383
+     matrix_df(matrix) 14.524 15.892 17.49159 16.5405 17.468 121.090
  neval
   1000
   1000</code></pre>
@@ -1612,12 +1612,12 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                 expr     min       lq      mean   median       uq
- as.data.frame(cloud) 229.107 234.9705 262.94662 240.3245 271.6070
-        xts_df(cloud)  33.571  36.0050  50.28892  38.1815  45.0255
+                 expr     min       lq     mean   median      uq
+ as.data.frame(cloud) 229.409 236.4365 263.0073 242.8970 265.877
+        xts_df(cloud)  33.210  36.3000  42.0372  38.3685  44.087
       max neval
-  556.039  1000
- 6823.420  1000</code></pre>
+ 7085.010  1000
+  286.895  1000</code></pre>
 </div>
 <p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 6x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1684,13 +1684,13 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
                     expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 231.187 243.9210 259.06692 249.7830 257.6285
- ggplot2::fortify(cloud) 132.658 149.0235 177.92830 156.5750 167.8935
-           xts_df(cloud)  34.307  39.3280  48.16373  41.4195  43.9705
+    as.data.frame(cloud) 232.932 244.3910 267.52742 251.3925 271.3905
+ ggplot2::fortify(cloud) 132.425 149.8510 176.61339 158.2980 170.5815
+           xts_df(cloud)  34.119  39.1515  48.18361  41.6875  45.0385
       max neval
- 1034.407  1000
- 5250.114  1000
- 5278.785  1000</code></pre>
+ 4954.206  1000
+ 6314.399  1000
+ 4977.078  1000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>
@@ -1698,7 +1698,7 @@ Shikokuchuo
 </ol>
 <h3 id="when-to-question-the-use-of-performant-constructors">When to question the use of performant constructors</h3>
 <ol type="1">
-<li><p><strong>For user-facing functions.</strong> Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable then go ahead and use the performant constructor.</p></li>
+<li><p><strong>For user-facing functions.</strong> Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then proceed to use the performant constructor.</p></li>
 <li><p><strong>When the constructor needs to handle a range of input types.</strong> as.data.frame() is actually an S3 generic with a variety of methods for different object classes. If required to handle a variety of different types of input, it may be easier (if not more performant) to rely on as.data.frame() rather than write code which handles different scenarios.</p></li>
 </ol>
 <h3 id="what-is-a-performant-constructor">What is a performant constructor</h3>
@@ -1710,7 +1710,7 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># structure() is used to set the 'class' and other attributes on an object</span>
 <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>vec1</span>, <span class='va'>vec2</span>, <span class='va'>vec3</span><span class='op'>)</span>,
           class <span class='op'>=</span> <span class='st'>"data.frame"</span>,
-          row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='va'>vec1</span><span class='op'>)</span><span class='op'>)</span>
+          row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>vec1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>

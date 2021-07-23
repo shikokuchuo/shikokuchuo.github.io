@@ -124,7 +124,7 @@ microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), tim
 
 ### When to question the use of performant constructors
 
-1. **For user-facing functions.** Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable then go ahead and use the performant constructor.
+1. **For user-facing functions.** Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then proceed to use the performant constructor.
 
 2. **When the constructor needs to handle a range of input types.** as.data.frame() is actually an S3 generic with a variety of methods for different object classes. If required to handle a variety of different types of input, it may be easier (if not more performant) to rely on as.data.frame() rather than write code which handles different scenarios.
 
@@ -141,7 +141,7 @@ What lies behind those functions? Some variation of the below:
 # structure() is used to set the 'class' and other attributes on an object
 structure(list(vec1, vec2, vec3),
           class = "data.frame",
-          row.names = seq_len(vec1))
+          row.names = seq_len(length(vec1)))
 
 ```
 

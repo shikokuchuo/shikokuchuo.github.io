@@ -12,7 +12,7 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 23 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 22 Jul 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Efficient R: Performant data.frame constructors</title>
       <dc:creator>shikokuchuo</dc:creator>
@@ -20,7 +20,7 @@
       <description>
 
 
-&lt;p&gt;&lt;img src="file5287691bc4de_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11033881e897_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 eb5d71529ab540bc4865c181a1129e03186e0959c76196a9fbc0c2a16c767856&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -44,28 +44,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;             a           b           c          d           e
-1  0.683510637  1.16302355 -0.13496671  0.2090891 -0.08019388
-2 -1.085276984  0.72082091  0.80981619 -0.4489969  0.92801701
-3  0.010034103 -0.62231243  0.87929899  0.4955363 -0.89779053
-4  1.636981938  0.06595736 -1.92381674 -0.5854649  0.38887182
-5  0.007457111  1.72112722  0.15492761  1.3733972  0.37522399
-6 -0.300646433  0.01619777  0.02723128 -0.4223960 -1.49284886
-           f           g          h           i          j
-1 -1.7982419 -0.58036745  1.6433653 -0.65598557 -0.4112517
-2 -1.7046399  0.46641574 -0.4641359  0.32414042 -1.1005263
-3  2.5610998  0.24176093  0.6401283  0.25664703  0.7031040
-4  0.8390823  0.95270296 -1.3528321 -0.05129062 -0.6798017
-5  1.1185922  0.31062480  0.6051283 -0.43620990 -0.7027155
-6 -0.6309619 -0.06975206 -0.4425769 -0.35410908  1.7568020&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;           a          b          c          d          e          f
+1  1.0470296 -0.6531076  0.8278910  0.9708001 -0.1014626  1.2253514
+2 -0.1436921  0.5482620  1.3607562  0.8354925  0.7415475 -0.1541012
+3 -0.2369179  1.0897400 -0.8158241  0.2736871 -0.1851880 -1.0202761
+4 -0.1883866 -0.4844175 -0.3421133  0.8321749  0.5960344  0.4411143
+5 -0.2062340  0.9212781 -0.3687319 -0.2210680 -0.9493628  0.2689948
+6 -1.2267639  0.7466243 -0.1845343  1.3502588 -1.1756389 -1.2925598
+           g          h           i          j
+1  1.2828614  0.4024055 -0.04694549 -1.1447872
+2 -0.6869244 -0.2542681  0.48761441 -0.6505677
+3 -0.5479265 -0.5446966  0.09914298  0.8869836
+4 -0.4678586  0.9396598 -0.89564969  1.0552123
+5 -0.6126510  0.4527644 -1.43793557  0.5074292
+6  1.0173340  0.2888818  0.09522833 -0.1836863&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 1000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min     lq     mean  median      uq     max
- as.data.frame(matrix) 35.709 37.523 41.20326 39.0780 42.2895 120.680
-     matrix_df(matrix) 15.226 16.661 18.47935 17.5355 18.7450 144.495
- neval
-  1000
-  1000&lt;/code&gt;&lt;/pre&gt;
+                  expr    min      lq     mean  median      uq
+ as.data.frame(matrix) 31.148 32.6130 34.37202 33.2355 34.3305
+     matrix_df(matrix) 14.508 15.6355 22.78279 16.0575 16.8175
+      max neval
+  410.675  1000
+ 6297.590  1000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -102,11 +102,11 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 1000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
                  expr     min       lq      mean   median       uq
- as.data.frame(cloud) 241.356 250.1370 295.91456 276.4615 298.2595
-        xts_df(cloud)  34.406  38.8525  48.06242  42.4040  53.7515
+ as.data.frame(cloud) 230.269 236.3060 252.35890 240.4095 246.1955
+        xts_df(cloud)  33.862  36.9205  45.36266  38.6870  40.7065
       max neval
- 7250.761  1000
-  228.532  1000&lt;/code&gt;&lt;/pre&gt;
+ 6871.517  1000
+ 5703.421  1000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -154,20 +154,20 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 1000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
                     expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 244.821 256.3125 277.22354 263.1170 275.2715
- ggplot2::fortify(cloud) 140.055 154.9880 194.81853 164.2715 177.0665
-           xts_df(cloud)  34.778  40.1890  44.57069  42.6190  45.4525
+    as.data.frame(cloud) 231.683 240.5755 260.94003 246.4725 253.3840
+ ggplot2::fortify(cloud) 132.811 145.2860 170.82074 153.1985 162.7935
+           xts_df(cloud)  34.382  38.1695  41.71392  40.5490  42.7240
       max neval
-  654.585  1000
- 5974.033  1000
-  177.564  1000&lt;/code&gt;&lt;/pre&gt;
+ 5246.692  1000
+ 4828.824  1000
+  381.869  1000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="when-to-question-the-use-of-performant-constructors"&gt;When to question the use of performant constructors&lt;/h3&gt;
 &lt;ol style="list-style-type: decimal"&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;For user-facing functions.&lt;/strong&gt; Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable then go ahead and use the performant constructor.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;For user-facing functions.&lt;/strong&gt; Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then proceed to use the performant constructor.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;When the constructor needs to handle a range of input types.&lt;/strong&gt; as.data.frame() is actually an S3 generic with a variety of methods for different object classes. If required to handle a variety of different types of input, it may be easier (if not more performant) to rely on as.data.frame() rather than write code which handles different scenarios.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="what-is-a-performant-constructor"&gt;What is a performant constructor&lt;/h3&gt;
@@ -177,7 +177,7 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;# structure() is used to set the &amp;#39;class&amp;#39; and other attributes on an object
 structure(list(vec1, vec2, vec3),
           class = &amp;quot;data.frame&amp;quot;,
-          row.names = seq_len(vec1))&lt;/code&gt;&lt;/pre&gt;
+          row.names = seq_len(length(vec1)))&lt;/code&gt;&lt;/pre&gt;
 &lt;ol style="list-style-type: decimal"&gt;
 &lt;li&gt;A data.frame is simply a list (where each element must be the same length).&lt;/li&gt;
 &lt;li&gt;It has an attribute ‘class’ which equals ‘data.frame’.&lt;/li&gt;
@@ -205,7 +205,7 @@ structure(list(vec1, vec2, vec3),
       <distill:md5>66104a4aab6f3bc9584bed85b41b1412</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/11-dataframes</guid>
-      <pubDate>Fri, 23 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/11-dataframes/dataframes_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -215,7 +215,7 @@ structure(list(vec1, vec2, vec3),
       <description>
 
 
-&lt;p&gt;&lt;img src="file52874378bd57_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file110376129f28_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 96e41b3b0fa827b7c9c1f4a7765667064026f9448a78327415264112f7f54dbe&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -322,17 +322,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min     lq     mean median      uq     max neval
- fn_combn(1:16) 54.554 57.981 67.80868 64.242 67.7940 136.579   100
-  fn_grid(1:16) 52.162 55.522 70.92656 62.022 67.7155 413.625   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq     mean  median     uq     max neval
+ fn_combn(1:16) 54.810 56.7125 59.82358 58.1330 60.531 114.806   100
+  fn_grid(1:16) 52.632 55.2260 59.27020 57.1955 59.446 174.222   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 211.22172 274.83476 278.64201 278.27248 282.75812
-  fn_grid(1:1000)  33.15946  37.09633  42.86305  38.60628  41.87779
+             expr       min        lq     mean    median        uq
+ fn_combn(1:1000) 218.43646 281.64872 285.2724 284.55863 287.79945
+  fn_grid(1:1000)  27.80359  38.90674  50.0806  41.79677  45.14565
       max neval
- 361.0996   100
- 118.0297   100&lt;/code&gt;&lt;/pre&gt;
+ 356.6259   100
+ 123.9727   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -364,7 +364,7 @@ microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/p
       <description>
 
 
-&lt;p&gt;&lt;img src="file52874ad9fa99_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file110351a5c77f_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 2074954df14cc65b017b3e9d4b291353151672d450f2b623acc2a5d253767e42&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -487,7 +487,7 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
       <distill:md5>5a539cf9f73b4d355bbed7a9fb4878d1</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/09-docall-lapply</guid>
-      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 28 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/09-docall-lapply/docall-lapply_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -497,7 +497,7 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
       <description>
 
 
-&lt;p&gt;&lt;img src="file52873a3e6d0a_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11035d84e9e2_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 9b787ca60956d571ad9686d55815fcff38fce9d550ccb1310c0b9c11dfa8069e&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -513,13 +513,13 @@ TKR &amp;lt;- sample_ohlc_data
 cloud &amp;lt;- ichimoku(TKR)
 
 plot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file52873a3e6d0a_files/figure-html/plot-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11035d84e9e2_files/figure-html/plot-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file52873a3e6d0a_files/figure-html/plot-2.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11035d84e9e2_files/figure-html/plot-2.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;solarized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file52873a3e6d0a_files/figure-html/plot-3.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11035d84e9e2_files/figure-html/plot-3.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;mono&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file52873a3e6d0a_files/figure-html/plot-4.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11035d84e9e2_files/figure-html/plot-4.png" width="672" /&gt;&lt;/p&gt;
 &lt;p&gt;For fully-interactive charts for analysis simply iplot():&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;iplot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="installation"&gt;Installation&lt;/h3&gt;
@@ -584,7 +584,7 @@ plot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
       <description>
 
 
-&lt;p&gt;&lt;img src="file528767bd0220_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11036411d58b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 db79682f8bee39d7ed9231200fd076ebed92a4471a9f3ce611d0a5a28bb984a3&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -649,7 +649,7 @@ Replace ‘username/nameofnew.git’ as appropriate.
       <description>
 
 
-&lt;p&gt;&lt;img src="file5287584e0cc0_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11035600f438_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 6f5b37d9b73dcd70f3c8b68eabbe00c4a709f2a3e694d964121af145105f1655&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -712,7 +712,7 @@ jobs:
       <description>
 
 
-&lt;p&gt;&lt;img src="file52877ffa721b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file11036dea4bd0_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 809e2e2a3967742faea6f9e11e0a4c533511f9710ac41812dcbcae3c78913cac&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
