@@ -37,8 +37,9 @@ This is somewhat surprising considering how much they are used, and given that t
 However this is the direct result of the presence of a lot of error checking and validation code, which is perhaps understandable for something as widely used. You simply don't know what is going to be thrown at the function and so it needs to try to do its best or fail gracefully.
 
 Below, we demonstrate the inefficiencies of as.data.frame() versus efficient 'data.frame' constructors from the 'ichimoku' package coded for performance.
+^[Function documentation: https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors]
 
-For benchmarking, the 'microbenchmark' package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 1,000 in the cases below.
+For benchmarking, the 'microbenchmark' package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 10,000 in the cases below.
 
 ### Matrix conversion benchmarking
 
@@ -56,7 +57,7 @@ matrix <- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1:10]))
 dim(matrix)
 head(matrix)
 
-microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 1000)
+microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)
 
 identical(as.data.frame(matrix), matrix_df(matrix))
 all.equal(as.data.frame(matrix), matrix_df(matrix))
@@ -84,7 +85,7 @@ xts::is.xts(cloud)
 dim(cloud)
 print(cloud[1:6], plot = FALSE)
 
-microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 1000)
+microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)
 
 ```
 
@@ -110,11 +111,11 @@ So it can be seen that in this case, not only is the performant constructor fast
 
 ### When to use performant constructors
 
-1. **Data which is not already a 'data.frame' object being plotted using 'ggplot2'.** For example if you have time series data in the 'xts' format, calling a 'ggplot2' plot method automatically converts the data into a dataframe as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor `ichimoku::xts_df()` *is still almost 4x as fast*.
+1. **Data which is not already a 'data.frame' object being plotted using 'ggplot2'.** For example if you have time series data in the 'xts' format, calling a 'ggplot2' plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor `ichimoku::xts_df()` *is still almost 4x as fast*.
 
 ```{r bfortify}
 
-microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 1000)
+microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)
 
 ```
 
@@ -152,9 +153,9 @@ structure(list(vec1, vec2, vec3),
 
 Note:
 
-1. The vectors in the list (vec1, vec2, vec3, etc.) must be the same length, othwerwise a corrupt data.frame warning will be generated.
+1. The vectors in the list (vec1, vec2, vec3, etc.) must be the same length, otherwise a corrupt data.frame warning will be generated.
 2. If row names are missing then the data will still be present but dim() will show a 0-row dataframe and its print method will not work.
-3. Row names are not limited to an integer sequence. They can be dates for example. However if dates are set as row names, they are first coerced to type 'character'.
+3. Row names are not limited to an integer sequence. They can be dates for example. However if not an integer vector, they are first coerced to type 'character'.
 
 In conclusion, dataframes are not complicated structures but essentially lists with a couple of constraints. Indeed you can see that the underlying data type of a dataframe is just a list:
 

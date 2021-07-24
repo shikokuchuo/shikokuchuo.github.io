@@ -31,8 +31,8 @@ Shikokuchuo
 &lt;p&gt;However, they are slow. Extremely slow.&lt;/p&gt;
 &lt;p&gt;This is somewhat surprising considering how much they are used, and given that the ‘data.frame’ object is the &lt;em&gt;de facto&lt;/em&gt; standard for tabular data in R, for their constructors to be so inefficient.&lt;/p&gt;
 &lt;p&gt;However this is the direct result of the presence of a lot of error checking and validation code, which is perhaps understandable for something as widely used. You simply don’t know what is going to be thrown at the function and so it needs to try to do its best or fail gracefully.&lt;/p&gt;
-&lt;p&gt;Below, we demonstrate the inefficiencies of as.data.frame() versus efficient ‘data.frame’ constructors from the ‘ichimoku’ package coded for performance.&lt;/p&gt;
-&lt;p&gt;For benchmarking, the ‘microbenchmark’ package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 1,000 in the cases below.&lt;/p&gt;
+&lt;p&gt;Below, we demonstrate the inefficiencies of as.data.frame() versus efficient ‘data.frame’ constructors from the ‘ichimoku’ package coded for performance. &lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For benchmarking, the ‘microbenchmark’ package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 10,000 in the cases below.&lt;/p&gt;
 &lt;h3 id="matrix-conversion-benchmarking"&gt;Matrix conversion benchmarking&lt;/h3&gt;
 &lt;p&gt;A 100x10 matrix of random data drawn from the normal distribution is created as the object ‘matrix’.&lt;/p&gt;
 &lt;p&gt;This will be converted into a dataframe using as.data.frame() and ichimoku::matrix_df().&lt;/p&gt;
@@ -44,28 +44,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;           a          b          c          d          e          f
-1  1.0470296 -0.6531076  0.8278910  0.9708001 -0.1014626  1.2253514
-2 -0.1436921  0.5482620  1.3607562  0.8354925  0.7415475 -0.1541012
-3 -0.2369179  1.0897400 -0.8158241  0.2736871 -0.1851880 -1.0202761
-4 -0.1883866 -0.4844175 -0.3421133  0.8321749  0.5960344  0.4411143
-5 -0.2062340  0.9212781 -0.3687319 -0.2210680 -0.9493628  0.2689948
-6 -1.2267639  0.7466243 -0.1845343  1.3502588 -1.1756389 -1.2925598
-           g          h           i          j
-1  1.2828614  0.4024055 -0.04694549 -1.1447872
-2 -0.6869244 -0.2542681  0.48761441 -0.6505677
-3 -0.5479265 -0.5446966  0.09914298  0.8869836
-4 -0.4678586  0.9396598 -0.89564969  1.0552123
-5 -0.6126510  0.4527644 -1.43793557  0.5074292
-6  1.0173340  0.2888818  0.09522833 -0.1836863&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;            a           b          c          d           e
+1  0.36310686  0.21151295  0.8327738 -0.3276526 -0.04178299
+2 -0.83452794  0.07306596  0.6517966  1.1562007 -0.06719324
+3  0.16546696 -0.87150665  0.1579023  0.5267888  0.32868265
+4 -0.65143501  2.38093776  0.7595070  0.1623656 -1.01923519
+5  0.08063949 -0.17996169  0.6671943 -0.9140628  1.06028027
+6 -0.72669673 -0.69621816 -0.1187113  1.1546280  0.30775429
+            f         g           h           i           j
+1 -0.01509238 -0.930636  0.03132834 -0.16987088 -0.48365643
+2 -1.11777008  2.087435  0.43467921  0.08355717 -1.33772820
+3  0.66926905  1.509495 -1.20310222  0.35233250 -0.48882471
+4  0.72237291 -2.734324 -0.36975688 -2.00425614 -1.67866807
+5 -0.62226841  1.147429 -0.61991330  0.37287544  1.03144022
+6 -0.80381381  2.055313  0.32677681  0.45173626  0.08691407&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min      lq     mean  median      uq
- as.data.frame(matrix) 31.148 32.6130 34.37202 33.2355 34.3305
-     matrix_df(matrix) 14.508 15.6355 22.78279 16.0575 16.8175
+                  expr    min      lq     mean median      uq
+ as.data.frame(matrix) 30.907 32.7825 40.85807 33.600 35.1995
+     matrix_df(matrix) 14.482 15.8190 18.49031 16.426 17.5605
       max neval
-  410.675  1000
- 6297.590  1000&lt;/code&gt;&lt;/pre&gt;
+ 7152.033 10000
+ 7329.510 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -99,14 +99,14 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-06  123.6       NA        NA
 2020-01-07  122.5       NA        NA
 2020-01-08  122.6       NA        NA&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min       lq      mean   median       uq
- as.data.frame(cloud) 230.269 236.3060 252.35890 240.4095 246.1955
-        xts_df(cloud)  33.862  36.9205  45.36266  38.6870  40.7065
-      max neval
- 6871.517  1000
- 5703.421  1000&lt;/code&gt;&lt;/pre&gt;
+                 expr     min      lq      mean   median       uq
+ as.data.frame(cloud) 230.524 249.011 282.92391 257.6495 270.2515
+        xts_df(cloud)  33.227  38.058  43.51284  39.9005  42.1105
+       max neval
+ 75646.149 10000
+  6940.648 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -149,18 +149,18 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;So it can be seen that in this case, not only is the performant constructor faster, it is also more fit for purpose.&lt;/p&gt;
 &lt;h3 id="when-to-use-performant-constructors"&gt;When to use performant constructors&lt;/h3&gt;
 &lt;ol style="list-style-type: decimal"&gt;
-&lt;li&gt;&lt;strong&gt;Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.&lt;/strong&gt; For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor &lt;code&gt;ichimoku::xts_df()&lt;/code&gt; &lt;em&gt;is still almost 4x as fast&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.&lt;/strong&gt; For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor &lt;code&gt;ichimoku::xts_df()&lt;/code&gt; &lt;em&gt;is still almost 4x as fast&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 231.683 240.5755 260.94003 246.4725 253.3840
- ggplot2::fortify(cloud) 132.811 145.2860 170.82074 153.1985 162.7935
-           xts_df(cloud)  34.382  38.1695  41.71392  40.5490  42.7240
+                    expr     min      lq      mean   median      uq
+    as.data.frame(cloud) 243.422 259.951 277.34777 266.2015 273.182
+ ggplot2::fortify(cloud) 136.753 155.562 187.89671 163.7300 173.849
+           xts_df(cloud)  34.728  40.445  46.75457  42.9390  45.178
       max neval
- 5246.692  1000
- 4828.824  1000
-  381.869  1000&lt;/code&gt;&lt;/pre&gt;
+ 5938.654 10000
+ 5703.246 10000
+ 4978.883 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -185,9 +185,9 @@ structure(list(vec1, vec2, vec3),
 &lt;/ol&gt;
 &lt;p&gt;Note:&lt;/p&gt;
 &lt;ol style="list-style-type: decimal"&gt;
-&lt;li&gt;The vectors in the list (vec1, vec2, vec3, etc.) must be the same length, othwerwise a corrupt data.frame warning will be generated.&lt;/li&gt;
+&lt;li&gt;The vectors in the list (vec1, vec2, vec3, etc.) must be the same length, otherwise a corrupt data.frame warning will be generated.&lt;/li&gt;
 &lt;li&gt;If row names are missing then the data will still be present but dim() will show a 0-row dataframe and its print method will not work.&lt;/li&gt;
-&lt;li&gt;Row names are not limited to an integer sequence. They can be dates for example. However if dates are set as row names, they are first coerced to type ‘character’.&lt;/li&gt;
+&lt;li&gt;Row names are not limited to an integer sequence. They can be dates for example. However if not an integer vector, they are first coerced to type ‘character’.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;In conclusion, dataframes are not complicated structures but essentially lists with a couple of constraints. Indeed you can see that the underlying data type of a dataframe is just a list:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;class(df1)&lt;/code&gt;&lt;/pre&gt;
@@ -201,7 +201,13 @@ structure(list(vec1, vec2, vec3),
 &lt;h3 id="references"&gt;References&lt;/h3&gt;
 &lt;p&gt;ichimoku R package site: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;ichimoku CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Function documentation: &lt;a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
       <distill:md5 xmlns:distill="https://distill.pub/journal/">66104a4aab6f3bc9584bed85b41b1412</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/11-dataframes</guid>
@@ -322,17 +328,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min      lq     mean  median     uq     max neval
- fn_combn(1:16) 54.810 56.7125 59.82358 58.1330 60.531 114.806   100
-  fn_grid(1:16) 52.632 55.2260 59.27020 57.1955 59.446 174.222   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq     mean median     uq     max neval
+ fn_combn(1:16) 55.073 57.5045 62.34364 58.893 61.319 112.294   100
+  fn_grid(1:16) 52.878 55.0410 61.78466 57.425 60.209 173.072   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
-             expr       min        lq     mean    median        uq
- fn_combn(1:1000) 218.43646 281.64872 285.2724 284.55863 287.79945
-  fn_grid(1:1000)  27.80359  38.90674  50.0806  41.79677  45.14565
-      max neval
- 356.6259   100
- 123.9727   100&lt;/code&gt;&lt;/pre&gt;
+             expr       min        lq      mean    median        uq
+ fn_combn(1:1000) 221.33420 286.29868 286.91975 288.17146 289.93460
+  fn_grid(1:1000)  29.66096  38.99662  53.33105  41.07258  45.00639
+     max neval
+ 423.146   100
+ 118.181   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -513,7 +519,7 @@ TKR &amp;lt;- sample_ohlc_data
 cloud &amp;lt;- ichimoku(TKR)
 
 plot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/figure-html/plot-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-2.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;solarized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
