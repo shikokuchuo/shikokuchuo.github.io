@@ -20,7 +20,7 @@
       <description>
 
 
-&lt;p&gt;&lt;img src="file16996b6328e8_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file20086302d98_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 eb5d71529ab540bc4865c181a1129e03186e0959c76196a9fbc0c2a16c767856&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -44,28 +44,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;            a           b          c          d           e
-1  0.36310686  0.21151295  0.8327738 -0.3276526 -0.04178299
-2 -0.83452794  0.07306596  0.6517966  1.1562007 -0.06719324
-3  0.16546696 -0.87150665  0.1579023  0.5267888  0.32868265
-4 -0.65143501  2.38093776  0.7595070  0.1623656 -1.01923519
-5  0.08063949 -0.17996169  0.6671943 -0.9140628  1.06028027
-6 -0.72669673 -0.69621816 -0.1187113  1.1546280  0.30775429
-            f         g           h           i           j
-1 -0.01509238 -0.930636  0.03132834 -0.16987088 -0.48365643
-2 -1.11777008  2.087435  0.43467921  0.08355717 -1.33772820
-3  0.66926905  1.509495 -1.20310222  0.35233250 -0.48882471
-4  0.72237291 -2.734324 -0.36975688 -2.00425614 -1.67866807
-5 -0.62226841  1.147429 -0.61991330  0.37287544  1.03144022
-6 -0.80381381  2.055313  0.32677681  0.45173626  0.08691407&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;           a           b          c          d          e          f
+1 -0.4851670  1.22325807  0.8650149  0.4283005 -1.9213370  1.6479939
+2  0.4164081  0.15329935  2.1357782  0.3230137 -0.1839038  0.4682880
+3  0.6844768 -0.36376818 -2.2112506 -0.4458638 -0.9019554 -2.3306797
+4 -1.3260322 -0.31425654  0.0216403  0.1979194 -0.6406273  0.1936566
+5  0.2066833  0.80464419  1.3645134 -0.1300180  0.3537974  0.1791527
+6  2.0901016  0.05820255  0.7056611  0.6765257  0.2663512  1.0745090
+           g           h          i          j
+1 -1.0037854 -0.07419532 -1.3627779 -0.6229587
+2  0.6528035  0.37248637 -0.4633745 -0.5421355
+3  0.1927041  0.28958797  0.4842717 -0.6008121
+4  0.3871249 -2.72057431 -0.7982064  1.5569482
+5  1.4371636 -0.87613269  0.7338181  1.1328420
+6  0.4790292 -1.06101017  0.4187598 -0.8171122&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min      lq     mean median      uq
- as.data.frame(matrix) 30.907 32.7825 40.85807 33.600 35.1995
-     matrix_df(matrix) 14.482 15.8190 18.49031 16.426 17.5605
+                  expr    min     lq     mean  median      uq
+ as.data.frame(matrix) 30.826 32.908 39.86556 33.9325 35.7435
+     matrix_df(matrix) 14.572 15.856 19.73538 16.5125 17.6510
       max neval
- 7152.033 10000
- 7329.510 10000&lt;/code&gt;&lt;/pre&gt;
+ 7016.013 10000
+ 6357.555 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -101,12 +101,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.6       NA        NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min      lq      mean   median       uq
- as.data.frame(cloud) 230.524 249.011 282.92391 257.6495 270.2515
-        xts_df(cloud)  33.227  38.058  43.51284  39.9005  42.1105
-       max neval
- 75646.149 10000
-  6940.648 10000&lt;/code&gt;&lt;/pre&gt;
+                 expr     min       lq      mean  median       uq
+ as.data.frame(cloud) 229.685 242.5560 266.62690 248.253 259.2140
+        xts_df(cloud)  33.615  37.6785  47.69599  39.624  42.0835
+      max neval
+ 7586.046 10000
+ 7215.808 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -153,14 +153,14 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min      lq      mean   median      uq
-    as.data.frame(cloud) 243.422 259.951 277.34777 266.2015 273.182
- ggplot2::fortify(cloud) 136.753 155.562 187.89671 163.7300 173.849
-           xts_df(cloud)  34.728  40.445  46.75457  42.9390  45.178
-      max neval
- 5938.654 10000
- 5703.246 10000
- 4978.883 10000&lt;/code&gt;&lt;/pre&gt;
+                    expr     min      lq     mean  median       uq
+    as.data.frame(cloud) 231.224 254.453 280.2604 262.245 271.0230
+ ggplot2::fortify(cloud) 132.786 153.040 191.1054 161.771 173.1055
+           xts_df(cloud)  33.766  39.931  44.8498  42.470  44.9610
+       max neval
+  7057.898 10000
+ 74779.135 10000
+  5274.338 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -173,7 +173,7 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="what-is-a-performant-constructor"&gt;What is a performant constructor&lt;/h3&gt;
 &lt;p&gt;First of all, it is possible to directly use the functions matrix_df() and xts_df() which are exported from the ‘ichimoku’ package. Given the nature of the R ecosystem, this is indeed encouraged.&lt;/p&gt;
 &lt;p&gt;However, having seen the advantages of using a performant constructor above, we can now turn to the ‘what’ for the curious.&lt;/p&gt;
-&lt;p&gt;What lies behind those functions? Some variation of the below:&lt;/p&gt;
+&lt;p&gt;What lies behind those functions? Some variation on the below:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;# structure() is used to set the &amp;#39;class&amp;#39; and other attributes on an object
 structure(list(vec1, vec2, vec3),
           class = &amp;quot;data.frame&amp;quot;,
@@ -221,7 +221,7 @@ structure(list(vec1, vec2, vec3),
       <description>
 
 
-&lt;p&gt;&lt;img src="file16995e52d4b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file2008585e28af_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 96e41b3b0fa827b7c9c1f4a7765667064026f9448a78327415264112f7f54dbe&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -328,17 +328,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min      lq     mean median     uq     max neval
- fn_combn(1:16) 55.073 57.5045 62.34364 58.893 61.319 112.294   100
-  fn_grid(1:16) 52.878 55.0410 61.78466 57.425 60.209 173.072   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq     mean median      uq     max neval
+ fn_combn(1:16) 55.047 57.1650 59.76175 58.566 59.9100  97.031   100
+  fn_grid(1:16) 52.741 55.5635 60.38708 57.231 60.8085 203.505   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 221.33420 286.29868 286.91975 288.17146 289.93460
-  fn_grid(1:1000)  29.66096  38.99662  53.33105  41.07258  45.00639
-     max neval
- 423.146   100
- 118.181   100&lt;/code&gt;&lt;/pre&gt;
+ fn_combn(1:1000) 218.53799 284.88551 288.94944 289.53074 292.97898
+  fn_grid(1:1000)  28.08913  38.68141  48.94641  40.40836  42.25105
+      max neval
+ 361.2112   100
+ 115.6436   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -370,7 +370,7 @@ microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/p
       <description>
 
 
-&lt;p&gt;&lt;img src="file169967f2ae5e_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file2008676f1e9_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 2074954df14cc65b017b3e9d4b291353151672d450f2b623acc2a5d253767e42&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -503,7 +503,7 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
       <description>
 
 
-&lt;p&gt;&lt;img src="file16992d342042_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200861ee757_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 9b787ca60956d571ad9686d55815fcff38fce9d550ccb1310c0b9c11dfa8069e&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -519,13 +519,13 @@ TKR &amp;lt;- sample_ohlc_data
 cloud &amp;lt;- ichimoku(TKR)
 
 plot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file16992d342042_files/figure-html/plot-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200861ee757_files/figure-html/plot-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file16992d342042_files/figure-html/plot-2.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200861ee757_files/figure-html/plot-2.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;solarized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file16992d342042_files/figure-html/plot-3.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200861ee757_files/figure-html/plot-3.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;mono&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="file16992d342042_files/figure-html/plot-4.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200861ee757_files/figure-html/plot-4.png" width="672" /&gt;&lt;/p&gt;
 &lt;p&gt;For fully-interactive charts for analysis simply iplot():&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;iplot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="installation"&gt;Installation&lt;/h3&gt;
@@ -590,7 +590,7 @@ plot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
       <description>
 
 
-&lt;p&gt;&lt;img src="file16993ff4f41b_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200816b47337_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 db79682f8bee39d7ed9231200fd076ebed92a4471a9f3ce611d0a5a28bb984a3&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -655,7 +655,7 @@ Replace ‘username/nameofnew.git’ as appropriate.
       <description>
 
 
-&lt;p&gt;&lt;img src="file1699734b8fd9_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200836b97e81_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 6f5b37d9b73dcd70f3c8b68eabbe00c4a709f2a3e694d964121af145105f1655&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -718,7 +718,7 @@ jobs:
       <description>
 
 
-&lt;p&gt;&lt;img src="file16994810003e_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file200831bb4541_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;                                                            sha256
 1 809e2e2a3967742faea6f9e11e0a4c533511f9710ac41812dcbcae3c78913cac&lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
@@ -807,7 +807,70 @@ remDr$close()&lt;/code&gt;&lt;/pre&gt;
       <title>Resources for global sustainability</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/02-resources</link>
-      <description>A compendium</description>
+      <description>
+
+
+&lt;p&gt;&lt;img src="file20084bb4495a_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                                                            sha256
+1 3018cd1a5f671835e3116c2e2c6f937cf335b630cecc7de5d59b4059cff16999&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Dawn over Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="stockholm-resilience-center"&gt;Stockholm Resilience Center&lt;/h3&gt;
+&lt;p&gt;Sustainability science for biosphere stewardship, Stockholm University&lt;/p&gt;
+&lt;p&gt;Video: Our future in the Anthropocene biosphere&lt;/p&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5pAONwIKor8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;
+&lt;/iframe&gt;
+&lt;h3 id="svalbard-global-seed-vault"&gt;Svalbard Global Seed Vault&lt;/h3&gt;
+&lt;p&gt;Safeguarding Seeds for the Future&lt;/p&gt;
+&lt;p&gt;Established and funded by the Norwegian Ministry of Agriculture and Food.&lt;/p&gt;
+&lt;p&gt;Provides safe, free and long-term storage of seed duplicates from all genebanks and nations participating in the global community’s joint effort to ensure the world’s future food supply.&lt;/p&gt;
+&lt;p&gt;The facility serves a humanitarian purpose and is part of the international system for conserving plant genetic diversity guided by the UN organisation for Food and Agriculture (FAO).&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.seedvault.no/" class="uri"&gt;https://www.seedvault.no/&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="the-national-academies-of-sciences-engineering-and-medicine"&gt;The National Academies of Sciences, Engineering, and Medicine&lt;/h3&gt;
+&lt;p&gt;More than 100 leading scientists including many Nobel Prize winners issued a statement following two days of scientific deliberations at the first Nobel Prize Summit, 26-28 April 2021.&lt;/p&gt;
+&lt;p&gt;Excerpts from the statement:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;Global heating and habitat loss amount to nothing less than a vast and
+uncontrolled experiment on Earth’s life-support system.
+
+Time is running out to prevent irreversible changes.
+
+The remaining carbon budget for a 67% probability of not exceeding 1.5°C global
+warming will be exhausted before 2030. 
+
+Global sustainability offers the only viable path to human safety, equity,
+health, and progress.
+
+Humanity is waking up late to the challenges and opportunities of active
+planetary stewardship. But we *are* waking up.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Full text: &lt;br /&gt; &lt;a href="https://www.nationalacademies.org/news/2021/04/nobel-prize-laureates-and-other-experts-issue-urgent-call-for-action-after-our-planet-our-future-summit" class="uri"&gt;https://www.nationalacademies.org/news/2021/04/nobel-prize-laureates-and-other-experts-issue-urgent-call-for-action-after-our-planet-our-future-summit&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="openlearn-the-open-university"&gt;Openlearn, The Open University&lt;/h3&gt;
+&lt;p&gt;Greta Thunberg: A Year to change the World&lt;/p&gt;
+&lt;p&gt;Encounters with some of the world’s leading scientists and economists allow the series to examine what the latest science tells us about what can be done to avert the worst effects of climate change.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the-world" class="uri"&gt;https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the-world&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="ted"&gt;TED&lt;/h3&gt;
+&lt;h4 id="stephen-hawking"&gt;Stephen Hawking&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;Questioning the universe&lt;/em&gt; &lt;br /&gt; TED February 2008&lt;/p&gt;
+&lt;div style="max-width:854px"&gt;
+&lt;div style="position:relative;height:0;padding-bottom:56.25%"&gt;
+&lt;iframe src="https://embed.ted.com/talks/lang/en/stephen_hawking_questioning_the_universe" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;aside&gt;
+Transcript: 09:06 | Stephen Hawking: I think it quite likely that we are the only civilization within several hundred light years; otherwise we would have heard radio waves. &lt;strong&gt;The alternative is that civilizations don’t last very long, but destroy themselves&lt;/strong&gt;.
+&lt;/aside&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h4 id="katharine-hayhoe"&gt;Katharine Hayhoe&lt;/h4&gt;
+&lt;p&gt;&lt;em&gt;The most important thing you can do to fight climate change: talk about it&lt;/em&gt; &lt;br /&gt; TEDWomen November 2018&lt;/p&gt;
+&lt;div style="max-width:854px"&gt;
+&lt;div style="position:relative;height:0;padding-bottom:56.25%"&gt;
+&lt;iframe src="https://embed.ted.com/talks/lang/en/katharine_hayhoe_the_most_important_thing_you_can_do_to_fight_climate_change_talk_about_it" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>d22ac74580c07992da80f2bac0d6a5d8</distill:md5>
       <category>Resources</category>
       <category>Sustainability</category>
       <guid>https://shikokuchuo.net/posts/02-resources</guid>

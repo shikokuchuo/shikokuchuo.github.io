@@ -1636,23 +1636,20 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr    min      lq     mean  median      uq      max
- fn_combn(1:16) 55.496 57.4060 71.08251 59.0935 61.1550 1082.228
-  fn_grid(1:16) 51.966 55.6425 77.04816 57.1455 58.9625 1702.133
- neval
-   100
-   100</code></pre>
+           expr    min      lq     mean median     uq      max neval
+ fn_combn(1:16) 68.130 70.5120 89.52358 72.323 75.465 1192.835   100
+  fn_grid(1:16) 54.076 57.7195 79.48106 60.224 62.462 1686.100   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 212.75953 271.36077 275.02203 273.68879 275.89374
-  fn_grid(1:1000)  33.96233  37.80198  47.34321  39.52345  42.60958
+ fn_combn(1:1000) 219.71816 283.08555 287.70608 285.62389 289.23691
+  fn_grid(1:1000)  29.14039  38.82793  47.09653  40.73805  42.95337
       max neval
- 336.2719   100
- 103.9850   100</code></pre>
+ 343.8162   100
+ 106.1248   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>

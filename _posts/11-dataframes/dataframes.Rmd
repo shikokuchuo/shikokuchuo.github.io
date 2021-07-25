@@ -135,7 +135,7 @@ First of all, it is possible to directly use the functions matrix_df() and xts_d
 
 However, having seen the advantages of using a performant constructor above, we can now turn to the 'what' for the curious.
 
-What lies behind those functions? Some variation of the below:
+What lies behind those functions? Some variation on the below:
 
 ```{r notrun, eval=FALSE}
 

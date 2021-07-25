@@ -29,7 +29,7 @@ base_url: https://shikokuchuo.net/
 collections:
   posts:
     categories: true
-    share: [twitter, linkedin]
+    share: [twitter, linkedin, facebook, pinterest]
     custom: _custom.html
     feed_items_max: false
 rss:

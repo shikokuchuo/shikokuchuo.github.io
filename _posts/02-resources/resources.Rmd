@@ -83,7 +83,7 @@ https://www.open.edu/openlearn/tv-radio-events/tv/greta-thunberg-year-change-the
 
 ### TED
 
-Stephen Hawking <br />
+#### Stephen Hawking
 *Questioning the universe* <br />
 TED February 2008
 
@@ -93,11 +93,11 @@ TED February 2008
 Transcript: 09:06 | 
 Stephen Hawking: I think it quite likely that we are the only civilization within several hundred light years; otherwise we would have heard radio waves. **The alternative is that civilizations don't last very long, but destroy themselves**.
 </aside>
+<br />
 
-### UI design x data science x climate change
+#### Katharine Hayhoe
+*The most important thing you can do to fight climate change: talk about it* <br />
+TEDWomen November 2018
 
-What can a technologist do about climate change?
+<div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/lang/en/katharine_hayhoe_the_most_important_thing_you_can_do_to_fight_climate_change_talk_about_it" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div>
 
-Bret Victor: A personal view.
-
-http://worrydream.com/ClimateChange/
