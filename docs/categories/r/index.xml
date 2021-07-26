@@ -12,7 +12,57 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 22 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>R Shiny interface for the OANDA fxTrade API</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/12-oanda-studio</link>
+      <description>
+
+
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/oanda-studio_files/figure-html5/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                                                            sha256
+1 478ec2042047eb285ec4d30177a825af0f8b106a38ac1faeb863c6c1c9df407f&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="about-ichimoku"&gt;About ichimoku&lt;/h3&gt;
+&lt;p&gt;The ichimoku R package provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies. It features in the &lt;a href="https://cran.r-project.org/view=Finance"&gt;Empirical Finance CRAN Task View&lt;/a&gt;, and was selected as one of &lt;a href="https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/"&gt;RStudio’s Top 40 New CRAN Packages&lt;/a&gt; for May 2021. It provides in its latest version an interface to the OANDA fxTrade API.&lt;/p&gt;
+&lt;h3 id="about-the-oanda-fxtrade-api"&gt;About the OANDA fxTrade API&lt;/h3&gt;
+&lt;p&gt;OANDA is an authoritative source of foreign exchange data utilised by both governments and global corporations alike. OANDA offers a few APIs, including its rates for business, but the fxTrade API is perhaps the most comprehensive, built upon its retail and professional trading offering of the same name. Access to the fxTrade API is free but requires registration for a practice/demo account.&lt;/p&gt;
+&lt;p&gt;The API can be used for retrieving historical and live streaming price data for major currencies, metals, commodities, government bonds and stock indices. It is a rich source of financial data with excellent availability, for instance daily OHLC pricing data for major forex pairs from the start of 2005, and data granularity ranging from 5 seconds to monthly.&lt;/p&gt;
+&lt;p&gt;For the total list of over 120 covered instruments please see &lt;a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html#available-instruments"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id="screenshots"&gt;Screenshots&lt;/h3&gt;
+&lt;p&gt;Click on an image to view in full resolution.&lt;/p&gt;
+&lt;p&gt;Showcased here is the function &lt;code&gt;oanda_studio()&lt;/code&gt;, the implementation in R Shiny. As it is a Shiny app, the function may be called without any arguments; the full range of options can simply be selected interactively from within the web interface.&lt;/p&gt;
+&lt;p&gt;Data is live and updates at the specified refresh rate (default is every 5 secs).&lt;/p&gt;
+&lt;p&gt;The cursor infotip provides an innovative overview of the data directly from the chart (can be turned on or off as desired).&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+
+oanda_studio()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio1.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Of course arguments for customisation can be specified within the call to &lt;code&gt;oanda_studio()&lt;/code&gt; itself. Demonstrating some further options below with Soybean futures:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;oanda_studio(&amp;quot;SOYBN_USD&amp;quot;, granularity = &amp;quot;M5&amp;quot;, refresh = 10, price = &amp;quot;B&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio2.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio2.png" alt="oanda_studio in dark mode" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="other-functions"&gt;Other functions&lt;/h3&gt;
+&lt;p&gt;Other functions to access the OANDA fxTrade API are included in the ichimoku package. These are standard R functions for retrieving data in tabular form and charting (not reliant on Shiny), and include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://shikokuchuo.net/ichimoku/reference/oanda.html"&gt;&lt;code&gt;oanda()&lt;/code&gt;&lt;/a&gt; to retrieve historical price data&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://shikokuchuo.net/ichimoku/reference/oanda_stream.html"&gt;&lt;code&gt;oanda_stream()&lt;/code&gt;&lt;/a&gt; for a live streaming data feed&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://shikokuchuo.net/ichimoku/reference/oanda_chart.html"&gt;&lt;code&gt;oanda_chart()&lt;/code&gt;&lt;/a&gt; for live updating ichimoku cloud charts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="links-and-further-information"&gt;Links and further information&lt;/h3&gt;
+&lt;p&gt;ichimoku R package site: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ichimoku CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ichimoku OANDA fxTrade API vignette: &lt;a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/xoanda.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">5a8a94c4ffcf3662866bec316a92524c</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/12-oanda-studio</guid>
+      <pubDate>Mon, 26 Jul 2021 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/12-oanda-studio/oanda-studio_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Efficient R: Performant data.frame constructors</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -44,28 +94,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;           a           b          c          d          e          f
-1 -0.4851670  1.22325807  0.8650149  0.4283005 -1.9213370  1.6479939
-2  0.4164081  0.15329935  2.1357782  0.3230137 -0.1839038  0.4682880
-3  0.6844768 -0.36376818 -2.2112506 -0.4458638 -0.9019554 -2.3306797
-4 -1.3260322 -0.31425654  0.0216403  0.1979194 -0.6406273  0.1936566
-5  0.2066833  0.80464419  1.3645134 -0.1300180  0.3537974  0.1791527
-6  2.0901016  0.05820255  0.7056611  0.6765257  0.2663512  1.0745090
-           g           h          i          j
-1 -1.0037854 -0.07419532 -1.3627779 -0.6229587
-2  0.6528035  0.37248637 -0.4633745 -0.5421355
-3  0.1927041  0.28958797  0.4842717 -0.6008121
-4  0.3871249 -2.72057431 -0.7982064  1.5569482
-5  1.4371636 -0.87613269  0.7338181  1.1328420
-6  0.4790292 -1.06101017  0.4187598 -0.8171122&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;            a          b          c           d          e          f
+1  1.20710746  0.6920970 -0.9267101 -0.49274875  0.6787606  1.3854937
+2  0.05976948 -2.9481497  1.1107864  0.52258718 -1.2265033 -0.9401322
+3 -1.07509843 -0.3292413  1.3147081 -1.22161963 -0.3010368  0.1282379
+4 -0.49512620 -1.2861667  1.3917172  1.29521672 -0.1882087 -1.5389283
+5  0.18056202  1.0666879  0.5124308 -0.03067993 -0.2182377 -0.4191379
+6  0.81636163 -1.0618392 -0.6484362 -1.54853204  2.1065044 -1.8367450
+           g          h           i            j
+1 -0.6587154 -1.1346893 -1.39940164 -0.005191941
+2 -0.9798522 -0.5001031  0.08931921  1.179002074
+3  1.2265151  0.1749741 -0.27384146 -1.028631864
+4  1.4276645  0.4169408  0.03703763  0.118169757
+5  0.7349454 -0.1804129  0.90440182  1.293377757
+6 -0.4872523 -0.5082151  1.25274078 -0.378753427&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min     lq     mean  median      uq
- as.data.frame(matrix) 30.826 32.908 39.86556 33.9325 35.7435
-     matrix_df(matrix) 14.572 15.856 19.73538 16.5125 17.6510
+                  expr    min      lq     mean  median      uq
+ as.data.frame(matrix) 32.466 37.0925 46.56340 41.2415 43.0190
+     matrix_df(matrix) 15.111 16.7945 21.55924 18.2720 19.1455
       max neval
- 7016.013 10000
- 6357.555 10000&lt;/code&gt;&lt;/pre&gt;
+ 16046.35 10000
+  9215.39 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -101,12 +151,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.6       NA        NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min       lq      mean  median       uq
- as.data.frame(cloud) 229.685 242.5560 266.62690 248.253 259.2140
-        xts_df(cloud)  33.615  37.6785  47.69599  39.624  42.0835
-      max neval
- 7586.046 10000
- 7215.808 10000&lt;/code&gt;&lt;/pre&gt;
+                 expr     min       lq      mean   median       uq
+ as.data.frame(cloud) 239.107 274.4225 303.57489 283.4950 294.2185
+        xts_df(cloud)  34.611  41.1790  48.43793  43.8935  47.2310
+       max neval
+ 11108.332 10000
+  7993.974 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -153,14 +203,14 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min      lq     mean  median       uq
-    as.data.frame(cloud) 231.224 254.453 280.2604 262.245 271.0230
- ggplot2::fortify(cloud) 132.786 153.040 191.1054 161.771 173.1055
-           xts_df(cloud)  33.766  39.931  44.8498  42.470  44.9610
+                    expr     min       lq     mean   median       uq
+    as.data.frame(cloud) 241.625 261.9370 294.0157 272.2655 293.5245
+ ggplot2::fortify(cloud) 136.064 160.3895 198.3991 170.8170 185.6035
+           xts_df(cloud)  34.472  41.3745  50.9641  44.1040  47.6090
        max neval
-  7057.898 10000
- 74779.135 10000
-  5274.338 10000&lt;/code&gt;&lt;/pre&gt;
+  9031.265 10000
+ 77548.321 10000
+  6361.943 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -211,7 +261,7 @@ structure(list(vec1, vec2, vec3),
       <distill:md5 xmlns:distill="https://distill.pub/journal/">66104a4aab6f3bc9584bed85b41b1412</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/11-dataframes</guid>
-      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 23 Jul 2021 00:00:00 +0000</pubDate>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/11-dataframes/dataframes_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -329,16 +379,16 @@ fn_grid &amp;lt;- function(x) {
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
            expr    min      lq     mean median      uq     max neval
- fn_combn(1:16) 55.047 57.1650 59.76175 58.566 59.9100  97.031   100
-  fn_grid(1:16) 52.741 55.5635 60.38708 57.231 60.8085 203.505   100&lt;/code&gt;&lt;/pre&gt;
+ fn_combn(1:16) 56.234 64.0540 67.02536 66.052 67.7905 117.373   100
+  fn_grid(1:16) 53.105 61.8305 67.18297 64.555 66.8495 202.417   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 218.53799 284.88551 288.94944 289.53074 292.97898
-  fn_grid(1:1000)  28.08913  38.68141  48.94641  40.40836  42.25105
+ fn_combn(1:1000) 217.41732 285.37821 315.83123 309.84418 345.54758
+  fn_grid(1:1000)  29.84132  40.82756  51.74071  45.20295  52.41478
       max neval
- 361.2112   100
- 115.6436   100&lt;/code&gt;&lt;/pre&gt;
+ 479.4837   100
+ 143.1173   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
