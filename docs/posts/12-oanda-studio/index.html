@@ -134,7 +134,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["img/oastudio1.png","img/oastudio2.png","oanda-studio_files/figure-html5/index-1.png"]}
+  {"type":"character","attributes":{},"value":["img/oastudio1.png","img/oastudio2.png","oanda-studio_files/anchor-4.2.2/anchor.min.js","oanda-studio_files/bowser-1.9.3/bowser.min.js","oanda-studio_files/distill-2.2.21/template.v2.js","oanda-studio_files/figure-html5/index-1.png","oanda-studio_files/header-attrs-2.10/header-attrs.js","oanda-studio_files/header-attrs-2.9/header-attrs.js","oanda-studio_files/jquery-1.11.3/jquery.min.js","oanda-studio_files/popper-2.6.0/popper.min.js","oanda-studio_files/tippy-6.2.7/tippy-bundle.umd.min.js","oanda-studio_files/tippy-6.2.7/tippy-light-border.css","oanda-studio_files/tippy-6.2.7/tippy.css","oanda-studio_files/tippy-6.2.7/tippy.umd.min.js","oanda-studio_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2369,7 +2369,7 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2467,15 +2467,17 @@ d-appendix d-footnote-list a.footnote-backlink {
 Shikokuchuo
 </aside>
 <h3 id="about-ichimoku">About ichimoku</h3>
-<p>The ichimoku R package provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies. It features in the <a href="https://cran.r-project.org/view=Finance">Empirical Finance CRAN Task View</a>, and was selected as one of <a href="https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/">RStudio’s Top 40 New CRAN Packages</a> for May 2021. It provides in its latest version an interface to the OANDA fxTrade API.</p>
+<p>The ichimoku R package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies.</p>
+<p>It features in the <a href="https://cran.r-project.org/view=Finance">Empirical Finance CRAN Task View</a>, and was selected as one of <a href="https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/">RStudio’s Top 40 New CRAN Packages</a> for May 2021.</p>
+<p>The latest version incorporates an interface to the OANDA fxTrade API<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <h3 id="about-the-oanda-fxtrade-api">About the OANDA fxTrade API</h3>
 <p>OANDA is an authoritative source of foreign exchange data utilised by both governments and global corporations alike. OANDA offers a few APIs, including its rates for business, but the fxTrade API is perhaps the most comprehensive, built upon its retail and professional trading offering of the same name. Access to the fxTrade API is free but requires registration for a practice/demo account.</p>
 <p>The API can be used for retrieving historical and live streaming price data for major currencies, metals, commodities, government bonds and stock indices. It is a rich source of financial data with excellent availability, for instance daily OHLC pricing data for major forex pairs from the start of 2005, and data granularity ranging from 5 seconds to monthly.</p>
 <p>For the total list of over 120 covered instruments please see <a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html#available-instruments">here</a>.</p>
 <h3 id="screenshots">Screenshots</h3>
-<p>Click on an image to view in full resolution.</p>
-<p>Showcased here is the function <code>oanda_studio()</code>, the implementation in R Shiny. As it is a Shiny app, the function may be called without any arguments; the full range of options can simply be selected interactively from within the web interface.</p>
-<p>Data is live and updates at the specified refresh rate (default is every 5 secs).</p>
+<p><em>Click on an image to view in full resolution.</em></p>
+<p>Showcased here is the function <code>oanda_studio()</code>, the implementation in R Shiny. As a Shiny app, the function may be called without specifying any parameters; the full range of options can be selected interactively from within the web interface.</p>
+<p>Data is live and updates at the specified refresh rate (default of every 5 secs).</p>
 <p>The cursor infotip provides an innovative overview of the data directly from the chart (can be turned on or off as desired).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2486,7 +2488,7 @@ Shikokuchuo
 </div>
 </div>
 <p><a href="img/oastudio1.png" target="_blank"><img src="img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"></a></p>
-<p>Of course arguments for customisation can be specified within the call to <code>oanda_studio()</code> itself. Demonstrating some further options below with Soybean futures:</p>
+<p>Of course arguments for customisation can also be specified within the call to <code>oanda_studio()</code> itself. Demonstrating some further options below with Soybean futures:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/oanda_studio.html'>oanda_studio</a></span><span class='op'>(</span><span class='st'>"SOYBN_USD"</span>, granularity <span class='op'>=</span> <span class='st'>"M5"</span>, refresh <span class='op'>=</span> <span class='fl'>10</span>, price <span class='op'>=</span> <span class='st'>"B"</span>, theme <span class='op'>=</span> <span class='st'>"dark"</span><span class='op'>)</span>
@@ -2503,10 +2505,16 @@ Shikokuchuo
 </ul>
 <h3 id="links-and-further-information">Links and further information</h3>
 <p>ichimoku R package site: <a href="https://shikokuchuo.net/ichimoku/" class="uri">https://shikokuchuo.net/ichimoku/</a></p>
-<p>ichimoku CRAN page: <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a></p>
 <p>ichimoku OANDA fxTrade API vignette: <a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html" class="uri">https://shikokuchuo.net/ichimoku/articles/xoanda.html</a></p>
-<p>‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.</p>
+<p>OANDA fxTrade API developer website: <a href="https://developer.oanda.com/" class="uri">https://developer.oanda.com/</a></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 0.3.51. <a href="https://shikokuchuo.net/ichimoku/" class="uri">https://shikokuchuo.net/ichimoku/</a> CRAN page: <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p class="social_footer">
@@ -2553,7 +2561,7 @@ Shikokuchuo
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 shikokuchuo.net<br>注意：このサイトは四国中央市役所と関係がありません。</p>
+<p>© Copyright 2021 shikokuchuo.net<br> 注意：このサイトは四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>

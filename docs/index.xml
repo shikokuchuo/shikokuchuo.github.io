@@ -27,23 +27,25 @@
 Shikokuchuo
 &lt;/aside&gt;
 &lt;h3 id="about-ichimoku"&gt;About ichimoku&lt;/h3&gt;
-&lt;p&gt;The ichimoku R package provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies. It features in the &lt;a href="https://cran.r-project.org/view=Finance"&gt;Empirical Finance CRAN Task View&lt;/a&gt;, and was selected as one of &lt;a href="https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/"&gt;RStudio’s Top 40 New CRAN Packages&lt;/a&gt; for May 2021. It provides in its latest version an interface to the OANDA fxTrade API.&lt;/p&gt;
+&lt;p&gt;The ichimoku R package&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies.&lt;/p&gt;
+&lt;p&gt;It features in the &lt;a href="https://cran.r-project.org/view=Finance"&gt;Empirical Finance CRAN Task View&lt;/a&gt;, and was selected as one of &lt;a href="https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/"&gt;RStudio’s Top 40 New CRAN Packages&lt;/a&gt; for May 2021.&lt;/p&gt;
+&lt;p&gt;The latest version incorporates an interface to the OANDA fxTrade API&lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id="about-the-oanda-fxtrade-api"&gt;About the OANDA fxTrade API&lt;/h3&gt;
 &lt;p&gt;OANDA is an authoritative source of foreign exchange data utilised by both governments and global corporations alike. OANDA offers a few APIs, including its rates for business, but the fxTrade API is perhaps the most comprehensive, built upon its retail and professional trading offering of the same name. Access to the fxTrade API is free but requires registration for a practice/demo account.&lt;/p&gt;
 &lt;p&gt;The API can be used for retrieving historical and live streaming price data for major currencies, metals, commodities, government bonds and stock indices. It is a rich source of financial data with excellent availability, for instance daily OHLC pricing data for major forex pairs from the start of 2005, and data granularity ranging from 5 seconds to monthly.&lt;/p&gt;
 &lt;p&gt;For the total list of over 120 covered instruments please see &lt;a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html#available-instruments"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id="screenshots"&gt;Screenshots&lt;/h3&gt;
-&lt;p&gt;Click on an image to view in full resolution.&lt;/p&gt;
-&lt;p&gt;Showcased here is the function &lt;code&gt;oanda_studio()&lt;/code&gt;, the implementation in R Shiny. As it is a Shiny app, the function may be called without any arguments; the full range of options can simply be selected interactively from within the web interface.&lt;/p&gt;
-&lt;p&gt;Data is live and updates at the specified refresh rate (default is every 5 secs).&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Click on an image to view in full resolution.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Showcased here is the function &lt;code&gt;oanda_studio()&lt;/code&gt;, the implementation in R Shiny. As a Shiny app, the function may be called without specifying any parameters; the full range of options can be selected interactively from within the web interface.&lt;/p&gt;
+&lt;p&gt;Data is live and updates at the specified refresh rate (default of every 5 secs).&lt;/p&gt;
 &lt;p&gt;The cursor infotip provides an innovative overview of the data directly from the chart (can be turned on or off as desired).&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
 
 oanda_studio()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio1.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Of course arguments for customisation can be specified within the call to &lt;code&gt;oanda_studio()&lt;/code&gt; itself. Demonstrating some further options below with Soybean futures:&lt;/p&gt;
+&lt;p&gt;&lt;a href="img/oastudio1.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Of course arguments for customisation can also be specified within the call to &lt;code&gt;oanda_studio()&lt;/code&gt; itself. Demonstrating some further options below with Soybean futures:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;oanda_studio(&amp;quot;SOYBN_USD&amp;quot;, granularity = &amp;quot;M5&amp;quot;, refresh = 10, price = &amp;quot;B&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio2.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio2.png" alt="oanda_studio in dark mode" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="img/oastudio2.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio2.png" alt="oanda_studio in dark mode" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id="other-functions"&gt;Other functions&lt;/h3&gt;
 &lt;p&gt;Other functions to access the OANDA fxTrade API are included in the ichimoku package. These are standard R functions for retrieving data in tabular form and charting (not reliant on Shiny), and include:&lt;/p&gt;
 &lt;ul&gt;
@@ -53,10 +55,16 @@ oanda_studio()&lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;h3 id="links-and-further-information"&gt;Links and further information&lt;/h3&gt;
 &lt;p&gt;ichimoku R package site: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;ichimoku CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;ichimoku OANDA fxTrade API vignette: &lt;a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/xoanda.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;p&gt;OANDA fxTrade API developer website: &lt;a href="https://developer.oanda.com/" class="uri"&gt;https://developer.oanda.com/&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
       <distill:md5>5a8a94c4ffcf3662866bec316a92524c</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/12-oanda-studio</guid>
@@ -81,7 +89,7 @@ Shikokuchuo
 &lt;p&gt;However, they are slow. Extremely slow.&lt;/p&gt;
 &lt;p&gt;This is somewhat surprising considering how much they are used, and given that the ‘data.frame’ object is the &lt;em&gt;de facto&lt;/em&gt; standard for tabular data in R, for their constructors to be so inefficient.&lt;/p&gt;
 &lt;p&gt;However this is the direct result of the presence of a lot of error checking and validation code, which is perhaps understandable for something as widely used. You simply don’t know what is going to be thrown at the function and so it needs to try to do its best or fail gracefully.&lt;/p&gt;
-&lt;p&gt;Below, we demonstrate the inefficiencies of as.data.frame() versus efficient ‘data.frame’ constructors from the ‘ichimoku’ package coded for performance. &lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Below, we demonstrate the inefficiencies of as.data.frame() versus efficient ‘data.frame’ constructors from the ‘ichimoku’ package&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; coded for performance.&lt;/p&gt;
 &lt;p&gt;For benchmarking, the ‘microbenchmark’ package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 10,000 in the cases below.&lt;/p&gt;
 &lt;h3 id="matrix-conversion-benchmarking"&gt;Matrix conversion benchmarking&lt;/h3&gt;
 &lt;p&gt;A 100x10 matrix of random data drawn from the normal distribution is created as the object ‘matrix’.&lt;/p&gt;
@@ -94,28 +102,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;            a          b          c           d          e          f
-1  1.20710746  0.6920970 -0.9267101 -0.49274875  0.6787606  1.3854937
-2  0.05976948 -2.9481497  1.1107864  0.52258718 -1.2265033 -0.9401322
-3 -1.07509843 -0.3292413  1.3147081 -1.22161963 -0.3010368  0.1282379
-4 -0.49512620 -1.2861667  1.3917172  1.29521672 -0.1882087 -1.5389283
-5  0.18056202  1.0666879  0.5124308 -0.03067993 -0.2182377 -0.4191379
-6  0.81636163 -1.0618392 -0.6484362 -1.54853204  2.1065044 -1.8367450
-           g          h           i            j
-1 -0.6587154 -1.1346893 -1.39940164 -0.005191941
-2 -0.9798522 -0.5001031  0.08931921  1.179002074
-3  1.2265151  0.1749741 -0.27384146 -1.028631864
-4  1.4276645  0.4169408  0.03703763  0.118169757
-5  0.7349454 -0.1804129  0.90440182  1.293377757
-6 -0.4872523 -0.5082151  1.25274078 -0.378753427&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;           a          b            c           d          e
+1  0.6583553 -0.8347965 -0.292665126 -0.61695575 -0.2255845
+2 -0.4250443  0.4680651 -0.232693534 -0.55905746  0.6501461
+3 -0.6098673  1.9035151 -0.669273613  0.05187539  0.7031157
+4 -2.0615001 -0.2867262 -0.001828371 -0.23493203 -0.1930584
+5 -0.2423553  0.1804616  0.580800752  0.97072875  1.3301844
+6 -0.1611916 -0.7183519  0.107623468  1.98183846  0.3477981
+           f          g          h          i          j
+1  0.5694139  0.3838167 -0.8823554 -1.4028810 -0.2609975
+2  0.2499555  0.3254854  0.1070975  0.8281168  0.1117356
+3 -1.3367405 -0.4292335 -0.9121821 -0.3946327  0.4693420
+4 -0.2364111  0.5301194 -0.2828744  0.6988922  1.3072495
+5  0.3651331  2.1607141  0.6593260  0.1355788  0.1939792
+6  0.2483718  2.3771984 -0.3818785 -0.2769150 -0.4794782&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min      lq     mean  median      uq
- as.data.frame(matrix) 32.466 37.0925 46.56340 41.2415 43.0190
-     matrix_df(matrix) 15.111 16.7945 21.55924 18.2720 19.1455
-      max neval
- 16046.35 10000
-  9215.39 10000&lt;/code&gt;&lt;/pre&gt;
+                  expr    min     lq     mean  median     uq      max
+ as.data.frame(matrix) 30.808 32.618 36.90825 33.6425 35.938 8988.028
+     matrix_df(matrix) 13.467 14.603 20.44198 15.2565 16.567 9063.315
+ neval
+ 10000
+ 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -133,7 +141,7 @@ cloud &amp;lt;- ichimoku(sample_ohlc_data)
 xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;dim(cloud)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] 260  12&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 281  12&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;print(cloud[1:6], plot = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;            open  high   low close cd tenkan kijun senkouA senkouB
 2020-01-02 123.0 123.1 122.5 122.7 -1     NA    NA      NA      NA
@@ -142,75 +150,75 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-06 123.3 124.3 123.3 124.1  1     NA    NA      NA      NA
 2020-01-07 124.1 124.8 124.0 124.8  1     NA    NA      NA      NA
 2020-01-08 124.8 125.4 124.5 125.3  1     NA    NA      NA      NA
-           chikou cloudTop cloudBase
-2020-01-02  122.9       NA        NA
-2020-01-03  123.0       NA        NA
-2020-01-05  123.9       NA        NA
-2020-01-06  123.6       NA        NA
-2020-01-07  122.5       NA        NA
-2020-01-08  122.6       NA        NA&lt;/code&gt;&lt;/pre&gt;
+           chikou cloudT cloudB
+2020-01-02  122.8     NA     NA
+2020-01-03  122.9     NA     NA
+2020-01-05  123.0     NA     NA
+2020-01-06  123.9     NA     NA
+2020-01-07  123.6     NA     NA
+2020-01-08  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
                  expr     min       lq      mean   median       uq
- as.data.frame(cloud) 239.107 274.4225 303.57489 283.4950 294.2185
-        xts_df(cloud)  34.611  41.1790  48.43793  43.8935  47.2310
-       max neval
- 11108.332 10000
-  7993.974 10000&lt;/code&gt;&lt;/pre&gt;
+ as.data.frame(cloud) 233.009 253.0800 304.63612 273.3965 294.5120
+        xts_df(cloud)  32.194  36.8525  57.19348  39.5165  43.7545
+      max neval
+ 11086.57 10000
+ 92841.78 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
 is.data.frame(df1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;str(df1)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;&amp;#39;data.frame&amp;#39;:   260 obs. of  12 variables:
- $ open     : num  123 123 123 123 124 ...
- $ high     : num  123 123 123 124 125 ...
- $ low      : num  122 123 122 123 124 ...
- $ close    : num  123 123 123 124 125 ...
- $ cd       : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
- $ tenkan   : num  NA NA NA NA NA ...
- $ kijun    : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouA  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouB  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ chikou   : num  123 123 124 124 122 ...
- $ cloudTop : num  NA NA NA NA NA NA NA NA NA NA ...
- $ cloudBase: num  NA NA NA NA NA NA NA NA NA NA ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;data.frame&amp;#39;:   281 obs. of  12 variables:
+ $ open   : num  123 123 123 123 124 ...
+ $ high   : num  123 123 123 124 125 ...
+ $ low    : num  122 123 122 123 124 ...
+ $ close  : num  123 123 123 124 125 ...
+ $ cd     : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
+ $ tenkan : num  NA NA NA NA NA ...
+ $ kijun  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouA: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouB: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ chikou : num  123 123 123 124 124 ...
+ $ cloudT : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cloudB : num  NA NA NA NA NA NA NA NA NA NA ...&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df2 &amp;lt;- xts_df(cloud)
 
 is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;str(df2)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;&amp;#39;data.frame&amp;#39;:   260 obs. of  13 variables:
- $ index    : POSIXct, format: &amp;quot;2020-01-02 00:00:00&amp;quot; ...
- $ open     : num  123 123 123 123 124 ...
- $ high     : num  123 123 123 124 125 ...
- $ low      : num  122 123 122 123 124 ...
- $ close    : num  123 123 123 124 125 ...
- $ cd       : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
- $ tenkan   : num  NA NA NA NA NA ...
- $ kijun    : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouA  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouB  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ chikou   : num  123 123 124 124 122 ...
- $ cloudTop : num  NA NA NA NA NA NA NA NA NA NA ...
- $ cloudBase: num  NA NA NA NA NA NA NA NA NA NA ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;data.frame&amp;#39;:   281 obs. of  13 variables:
+ $ index  : POSIXct, format: &amp;quot;2020-01-02&amp;quot; ...
+ $ open   : num  123 123 123 123 124 ...
+ $ high   : num  123 123 123 124 125 ...
+ $ low    : num  122 123 122 123 124 ...
+ $ close  : num  123 123 123 124 125 ...
+ $ cd     : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
+ $ tenkan : num  NA NA NA NA NA ...
+ $ kijun  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouA: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouB: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ chikou : num  123 123 123 124 124 ...
+ $ cloudT : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cloudB : num  NA NA NA NA NA NA NA NA NA NA ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The outputs are slightly different as xts_df() preserves the date-time index of ‘xts’ objects as a new first column ‘index’ which is POSIXct in format. The default as.data.frame() constructor converts the index into the row names, which is not desirable as the dates are coerced to type ‘character’.&lt;/p&gt;
 &lt;p&gt;So it can be seen that in this case, not only is the performant constructor faster, it is also more fit for purpose.&lt;/p&gt;
 &lt;h3 id="when-to-use-performant-constructors"&gt;When to use performant constructors&lt;/h3&gt;
 &lt;ol style="list-style-type: decimal"&gt;
-&lt;li&gt;&lt;strong&gt;Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.&lt;/strong&gt; For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor &lt;code&gt;ichimoku::xts_df()&lt;/code&gt; &lt;em&gt;is still almost 4x as fast&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.&lt;/strong&gt; For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor &lt;code&gt;ichimoku::xts_df()&lt;/code&gt; &lt;em&gt;is still around 4x as fast&lt;/em&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min       lq     mean   median       uq
-    as.data.frame(cloud) 241.625 261.9370 294.0157 272.2655 293.5245
- ggplot2::fortify(cloud) 136.064 160.3895 198.3991 170.8170 185.6035
-           xts_df(cloud)  34.472  41.3745  50.9641  44.1040  47.6090
-       max neval
-  9031.265 10000
- 77548.321 10000
-  6361.943 10000&lt;/code&gt;&lt;/pre&gt;
+                    expr     min      lq      mean   median       uq
+    as.data.frame(cloud) 244.900 258.626 286.91369 266.3115 289.3145
+ ggplot2::fortify(cloud) 137.614 156.910 189.47402 167.0425 182.6055
+           xts_df(cloud)  33.407  38.896  47.34502  41.3260  44.4300
+      max neval
+ 6590.157 10000
+ 8310.725 10000
+ 6383.405 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -248,14 +256,13 @@ structure(list(vec1, vec2, vec3),
 &lt;pre&gt;&lt;code&gt;[1] &amp;quot;data.frame&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;typeof(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] &amp;quot;list&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id="references"&gt;References&lt;/h3&gt;
-&lt;p&gt;ichimoku R package site: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;ichimoku CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="further-information"&gt;Further information&lt;/h3&gt;
+&lt;p&gt;Documentation for the performant constructors discussed: &lt;a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors&lt;/a&gt;&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Function documentation: &lt;a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
       <distill:md5>66104a4aab6f3bc9584bed85b41b1412</distill:md5>
@@ -325,7 +332,7 @@ grid&lt;/code&gt;&lt;/pre&gt;
 [2,] &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.&lt;/p&gt;
 &lt;h3 id="ichimokugrid_dup"&gt;ichimoku::grid_dup&lt;/h3&gt;
-&lt;p&gt;So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package, expressly for this purpose.&lt;/p&gt;
+&lt;p&gt;So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, expressly for this purpose.&lt;/p&gt;
 &lt;p&gt;From the function documentation: ‘create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors’.&lt;/p&gt;
 &lt;p&gt;Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order of appearance does not matter.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
@@ -378,17 +385,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min      lq     mean median      uq     max neval
- fn_combn(1:16) 56.234 64.0540 67.02536 66.052 67.7905 117.373   100
-  fn_grid(1:16) 53.105 61.8305 67.18297 64.555 66.8495 202.417   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq     mean median     uq     max neval
+ fn_combn(1:16) 55.847 59.1245 68.02074 62.010 66.817 122.039   100
+  fn_grid(1:16) 52.712 55.3835 64.94352 57.557 63.585 192.008   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 217.41732 285.37821 315.83123 309.84418 345.54758
-  fn_grid(1:1000)  29.84132  40.82756  51.74071  45.20295  52.41478
+ fn_combn(1:1000) 222.46561 312.20985 306.66535 316.53834 320.20750
+  fn_grid(1:1000)  28.13129  38.36918  47.14048  39.96699  43.53558
       max neval
- 479.4837   100
- 143.1173   100&lt;/code&gt;&lt;/pre&gt;
+ 412.9876   100
+ 126.6290   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -406,7 +413,13 @@ microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/p
 [12] &amp;quot;b&amp;amp;g&amp;quot; &amp;quot;b&amp;amp;h&amp;quot; &amp;quot;c&amp;amp;d&amp;quot; &amp;quot;c&amp;amp;e&amp;quot; &amp;quot;c&amp;amp;f&amp;quot; &amp;quot;c&amp;amp;g&amp;quot; &amp;quot;c&amp;amp;h&amp;quot; &amp;quot;d&amp;amp;e&amp;quot; &amp;quot;d&amp;amp;f&amp;quot; &amp;quot;d&amp;amp;g&amp;quot; &amp;quot;d&amp;amp;h&amp;quot;
 [23] &amp;quot;e&amp;amp;f&amp;quot; &amp;quot;e&amp;amp;g&amp;quot; &amp;quot;e&amp;amp;h&amp;quot; &amp;quot;f&amp;amp;g&amp;quot; &amp;quot;f&amp;amp;h&amp;quot; &amp;quot;g&amp;amp;h&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Of the two however, mapply() is marginally faster and should normally be used when iteration is required over multiple arguments.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
       <distill:md5>3482590168b4ecbec0d448d8534dcd47</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/10-combinations</guid>
@@ -429,7 +442,7 @@ Shikokuchuo
 &lt;h3 id="use-case"&gt;Use case&lt;/h3&gt;
 &lt;p&gt;The use of the do.call / lapply() combination is a powerful way to leverage functional programming in R. In short, you write a function that performs some actions and apply it to a list of inputs, which can then be fed into a function that combines everything into a single object.&lt;/p&gt;
 &lt;p&gt;Let us take an example, where we would like to calculate the ichimoku clouds for a selection of the major world stock indices, but also preserve the volume data, all in one tidy object.&lt;/p&gt;
-&lt;p&gt;We use the ‘ichimoku’ package which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).&lt;/p&gt;
+&lt;p&gt;We use the ‘ichimoku’ package&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).&lt;/p&gt;
 &lt;h3 id="setup"&gt;Setup&lt;/h3&gt;
 &lt;p&gt;We could set it up as per the below:&lt;/p&gt;
 &lt;ul&gt;
@@ -469,10 +482,10 @@ portfolio &amp;lt;- do.call(rbind, portfolio)
 
 portfolio&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;     [,1]         [,2]          [,3]       
-[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2820 integer,209
-[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2868 integer,213
-[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2868 integer,213
-[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2820 integer,209&lt;/code&gt;&lt;/pre&gt;
+[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2808 integer,209
+[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2856 integer,213
+[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2856 integer,213
+[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2808 integer,209&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This approach takes 3-4 lines of code.&lt;/p&gt;
 &lt;p&gt;Furthermore, ‘i’ remains as a leftover object in the global environment.&lt;/p&gt;
 &lt;p&gt;Somewhat messy.&lt;/p&gt;
@@ -482,10 +495,10 @@ portfolio&lt;/code&gt;&lt;/pre&gt;
 
 portfolio&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;     [,1]         [,2]          [,3]       
-[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2820 integer,209
-[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2868 integer,213
-[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2868 integer,213
-[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2820 integer,209&lt;/code&gt;&lt;/pre&gt;
+[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2808 integer,209
+[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2856 integer,213
+[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2856 integer,213
+[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2808 integer,209&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;There are also no intermediate objects generated that clutter the global environment.&lt;/p&gt;
 &lt;p&gt;To explain:&lt;/p&gt;
 &lt;ul&gt;
@@ -503,41 +516,42 @@ portfolio&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="tidy-data-output"&gt;Tidy data output&lt;/h3&gt;
 &lt;pre class="r"&gt;&lt;code&gt;portfolio&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;     [,1]         [,2]          [,3]       
-[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2820 integer,209
-[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2868 integer,213
-[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2868 integer,213
-[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2820 integer,209&lt;/code&gt;&lt;/pre&gt;
+[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2808 integer,209
+[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2856 integer,213
+[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2856 integer,213
+[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2808 integer,209&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;‘portfolio’ is a tidy matrix with a row for each ticker, and a column for each data type.&lt;/p&gt;
 &lt;p&gt;We can easily access any element of the matrix by specifying its index value, for example the ichimoku object for the S&amp;amp;P 500 Index by [3,2]. In the example below we run autostrat() on this object:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;autostrat(portfolio[3, 2][[1]], n = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;                       [,1]               
-Strategy               &amp;quot;cloudTop &amp;gt; kijun&amp;quot; 
+Strategy               &amp;quot;cloudT &amp;gt; kijun&amp;quot;   
 ---------------------  &amp;quot;----------&amp;quot;       
-Strategy cuml return % 6.48               
-Per period mean ret %  0.0468             
+Strategy cuml return % 7.76               
+Per period mean ret %  0.0554             
 Periods in market      74                 
 Total trades           3                  
 Average trade length   24.67              
 Trade success %        100                
-Worst trade ret %      0.61               
+Worst trade ret %      0.81               
 ---------------------  &amp;quot;----------&amp;quot;       
-Benchmark cuml ret %   2.67               
-Per period mean ret %  0.0196             
-Periods in market      134                
+Benchmark cuml ret %   3.7                
+Per period mean ret %  0.0269             
+Periods in market      135                
 ---------------------  &amp;quot;----------&amp;quot;       
 Direction              &amp;quot;long&amp;quot;             
-Start                  2015-12-22 22:00:00
+Start                  2015-12-21 22:00:00
 End                    2016-06-29 21:00:00
 Ticker                 &amp;quot;SPX500_USD&amp;quot;       &lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
 Note: Each element of the matrix is wrapped as a list so that they are of equal length. To access the underlying object, the ichimoku object in this case, we simply extract it using [[1]].
 &lt;/aside&gt;
-&lt;p&gt;&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course &lt;a href="https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/" class="uri"&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course &lt;a href="https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/" class="uri"&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
       <distill:md5>5a539cf9f73b4d355bbed7a9fb4878d1</distill:md5>
@@ -562,37 +576,40 @@ Shikokuchuo
 &lt;p&gt;An implementation in R of the Ichimoku Kinkō Hyō (一目均衡表) charting system, also commonly known as ‘cloud charts’.&lt;/p&gt;
 &lt;p&gt;The technique is a refinement on candlestick charting originating from Japan, now in widespread use in technical analysis worldwide. Translating to ‘one-glance equilibrium chart’, it allows the price action and market structure of financial securities to be determined ‘at-a-glance’.&lt;/p&gt;
 &lt;h3 id="example"&gt;Example&lt;/h3&gt;
-&lt;p&gt;For publication-ready charts simply ichimoku() and plot():&lt;/p&gt;
+&lt;p&gt;Load package and sample data:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
-TKR &amp;lt;- sample_ohlc_data
-
-cloud &amp;lt;- ichimoku(TKR)
-
-plot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+TKR &amp;lt;- sample_ohlc_data&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;ichimoku()&lt;/code&gt; to generate the ichimoku object:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;cloud &amp;lt;- ichimoku(TKR)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;iplot()&lt;/code&gt; for fully-interactive cloud charts:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;iplot(cloud)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img alt = "ichimoku iplot" src="https://shikokuchuo.net/posts/08-ichimoku/img/iplot.png" width="700" height="600" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;plot()&lt;/code&gt; for production-quality static cloud charts:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;solarized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-2.png" width="672" /&gt;&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;solarized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-3.png" width="672" /&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-04/&amp;quot;, theme = &amp;quot;mono&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-4.png" width="672" /&gt;&lt;/p&gt;
-&lt;p&gt;For fully-interactive charts for analysis simply iplot():&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;iplot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-3.png" width="672" /&gt;&lt;/p&gt;
 &lt;h3 id="installation"&gt;Installation&lt;/h3&gt;
 &lt;p&gt;Install the released version of ichimoku from CRAN:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;ichimoku&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Or install the development version of ichimoku from GitHub with:&lt;/p&gt;
+&lt;p&gt;Or the latest development version from rOpenSci R-universe binaries:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;ichimoku&amp;quot;, repos = &amp;quot;https://shikokuchuo.r-universe.dev&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or the latest development version from the Github source:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;devtools::install_github(&amp;quot;shikokuchuo/ichimoku&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="package-site"&gt;Package site&lt;/h3&gt;
-&lt;p&gt;Hosted ourselves at: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="ichimoku-kinko-hyo"&gt;Ichimoku Kinko Hyo&lt;/h3&gt;
+&lt;p&gt;Hosted ourselves at: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; &lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="ichimoku-kinko-hyo"&gt;Ichimoku Kinko Hyo &lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The system consists of the following chart lines added to a candlestick chart:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Tenkan-sen&lt;/strong&gt; (転換線): [conversion line] the mid-point of the highest high and lowest low for the past 9 periods.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Kijun-sen&lt;/strong&gt; (基準線): [base line] the mid-point of the highest high and lowest low for the past 26 periods.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Senkou span A&lt;/strong&gt; (先行帶A): [leading span A] the mid-point of Tenkan-sen and Kijun-sen plotted ahead 26 periods.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Senkou span B&lt;/strong&gt; (先行帶B): [leading span B] the mid-point of the highest high and lowest low for the past 52 periods, plotted ahead 26 periods.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Chikou span&lt;/strong&gt; (遲行帶): [lagging span] the current closing price plotted 26 periods behind.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;kumo&lt;/strong&gt; (雲) [cloud] is the area between Senkou span A and Senkou span B (usually shaded on a chart).&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;転換線 &lt;strong&gt;Tenkan-sen&lt;/strong&gt; [conversion line]: the mid-point of the highest high and lowest low for the past 9 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;基準線 &lt;strong&gt;Kijun-sen&lt;/strong&gt; [base line]: the mid-point of the highest high and lowest low for the past 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;先行スパン1 &lt;strong&gt;Senkou span A&lt;/strong&gt; [leading span A]: the mid-point of Tenkan-sen and Kijun-sen plotted ahead 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;先行スパン2 &lt;strong&gt;Senkou span B&lt;/strong&gt; [leading span B]: the mid-point of the highest high and lowest low for the past 52 periods &lt;em&gt;(including the current period)&lt;/em&gt;, plotted ahead 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;遅行スパン &lt;strong&gt;Chikou span&lt;/strong&gt; [lagging span]: the current period closing price plotted behind 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The 雲 &lt;strong&gt;kumo&lt;/strong&gt; [cloud] is the area bounded by Senkou span A and Senkou span B (usually shaded on a chart).&lt;/p&gt;
 &lt;h3 id="interpretation"&gt;Interpretation&lt;/h3&gt;
 &lt;p&gt;Ichimoku Kinkō Hyō can be translated as ‘one-glance equilibrium chart’. It is designed to allow the price action and market structure of financial securities to be determined ‘at-a-glance’ in a highly visual fashion.&lt;/p&gt;
 &lt;p&gt;For example in a strongly upwards-trending market, the candlesticks will be above the Tenkan-sen, which will be above the Kijun-sen, which will be above the cloud, and the Chikou span may not have anything above it.&lt;/p&gt;
@@ -603,7 +620,14 @@ plot(cloud, window = &amp;quot;2020-04/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The time periods have traditionally been calculated as 9, 26 and 52 based on manual data analysis performed in Japan in a pre-computer age where there was a 6-day working week resulting in 26 average trading days in a month. Although this bears little relevance to the current day, the use of these time periods has persisted as an ‘industry norm’ or ‘accepted practice’.&lt;/p&gt;
 &lt;p&gt;To use other periods would be meaningless in a sense as everyone uses these parameters and ‘market psychology’ can and often does create its own realities, independent of any fundamentals. However, there is no reason for the technique not to evolve, and to reflect changing trading realities perhaps other parameters will become more relevant in the collective psychology.&lt;/p&gt;
 &lt;p&gt;Finally, the use originated with daily candlesticks, and the most valid interpretation remains for daily data. However, it is equally used today for both shorter intra-day, e.g. 4-hour or hourly, and longer, e.g. weekly or monthly, charts.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;Sasaki, H. 佐々木 英信 (1996), &lt;em&gt;一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]&lt;/em&gt;. Tokyo, Japan: Toushi Radar.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
       <distill:md5>b3f7145e73b6854dc8553ba19fc5a4b3</distill:md5>
       <category>R</category>
       <category>Quantitative Finance</category>
@@ -635,14 +659,14 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-cfa8be0605c2de2e0010" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-cfa8be0605c2de2e0010"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-9bcc5a055c2b3d02aa79" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-9bcc5a055c2b3d02aa79"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>1ce1f05d8dad7364a6ed0bc7434974b6</distill:md5>
       <category>Resources</category>
       <category>Learning</category>
       <guid>https://shikokuchuo.net/posts/07-learning</guid>
-      <pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/07-learning/learning_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -671,8 +695,8 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-09c0a2d9c04eb6695091" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-09c0a2d9c04eb6695091"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-063bbba39666b1db3acc" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-063bbba39666b1db3acc"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>40d2f1f2ca6ec60165c722db69b7b319</distill:md5>
       <category>Resources</category>
@@ -972,7 +996,7 @@ Transcript: 09:06 | Stephen Hawking: I think it quite likely that we are the onl
       <category>Resources</category>
       <category>Sustainability</category>
       <guid>https://shikokuchuo.net/posts/02-resources</guid>
-      <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 02 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/02-resources/resources_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>

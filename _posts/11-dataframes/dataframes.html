@@ -117,7 +117,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["dataframes_files/anchor-4.2.2/anchor.min.js","dataframes_files/bowser-1.9.3/bowser.min.js","dataframes_files/distill-2.2.21/template.v2.js","dataframes_files/figure-html5/bxts-1.png","dataframes_files/figure-html5/index-1.png","dataframes_files/header-attrs-2.9/header-attrs.js","dataframes_files/jquery-1.11.3/jquery.min.js","dataframes_files/popper-2.6.0/popper.min.js","dataframes_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataframes_files/tippy-6.2.7/tippy-light-border.css","dataframes_files/tippy-6.2.7/tippy.css","dataframes_files/tippy-6.2.7/tippy.umd.min.js","dataframes_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["dataframes_files/anchor-4.2.2/anchor.min.js","dataframes_files/bowser-1.9.3/bowser.min.js","dataframes_files/distill-2.2.21/template.v2.js","dataframes_files/figure-html5/bxts-1.png","dataframes_files/figure-html5/index-1.png","dataframes_files/header-attrs-2.10/header-attrs.js","dataframes_files/header-attrs-2.9/header-attrs.js","dataframes_files/jquery-1.11.3/jquery.min.js","dataframes_files/popper-2.6.0/popper.min.js","dataframes_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataframes_files/tippy-6.2.7/tippy-light-border.css","dataframes_files/tippy-6.2.7/tippy.css","dataframes_files/tippy-6.2.7/tippy.umd.min.js","dataframes_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1438,7 +1438,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="dataframes_files/header-attrs-2.9/header-attrs.js"></script>
+  <script src="dataframes_files/header-attrs-2.10/header-attrs.js"></script>
   <script src="dataframes_files/jquery-1.11.3/jquery.min.js"></script>
   <script src="dataframes_files/popper-2.6.0/popper.min.js"></script>
   <link href="dataframes_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1495,7 +1495,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="#when-to-use-performant-constructors">When to use performant constructors</a></li>
 <li><a href="#when-to-question-the-use-of-performant-constructors">When to question the use of performant constructors</a></li>
 <li><a href="#what-is-a-performant-constructor">What is a performant constructor</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#further-information">Further information</a></li>
 </ul>
 </nav>
 </div>
@@ -1512,7 +1512,7 @@ Shikokuchuo
 <p>However, they are slow. Extremely slow.</p>
 <p>This is somewhat surprising considering how much they are used, and given that the ‘data.frame’ object is the <em>de facto</em> standard for tabular data in R, for their constructors to be so inefficient.</p>
 <p>However this is the direct result of the presence of a lot of error checking and validation code, which is perhaps understandable for something as widely used. You simply don’t know what is going to be thrown at the function and so it needs to try to do its best or fail gracefully.</p>
-<p>Below, we demonstrate the inefficiencies of as.data.frame() versus efficient ‘data.frame’ constructors from the ‘ichimoku’ package coded for performance. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Below, we demonstrate the inefficiencies of as.data.frame() versus efficient ‘data.frame’ constructors from the ‘ichimoku’ package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> coded for performance.</p>
 <p>For benchmarking, the ‘microbenchmark’ package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 10,000 in the cases below.</p>
 <h3 id="matrix-conversion-benchmarking">Matrix conversion benchmarking</h3>
 <p>A 100x10 matrix of random data drawn from the normal distribution is created as the object ‘matrix’.</p>
@@ -1532,31 +1532,31 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>            a          b          c          d          e          f
-1  2.09839509 -0.6446691 -0.3812906  0.4618722 -1.2791278  0.7169264
-2  1.64986266  0.6357652 -0.2234471  1.2538500 -0.4139344 -0.8869705
-3 -1.16792394 -1.4746407  0.1982308  1.9246367  1.0393234 -0.2819603
-4 -0.64970594 -0.1212489  1.6933680 -0.2739320  0.2077523 -0.4911635
-5 -0.16465142 -0.2362686  0.8609081  1.3833467  0.2867708  0.6377916
-6  0.05127654 -1.3738989 -1.6618577  0.7008265  1.3422571 -1.0879143
-           g          h          i           j
-1 -0.6196867 -1.1435989 -0.4778026 -0.67521548
-2  1.1533634  0.3283759 -0.1048369 -0.02870711
-3 -0.3509749  1.6311539 -0.2481342 -0.18993506
-4 -0.6378482  0.2568771  0.1541135 -1.12731690
-5  0.5227521 -0.5090633  0.8260306  0.41673892
-6  0.4884355 -2.0677329 -0.6494316 -0.76630710</code></pre>
+<pre><code>            a           b          c          d          e          f
+1  0.12810508 -0.44979187 -1.1970101  0.8648230  0.1773914 -0.7795768
+2  1.12695993 -0.24070790 -0.5858478  1.3839937 -1.2567617  0.4958950
+3 -0.05362082  0.31239749  2.0194390  0.6214094 -2.3558589 -0.8231790
+4  0.94708348  0.01219858 -1.2203422 -1.4395571  2.3200161  1.3665150
+5 -0.63174509  1.77155017  1.2851290  0.3069839 -1.2604704 -1.3452660
+6 -2.98109047 -0.21313995  0.5179206 -2.1889643 -0.6672092  1.3832619
+           g         h           i           j
+1 -1.6921906 0.7013311  0.08012007  0.27410955
+2 -0.7120759 1.2336867 -0.81445975 -2.10160878
+3 -0.1346538 0.2838082 -0.90977458 -0.02872631
+4 -1.6105842 0.4380627 -0.43019231  0.66746584
+5 -0.8578834 1.1575332 -0.23179161  0.67044684
+6  2.0582783 0.8504835  0.58962175 -0.11830179</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                  expr    min     lq     mean median      uq      max
- as.data.frame(matrix) 31.296 33.444 38.01952 34.482 35.9280 8874.299
-     matrix_df(matrix) 14.401 15.994 21.31870 16.743 17.8225 8299.740
- neval
- 10000
- 10000</code></pre>
+                  expr    min     lq     mean  median      uq
+ as.data.frame(matrix) 30.500 32.660 39.65839 33.6735 35.0535
+     matrix_df(matrix) 13.384 14.664 17.42544 15.3450 16.3450
+      max neval
+ 9030.501 10000
+ 7956.583 10000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
@@ -1588,7 +1588,7 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] 260  12</code></pre>
+<pre><code>[1] 281  12</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </code></pre>
@@ -1600,24 +1600,24 @@ Shikokuchuo
 2020-01-06 123.3 124.3 123.3 124.1  1     NA    NA      NA      NA
 2020-01-07 124.1 124.8 124.0 124.8  1     NA    NA      NA      NA
 2020-01-08 124.8 125.4 124.5 125.3  1     NA    NA      NA      NA
-           chikou cloudTop cloudBase
-2020-01-02  122.9       NA        NA
-2020-01-03  123.0       NA        NA
-2020-01-05  123.9       NA        NA
-2020-01-06  123.6       NA        NA
-2020-01-07  122.5       NA        NA
-2020-01-08  122.6       NA        NA</code></pre>
+           chikou cloudT cloudB
+2020-01-02  122.8     NA     NA
+2020-01-03  122.9     NA     NA
+2020-01-05  123.0     NA     NA
+2020-01-06  123.9     NA     NA
+2020-01-07  123.6     NA     NA
+2020-01-08  122.5     NA     NA</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/xts_df.html'>xts_df</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                 expr     min       lq      mean  median      uq
- as.data.frame(cloud) 228.896 237.8955 262.76381 243.326 251.720
-        xts_df(cloud)  33.268  37.3520  45.26936  39.312  41.812
+                 expr     min       lq      mean   median       uq
+ as.data.frame(cloud) 233.321 248.6040 269.47719 252.1865 259.5850
+        xts_df(cloud)  32.330  36.2335  48.53597  38.0935  40.4735
        max neval
- 56021.171 10000
-  7381.252 10000</code></pre>
+  7670.767 10000
+ 64729.174 10000</code></pre>
 </div>
 <p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 6x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1632,19 +1632,19 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>&#39;data.frame&#39;:   260 obs. of  12 variables:
- $ open     : num  123 123 123 123 124 ...
- $ high     : num  123 123 123 124 125 ...
- $ low      : num  122 123 122 123 124 ...
- $ close    : num  123 123 123 124 125 ...
- $ cd       : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
- $ tenkan   : num  NA NA NA NA NA ...
- $ kijun    : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouA  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouB  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ chikou   : num  123 123 124 124 122 ...
- $ cloudTop : num  NA NA NA NA NA NA NA NA NA NA ...
- $ cloudBase: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<pre><code>&#39;data.frame&#39;:   281 obs. of  12 variables:
+ $ open   : num  123 123 123 123 124 ...
+ $ high   : num  123 123 123 124 125 ...
+ $ low    : num  122 123 122 123 124 ...
+ $ close  : num  123 123 123 124 125 ...
+ $ cd     : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
+ $ tenkan : num  NA NA NA NA NA ...
+ $ kijun  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouA: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouB: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ chikou : num  123 123 123 124 124 ...
+ $ cloudT : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cloudB : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/xts_df.html'>xts_df</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>
 
@@ -1656,26 +1656,26 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>&#39;data.frame&#39;:   260 obs. of  13 variables:
- $ index    : POSIXct, format: &quot;2020-01-02 00:00:00&quot; ...
- $ open     : num  123 123 123 123 124 ...
- $ high     : num  123 123 123 124 125 ...
- $ low      : num  122 123 122 123 124 ...
- $ close    : num  123 123 123 124 125 ...
- $ cd       : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
- $ tenkan   : num  NA NA NA NA NA ...
- $ kijun    : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouA  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ senkouB  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ chikou   : num  123 123 124 124 122 ...
- $ cloudTop : num  NA NA NA NA NA NA NA NA NA NA ...
- $ cloudBase: num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
+<pre><code>&#39;data.frame&#39;:   281 obs. of  13 variables:
+ $ index  : POSIXct, format: &quot;2020-01-02&quot; ...
+ $ open   : num  123 123 123 123 124 ...
+ $ high   : num  123 123 123 124 125 ...
+ $ low    : num  122 123 122 123 124 ...
+ $ close  : num  123 123 123 124 125 ...
+ $ cd     : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
+ $ tenkan : num  NA NA NA NA NA ...
+ $ kijun  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouA: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouB: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ chikou : num  123 123 123 124 124 ...
+ $ cloudT : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cloudB : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 </div>
 <p>The outputs are slightly different as xts_df() preserves the date-time index of ‘xts’ objects as a new first column ‘index’ which is POSIXct in format. The default as.data.frame() constructor converts the index into the row names, which is not desirable as the dates are coerced to type ‘character’.</p>
 <p>So it can be seen that in this case, not only is the performant constructor faster, it is also more fit for purpose.</p>
 <h3 id="when-to-use-performant-constructors">When to use performant constructors</h3>
 <ol type="1">
-<li><strong>Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.</strong> For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor <code>ichimoku::xts_df()</code> <em>is still almost 4x as fast</em>.</li>
+<li><strong>Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.</strong> For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor <code>ichimoku::xts_df()</code> <em>is still around 4x as fast</em>.</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1683,14 +1683,14 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                    expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 231.191 248.3780 265.46142 255.4805 263.0920
- ggplot2::fortify(cloud) 130.243 150.9875 178.72827 159.2590 168.5210
-           xts_df(cloud)  33.969  39.5955  44.64037  41.9220  44.2145
+                    expr     min       lq      mean   median      uq
+    as.data.frame(cloud) 243.458 255.2915 272.81868 260.3165 266.823
+ ggplot2::fortify(cloud) 136.918 152.7630 175.07278 160.2555 169.148
+           xts_df(cloud)  32.995  38.1435  46.82483  40.2775  42.398
       max neval
- 5911.082 10000
- 7320.351 10000
- 5122.261 10000</code></pre>
+ 7699.627 10000
+ 5581.787 10000
+ 5719.443 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>
@@ -1748,14 +1748,13 @@ Shikokuchuo
 </div>
 <pre><code>[1] &quot;list&quot;</code></pre>
 </div>
-<h3 id="references">References</h3>
-<p>ichimoku R package site: <a href="https://shikokuchuo.net/ichimoku/" class="uri">https://shikokuchuo.net/ichimoku/</a></p>
-<p>ichimoku CRAN page: <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a></p>
+<h3 id="further-information">Further information</h3>
+<p>Documentation for the performant constructors discussed: <a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri">https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors</a></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Function documentation: <a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri">https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 0.3.51. <a href="https://shikokuchuo.net/ichimoku/" class="uri">https://shikokuchuo.net/ichimoku/</a> CRAN page: <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

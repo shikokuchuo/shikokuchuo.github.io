@@ -28,7 +28,11 @@ data.frame(sha256 = develop(photos))
 
 ### About ichimoku
 
-The ichimoku R package provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies. It features in the [Empirical Finance CRAN Task View](https://cran.r-project.org/view=Finance), and was selected as one of [RStudio's Top 40 New CRAN Packages](https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/) for May 2021. It provides in its latest version an interface to the OANDA fxTrade API.
+The ichimoku R package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 0.3.51. https://shikokuchuo.net/ichimoku/ CRAN page: https://CRAN.R-project.org/package=ichimoku] provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies.
+
+It features in the [Empirical Finance CRAN Task View](https://cran.r-project.org/view=Finance), and was selected as one of [RStudio's Top 40 New CRAN Packages](https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/) for May 2021.
+
+The latest version incorporates an interface to the OANDA fxTrade API^[‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.].
 
 ### About the OANDA fxTrade API
 
@@ -40,11 +44,11 @@ For the total list of over 120 covered instruments please see [here](https://shi
 
 ### Screenshots
 
-Click on an image to view in full resolution.
+*Click on an image to view in full resolution.*
 
-Showcased here is the function `oanda_studio()`, the implementation in R Shiny. As it is a Shiny app, the function may be called without any arguments; the full range of options can simply be selected interactively from within the web interface.
+Showcased here is the function `oanda_studio()`, the implementation in R Shiny. As a Shiny app, the function may be called without specifying any parameters; the full range of options can be selected interactively from within the web interface.
 
-Data is live and updates at the specified refresh rate (default is every 5 secs).
+Data is live and updates at the specified refresh rate (default of every 5 secs).
 
 The cursor infotip provides an innovative overview of the data directly from the chart (can be turned on or off as desired).
 
@@ -58,7 +62,7 @@ oanda_studio()
 
 <a href="img/oastudio1.png" target="_blank"><img src="img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"></a>
 
-Of course arguments for customisation can be specified within the call to `oanda_studio()` itself. Demonstrating some further options below with Soybean futures:
+Of course arguments for customisation can also be specified within the call to `oanda_studio()` itself. Demonstrating some further options below with Soybean futures:
 
 ```{r oastudiod, eval=FALSE}
 oanda_studio("SOYBN_USD", granularity = "M5", refresh = 10, price = "B", theme = "dark")
@@ -76,11 +80,8 @@ Other functions to access the OANDA fxTrade API are included in the ichimoku pac
 
 ### Links and further information
 
-ichimoku R package site: https://shikokuchuo.net/ichimoku/
-
-ichimoku CRAN page: https://CRAN.R-project.org/package=ichimoku
+ichimoku R package site: https://shikokuchuo.net/ichimoku/ 
 
 ichimoku OANDA fxTrade API vignette: https://shikokuchuo.net/ichimoku/articles/xoanda.html
 
-‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.
-
+OANDA fxTrade API developer website: https://developer.oanda.com/

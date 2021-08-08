@@ -117,7 +117,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/header-attrs-2.9/header-attrs.js","combinations_files/jquery-1.11.3/jquery.min.js","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/header-attrs-2.10/header-attrs.js","combinations_files/header-attrs-2.9/header-attrs.js","combinations_files/jquery-1.11.3/jquery.min.js","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1438,7 +1438,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="combinations_files/header-attrs-2.9/header-attrs.js"></script>
+  <script src="combinations_files/header-attrs-2.10/header-attrs.js"></script>
   <script src="combinations_files/jquery-1.11.3/jquery.min.js"></script>
   <script src="combinations_files/popper-2.6.0/popper.min.js"></script>
   <link href="combinations_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1563,7 +1563,7 @@ Shikokuchuo
 </div>
 <p>It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.</p>
 <h3 id="ichimokugrid_dup">ichimoku::grid_dup</h3>
-<p>So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package, expressly for this purpose.</p>
+<p>So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, expressly for this purpose.</p>
 <p>From the function documentation: ‘create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors’.</p>
 <p>Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order of appearance does not matter.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1636,20 +1636,20 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr    min      lq     mean median     uq      max neval
- fn_combn(1:16) 68.130 70.5120 89.52358 72.323 75.465 1192.835   100
-  fn_grid(1:16) 54.076 57.7195 79.48106 60.224 62.462 1686.100   100</code></pre>
+           expr    min      lq     mean  median     uq      max neval
+ fn_combn(1:16) 55.716 59.4275 75.28241 61.7965 65.948 1075.016   100
+  fn_grid(1:16) 52.997 56.5190 76.53490 58.6890 62.691 1526.945   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 219.71816 283.08555 287.70608 285.62389 289.23691
-  fn_grid(1:1000)  29.14039  38.82793  47.09653  40.73805  42.95337
+             expr       min       lq      mean   median        uq
+ fn_combn(1:1000) 208.33751 288.5630 283.61100 292.1089 297.52142
+  fn_grid(1:1000)  27.28151  37.1929  46.12052  39.4025  42.48726
       max neval
- 343.8162   100
- 106.1248   100</code></pre>
+ 353.8985   100
+ 103.8335   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
@@ -1679,6 +1679,12 @@ Shikokuchuo
 </div>
 <p>Of the two however, mapply() is marginally faster and should normally be used when iteration is required over multiple arguments.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 0.3.51. <a href="https://shikokuchuo.net/ichimoku/" class="uri">https://shikokuchuo.net/ichimoku/</a> CRAN page: <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
