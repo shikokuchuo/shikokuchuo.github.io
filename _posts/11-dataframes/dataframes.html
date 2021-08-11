@@ -117,7 +117,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["dataframes_files/anchor-4.2.2/anchor.min.js","dataframes_files/bowser-1.9.3/bowser.min.js","dataframes_files/distill-2.2.21/template.v2.js","dataframes_files/figure-html5/bxts-1.png","dataframes_files/figure-html5/index-1.png","dataframes_files/header-attrs-2.10/header-attrs.js","dataframes_files/header-attrs-2.9/header-attrs.js","dataframes_files/jquery-1.11.3/jquery.min.js","dataframes_files/popper-2.6.0/popper.min.js","dataframes_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataframes_files/tippy-6.2.7/tippy-light-border.css","dataframes_files/tippy-6.2.7/tippy.css","dataframes_files/tippy-6.2.7/tippy.umd.min.js","dataframes_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["dataframes_files/anchor-4.2.2/anchor.min.js","dataframes_files/bowser-1.9.3/bowser.min.js","dataframes_files/distill-2.2.21/template.v2.js","dataframes_files/figure-html5/bxts-1.png","dataframes_files/figure-html5/index-1.png","dataframes_files/header-attrs-2.10/header-attrs.js","dataframes_files/jquery-1.11.3/jquery.min.js","dataframes_files/popper-2.6.0/popper.min.js","dataframes_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataframes_files/tippy-6.2.7/tippy-light-border.css","dataframes_files/tippy-6.2.7/tippy.css","dataframes_files/tippy-6.2.7/tippy.umd.min.js","dataframes_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1532,31 +1532,31 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>            a           b          c          d          e          f
-1  0.12810508 -0.44979187 -1.1970101  0.8648230  0.1773914 -0.7795768
-2  1.12695993 -0.24070790 -0.5858478  1.3839937 -1.2567617  0.4958950
-3 -0.05362082  0.31239749  2.0194390  0.6214094 -2.3558589 -0.8231790
-4  0.94708348  0.01219858 -1.2203422 -1.4395571  2.3200161  1.3665150
-5 -0.63174509  1.77155017  1.2851290  0.3069839 -1.2604704 -1.3452660
-6 -2.98109047 -0.21313995  0.5179206 -2.1889643 -0.6672092  1.3832619
-           g         h           i           j
-1 -1.6921906 0.7013311  0.08012007  0.27410955
-2 -0.7120759 1.2336867 -0.81445975 -2.10160878
-3 -0.1346538 0.2838082 -0.90977458 -0.02872631
-4 -1.6105842 0.4380627 -0.43019231  0.66746584
-5 -0.8578834 1.1575332 -0.23179161  0.67044684
-6  2.0582783 0.8504835  0.58962175 -0.11830179</code></pre>
+<pre><code>            a           b            c          d            e
+1 -0.98910954  1.19080832 -0.112949754  0.7069180  0.319292980
+2  0.09848393 -0.78061614 -0.005637697  0.2988471 -0.004116215
+3  1.40475407 -0.03219498 -0.847973070 -1.0039923 -1.251171246
+4 -0.31398233  0.03618240 -0.654208371 -0.1986989 -0.032792717
+5 -0.73730070  0.50403649  1.463660251  0.1654156  0.793231442
+6  1.37151653 -0.23341593  0.119564180  1.2111570  2.026334613
+            f            g          h            i          j
+1  0.29994589 -0.006968348 -1.6832951 -1.391190436  0.4387014
+2 -2.15228540  0.213382416 -0.8524991 -0.081480509 -1.4230728
+3 -1.15855092  0.846793552  0.1206448 -1.414157555  1.8946427
+4 -0.32674884 -0.019759136  2.1377010 -1.144145506 -0.7496537
+5  0.55832308 -1.148526638 -1.1873835 -0.008718762  0.6086867
+6  0.01966345 -1.926083859  0.5734501 -0.371989969 -0.2910331</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
                   expr    min     lq     mean  median      uq
- as.data.frame(matrix) 30.500 32.660 39.65839 33.6735 35.0535
-     matrix_df(matrix) 13.384 14.664 17.42544 15.3450 16.3450
+ as.data.frame(matrix) 30.354 32.545 39.88434 33.4925 34.9675
+     matrix_df(matrix) 13.427 14.816 17.80071 15.5005 16.4620
       max neval
- 9030.501 10000
- 7956.583 10000</code></pre>
+ 9059.732 10000
+ 8986.198 10000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
@@ -1613,11 +1613,11 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
                  expr     min       lq      mean   median       uq
- as.data.frame(cloud) 233.321 248.6040 269.47719 252.1865 259.5850
-        xts_df(cloud)  32.330  36.2335  48.53597  38.0935  40.4735
+ as.data.frame(cloud) 229.966 242.5905 280.88774 249.1265 267.0225
+        xts_df(cloud)  31.849  36.4930  44.99621  38.5280  41.2390
        max neval
-  7670.767 10000
- 64729.174 10000</code></pre>
+ 56844.028 10000
+  8078.644 10000</code></pre>
 </div>
 <p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 6x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1683,14 +1683,14 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                    expr     min       lq      mean   median      uq
-    as.data.frame(cloud) 243.458 255.2915 272.81868 260.3165 266.823
- ggplot2::fortify(cloud) 136.918 152.7630 175.07278 160.2555 169.148
-           xts_df(cloud)  32.995  38.1435  46.82483  40.2775  42.398
+                    expr     min       lq      mean   median       uq
+    as.data.frame(cloud) 232.461 248.8100 273.67500 256.4670 275.3400
+ ggplot2::fortify(cloud) 131.093 152.6950 183.20166 162.4465 176.2565
+           xts_df(cloud)  32.339  38.2565  46.25661  40.5225  43.4490
       max neval
- 7699.627 10000
- 5581.787 10000
- 5719.443 10000</code></pre>
+ 6761.905 10000
+ 7562.626 10000
+ 5557.077 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>

@@ -102,28 +102,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;           a          b            c           d          e
-1  0.6583553 -0.8347965 -0.292665126 -0.61695575 -0.2255845
-2 -0.4250443  0.4680651 -0.232693534 -0.55905746  0.6501461
-3 -0.6098673  1.9035151 -0.669273613  0.05187539  0.7031157
-4 -2.0615001 -0.2867262 -0.001828371 -0.23493203 -0.1930584
-5 -0.2423553  0.1804616  0.580800752  0.97072875  1.3301844
-6 -0.1611916 -0.7183519  0.107623468  1.98183846  0.3477981
-           f          g          h          i          j
-1  0.5694139  0.3838167 -0.8823554 -1.4028810 -0.2609975
-2  0.2499555  0.3254854  0.1070975  0.8281168  0.1117356
-3 -1.3367405 -0.4292335 -0.9121821 -0.3946327  0.4693420
-4 -0.2364111  0.5301194 -0.2828744  0.6988922  1.3072495
-5  0.3651331  2.1607141  0.6593260  0.1355788  0.1939792
-6  0.2483718  2.3771984 -0.3818785 -0.2769150 -0.4794782&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;            a           b          c           d          e
+1  0.01323821 -0.40944068 -0.7852733  1.05438707  2.2496090
+2  1.77271573 -1.62162529  0.5201003  0.95188411  0.1246393
+3 -0.39228969  0.40366596  0.3847672  0.48957259  0.7082433
+4  1.44875570  0.02865418 -1.6128237 -0.05523264 -0.0306439
+5 -0.44092585  1.60026220  0.9385049 -0.43529158 -1.3369339
+6  0.20564128  0.81252386  0.5134046  0.18316611  1.5962092
+           f          g          h           i          j
+1  0.1199598  0.7114875 -0.6276568  2.03427435 -0.7475643
+2  0.8708469 -0.2385424 -0.8584921  0.05272354 -0.4896025
+3 -0.1409994 -1.3110935 -0.7678211 -1.25803413 -1.1180566
+4 -0.3131557 -0.4674019 -0.8329198  2.36058061 -0.3968199
+5  0.7851461 -0.2267980  0.9322755 -1.46686558  1.2265890
+6  0.2444253  1.3521228  1.0602292 -0.25738533 -0.5454612&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min     lq     mean  median     uq      max
- as.data.frame(matrix) 30.808 32.618 36.90825 33.6425 35.938 8988.028
-     matrix_df(matrix) 13.467 14.603 20.44198 15.2565 16.567 9063.315
- neval
- 10000
- 10000&lt;/code&gt;&lt;/pre&gt;
+                  expr    min      lq     mean median      uq
+ as.data.frame(matrix) 31.958 33.8735 42.48277 35.189 38.0920
+     matrix_df(matrix) 13.894 15.1935 19.11375 16.005 17.2945
+      max neval
+ 7453.209 10000
+ 7624.538 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -159,12 +159,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min       lq      mean   median       uq
- as.data.frame(cloud) 233.009 253.0800 304.63612 273.3965 294.5120
-        xts_df(cloud)  32.194  36.8525  57.19348  39.5165  43.7545
+                 expr     min       lq      mean  median      uq
+ as.data.frame(cloud) 240.955 260.0175 301.36008 298.922 310.324
+        xts_df(cloud)  32.808  38.8480  49.45619  42.925  46.107
       max neval
- 11086.57 10000
- 92841.78 10000&lt;/code&gt;&lt;/pre&gt;
+ 7293.282 10000
+ 7142.059 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -211,14 +211,14 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min      lq      mean   median       uq
-    as.data.frame(cloud) 244.900 258.626 286.91369 266.3115 289.3145
- ggplot2::fortify(cloud) 137.614 156.910 189.47402 167.0425 182.6055
-           xts_df(cloud)  33.407  38.896  47.34502  41.3260  44.4300
+                    expr     min       lq      mean   median       uq
+    as.data.frame(cloud) 290.976 320.4190 345.19456 328.6365 339.2880
+ ggplot2::fortify(cloud) 164.637 191.8150 226.47668 202.2260 215.5655
+           xts_df(cloud)  40.365  47.1615  56.27793  50.0470  52.8110
       max neval
- 6590.157 10000
- 8310.725 10000
- 6383.405 10000&lt;/code&gt;&lt;/pre&gt;
+ 6559.864 10000
+ 6705.499 10000
+ 5429.438 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -268,7 +268,7 @@ structure(list(vec1, vec2, vec3),
       <distill:md5>66104a4aab6f3bc9584bed85b41b1412</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/11-dataframes</guid>
-      <pubDate>Fri, 23 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/11-dataframes/dataframes_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -385,17 +385,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min      lq     mean median     uq     max neval
- fn_combn(1:16) 55.847 59.1245 68.02074 62.010 66.817 122.039   100
-  fn_grid(1:16) 52.712 55.3835 64.94352 57.557 63.585 192.008   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq     mean  median      uq     max neval
+ fn_combn(1:16) 61.290 63.9815 67.74430 65.6575 67.8015 121.885   100
+  fn_grid(1:16) 58.341 61.4145 65.63477 63.6335 64.9855 185.550   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 222.46561 312.20985 306.66535 316.53834 320.20750
-  fn_grid(1:1000)  28.13129  38.36918  47.14048  39.96699  43.53558
+ fn_combn(1:1000) 252.88669 333.81018 345.38920 340.87711 349.11548
+  fn_grid(1:1000)  31.50031  42.12747  45.77409  44.36977  46.37587
       max neval
- 412.9876   100
- 126.6290   100&lt;/code&gt;&lt;/pre&gt;
+ 438.0688   100
+ 124.6708   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -540,7 +540,7 @@ Periods in market      135
 ---------------------  &amp;quot;----------&amp;quot;       
 Direction              &amp;quot;long&amp;quot;             
 Start                  2015-12-21 22:00:00
-End                    2016-06-29 21:00:00
+End                    2016-06-29 22:00:00
 Ticker                 &amp;quot;SPX500_USD&amp;quot;       &lt;/code&gt;&lt;/pre&gt;
 &lt;aside&gt;
 Note: Each element of the matrix is wrapped as a list so that they are of equal length. To access the underlying object, the ichimoku object in this case, we simply extract it using [[1]].
@@ -659,14 +659,14 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-9bcc5a055c2b3d02aa79" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-9bcc5a055c2b3d02aa79"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-0a5cf91f9a9196bea160" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-0a5cf91f9a9196bea160"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>1ce1f05d8dad7364a6ed0bc7434974b6</distill:md5>
       <category>Resources</category>
       <category>Learning</category>
       <guid>https://shikokuchuo.net/posts/07-learning</guid>
-      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/07-learning/learning_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -695,8 +695,8 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-063bbba39666b1db3acc" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-063bbba39666b1db3acc"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-f6096e0eeb6e7589f80d" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-f6096e0eeb6e7589f80d"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>40d2f1f2ca6ec60165c722db69b7b319</distill:md5>
       <category>Resources</category>

@@ -14,6 +14,9 @@ navbar:
     - text: "Map"
       icon: fas fa-map-marker-alt
       href: map.html
+    - text: "Light Brushing"
+      icon: fa-paint-brush
+      href: https://shikokuchuo.net/light-brushing/
     - text: "Cambridge Statistical Laboratory"
       icon: fas fa-flask
       href: http://www.statslab.cam.ac.uk/

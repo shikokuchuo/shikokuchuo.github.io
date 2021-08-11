@@ -117,7 +117,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/header-attrs-2.10/header-attrs.js","combinations_files/header-attrs-2.9/header-attrs.js","combinations_files/jquery-1.11.3/jquery.min.js","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/header-attrs-2.10/header-attrs.js","combinations_files/jquery-1.11.3/jquery.min.js","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1636,20 +1636,20 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr    min      lq     mean  median     uq      max neval
- fn_combn(1:16) 55.716 59.4275 75.28241 61.7965 65.948 1075.016   100
-  fn_grid(1:16) 52.997 56.5190 76.53490 58.6890 62.691 1526.945   100</code></pre>
+           expr    min     lq     mean  median      uq      max neval
+ fn_combn(1:16) 68.421 72.032 89.25358 76.3735 82.1410 1134.105   100
+  fn_grid(1:16) 54.964 58.990 85.30482 64.0890 69.3925 2030.956   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
-             expr       min       lq      mean   median        uq
- fn_combn(1:1000) 208.33751 288.5630 283.61100 292.1089 297.52142
-  fn_grid(1:1000)  27.28151  37.1929  46.12052  39.4025  42.48726
+             expr       min        lq      mean    median        uq
+ fn_combn(1:1000) 270.09839 273.93584 281.00630 276.97469 280.41652
+  fn_grid(1:1000)  34.93287  37.76841  45.61893  39.52137  42.39607
       max neval
- 353.8985   100
- 103.8335   100</code></pre>
+ 342.7023   100
+ 108.4622   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
