@@ -12,7 +12,7 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 26 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Authenticating photography using cryptographic hashing</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -54,7 +54,7 @@ Note: sha256 hashes are of the original files. Saving and hashing the images on 
 &lt;li id="fn4"&gt;&lt;p&gt;A popular example of such photo-editing software is the open source Darktable &lt;a href="https://www.darktable.org/" class="uri"&gt;https://www.darktable.org/&lt;/a&gt;&lt;a href="#fnref4" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">4820e588e22071f5936cf73049ba894f</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">72e9db600f45ab361848efb0affc2c28</distill:md5>
       <category>Photography</category>
       <category>Cryptography</category>
       <guid>https://shikokuchuo.net/posts/01-authenticating</guid>

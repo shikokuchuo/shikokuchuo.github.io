@@ -12,7 +12,52 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 26 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Reverting Git Commits</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/13-reverting</link>
+      <description>
+
+
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/13-reverting/reverting_files/figure-html5/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;                                                            sha256
+1 010e16069f8858640c2bb9af4a2293b720161b71d9d6e1f375c30237ea2b4123&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="reverting-local-git-commits"&gt;Reverting Local Git Commits&lt;/h3&gt;
+&lt;p&gt;You have made a commit.&lt;/p&gt;
+&lt;p&gt;You discover an error / something you left out / something new to add straight after the commit.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git reset HEAD~&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is a soft reset. Your changes are preserved. The commit is removed from the record.&lt;/p&gt;
+&lt;p&gt;Make the additional changes you need. Add files. Commit.&lt;/p&gt;
+&lt;h3 id="reverting-commits-pushed-to-remote-e.g.-github"&gt;Reverting Commits Pushed to Remote (e.g. Github)&lt;/h3&gt;
+&lt;p&gt;Copy your folder to a backup location.&lt;/p&gt;
+&lt;p&gt;The following is a hard reset, which rolls back to the previous commit. Changes since that commit will be lost. Force push it to the remote.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git reset HEAD^ --hard
+git push origin -f&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Both local and remote should now be in sync at the previous commit. You may check with:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git status&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you have Github Actions that are triggered by commits, they will be triggered again despite this being a roll-back. So go and stop those runs if necessary.&lt;/p&gt;
+&lt;p&gt;Next, if you have another branch such as ‘gh-pages’ that builds automatically on each commit, roll back that branch as well so it keeps in sync. As this branch has been building on the remote, do a git pull to ensure that your local copy is up to date first before resetting.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git checkout gh-pages
+git pull
+
+git reset HEAD^ --hard
+git push -f origin gh-pages&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check status. Switch back to ‘main’ branch (substitute whatever branch you were on).&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git status
+git checkout main&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Copy back the files with changes you made previously from your backup location.&lt;/p&gt;
+&lt;p&gt;Make the additional changes you need. Add files. Commit.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">66afa054e8360f0b5c4f788bd1bf2426</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/13-reverting</guid>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/13-reverting/reverting_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>R Shiny interface for the OANDA fxTrade API</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -65,7 +110,7 @@ oanda_studio()&lt;/code&gt;&lt;/pre&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">5a8a94c4ffcf3662866bec316a92524c</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">ebd83434c7ffca85056ac9798f09e08a</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/12-oanda-studio</guid>
       <pubDate>Mon, 26 Jul 2021 00:00:00 +0000</pubDate>
@@ -102,28 +147,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;            a           b          c           d          e
-1  0.01323821 -0.40944068 -0.7852733  1.05438707  2.2496090
-2  1.77271573 -1.62162529  0.5201003  0.95188411  0.1246393
-3 -0.39228969  0.40366596  0.3847672  0.48957259  0.7082433
-4  1.44875570  0.02865418 -1.6128237 -0.05523264 -0.0306439
-5 -0.44092585  1.60026220  0.9385049 -0.43529158 -1.3369339
-6  0.20564128  0.81252386  0.5134046  0.18316611  1.5962092
-           f          g          h           i          j
-1  0.1199598  0.7114875 -0.6276568  2.03427435 -0.7475643
-2  0.8708469 -0.2385424 -0.8584921  0.05272354 -0.4896025
-3 -0.1409994 -1.3110935 -0.7678211 -1.25803413 -1.1180566
-4 -0.3131557 -0.4674019 -0.8329198  2.36058061 -0.3968199
-5  0.7851461 -0.2267980  0.9322755 -1.46686558  1.2265890
-6  0.2444253  1.3521228  1.0602292 -0.25738533 -0.5454612&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;            a          b           c          d          e          f
+1 -1.64042051 -0.5171370 -0.02158814  2.0474172  0.2865663 -0.5363360
+2 -1.35250576 -0.4064953  0.39037514  0.3008067  1.3129459 -1.1281405
+3  0.28292958 -1.0933727 -1.19076976 -1.8317809 -1.4232919  1.9375116
+4 -1.02917098 -1.4828659  0.53322254  0.4510716 -0.9188853  0.7303441
+5  0.09776454  1.0525453 -0.19476348 -0.7874301  2.5664303 -0.7342646
+6  0.74616680 -0.7264629 -1.77043947 -1.8690907  1.3660593  1.5869675
+            g          h           i          j
+1  1.27214311  0.7184663 -0.38503923 -0.8413792
+2 -0.12266011 -0.8031159 -0.08634305 -1.5714194
+3  0.07022839 -0.2031976  0.30260194 -0.7136035
+4  0.94286961  1.4014785 -1.02675604  0.1381278
+5  0.42149763  0.5200106 -0.36147624 -1.2829406
+6  0.37886494 -0.9021297 -0.85521186  0.4638297&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min      lq     mean median      uq
- as.data.frame(matrix) 31.958 33.8735 42.48277 35.189 38.0920
-     matrix_df(matrix) 13.894 15.1935 19.11375 16.005 17.2945
-      max neval
- 7453.209 10000
- 7624.538 10000&lt;/code&gt;&lt;/pre&gt;
+                  expr    min      lq     mean  median      uq
+ as.data.frame(matrix) 31.685 35.4435 41.80752 36.8605 38.6035
+     matrix_df(matrix) 13.965 15.2050 19.47435 15.8760 16.9805
+       max neval
+  9631.927 10000
+ 10570.476 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -159,12 +204,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min       lq      mean  median      uq
- as.data.frame(cloud) 240.955 260.0175 301.36008 298.922 310.324
-        xts_df(cloud)  32.808  38.8480  49.45619  42.925  46.107
-      max neval
- 7293.282 10000
- 7142.059 10000&lt;/code&gt;&lt;/pre&gt;
+                 expr     min      lq      mean   median       uq
+ as.data.frame(cloud) 230.997 245.071 284.30560 252.5105 277.2355
+        xts_df(cloud)  32.027  36.439  44.24101  38.6580  42.3080
+       max neval
+ 10663.407 10000
+  7832.651 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -212,13 +257,13 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
                     expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 290.976 320.4190 345.19456 328.6365 339.2880
- ggplot2::fortify(cloud) 164.637 191.8150 226.47668 202.2260 215.5655
-           xts_df(cloud)  40.365  47.1615  56.27793  50.0470  52.8110
-      max neval
- 6559.864 10000
- 6705.499 10000
- 5429.438 10000&lt;/code&gt;&lt;/pre&gt;
+    as.data.frame(cloud) 232.645 248.9675 275.35948 256.9365 274.0760
+ ggplot2::fortify(cloud) 133.349 151.2490 192.58347 161.5230 177.3945
+           xts_df(cloud)  32.505  37.9555  46.47614  40.2175  43.3195
+       max neval
+  6833.711 10000
+ 68633.170 10000
+  5824.185 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -265,10 +310,10 @@ structure(list(vec1, vec2, vec3),
 &lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">66104a4aab6f3bc9584bed85b41b1412</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">f0ee48d76a72921e4e6c435d6c5c4615</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/11-dataframes</guid>
-      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 23 Jul 2021 00:00:00 +0000</pubDate>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/11-dataframes/dataframes_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -385,17 +430,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min      lq     mean  median      uq     max neval
- fn_combn(1:16) 61.290 63.9815 67.74430 65.6575 67.8015 121.885   100
-  fn_grid(1:16) 58.341 61.4145 65.63477 63.6335 64.9855 185.550   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min     lq     mean  median      uq     max neval
+ fn_combn(1:16) 68.029 70.526 74.86268 72.8365 76.1155 132.096   100
+  fn_grid(1:16) 56.070 60.071 66.21555 61.7640 67.3510 185.066   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 252.88669 333.81018 345.38920 340.87711 349.11548
-  fn_grid(1:1000)  31.50031  42.12747  45.77409  44.36977  46.37587
+ fn_combn(1:1000) 255.23566 306.11007 339.53396 340.59074 356.09898
+  fn_grid(1:1000)  36.09095  44.10072  54.08198  47.15172  52.94892
       max neval
- 438.0688   100
- 124.6708   100&lt;/code&gt;&lt;/pre&gt;
+ 515.2842   100
+ 148.1269   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -420,7 +465,7 @@ microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/p
 &lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">3482590168b4ecbec0d448d8534dcd47</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">339b1ddc10a121952629225b8ac6f82e</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/10-combinations</guid>
       <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
@@ -554,7 +599,7 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
 &lt;li id="fn2"&gt;&lt;p&gt;Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course &lt;a href="https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/" class="uri"&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">5a539cf9f73b4d355bbed7a9fb4878d1</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">3563f731b81f5c35fc591600dd3591c7</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/09-docall-lapply</guid>
       <pubDate>Fri, 28 May 2021 00:00:00 +0000</pubDate>
@@ -628,7 +673,7 @@ TKR &amp;lt;- sample_ohlc_data&lt;/code&gt;&lt;/pre&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;Sasaki, H. 佐々木 英信 (1996), &lt;em&gt;一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]&lt;/em&gt;. Tokyo, Japan: Toushi Radar.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">b3f7145e73b6854dc8553ba19fc5a4b3</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">145ec97fdc99d17783fe168566130da8</distill:md5>
       <category>R</category>
       <category>Quantitative Finance</category>
       <guid>https://shikokuchuo.net/posts/08-ichimoku</guid>
@@ -670,12 +715,12 @@ Shikokuchuo
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;Make some inital changes to _site.yml. Select the ‘build’ tab in RStudio and hit ‘Build Website’. This will generate the website. &lt;br /&gt;&lt;br /&gt; &lt;strong&gt;Note: building the website does not generate blog posts.&lt;/strong&gt; Each time the website is re-built, only the .Rmd files in the base directory will be automatically re-generated.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Modify the yaml front matter and content of the example blog post. Then hit ‘Knit’ in RStudio to generate the post. &lt;br /&gt;&lt;br /&gt; &lt;strong&gt;Note: after every change made to posts or after creating a new post, you must knit each post separately.&lt;/strong&gt; The listings page is then automatically updated.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Create README.md and CNAME in /blog for your Github repository.&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Create README.md, license.txt and CNAME if using a customm domain.&lt;/p&gt;
 &lt;aside&gt;
-&lt;p&gt;README.md is optional but usual practice. CNAME is a text file containing the domain name if using a custom domain.&lt;/p&gt;
+&lt;p&gt;README.md and license.txt are optional but usual practice. CNAME is a single line text file containing the domain name.&lt;/p&gt;
 &lt;/aside&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Create a new repository at &lt;a href="https://github.com/"&gt;Github&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;To set up git and add your new repository as a remote, bring up the command line, cd to your /blog directory and:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;To set up git and add your new repository as a remote, bring up the command line, cd to your new blog directory and:&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;git init
 git add .
@@ -687,14 +732,14 @@ git push -u origin main&lt;/code&gt;&lt;/pre&gt;
 Replace ‘username/nameofnew.git’ as appropriate.
 &lt;/aside&gt;
 &lt;ol start="7" style="list-style-type: decimal"&gt;
-&lt;li&gt;At Github, under your new repository, go to Settings &amp;gt;&amp;gt; Pages, set your source branch to ‘main’, and folder to ‘docs’.&lt;br /&gt; Optionally tick ‘Enforce HTTPS’. &lt;br /&gt; Your custom domain name should be configured automatically if you have previously set up your DNS settings to point to Github’s servers.&lt;/li&gt;
+&lt;li&gt;At Github, under your new repository, go to Settings &amp;gt;&amp;gt; Pages, set your source branch to ‘main’, and folder to ‘docs’.&lt;br /&gt; Tick ‘Enforce HTTPS’ (recommended). &lt;br /&gt; If using a custom domain name, it should be configured automatically if you have previously set up your DNS settings to point to Github’s servers.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Congratulations, your new website should now be online!&lt;/p&gt;
 &lt;h3 id="references"&gt;References&lt;/h3&gt;
 &lt;p&gt;The Distill Reference: &lt;a href="https://rstudio.github.io/distill/" class="uri"&gt;https://rstudio.github.io/distill/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The Definitive R Markdown Guide: &lt;a href="https://bookdown.org/yihui/rmarkdown/" class="uri"&gt;https://bookdown.org/yihui/rmarkdown/&lt;/a&gt;&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">fca00b12649029771d7b653e3e3cddd4</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">61c582762e7772959d596590830ef341</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/04-distill</guid>
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
@@ -717,7 +762,7 @@ Shikokuchuo
 &lt;p&gt;Set up a cron job to run your R scripts at specified times.&lt;/p&gt;
 &lt;p&gt;Enabled with a simple yaml configuration file.&lt;/p&gt;
 &lt;p&gt;Save the following as main.yml in .github/workflows of your Github repository:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;name: Raction
+&lt;pre class="r"&gt;&lt;code&gt;name: Action
 on:
   schedule:
     - cron: &amp;#39;30 22 * * 1-5&amp;#39;
@@ -738,7 +783,7 @@ jobs:
         run: |
           git config --local user.name github-actions
           git config --local user.email &amp;quot;actions@github.com&amp;quot;
-          git add output/*
+          git add docs/*
           git commit -am &amp;quot;commit on $(date)&amp;quot;
           git push origin main
         env:
@@ -749,15 +794,18 @@ jobs:
 &lt;li&gt;&lt;p&gt;This example cron job runs every Mon-Fri at 22.30.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Customize your R packages to install.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Make sure to change nameofscript.R to your actual script name.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Assumes your script writes files to the ‘output’ directory, change if necessary.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Assumes your script writes files to the ‘docs’ directory, change if necessary.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Assumes your repository branch is ‘main’, change if necessary.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Note that this script is run on a Windows VM using Windows R binary packages. This is currently much faster than building a lot of dependencies on Linux (which is also prone to failure).&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/aside&gt;
+&lt;p&gt;To generate R Markdown documents (or for that matter render a Distill website), you will want to add the following step after ‘Set up R’:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v1&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="reference"&gt;Reference&lt;/h3&gt;
 &lt;p&gt;The Github Actions with R reference: &lt;br /&gt; &lt;a href="https://orchid00.github.io/actions_sandbox/" class="uri"&gt;https://orchid00.github.io/actions_sandbox/&lt;/a&gt;&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">a60e2484fb40299c6384f5204ab5df8c</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">71390ff6a8bfac1c6175f4a4d31f7c2f</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/05-ghactions</guid>
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
@@ -849,7 +897,7 @@ remDr$close()&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="reference"&gt;Reference&lt;/h3&gt;
 &lt;p&gt;Basic vignette: &lt;a href="https://docs.ropensci.org/RSelenium/articles/basics.html" class="uri"&gt;https://docs.ropensci.org/RSelenium/articles/basics.html&lt;/a&gt;&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
-      <distill:md5 xmlns:distill="https://distill.pub/journal/">bb2b225638e73838dad05882215b08b6</distill:md5>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">d59557b944f69af2a61821c12a30bf46</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/03-rselenium</guid>
       <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>

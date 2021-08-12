@@ -61,12 +61,12 @@ distill::create_blog(dir = "blog", title = "My New Blog", gh_pages = TRUE)
 3. Modify the yaml front matter and content of the example blog post. Then hit 'Knit' in RStudio to generate the post. <br /><br />
 **Note: after every change made to posts or after creating a new post, you must knit each post separately.** The listings page is then automatically updated.
 
-4. Create README.md and CNAME in /blog for your Github repository.
-<aside> README.md is optional but usual practice. CNAME is a text file containing the domain name if using a custom domain.</aside>
+4. Create README.md, license.txt and CNAME if using a customm domain.
+<aside> README.md and license.txt are optional but usual practice. CNAME is a single line text file containing the domain name.</aside>
 
 5. Create a new repository at [Github](https://github.com/).
 
-6. To set up git and add your new repository as a remote, bring up the command line, cd to your /blog directory and:
+6. To set up git and add your new repository as a remote, bring up the command line, cd to your new blog directory and:
 
 ```{r github, eval=FALSE}
 git init
@@ -81,8 +81,8 @@ Replace 'username/nameofnew.git' as appropriate.
 </aside>
 
 7. At Github, under your new repository, go to Settings >> Pages, set your source branch to 'main', and folder to 'docs'.<br />
-Optionally tick 'Enforce HTTPS'. <br />
-Your custom domain name should be configured automatically if you have previously set up your DNS settings to point to Github's servers.
+Tick 'Enforce HTTPS' (recommended). <br />
+If using a custom domain name, it should be configured automatically if you have previously set up your DNS settings to point to Github's servers.
 
 Congratulations, your new website should now be online!
 

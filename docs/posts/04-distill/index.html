@@ -2409,20 +2409,17 @@ d-appendix d-footnote-list a.footnote-backlink {
 <a href="../../map.html" aria-label="Map">
 <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
 </a>
-<a href="https://shikokuchuo.net/light-brushing/" aria-label="Light Brushing">
-<i class="fa fa-paint-brush" aria-hidden="true"></i>
-</a>
 <a href="http://www.statslab.cam.ac.uk/" aria-label="Cambridge Statistical Laboratory">
 <i class="fas fa-flask" aria-hidden="true"></i>
+</a>
+<a href="https://shikokuchuo.net/light-brushing/" aria-label="Light Brushing">
+<i class="fa fa-paint-brush" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/ichimoku/" aria-label="R">
 <i class="fab fa-r-project" aria-hidden="true"></i>
 </a>
-<a href="https://github.com/shikokuchuo/ichimoku/" aria-label="Github">
+<a href="https://github.com/shikokuchuo/" aria-label="Github">
 <i class="fab fa-github" aria-hidden="true"></i>
-</a>
-<a href="../../index.xml">
-<i class="fa fa-rss" aria-hidden="true"></i>
 </a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -2501,12 +2498,12 @@ Shikokuchuo
 <ol start="2" type="1">
 <li><p>Make some inital changes to _site.yml. Select the ‘build’ tab in RStudio and hit ‘Build Website’. This will generate the website. <br /><br /> <strong>Note: building the website does not generate blog posts.</strong> Each time the website is re-built, only the .Rmd files in the base directory will be automatically re-generated.</p></li>
 <li><p>Modify the yaml front matter and content of the example blog post. Then hit ‘Knit’ in RStudio to generate the post. <br /><br /> <strong>Note: after every change made to posts or after creating a new post, you must knit each post separately.</strong> The listings page is then automatically updated.</p></li>
-<li><p>Create README.md and CNAME in /blog for your Github repository.</p>
+<li><p>Create README.md, license.txt and CNAME if using a customm domain.</p>
 <aside>
-<p>README.md is optional but usual practice. CNAME is a text file containing the domain name if using a custom domain.</p>
+<p>README.md and license.txt are optional but usual practice. CNAME is a single line text file containing the domain name.</p>
 </aside></li>
 <li><p>Create a new repository at <a href="https://github.com/">Github</a>.</p></li>
-<li><p>To set up git and add your new repository as a remote, bring up the command line, cd to your /blog directory and:</p></li>
+<li><p>To set up git and add your new repository as a remote, bring up the command line, cd to your new blog directory and:</p></li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>git init</span>
@@ -2520,7 +2517,7 @@ Shikokuchuo
 Replace ‘username/nameofnew.git’ as appropriate.
 </aside>
 <ol start="7" type="1">
-<li>At Github, under your new repository, go to Settings &gt;&gt; Pages, set your source branch to ‘main’, and folder to ‘docs’.<br /> Optionally tick ‘Enforce HTTPS’. <br /> Your custom domain name should be configured automatically if you have previously set up your DNS settings to point to Github’s servers.</li>
+<li>At Github, under your new repository, go to Settings &gt;&gt; Pages, set your source branch to ‘main’, and folder to ‘docs’.<br /> Tick ‘Enforce HTTPS’ (recommended). <br /> If using a custom domain name, it should be configured automatically if you have previously set up your DNS settings to point to Github’s servers.</li>
 </ol>
 <p>Congratulations, your new website should now be online!</p>
 <h3 id="references">References</h3>
@@ -2573,7 +2570,7 @@ Replace ‘username/nameofnew.git’ as appropriate.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 shikokuchuo.net<br> 注意：このサイトは四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br>注意：このサイトは四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>

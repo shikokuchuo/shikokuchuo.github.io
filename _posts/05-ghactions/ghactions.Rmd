@@ -35,7 +35,7 @@ Enabled with a simple yaml configuration file.
 Save the following as main.yml in .github/workflows of your Github repository:
 
 ```{r yml, eval=FALSE}
-name: Raction
+name: Action
 on:
   schedule:
     - cron: '30 22 * * 1-5'
@@ -56,7 +56,7 @@ jobs:
         run: |
           git config --local user.name github-actions
           git config --local user.email "actions@github.com"
-          git add output/*
+          git add docs/*
           git commit -am "commit on $(date)"
           git push origin main
         env:
@@ -70,12 +70,19 @@ jobs:
 
 3. Make sure to change nameofscript.R to your actual script name.
 
-4. Assumes your script writes files to the 'output' directory, change if necessary.
+4. Assumes your script writes files to the 'docs' directory, change if necessary.
 
 5. Assumes your repository branch is 'main', change if necessary.
 
 6. Note that this script is run on a Windows VM using Windows R binary packages. This is currently much faster than building a lot of dependencies on Linux (which is also prone to failure).
 </aside>
+
+To generate R Markdown documents (or for that matter render a Distill website), you will want to add the following step after 'Set up R':
+
+```{r yml2, eval=FALSE}
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+```
 
 ### Reference
 

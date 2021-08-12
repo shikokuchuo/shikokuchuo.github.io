@@ -1507,7 +1507,7 @@ Shikokuchuo
 <p>Enabled with a simple yaml configuration file.</p>
 <p>Save the following as main.yml in .github/workflows of your Github repository:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>name<span class="sc">:</span> Raction</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>name<span class="sc">:</span> Action</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>on<span class="sc">:</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  schedule<span class="sc">:</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span> cron<span class="sc">:</span> <span class="st">&#39;30 22 * * 1-5&#39;</span></span>
@@ -1528,7 +1528,7 @@ Shikokuchuo
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        run<span class="sc">:</span> <span class="er">|</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>          git config <span class="sc">--</span>local user.name github<span class="sc">-</span>actions</span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>          git config <span class="sc">--</span>local user.email <span class="st">&quot;actions@github.com&quot;</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>          git add output<span class="sc">/</span><span class="er">*</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>          git add docs<span class="sc">/</span><span class="er">*</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>          git commit <span class="sc">-</span>am <span class="st">&quot;commit on $(date)&quot;</span></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>          git push origin main</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        env<span class="sc">:</span></span>
@@ -1540,14 +1540,19 @@ Shikokuchuo
 <li><p>This example cron job runs every Mon-Fri at 22.30.</p></li>
 <li><p>Customize your R packages to install.</p></li>
 <li><p>Make sure to change nameofscript.R to your actual script name.</p></li>
-<li><p>Assumes your script writes files to the ‘output’ directory, change if necessary.</p></li>
+<li><p>Assumes your script writes files to the ‘docs’ directory, change if necessary.</p></li>
 <li><p>Assumes your repository branch is ‘main’, change if necessary.</p></li>
 <li><p>Note that this script is run on a Windows VM using Windows R binary packages. This is currently much faster than building a lot of dependencies on Linux (which is also prone to failure).</p></li>
 </ol>
 </aside>
+<p>To generate R Markdown documents (or for that matter render a Distill website), you will want to add the following step after ‘Set up R’:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span> name<span class="sc">:</span> Set up Pandoc</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        uses<span class="sc">:</span> r<span class="sc">-</span>lib<span class="sc">/</span>actions<span class="sc">/</span>setup<span class="sc">-</span>pandoc<span class="sc">@</span>v1</span></code></pre></div>
+</div>
 <h3 id="reference">Reference</h3>
 <p>The Github Actions with R reference: <br /> <a href="https://orchid00.github.io/actions_sandbox/" class="uri">https://orchid00.github.io/actions_sandbox/</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

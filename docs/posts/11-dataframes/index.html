@@ -2409,20 +2409,17 @@ d-appendix d-footnote-list a.footnote-backlink {
 <a href="../../map.html" aria-label="Map">
 <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
 </a>
-<a href="https://shikokuchuo.net/light-brushing/" aria-label="Light Brushing">
-<i class="fa fa-paint-brush" aria-hidden="true"></i>
-</a>
 <a href="http://www.statslab.cam.ac.uk/" aria-label="Cambridge Statistical Laboratory">
 <i class="fas fa-flask" aria-hidden="true"></i>
+</a>
+<a href="https://shikokuchuo.net/light-brushing/" aria-label="Light Brushing">
+<i class="fa fa-paint-brush" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/ichimoku/" aria-label="R">
 <i class="fab fa-r-project" aria-hidden="true"></i>
 </a>
-<a href="https://github.com/shikokuchuo/ichimoku/" aria-label="Github">
+<a href="https://github.com/shikokuchuo/" aria-label="Github">
 <i class="fab fa-github" aria-hidden="true"></i>
-</a>
-<a href="../../index.xml">
-<i class="fa fa-rss" aria-hidden="true"></i>
 </a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -2496,31 +2493,31 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>            a           b            c          d            e
-1 -0.98910954  1.19080832 -0.112949754  0.7069180  0.319292980
-2  0.09848393 -0.78061614 -0.005637697  0.2988471 -0.004116215
-3  1.40475407 -0.03219498 -0.847973070 -1.0039923 -1.251171246
-4 -0.31398233  0.03618240 -0.654208371 -0.1986989 -0.032792717
-5 -0.73730070  0.50403649  1.463660251  0.1654156  0.793231442
-6  1.37151653 -0.23341593  0.119564180  1.2111570  2.026334613
-            f            g          h            i          j
-1  0.29994589 -0.006968348 -1.6832951 -1.391190436  0.4387014
-2 -2.15228540  0.213382416 -0.8524991 -0.081480509 -1.4230728
-3 -1.15855092  0.846793552  0.1206448 -1.414157555  1.8946427
-4 -0.32674884 -0.019759136  2.1377010 -1.144145506 -0.7496537
-5  0.55832308 -1.148526638 -1.1873835 -0.008718762  0.6086867
-6  0.01966345 -1.926083859  0.5734501 -0.371989969 -0.2910331</code></pre>
+<pre><code>           a          b           c          d            e
+1 -0.7330823 -1.2813370  0.75767607  0.2698367 -0.009573706
+2  0.1997811  0.9208061  1.10174269 -0.9799302 -1.570954749
+3  0.8337392  0.6818408  0.02675908  1.4908347  0.628332030
+4  1.5256453 -0.1541549  0.67996846  0.2122133  1.357156969
+5 -0.3992294  1.5579634 -1.74425398  0.2597342 -1.300559682
+6  0.3096816  0.3220402  0.24036271 -0.9440815  0.969232386
+            f           g          h          i          j
+1  0.65149649  0.67337110  0.5490258 -1.4280210 -1.3934872
+2 -0.64338114  1.28094363  1.0793474  1.6185572  1.7982477
+3  0.27181949  0.94501166 -0.9868231 -1.2586064  0.4515754
+4 -1.63349089 -0.06203539  1.2708636  1.4021919 -1.6139508
+5  0.71967392 -2.08645442 -1.6911257 -1.0482466  0.2051543
+6  0.06986356 -0.72283514 -0.6346572 -0.3922278 -2.2777299</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                  expr    min     lq     mean  median      uq
- as.data.frame(matrix) 30.354 32.545 39.88434 33.4925 34.9675
-     matrix_df(matrix) 13.427 14.816 17.80071 15.5005 16.4620
+                  expr    min      lq     mean median      uq
+ as.data.frame(matrix) 30.098 32.4145 39.97103  33.57 35.7290
+     matrix_df(matrix) 13.443 14.8680 19.23202  15.70 16.7745
       max neval
- 9059.732 10000
- 8986.198 10000</code></pre>
+ 8903.184 10000
+ 9036.911 10000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
@@ -2577,11 +2574,11 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
                  expr     min       lq      mean   median       uq
- as.data.frame(cloud) 229.966 242.5905 280.88774 249.1265 267.0225
-        xts_df(cloud)  31.849  36.4930  44.99621  38.5280  41.2390
+ as.data.frame(cloud) 230.308 239.2325 276.30112 246.1390 269.6270
+        xts_df(cloud)  32.135  35.9280  46.94508  38.0055  41.2625
        max neval
- 56844.028 10000
-  8078.644 10000</code></pre>
+ 67770.122 10000
+  8176.387 10000</code></pre>
 </div>
 <p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 6x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2648,13 +2645,13 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
                     expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 232.461 248.8100 273.67500 256.4670 275.3400
- ggplot2::fortify(cloud) 131.093 152.6950 183.20166 162.4465 176.2565
-           xts_df(cloud)  32.339  38.2565  46.25661  40.5225  43.4490
+    as.data.frame(cloud) 233.114 245.4865 268.98317 251.0255 259.8940
+ ggplot2::fortify(cloud) 132.902 149.3595 177.84678 157.8330 169.2425
+           xts_df(cloud)  32.607  37.9315  46.38333  40.1110  42.5755
       max neval
- 6761.905 10000
- 7562.626 10000
- 5557.077 10000</code></pre>
+ 6036.155 10000
+ 6472.585 10000
+ 8090.392 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>
@@ -2767,7 +2764,7 @@ Shikokuchuo
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>© Copyright 2021 shikokuchuo.net<br> 注意：このサイトは四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br>注意：このサイトは四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>
