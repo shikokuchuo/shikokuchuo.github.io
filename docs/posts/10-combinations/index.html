@@ -2421,6 +2421,9 @@ d-appendix d-footnote-list a.footnote-backlink {
 <a href="https://github.com/shikokuchuo/" aria-label="Github">
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
+<a href="https://shikokuchuo.net/" aria-label="shikokuchuo{net}">
+<i class="fa fa-cube" aria-hidden="true"></i>
+</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2597,20 +2600,23 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr    min      lq     mean  median     uq      max neval
- fn_combn(1:16) 55.258 57.7680 72.30804 59.9655 64.390 1028.554   100
-  fn_grid(1:16) 52.280 55.5045 77.89171 57.6860 65.739 1595.311   100</code></pre>
+           expr    min      lq     mean  median      uq      max
+ fn_combn(1:16) 55.407 58.8065 72.31531 62.1750 67.0740  910.949
+  fn_grid(1:16) 52.568 56.7585 87.42871 60.1135 65.1695 2479.705
+ neval
+   100
+   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 203.26088 215.52703 261.47225 273.85498 276.79146
-  fn_grid(1:1000)  27.32543  35.26147  44.33079  39.12492  42.19048
+             expr       min        lq     mean    median        uq
+ fn_combn(1:1000) 212.82261 270.31812 275.2958 273.44012 278.21712
+  fn_grid(1:1000)  28.15937  37.82536  46.1934  39.82346  42.91553
       max neval
- 334.5829   100
- 106.3650   100</code></pre>
+ 342.6116   100
+ 108.6806   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
@@ -2643,7 +2649,7 @@ Shikokuchuo
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 0.3.51. <a href="https://shikokuchuo.net/ichimoku/" class="uri">https://shikokuchuo.net/ichimoku/</a> CRAN page: <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 0.3.51, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

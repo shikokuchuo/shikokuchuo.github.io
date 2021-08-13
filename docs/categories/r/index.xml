@@ -28,7 +28,7 @@ Shikokuchuo
 &lt;/aside&gt;
 &lt;h3 id="reverting-local-git-commits"&gt;Reverting Local Git Commits&lt;/h3&gt;
 &lt;p&gt;You have made a commit.&lt;/p&gt;
-&lt;p&gt;You discover an error / something you left out / something new to add straight after the commit.&lt;/p&gt;
+&lt;p&gt;You discover a mistake or something you left out straight after the commit.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;git reset HEAD~&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is a soft reset. Your changes are preserved. The commit is removed from the record.&lt;/p&gt;
 &lt;p&gt;Make the additional changes you need. Add files. Commit.&lt;/p&gt;
@@ -106,7 +106,7 @@ oanda_studio()&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
@@ -147,28 +147,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;            a          b           c          d          e          f
-1 -1.64042051 -0.5171370 -0.02158814  2.0474172  0.2865663 -0.5363360
-2 -1.35250576 -0.4064953  0.39037514  0.3008067  1.3129459 -1.1281405
-3  0.28292958 -1.0933727 -1.19076976 -1.8317809 -1.4232919  1.9375116
-4 -1.02917098 -1.4828659  0.53322254  0.4510716 -0.9188853  0.7303441
-5  0.09776454  1.0525453 -0.19476348 -0.7874301  2.5664303 -0.7342646
-6  0.74616680 -0.7264629 -1.77043947 -1.8690907  1.3660593  1.5869675
-            g          h           i          j
-1  1.27214311  0.7184663 -0.38503923 -0.8413792
-2 -0.12266011 -0.8031159 -0.08634305 -1.5714194
-3  0.07022839 -0.2031976  0.30260194 -0.7136035
-4  0.94286961  1.4014785 -1.02675604  0.1381278
-5  0.42149763  0.5200106 -0.36147624 -1.2829406
-6  0.37886494 -0.9021297 -0.85521186  0.4638297&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;           a          b          c          d           e          f
+1  1.0817492  1.4564231 -0.3097119  0.5208765  0.13053009 -0.5360610
+2 -0.8062317  0.3841150  0.2275354  0.1637184 -0.03429779 -0.1459266
+3  0.4505773  1.9054008  1.2562657 -1.3650499  2.54110284 -0.2297699
+4 -0.5469558  0.7510693 -0.3221524 -0.7137288 -1.98561305  1.2912706
+5  0.6123742 -1.2853404 -0.1139206 -1.3297612 -0.26747143 -0.4101235
+6 -0.5451335  1.4904273 -1.5079074 -0.7693125  0.51943619  0.3041532
+           g          h           i          j
+1 -0.3882329 -0.3103190  0.01294783  1.1737737
+2  1.7742542  0.7692705  0.86447805  0.5411612
+3 -1.9120024  0.5817213 -1.68163349  1.8096520
+4  0.1508464 -0.6039552  1.12650262 -0.2191507
+5 -1.1766121 -1.2863926  0.64259622  1.8070093
+6  1.1853406 -0.4502568  0.64342244 -0.5787532&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min      lq     mean  median      uq
- as.data.frame(matrix) 31.685 35.4435 41.80752 36.8605 38.6035
-     matrix_df(matrix) 13.965 15.2050 19.47435 15.8760 16.9805
+                  expr    min     lq     mean  median      uq
+ as.data.frame(matrix) 30.418 33.649 41.53976 35.7530 38.0875
+     matrix_df(matrix) 13.520 15.107 18.23155 15.7865 16.8510
        max neval
-  9631.927 10000
- 10570.476 10000&lt;/code&gt;&lt;/pre&gt;
+ 10624.263 10000
+  9480.307 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
@@ -204,12 +204,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min      lq      mean   median       uq
- as.data.frame(cloud) 230.997 245.071 284.30560 252.5105 277.2355
-        xts_df(cloud)  32.027  36.439  44.24101  38.6580  42.3080
-       max neval
- 10663.407 10000
-  7832.651 10000&lt;/code&gt;&lt;/pre&gt;
+                 expr     min       lq      mean   median       uq
+ as.data.frame(cloud) 236.936 246.1255 276.67954 251.5575 278.8860
+        xts_df(cloud)  32.424  36.2775  43.66986  38.4255  41.7085
+      max neval
+ 9790.445 10000
+ 8030.084 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -257,13 +257,13 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
                     expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 232.645 248.9675 275.35948 256.9365 274.0760
- ggplot2::fortify(cloud) 133.349 151.2490 192.58347 161.5230 177.3945
-           xts_df(cloud)  32.505  37.9555  46.47614  40.2175  43.3195
+    as.data.frame(cloud) 237.925 253.0135 284.22184 261.9860 290.3780
+ ggplot2::fortify(cloud) 135.990 153.4485 187.60708 164.2535 180.9595
+           xts_df(cloud)  33.139  38.6425  54.30004  40.9615  44.6385
        max neval
-  6833.711 10000
- 68633.170 10000
-  5824.185 10000&lt;/code&gt;&lt;/pre&gt;
+  8581.967 10000
+  7187.364 10000
+ 77734.547 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -302,12 +302,12 @@ structure(list(vec1, vec2, vec3),
 &lt;pre class="r"&gt;&lt;code&gt;typeof(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] &amp;quot;list&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="further-information"&gt;Further information&lt;/h3&gt;
-&lt;p&gt;Documentation for the performant constructors discussed: &lt;a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Documentation for the performant constructors discussed: &lt;a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
       <distill:md5 xmlns:distill="https://distill.pub/journal/">f0ee48d76a72921e4e6c435d6c5c4615</distill:md5>
@@ -430,17 +430,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min     lq     mean  median      uq     max neval
- fn_combn(1:16) 68.029 70.526 74.86268 72.8365 76.1155 132.096   100
-  fn_grid(1:16) 56.070 60.071 66.21555 61.7640 67.3510 185.066   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq    mean  median      uq     max neval
+ fn_combn(1:16) 55.019 56.9710 59.2100 58.4805 59.8925  95.597   100
+  fn_grid(1:16) 52.794 54.9685 58.9457 56.1550 58.7035 200.258   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 255.23566 306.11007 339.53396 340.59074 356.09898
-  fn_grid(1:1000)  36.09095  44.10072  54.08198  47.15172  52.94892
+             expr       min        lq      mean  median        uq
+ fn_combn(1:1000) 210.09800 227.57649 267.26848 283.353 292.29999
+  fn_grid(1:1000)  29.03395  35.65471  39.98203  37.998  40.31931
       max neval
- 515.2842   100
- 148.1269   100&lt;/code&gt;&lt;/pre&gt;
+ 363.7869   100
+ 115.2348   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -462,7 +462,7 @@ microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/p
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
       <distill:md5 xmlns:distill="https://distill.pub/journal/">339b1ddc10a121952629225b8ac6f82e</distill:md5>
@@ -595,7 +595,7 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course &lt;a href="https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/" class="uri"&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
@@ -669,7 +669,7 @@ TKR &amp;lt;- sample_ohlc_data&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51. &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; CRAN page: &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 0.3.51, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;Sasaki, H. 佐々木 英信 (1996), &lt;em&gt;一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]&lt;/em&gt;. Tokyo, Japan: Toushi Radar.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>

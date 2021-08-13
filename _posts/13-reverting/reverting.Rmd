@@ -30,7 +30,7 @@ data.frame(sha256 = develop(photos))
 
 You have made a commit.
 
-You discover an error / something you left out / something new to add straight after the commit.
+You discover a mistake or something you left out straight after the commit.
 
 ```{r, eval = FALSE}
 

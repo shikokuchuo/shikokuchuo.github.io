@@ -26,6 +26,10 @@ navbar:
     - text: "Github"
       icon: fab fa-github
       href: https://github.com/shikokuchuo/
+    - text: "shikokuchuo{net}"
+      icon: fa-cube
+      href: https://shikokuchuo.net/
+      
 base_url: https://shikokuchuo.net/
 collections:
   posts:
