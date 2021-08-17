@@ -1491,7 +1491,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#expand.grid">expand.grid</a></li>
-<li><a href="#ichimokugrid_dup">ichimoku::grid_dup</a></li>
+<li><a href="#ichimokugrid_dup">ichimoku:::grid_dup</a></li>
 <li><a href="#benchmarking-the-results">Benchmarking the results</a></li>
 <li><a href="#use-case-mapply-and-vapply">Use case: mapply() and vapply()</a></li>
 </ul>
@@ -1562,15 +1562,15 @@ Shikokuchuo
 [2,] &quot;g&quot;   &quot;h&quot;  </code></pre>
 </div>
 <p>It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.</p>
-<h3 id="ichimokugrid_dup">ichimoku::grid_dup</h3>
-<p>So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, expressly for this purpose.</p>
+<h3 id="ichimokugrid_dup">ichimoku:::grid_dup</h3>
+<p>So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, expressly for this purpose. As this is a package internal function, we have to access it via ‘:::’.</p>
 <p>From the function documentation: ‘create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors’.</p>
 <p>Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order of appearance does not matter.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shikokuchuo.net/ichimoku/'>ichimoku</a></span><span class='op'>)</span>
 
-<span class='va'>grid1</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='va'>xlen</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>grid1</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'>ichimoku</span><span class='fu'>:::</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='va'>xlen</span><span class='op'>)</span><span class='op'>]</span>
 <span class='va'>grid1</span>
 </code></pre>
 </div>
@@ -1591,7 +1591,7 @@ Shikokuchuo
 <p>Indeed it can be seen that both identical() and all.equal() below return TRUE.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid2</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='va'>xlen</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>]</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid2</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'>ichimoku</span><span class='fu'>:::</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='va'>xlen</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>]</span>
 <span class='va'>grid2</span>
 </code></pre>
 </div>
@@ -1605,12 +1605,7 @@ Shikokuchuo
 [1,] &quot;e&quot;   &quot;e&quot;   &quot;e&quot;   &quot;f&quot;   &quot;f&quot;   &quot;g&quot;  
 [2,] &quot;f&quot;   &quot;g&quot;   &quot;h&quot;   &quot;g&quot;   &quot;h&quot;   &quot;h&quot;  </code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>combn</span>, <span class='va'>grid2</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] TRUE</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>combn</span>, <span class='va'>grid2</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>combn</span>, <span class='va'>grid2</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>combn</span>, <span class='va'>grid2</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] TRUE</code></pre>
@@ -1629,7 +1624,7 @@ Shikokuchuo
 
 <span class='va'>fn_grid</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span>, KEEP.OUT.ATTRS <span class='op'>=</span> <span class='cn'>FALSE</span>,
-              stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>]</span>
+              stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'>ichimoku</span><span class='fu'>:::</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>]</span>
 <span class='op'>}</span>
 
 <span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>)</span><span class='op'>)</span>
@@ -1637,8 +1632,8 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
            expr    min      lq     mean  median      uq      max
- fn_combn(1:16) 55.407 58.8065 72.31531 62.1750 67.0740  910.949
-  fn_grid(1:16) 52.568 56.7585 87.42871 60.1135 65.1695 2479.705
+ fn_combn(1:16) 67.036 70.5610 84.06524 72.0225 74.4655 1054.510
+  fn_grid(1:16) 55.160 58.5865 79.19350 60.7730 64.6750 1676.633
  neval
    100
    100</code></pre>
@@ -1647,12 +1642,12 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
-             expr       min        lq     mean    median        uq
- fn_combn(1:1000) 212.82261 270.31812 275.2958 273.44012 278.21712
-  fn_grid(1:1000)  28.15937  37.82536  46.1934  39.82346  42.91553
+             expr       min        lq      mean    median        uq
+ fn_combn(1:1000) 260.95873 271.25904 278.27661 273.62707 277.28257
+  fn_grid(1:1000)  34.24629  38.15332  45.13204  40.09036  42.42705
       max neval
- 342.6116   100
- 108.6806   100</code></pre>
+ 341.0916   100
+ 100.8621   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
@@ -1681,11 +1676,11 @@ Shikokuchuo
 [23] &quot;e&amp;f&quot; &quot;e&amp;g&quot; &quot;e&amp;h&quot; &quot;f&amp;g&quot; &quot;f&amp;h&quot; &quot;g&amp;h&quot;</code></pre>
 </div>
 <p>Of the two however, mapply() is marginally faster and should normally be used when iteration is required over multiple arguments.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 0.3.51, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

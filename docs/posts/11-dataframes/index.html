@@ -2407,13 +2407,13 @@ d-appendix d-footnote-list a.footnote-backlink {
 <div class="nav-right">
 <a href="https://www.city.shikokuchuo.ehime.jp/">四国中央へ</a>
 <a href="../../map.html" aria-label="Map">
-<i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+<i class="fas fa-map" aria-hidden="true"></i>
 </a>
 <a href="http://www.statslab.cam.ac.uk/" aria-label="Cambridge Statistical Laboratory">
 <i class="fas fa-flask" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/light-brushing/" aria-label="Light Brushing">
-<i class="fa fa-paint-brush" aria-hidden="true"></i>
+<i class="fas fa-paint-brush" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/ichimoku/" aria-label="R">
 <i class="fab fa-r-project" aria-hidden="true"></i>
@@ -2422,7 +2422,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <i class="fab fa-github" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/" aria-label="shikokuchuo{net}">
-<i class="fa fa-cube" aria-hidden="true"></i>
+<i class="fas fa-cube" aria-hidden="true"></i>
 </a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -2496,38 +2496,34 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>           a          b           c          d           e
-1  0.1132436  0.3754609  0.69369341  0.4777930  0.45546098
-2  0.1352556  0.3225854  1.44435210 -0.2809174  0.47145331
-3 -1.1598023  1.5615863 -2.26072491  0.4488770  0.07842953
-4 -0.4470096  0.2220158  0.28064616  1.2371143 -0.42619661
-5  2.1924535 -0.0507081 -0.20982683 -0.1602668  0.41771677
-6  0.1983388  2.7120779 -0.01187125  0.6979756 -1.36777745
-             f           g          h           i          j
-1 -0.774434322  0.28308885 -0.4632368  0.60427180 -0.9481422
-2 -1.048630286  0.29822265  2.8830960  1.17640783  0.6571019
-3 -0.245825348  0.71257369  1.7554206  1.20552127  0.7900440
-4 -0.285339775 -0.07518555 -0.3907661  1.20803020 -1.0228323
-5 -0.008060503 -0.45106811  0.2918762 -2.21765957 -1.7037642
-6 -0.593723432 -1.41651003 -1.5807768 -0.06182698  2.1070924</code></pre>
+<pre><code>           a          b          c           d            e
+1  0.1657826  0.4144661  1.8532657 -0.08907411  1.362484758
+2 -0.9902806 -0.9467719  0.3397922  0.69978230 -2.091487458
+3  1.1298123 -1.0537851  1.2857287 -1.42248374  0.966014514
+4 -1.8674917 -0.2497440  0.4726337  1.77149909 -0.416613006
+5  0.1101215  0.8155959  0.3680684 -0.71188365  1.712475970
+6 -0.2618085  1.4933534 -0.4078088 -0.60778303 -0.007583484
+           f          g           h           i            j
+1  1.5199688 -0.4833733 -0.69652855 -0.09610355 -0.975178820
+2  0.2015404 -0.2675458  0.02332082 -0.21526969  0.883828073
+3 -1.1583845 -0.7576107  0.28312304  0.26856728  0.950850913
+4 -0.8915550  1.0623324  1.91806639 -1.01856236 -0.004950024
+5 -0.3026068  0.4684973  0.86735016  0.03282688 -0.312014655
+6  0.7998772 -0.6093528  0.51057255  0.79351375  0.179041838</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                  expr    min     lq     mean median     uq      max
- as.data.frame(matrix) 31.608 35.132 40.65422 36.749 38.137 8545.956
-     matrix_df(matrix) 13.912 15.273 19.76684 15.906 16.821 8875.070
+                  expr    min      lq     mean median     uq      max
+ as.data.frame(matrix) 31.681 35.3015 41.23933 37.045 38.838 8926.559
+     matrix_df(matrix) 14.109 15.4120 20.08717 16.101 17.102 8987.579
  neval
  10000
  10000</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] TRUE</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] TRUE</code></pre>
@@ -2576,12 +2572,12 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                 expr     min       lq      mean   median       uq
- as.data.frame(cloud) 238.416 246.2210 270.64306 249.8305 256.1335
-        xts_df(cloud)  32.812  36.2185  44.17537  38.0040  40.2505
+                 expr     min       lq      mean   median      uq
+ as.data.frame(cloud) 239.367 247.3890 274.31877 253.0715 273.408
+        xts_df(cloud)  33.188  36.8625  48.58911  38.9260  41.753
        max neval
- 65585.348 10000
-  7228.858 10000</code></pre>
+  7976.514 10000
+ 65576.065 10000</code></pre>
 </div>
 <p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 6x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2648,13 +2644,13 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
                     expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 231.740 243.5695 266.53720 249.0820 257.9955
- ggplot2::fortify(cloud) 131.590 148.1515 173.18757 156.3015 166.5120
-           xts_df(cloud)  32.444  37.4335  44.26634  39.5555  41.8040
+    as.data.frame(cloud) 240.234 253.5250 277.08731 259.3380 268.1850
+ ggplot2::fortify(cloud) 136.046 152.7625 177.89770 161.0275 171.8115
+           xts_df(cloud)  33.663  38.8560  46.64749  41.0000  43.4260
       max neval
- 8027.479 10000
- 6031.024 10000
- 5471.773 10000</code></pre>
+ 8292.139 10000
+ 6576.536 10000
+ 5396.943 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>
@@ -2692,33 +2688,23 @@ Shikokuchuo
 <p>In conclusion, dataframes are not complicated structures but essentially lists with a couple of constraints. Indeed you can see that the underlying data type of a dataframe is just a list:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<pre><code>[1] &quot;data.frame&quot; &quot;data.frame&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;list&quot;</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;list&quot;</code></pre>
+<pre><code>[1] &quot;list&quot; &quot;list&quot;</code></pre>
 </div>
 <h3 id="further-information">Further information</h3>
 <p>Documentation for the performant constructors discussed: <a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri">https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors</a>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 0.3.51, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
