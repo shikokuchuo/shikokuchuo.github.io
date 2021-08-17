@@ -147,28 +147,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;            a          b          c          d         e          f
-1 -0.97378179 -0.1548403 -0.5714620 -0.6455952 0.5205605 -0.5749921
-2  1.11101540  2.7750836 -0.4803623  0.4546384 0.3965272 -0.7286963
-3 -0.14284354 -0.4721379 -1.6644766  1.1029049 1.8622139  0.1317952
-4  0.04434475  0.8963030  0.5766962 -1.2649277 1.8482131 -0.6218877
-5  0.71348833  0.9414343 -0.1031840  0.6707541 0.5011148 -2.7596555
-6 -1.51402809 -0.2222852 -1.3424366 -0.2689952 0.1963819 -0.5368719
-           g           h          i          j
-1  1.0248394 -0.67285248 -0.8573886 -1.2362261
-2 -1.5385340 -0.03091633 -0.5194276  0.8784707
-3 -1.4101556  0.92803385  1.4088071  0.5650762
-4  0.6347925 -0.58017924 -0.3400478  0.7011862
-5 -0.4442270  0.79094178 -1.4898439 -0.4946893
-6 -1.1610129  0.63614680 -0.3711201  1.1841778&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;           a           b          c          d           e
+1 -0.2218692  0.07861161 -0.7265074 -0.7215727  1.93499758
+2 -1.2791004  1.20346993  0.8851891  1.6173022  0.77451765
+3 -0.1439703 -1.23440048 -0.8063292  0.4652774  0.22172305
+4 -1.3906991 -0.04509782  0.6228078  0.2518075  0.24269933
+5 -0.3852970  0.53851115  0.4639842  0.8857095 -0.03224325
+6 -0.6971993  1.22910131 -0.7223111 -0.3282240  0.47515388
+            f          g          h           i          j
+1  0.40515597  0.4045428  0.4006461  0.04019746  0.7016371
+2 -0.12468436 -0.4389512  0.1539424  0.51733012 -1.4766502
+3  0.02873559  0.6136625  0.4775295  0.26772944  2.0220036
+4  1.14462426  1.4232608  0.5019526 -0.40905656 -0.7924111
+5  0.73565914  0.8174479  1.0632847 -0.01448053 -0.7871897
+6  0.18938114 -0.4630511 -0.8992821  1.11268003 -0.5551482&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min      lq     mean  median      uq
- as.data.frame(matrix) 32.098 36.5125 43.11053 38.7995 40.7515
-     matrix_df(matrix) 13.571 15.6050 19.40076 16.3385 17.3210
+                  expr    min     lq     mean  median      uq
+ as.data.frame(matrix) 30.738 33.233 39.74572 34.3360 35.6395
+     matrix_df(matrix) 13.477 15.099 18.25164 15.8295 16.8260
       max neval
- 9634.083 10000
- 8910.146 10000&lt;/code&gt;&lt;/pre&gt;
+ 9027.986 10000
+ 9187.296 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix)) &amp;amp;&amp;amp;
   all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
@@ -203,12 +203,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min       lq      mean  median       uq
- as.data.frame(cloud) 241.667 257.1640 279.99480 262.097 268.9820
-        xts_df(cloud)  33.174  37.7985  42.54595  39.568  41.7635
+                 expr     min       lq      mean   median      uq
+ as.data.frame(cloud) 236.587 253.1730 276.62789 256.9235 263.412
+        xts_df(cloud)  32.256  36.7055  41.76664  38.5560  40.895
        max neval
- 10345.775 10000
-  8067.723 10000&lt;/code&gt;&lt;/pre&gt;
+ 10121.258 10000
+  7815.156 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -255,14 +255,14 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min      lq      mean   median       uq
-    as.data.frame(cloud) 242.866 260.691 279.80472 266.7845 274.2615
- ggplot2::fortify(cloud) 137.486 154.450 189.62133 162.7280 172.3155
-           xts_df(cloud)  33.691  39.155  45.96501  41.2790  43.4015
+                    expr     min       lq      mean   median      uq
+    as.data.frame(cloud) 239.438 256.3475 277.08115 263.1495 274.516
+ ggplot2::fortify(cloud) 131.591 150.1835 183.16902 159.7010 172.362
+           xts_df(cloud)  32.548  38.1870  53.42767  40.4105  42.990
        max neval
-  6599.130 10000
- 76479.747 10000
-  5945.421 10000&lt;/code&gt;&lt;/pre&gt;
+  6144.001 10000
+  7563.258 10000
+ 63687.776 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -423,17 +423,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min      lq     mean  median      uq     max neval
- fn_combn(1:16) 54.750 56.1545 59.33865 58.0165 59.9260  92.048   100
-  fn_grid(1:16) 52.529 55.1830 60.02716 57.5045 60.8565 197.565   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min     lq     mean median      uq     max neval
+ fn_combn(1:16) 55.133 57.296 63.59101 59.914 62.4780 132.499   100
+  fn_grid(1:16) 53.173 55.883 62.67968 57.882 62.0305 182.033   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 217.82097 280.46209 276.27574 282.08087 284.55206
-  fn_grid(1:1000)  28.54493  36.34848  42.82934  38.85642  40.54538
+             expr       min        lq      mean    median       uq
+ fn_combn(1:1000) 216.49235 269.06861 275.17434 284.99305 290.3979
+  fn_grid(1:1000)  28.86043  32.47165  38.16432  36.50827  39.5922
       max neval
- 353.2256   100
- 116.8112   100&lt;/code&gt;&lt;/pre&gt;
+ 367.6266   100
+ 111.8185   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;

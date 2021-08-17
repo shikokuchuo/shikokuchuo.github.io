@@ -12,13 +12,13 @@ navbar:
     - text: "四国中央へ"
       href: https://www.city.shikokuchuo.ehime.jp/
     - text: "Map"
-      icon: fas fa-map
+      icon: fas fa-map-marked-alt
       href: map.html
-    - text: "Cambridge Statistical Laboratory"
-      icon: fas fa-flask
-      href: http://www.statslab.cam.ac.uk/
+    - text: "The Shikokuchuo Project"
+      icon: fas fa-folder-open
+      href: https://shikokuchuo.net/project/
     - text: "Light Brushing"
-      icon: fas fa-paint-brush
+      icon: fas fa-palette
       href: https://shikokuchuo.net/light-brushing/
     - text: "R"
       icon: fab fa-r-project
