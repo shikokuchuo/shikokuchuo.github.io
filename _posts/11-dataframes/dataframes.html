@@ -1532,31 +1532,31 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>           a          b           c          d          e          f
-1  1.6669805  0.1343294 -0.32258182 -1.4271287 -0.7293895  1.0941992
-2  0.8446138  1.4329263 -0.48687393  0.2232336 -2.2004271  1.1256454
-3 -0.3830546  0.4626417  1.86777687  0.3583726 -0.2919489 -0.4809013
-4 -0.1527099 -1.0897978 -2.34585631 -1.4287311  0.1170199 -0.5187629
-5 -2.5411393  0.1662157  1.19449239  0.5500843 -0.5287373 -0.2875823
-6  1.7688404 -0.5834911 -0.09395123  1.0159795  2.4714991  0.3436971
-           g           h          i            j
-1 -0.5858249  1.02468299 -2.4571065 -0.074903751
-2 -0.5418111 -0.80143421  0.5660154  0.430555427
-3  0.3182233  1.65372846 -0.2020948 -0.932702574
-4 -0.1640890 -0.03074616  0.7718719 -0.090508529
-5 -0.2018402  1.78184377 -0.3043142  0.474151183
-6 -1.3002974  1.06743367  0.2729817  0.003875962</code></pre>
+<pre><code>             a          b          c           d          e
+1 -0.213177924  1.4768104  0.6926389 -0.41290672  0.8671964
+2  1.084638574 -0.3002303 -1.2842718  0.92689515 -0.2835376
+3  0.004361611  0.9458346 -0.2548629 -0.89062066  1.9494896
+4 -1.154480145 -0.7776196 -0.7655241  0.03687129 -1.2900522
+5  1.432554851  0.4573547  2.0774454  0.75146172  1.6863959
+6 -1.279823703 -0.2969678  0.5801655  1.30120934 -0.7945065
+           f           g         h           i           j
+1 -0.4397556 -1.32687067 0.3772628 -0.45028346  0.21785532
+2  0.4548627  0.48046499 0.7485784 -0.00302237  0.13353479
+3  0.6949584  0.89939530 1.3667244 -1.47658782  0.38184058
+4  0.4418851 -1.28026705 0.8191942 -0.99781981  0.04473193
+5 -1.5484516 -0.09793258 0.2766818  0.24696580 -0.79604201
+6  1.1821523  0.43455779 0.7294877 -1.58312959 -1.19766815</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                  expr    min     lq     mean  median      uq
- as.data.frame(matrix) 30.530 32.624 40.08494 33.4745 34.6845
-     matrix_df(matrix) 13.584 14.928 16.83786 15.5900 16.5205
+                  expr    min      lq     mean median      uq
+ as.data.frame(matrix) 30.495 32.5380 41.13246 33.364 34.7575
+     matrix_df(matrix) 13.618 14.9595 17.28842 15.629 16.7005
       max neval
- 8850.176 10000
- 8312.570 10000</code></pre>
+ 9435.519 10000
+ 8509.016 10000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
   <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
@@ -1608,12 +1608,12 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                 expr     min      lq      mean   median       uq
- as.data.frame(cloud) 231.456 239.119 265.45460 243.2765 251.6775
-        xts_df(cloud)  32.211  35.948  44.50489  37.9870  40.7370
+                 expr     min       lq      mean   median      uq
+ as.data.frame(cloud) 229.466 237.5180 265.35652 241.2690 249.440
+        xts_df(cloud)  31.944  35.2715  43.24762  36.9725  39.067
        max neval
- 56159.484 10000
-  7234.397 10000</code></pre>
+ 54855.204 10000
+  7646.704 10000</code></pre>
 </div>
 <p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 6x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1679,14 +1679,14 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                    expr     min      lq      mean   median      uq
-    as.data.frame(cloud) 232.715 245.546 265.68031 251.2070 258.826
- ggplot2::fortify(cloud) 130.830 148.376 174.07031 157.9795 170.905
-           xts_df(cloud)  32.831  37.914  43.53245  40.0535  42.586
+                    expr     min       lq      mean   median       uq
+    as.data.frame(cloud) 232.420 248.5395 264.05222 255.3805 263.2615
+ ggplot2::fortify(cloud) 131.158 148.7200 173.74988 156.8865 167.3025
+           xts_df(cloud)  32.436  37.8345  45.88271  39.9410  42.2255
       max neval
- 7708.161 10000
- 5968.606 10000
- 5361.340 10000</code></pre>
+ 5631.263 10000
+ 8029.007 10000
+ 5570.190 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>

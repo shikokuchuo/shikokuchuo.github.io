@@ -2160,11 +2160,11 @@ html {
   --aside-size:      12px;
   --fig-cap-size:    12px;
   /*-- Main font colors --*/
-  --title-color:     #000000;
-  --header-color:    rgba(0, 0, 0, 0.8);
-  --body-color:      rgba(0, 0, 0, 0.8);
-  --aside-color:     rgba(0, 0, 0, 0.6);
-  --fig-cap-color:   rgba(0, 0, 0, 0.6);
+  --title-color:     #02141c;
+  --header-color:    #02141c;
+  --body-color:      #02141c;
+  --aside-color:     #02141c;
+  --fig-cap-color:   #02141c;
   /*-- Specify custom fonts ~~~ must be imported above   --*/
   --heading-font:    'Open Sans', 'M PLUS 1p', sans-serif;
   --mono-font:       'Fira Code', monospace;
@@ -2175,9 +2175,9 @@ html {
 /*-- ARTICLE METADATA --*/
 d-byline {
   --heading-size:    0.6rem;
-  --heading-color:   rgba(0, 0, 0, 0.5);
+  --heading-color:   #02141c;
   --body-size:       0.8rem;
-  --body-color:      rgba(0, 0, 0, 0.8);
+  --body-color:      #02141c;
 }
 
 /*-- ARTICLE TABLE OF CONTENTS --*/
@@ -2189,9 +2189,9 @@ d-byline {
 /*-- ARTICLE APPENDIX --*/
 d-appendix {
   --heading-size:    14px;
-  --heading-color:   rgba(0, 0, 0, 0.65);
+  --heading-color:   #02141c;
   --text-size:       0.8em;
-  --text-color:      rgba(0, 0, 0, 0.5);
+  --text-color:      #02141c;
 }
 
 /*-- WEBSITE HEADER + FOOTER --*/
@@ -2199,17 +2199,17 @@ d-appendix {
 
 .distill-site-header {
   --title-size:       16px;
-  --text-color:       #0F2E3D;
+  --text-color:       #02141c;
   --text-size:        13px;
   --hover-color:      #dd424c;
-  --bkgd-color:       white;
+  --bkgd-color:       #ffffff;
 }
 
 .distill-site-footer {
-  --text-color:       #0F2E3D;
+  --text-color:       #02141c;
   --text-size:        13px;
   --hover-color:      #dd424c;
-  --bkgd-color:       white;
+  --bkgd-color:       #ffffff;
 }
 
 /*-- Additional custom styles --*/
@@ -2595,23 +2595,20 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr    min      lq     mean  median      uq      max
- fn_combn(1:16) 59.786 64.4820 79.67354 67.4450 71.6075 1058.612
-  fn_grid(1:16) 57.984 62.7965 86.70182 65.4195 67.9815 1850.091
- neval
-   100
-   100</code></pre>
+           expr   min      lq     mean  median     uq      max neval
+ fn_combn(1:16) 67.12 71.7215 85.82998 74.8225 83.207  778.358   100
+  fn_grid(1:16) 56.29 60.6495 94.60623 65.0205 72.428 2437.294   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
              expr       min        lq      mean    median        uq
- fn_combn(1:1000) 207.61186 273.79050 274.22130 276.29767 280.22384
-  fn_grid(1:1000)  27.46337  37.48419  43.87753  39.21325  41.61247
+ fn_combn(1:1000) 213.16995 275.70467 280.46208 279.51532 284.37240
+  fn_grid(1:1000)  31.09856  37.97192  44.76737  39.50963  41.90708
       max neval
- 334.7129   100
- 100.6918   100</code></pre>
+ 354.8394   100
+ 105.2460   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
@@ -2693,7 +2690,7 @@ Shikokuchuo
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br>注意：このサイトは四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>
