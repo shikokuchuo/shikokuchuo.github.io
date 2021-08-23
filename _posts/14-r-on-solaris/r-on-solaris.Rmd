@@ -1,0 +1,177 @@
+---
+title: "Installing an R Build Environment on Solaris"
+description: |
+  Run R CMD check or devtools::check() on a local Solaris VM
+author:
+  - name: shikokuchuo
+date: 2021-08-23
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+develop <- function(x) {
+  plot(imager::load.image(x), axes = FALSE)
+  paste0(openssl::sha256(file(x)))
+}
+par(mar = c(0, 0, 0, 0))
+data.frame(sha256 = develop(photos))
+
+```
+<aside>Shikokuchuo</aside>
+
+### Setup
+
+The R-hub solarischeck repository^[Copyright, the [R Consortium](https://www.r-consortium.org/)], provides a full set of instructions by Gábor Csárdi for setting up R on a Solaris system. However, due to the ever-evolving software landscape, the instructions as they stand are not likely to produce a working system.
+
+This guide builds on and completes the set of instructions so that a full build system can be set up with relative ease, complete with 'devtools' installed and ready for package testing on a CRAN-like Solaris environment.
+
+Where '*Instructions*' are mentioned below, they refer to those found at the original solarischeck repository: 
+
+<a href="https://github.com/r-hub/solarischeck/tree/master/packer" target="_blank">https://github.com/r-hub/solarischeck/tree/master/packer</a>.
+
+[1]
+
+Follow steps 1-3 of the *Instructions*, including installing the latest Packer version from its website. The website provides clear guidance on the best installation method - for example, for Ubuntu Linux users, a PPA is provided for a straightforward install process.
+
+[2]
+
+Follow step 4 of the *Instructions* and edit 'solaris10.json' to point to the locations of the downloaded Solaris 10 iso and Oracle Developer Studio tar.bz2.
+
+In addition, find the following line in 'solaris10.json':
+```
+"iso_checksum_type": "sha1",
+```
+It appears twice. Delete both of these lines.
+
+[3]
+
+Open up a terminal and `cd` to where the 'solaris10.json' file is located. Execute the following command to create an updated Packer configuration from the json file:
+
+```{bash eval=FALSE, engine="sh"}
+packer hcl2_upgrade solaris10.json
+```
+
+You should get a confirmation message such as:
+```
+Successfully created solaris10.json.pkr.hcl. Exit 0
+```
+
+[4]
+
+Follow step 5 of the *Instructions* and make sure VirtualBox or VMware is installed. 
+
+[5]
+
+From where your `solaris10.json` is located, execute:
+
+```{bash, eval=FALSE, engine="sh"}
+packer build .
+```
+
+The automated build will now run for a while, with the console showing the commands as they are run.
+
+As per step 7 of the *Instructions*, do not attempt to interact with the VM window. Even if it appears static, processes will be running in the background.
+
+Wait for the build to finish.
+
+[6]
+
+Complete the remaining installation steps 8-10 from the *Instructions*.
+
+For those using VirtualBox: you should have a successfully-imported virtual machine at this point. Before launching it, first choose 'settings'. On the 'system' tab feel free to allocate some more base memory (staying within the recommended green band). On the 'display tab', similarly allocate some more video memory - this is important otherwise increasing the screen resolution later may fail.
+
+[7]
+
+Launch the virtual machine and log in using the 'rhub' account as per the *Instructions*.
+
+Choose the Sun Java Desktop Environment (however much you are tempted to use the awesome CDE). Once you arrive at a desktop, right click and set the desired screen resolution. (Here, if not enough video memory was allocated in the previous step you may get a black screen. If you do not get back to a usable dektop, power off the VM and try again.)
+
+[8]
+
+Open a terminal window and install the following packages from openCSW, the Solaris open source software repository, by issuing the following command:
+
+```{bash eval=FALSE, engine="sh"}
+sudo pkgutil -y -i cmake gmake curl libcurl-dev libssh2_dev libssl-dev libxml2-dev libiconv-dev
+```
+
+These are utilities and system libraries that are required to install the various dependencies of 'devtools'.
+
+[19] 
+
+'libgit2' is required but not available on openCSW, and hence must be built. In a terminal window, execute the commands in the following instructions by Jeroen Ooms:
+
+<a href="https://gist.github.com/jeroen/4f13ff48596b449283ca98af7b95601d" target="_blank">https://gist.github.com/jeroen/4f13ff48596b449283ca98af7b95601d</a>
+
+Start from `# Download latest release` as we have already installed the dependencies as part of the previous step.
+
+[10] 
+
+For the final step, load up a terminal window. Enter the following to set the environment variable:
+
+```{bash eval=FALSE, engine="sh"}
+export MAKE=gmake
+```
+
+From the same terminal window, launch R:
+
+```{bash eval=FALSE, engine="sh"}
+R
+```
+
+At the R prompt, proceed to install the 'devtools' package:
+
+```{r eval=FALSE}
+install.packages("devtools")
+```
+
+You will be prompted if you would like to use and create a personal library. Proceed with 'yes' both times.
+
+All the dependencies of 'devtools' will now be downloaded and install will take a while.
+
+The installation should complete successfully leaving you with a full R development environment on Solaris.
+
+### Bonus
+
+Install the latest Firefox build 52.0esr for Solaris - this allows access to modern websites such as Github.
+
+Open up a terminal and enter the following:
+
+```{bash eval=FALSE, engine="sh"}
+cd Desktop
+
+# Download file
+curl -OL https://ftp.mozilla.org/pub/firefox/releases/52.0esr/contrib/solaris_pkgadd/firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2
+
+# Decompress file
+bzip2 -d firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2
+
+# Install package
+sudo pkgadd -d ./firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg
+```
+
+Respond 'yes' to all install prompts.
+
+It does not overwrite the bundled version, so set up a shortcut by right-clicking on the desktop, and select 'Create Launcher'.
+
+For 'Name' enter `Firefox`, for 'Command' enter `/opt/sfw/lib/firefox/firefox`
+
+Double-click the new launcher icon on the desktop to bring up Firefox.
+
+### Power off
+
+To turn off the VM, open up a terminal window and issue:
+
+```{bash eval=FALSE, engine="sh"}
+sudo poweroff
+```
+
+--
+
+<p xmlns:cc="http://creativecommons.org/ns#" >This article (excluding the photograph) is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
