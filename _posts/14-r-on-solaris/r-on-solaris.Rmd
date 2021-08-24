@@ -28,7 +28,7 @@ data.frame(sha256 = develop(photos))
 
 ### Setup
 
-The R-hub solarischeck repository^[Copyright, the [R Consortium](https://www.r-consortium.org/)], provides a full set of instructions by Gábor Csárdi for setting up R on a Solaris system. However, due to the ever-evolving software landscape, the instructions as they stand are not likely to produce a working system.
+The R-hub solarischeck repository^[Copyright, the [R Consortium](https://www.r-consortium.org/)], provides a full set of instructions by Gábor Csárdi for setting up R on a Solaris system. However, due to the ever-evolving software landscape, the instructions as they stand are no longer likely to produce a working system.
 
 This guide builds on and completes the set of instructions so that a full build system can be set up with relative ease, complete with 'devtools' installed and ready for package testing on a CRAN-like Solaris environment.
 

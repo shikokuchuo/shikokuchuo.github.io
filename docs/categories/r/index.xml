@@ -27,7 +27,7 @@
 Shikokuchuo
 &lt;/aside&gt;
 &lt;h3 id="setup"&gt;Setup&lt;/h3&gt;
-&lt;p&gt;The R-hub solarischeck repository&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, provides a full set of instructions by Gábor Csárdi for setting up R on a Solaris system. However, due to the ever-evolving software landscape, the instructions as they stand are not likely to produce a working system.&lt;/p&gt;
+&lt;p&gt;The R-hub solarischeck repository&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, provides a full set of instructions by Gábor Csárdi for setting up R on a Solaris system. However, due to the ever-evolving software landscape, the instructions as they stand are no longer likely to produce a working system.&lt;/p&gt;
 &lt;p&gt;This guide builds on and completes the set of instructions so that a full build system can be set up with relative ease, complete with ‘devtools’ installed and ready for package testing on a CRAN-like Solaris environment.&lt;/p&gt;
 &lt;p&gt;Where ‘&lt;em&gt;Instructions&lt;/em&gt;’ are mentioned below, they refer to those found at the original solarischeck repository:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/r-hub/solarischeck/tree/master/packer" target="_blank"&gt;https://github.com/r-hub/solarischeck/tree/master/packer&lt;/a&gt;.&lt;/p&gt;
