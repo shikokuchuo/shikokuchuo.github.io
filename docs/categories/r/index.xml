@@ -59,7 +59,7 @@ Shikokuchuo
 &lt;p&gt;Choose the Sun Java Desktop Environment (however much you are tempted to use the awesome CDE). Once you arrive at a desktop, right click and set the desired screen resolution. (Here, if not enough video memory was allocated in the previous step you may get a black screen. If you do not get back to a usable dektop, power off the VM and try again.)&lt;/p&gt;
 &lt;p&gt;[8]&lt;/p&gt;
 &lt;p&gt;Open a terminal window and install the following packages from openCSW, the Solaris open source software repository, by issuing the following command:&lt;/p&gt;
-&lt;pre class="bash"&gt;&lt;code&gt;sudo pkgutil -y -i cmake gmake curl libcurl-dev libssh2_dev libssl-dev libxml2-dev libiconv-dev&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;sudo pkgutil -y -i cmake gmake curl libcurl_dev libssh2_dev libssl_dev libxml2_dev libiconv_dev&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;These are utilities and system libraries that are required to install the various dependencies of ‘devtools’.&lt;/p&gt;
 &lt;p&gt;[19]&lt;/p&gt;
 &lt;p&gt;‘libgit2’ is required but not available on openCSW, and hence must be built. In a terminal window, execute the commands in the following instructions by Jeroen Ooms:&lt;/p&gt;
@@ -76,7 +76,7 @@ Shikokuchuo
 &lt;p&gt;All the dependencies of ‘devtools’ will now be downloaded and install will take a while.&lt;/p&gt;
 &lt;p&gt;The installation should complete successfully leaving you with a full R development environment on Solaris.&lt;/p&gt;
 &lt;h3 id="bonus"&gt;Bonus&lt;/h3&gt;
-&lt;p&gt;Install the latest Firefox build 52.0esr for Solaris - this allows access to modern websites such as Github.&lt;/p&gt;
+&lt;p&gt;Install the last available Firefox build 52.0esr for Solaris - this allows access to modern websites such as Github.&lt;/p&gt;
 &lt;p&gt;Open up a terminal and enter the following:&lt;/p&gt;
 &lt;pre class="bash"&gt;&lt;code&gt;cd Desktop
 
@@ -186,10 +186,10 @@ Shikokuchuo
 &lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
 
 oanda_studio()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href="img/oastudio1.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net//posts/12-oanda-studio/img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="img/oastudio1.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Of course arguments for customisation can also be specified within the call to &lt;code&gt;oanda_studio()&lt;/code&gt; itself. Demonstrating some further options below with Soybean futures:&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;oanda_studio(&amp;quot;SOYBN_USD&amp;quot;, granularity = &amp;quot;M5&amp;quot;, refresh = 10, price = &amp;quot;B&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;a href="img/oastudio2.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net//posts/12-oanda-studio/img/oastudio2.png" alt="oanda_studio in dark mode" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="img/oastudio2.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio2.png" alt="oanda_studio in dark mode" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id="other-functions"&gt;Other functions&lt;/h3&gt;
 &lt;p&gt;Other functions to access the OANDA fxTrade API are included in the ichimoku package. These are standard R functions for retrieving data in tabular form and charting (not reliant on Shiny), and include:&lt;/p&gt;
 &lt;ul&gt;
@@ -246,28 +246,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;            a           b           c          d           e
-1 -0.03647856  0.89525736 -0.05101581  0.3203309 -0.55693997
-2 -0.82772624  0.03600031 -1.36604632  2.1362505  0.15321897
-3  0.99974435  0.35270960  0.47222180 -1.7517806 -0.04421495
-4 -0.77817343  0.79929381  1.04037050  0.6164430 -0.30260651
-5 -0.63764092 -0.45025123  0.69638269  0.3095393 -0.01261813
-6  0.28365645  1.19941804  0.53709476 -0.5862452 -2.28268024
-           f          g           h          i           j
-1 -0.9789724  1.1058816  0.01997306 -0.6029697 -0.03224591
-2  0.2184952  0.7246406  0.39981983  2.3026391 -0.30682152
-3 -2.2364246  0.4788573 -0.20903080 -0.5496686  1.21929331
-4 -0.9484870  0.2760234  0.94874479 -1.9283657 -0.42257706
-5 -0.7999677 -0.2088328  1.09312508  0.9618178  0.71421206
-6 -1.0571877 -1.6117814 -1.33898965 -0.7172760 -0.65607937&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;            a           b          c          d          e          f
+1  0.40909114 -1.04001029  0.0610974 -0.4692524  1.3979367  0.7135274
+2 -0.53228698 -0.96085693 -0.1159587  0.1665950  2.2978654 -0.7311577
+3 -0.98976425 -0.07192003 -0.7681657 -0.1858030 -1.4692800  0.6094491
+4  0.03255393  0.07636765 -0.5188654 -0.6992632  0.4740108 -1.1268171
+5  0.03328891 -0.23223290 -2.3465578  0.8692020 -1.0074204 -1.0407186
+6  0.55582633  0.44539771  1.2825881  0.6686187 -0.2651293  0.7188069
+           g          h            i          j
+1  0.5046083 -1.6200351  0.762300000 -0.5210662
+2 -0.9705076 -0.1540210  0.259534399  1.0768943
+3  1.2279337 -0.6490922  0.002639027  0.3723608
+4 -1.2345799  0.7463320  0.918827992  1.5629754
+5  1.7520905  0.7131315  0.277094844 -1.2672896
+6  1.1745953  1.1674068 -0.524893573 -1.7970696&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min     lq     mean  median      uq
- as.data.frame(matrix) 30.269 31.839 37.22239 32.4615 33.6025
-     matrix_df(matrix) 13.610 14.672 19.44659 15.1620 15.8920
-      max neval
- 7169.343 10000
- 6751.099 10000&lt;/code&gt;&lt;/pre&gt;
+                  expr    min     lq     mean median      uq      max
+ as.data.frame(matrix) 30.447 32.329 40.41309 33.074 34.2605 7544.158
+     matrix_df(matrix) 13.516 14.844 17.83997 15.400 16.1960 6438.848
+ neval
+ 10000
+ 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix)) &amp;amp;&amp;amp;
   all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
@@ -302,12 +302,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min       lq      mean   median       uq
- as.data.frame(cloud) 229.519 237.6475 262.97143 242.6860 256.0695
-        xts_df(cloud)  32.119  35.6935  42.79311  37.5975  40.2260
+                 expr     min       lq     mean  median      uq
+ as.data.frame(cloud) 231.703 250.4855 272.4438 257.704 264.592
+        xts_df(cloud)  32.403  36.8330  43.5311  38.643  40.907
       max neval
- 7554.698 10000
- 7122.124 10000&lt;/code&gt;&lt;/pre&gt;
+ 7567.536 10000
+ 6940.912 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -354,14 +354,14 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min       lq      mean   median      uq
-    as.data.frame(cloud) 231.795 253.5035 289.75376 261.6725 282.247
- ggplot2::fortify(cloud) 133.213 153.8975 178.06897 163.9305 177.429
-           xts_df(cloud)  32.748  38.7735  47.12573  41.2010  44.249
+                    expr     min      lq      mean   median       uq
+    as.data.frame(cloud) 241.627 260.921 294.56627 267.4335 276.7940
+ ggplot2::fortify(cloud) 138.077 156.012 180.40827 164.9395 175.6660
+           xts_df(cloud)  33.453  39.290  46.94799  41.5100  43.9395
        max neval
- 75716.816 10000
-  6143.916 10000
-  6202.127 10000&lt;/code&gt;&lt;/pre&gt;
+ 78191.459 10000
+  7192.837 10000
+  6202.462 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -522,17 +522,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min     lq     mean  median    uq     max neval
- fn_combn(1:16) 55.222 56.888 59.30802 58.7320 60.42  95.510   100
-  fn_grid(1:16) 52.894 55.375 59.22153 57.2705 59.07 203.133   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq     mean  median     uq     max neval
+ fn_combn(1:16) 55.015 56.4745 59.91290 58.4760 60.012  94.290   100
+  fn_grid(1:16) 52.096 54.8265 58.76156 56.3785 58.344 207.967   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 212.29719 277.05358 280.16035 280.12075 284.76492
-  fn_grid(1:1000)  28.49276  38.06048  47.88943  40.57413  43.50327
+             expr       min        lq      mean    median       uq
+ fn_combn(1:1000) 219.99701 282.17238 282.92827 284.81668 287.4544
+  fn_grid(1:1000)  29.14338  38.84494  51.46449  40.90651  44.3927
       max neval
- 362.1485   100
- 118.5360   100&lt;/code&gt;&lt;/pre&gt;
+ 353.9611   100
+ 122.5122   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;

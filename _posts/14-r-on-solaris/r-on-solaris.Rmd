@@ -98,7 +98,7 @@ Choose the Sun Java Desktop Environment (however much you are tempted to use the
 Open a terminal window and install the following packages from openCSW, the Solaris open source software repository, by issuing the following command:
 
 ```{bash eval=FALSE, engine="sh"}
-sudo pkgutil -y -i cmake gmake curl libcurl-dev libssh2_dev libssl-dev libxml2-dev libiconv-dev
+sudo pkgutil -y -i cmake gmake curl libcurl_dev libssh2_dev libssl_dev libxml2_dev libiconv_dev
 ```
 
 These are utilities and system libraries that are required to install the various dependencies of 'devtools'.
@@ -139,7 +139,7 @@ The installation should complete successfully leaving you with a full R developm
 
 ### Bonus
 
-Install the latest Firefox build 52.0esr for Solaris - this allows access to modern websites such as Github.
+Install the last available Firefox build 52.0esr for Solaris - this allows access to modern websites such as Github.
 
 Open up a terminal and enter the following:
 
