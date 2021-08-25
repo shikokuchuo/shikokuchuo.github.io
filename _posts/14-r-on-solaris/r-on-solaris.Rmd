@@ -139,7 +139,7 @@ The installation should complete successfully leaving you with a full R developm
 
 ### Bonus
 
-Install the last available Firefox build 52.0esr for Solaris - this allows access to modern websites such as Github.
+Install the last released Firefox build 52.0esr for Solaris - this allows modern websites such as Github to load.
 
 Open up a terminal and enter the following:
 

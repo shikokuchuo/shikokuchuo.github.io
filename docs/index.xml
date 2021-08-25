@@ -76,7 +76,7 @@ Shikokuchuo
 &lt;p&gt;All the dependencies of ‘devtools’ will now be downloaded and install will take a while.&lt;/p&gt;
 &lt;p&gt;The installation should complete successfully leaving you with a full R development environment on Solaris.&lt;/p&gt;
 &lt;h3 id="bonus"&gt;Bonus&lt;/h3&gt;
-&lt;p&gt;Install the last available Firefox build 52.0esr for Solaris - this allows access to modern websites such as Github.&lt;/p&gt;
+&lt;p&gt;Install the last released Firefox build 52.0esr for Solaris - this allows modern websites such as Github to load.&lt;/p&gt;
 &lt;p&gt;Open up a terminal and enter the following:&lt;/p&gt;
 &lt;pre class="bash"&gt;&lt;code&gt;cd Desktop
 
@@ -246,28 +246,28 @@ matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1
 dim(matrix)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;            a           b          c          d          e          f
-1  0.40909114 -1.04001029  0.0610974 -0.4692524  1.3979367  0.7135274
-2 -0.53228698 -0.96085693 -0.1159587  0.1665950  2.2978654 -0.7311577
-3 -0.98976425 -0.07192003 -0.7681657 -0.1858030 -1.4692800  0.6094491
-4  0.03255393  0.07636765 -0.5188654 -0.6992632  0.4740108 -1.1268171
-5  0.03328891 -0.23223290 -2.3465578  0.8692020 -1.0074204 -1.0407186
-6  0.55582633  0.44539771  1.2825881  0.6686187 -0.2651293  0.7188069
-           g          h            i          j
-1  0.5046083 -1.6200351  0.762300000 -0.5210662
-2 -0.9705076 -0.1540210  0.259534399  1.0768943
-3  1.2279337 -0.6490922  0.002639027  0.3723608
-4 -1.2345799  0.7463320  0.918827992  1.5629754
-5  1.7520905  0.7131315  0.277094844 -1.2672896
-6  1.1745953  1.1674068 -0.524893573 -1.7970696&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;            a          b          c          d          e          f
+1 -0.02389619 -0.8311164 -0.5472869  1.6661354  0.3286441  0.2985099
+2  0.20700369 -1.2694983 -0.4299810  0.7430051 -1.2734305  1.6430371
+3  0.43503922  0.4240750 -0.3327727 -0.9345675  0.4695495  0.1336195
+4  0.34469469 -0.1854843  1.1715851 -0.5833847  0.9146501 -1.2136117
+5 -0.29850301 -0.1378443  0.3249485  1.0299331  1.0144319 -1.9533728
+6  0.37621747  1.0689757 -0.3247151 -0.3638982  1.0440059  0.5598050
+            g           h          i          j
+1 -0.31822340  0.71879164  0.5233143 -0.7568929
+2  0.06121933  1.91642891 -0.1325790  0.9013008
+3  0.01635583  1.59979317  0.6827425  0.6360383
+4  0.12225836  0.97373588  1.6767836  0.7335975
+5  0.74317514  0.08508378 -0.6914989 -0.4620526
+6 -0.65732790 -2.17608950  0.0782986  1.0763838&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                  expr    min     lq     mean median      uq      max
- as.data.frame(matrix) 30.447 32.329 40.41309 33.074 34.2605 7544.158
-     matrix_df(matrix) 13.516 14.844 17.83997 15.400 16.1960 6438.848
- neval
- 10000
- 10000&lt;/code&gt;&lt;/pre&gt;
+                  expr    min      lq     mean  median      uq
+ as.data.frame(matrix) 31.827 35.8350 41.19657 37.7665 41.5525
+     matrix_df(matrix) 13.905 15.3255 28.38582 16.2300 17.5370
+      max neval
+  9477.73 10000
+ 77407.04 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix)) &amp;amp;&amp;amp;
   all.equal(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
@@ -302,12 +302,12 @@ xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
 2020-01-08  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                 expr     min       lq     mean  median      uq
- as.data.frame(cloud) 231.703 250.4855 272.4438 257.704 264.592
-        xts_df(cloud)  32.403  36.8330  43.5311  38.643  40.907
+                 expr     min      lq      mean  median      uq
+ as.data.frame(cloud) 238.964 249.335 276.42074 254.008 267.293
+        xts_df(cloud)  32.873  36.383  41.97375  38.267  41.085
       max neval
- 7567.536 10000
- 6940.912 10000&lt;/code&gt;&lt;/pre&gt;
+ 9335.785 10000
+ 9572.095 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 6x as fast&lt;/em&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
 
@@ -354,14 +354,14 @@ is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/ol&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-                    expr     min      lq      mean   median       uq
-    as.data.frame(cloud) 241.627 260.921 294.56627 267.4335 276.7940
- ggplot2::fortify(cloud) 138.077 156.012 180.40827 164.9395 175.6660
-           xts_df(cloud)  33.453  39.290  46.94799  41.5100  43.9395
-       max neval
- 78191.459 10000
-  7192.837 10000
-  6202.462 10000&lt;/code&gt;&lt;/pre&gt;
+                    expr     min       lq      mean  median       uq
+    as.data.frame(cloud) 241.750 256.8235 278.68552 263.136 273.6675
+ ggplot2::fortify(cloud) 136.215 154.4375 182.76731 163.085 174.3930
+           xts_df(cloud)  33.091  38.8065  43.75538  40.907  43.3805
+      max neval
+ 6559.343 10000
+ 8235.545 10000
+ 5430.126 10000&lt;/code&gt;&lt;/pre&gt;
 &lt;ol start="2" style="list-style-type: decimal"&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
@@ -401,7 +401,7 @@ structure(list(vec1, vec2, vec3),
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.0.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.1.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
       <distill:md5>f0ee48d76a72921e4e6c435d6c5c4615</distill:md5>
@@ -522,17 +522,17 @@ fn_grid &amp;lt;- function(x) {
 
 microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: microseconds
-           expr    min      lq     mean  median     uq     max neval
- fn_combn(1:16) 55.015 56.4745 59.91290 58.4760 60.012  94.290   100
-  fn_grid(1:16) 52.096 54.8265 58.76156 56.3785 58.344 207.967   100&lt;/code&gt;&lt;/pre&gt;
+           expr    min      lq     mean median      uq     max neval
+ fn_combn(1:16) 55.019 58.0275 62.42645 59.966 64.0315  96.154   100
+  fn_grid(1:16) 51.724 55.7745 60.75476 58.871 62.6720 201.531   100&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;Unit: milliseconds
-             expr       min        lq      mean    median       uq
- fn_combn(1:1000) 219.99701 282.17238 282.92827 284.81668 287.4544
-  fn_grid(1:1000)  29.14338  38.84494  51.46449  40.90651  44.3927
+             expr      min        lq      mean   median        uq
+ fn_combn(1:1000) 210.0241 274.71463 283.28801 299.1921 307.39640
+  fn_grid(1:1000)  28.6677  35.49219  41.84865  38.7104  42.96192
       max neval
- 353.9611   100
- 122.5122   100&lt;/code&gt;&lt;/pre&gt;
+ 383.3246   100
+ 119.2804   100&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
 &lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
 &lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
@@ -554,7 +554,7 @@ microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))&lt;/code&gt;&lt;/p
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.0.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.1.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
       <distill:md5>339b1ddc10a121952629225b8ac6f82e</distill:md5>
@@ -687,7 +687,7 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.0.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.1.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course &lt;a href="https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/" class="uri"&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
@@ -761,7 +761,7 @@ TKR &amp;lt;- sample_ohlc_data&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="footnotes"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.0.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.1.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id="fn2"&gt;&lt;p&gt;Sasaki, H. 佐々木 英信 (1996), &lt;em&gt;一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]&lt;/em&gt;. Tokyo, Japan: Toushi Radar.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
@@ -796,8 +796,8 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-35495e2d9075d536c114" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-35495e2d9075d536c114"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-68c5fdb14f0c17b2f15a" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-68c5fdb14f0c17b2f15a"&gt;{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["&lt;a href='https://www.coursera.org/specializations/statistics'&gt;https://www.coursera.org/specializations/statistics&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/entrepreneurial-finance'&gt;https://www.coursera.org/specializations/entrepreneurial-finance&lt;\/a&gt;","&lt;a href='https://www.coursera.org/specializations/r'&gt;https://www.coursera.org/specializations/r&lt;\/a&gt;","&lt;a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment&lt;\/a&gt;"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Institution&lt;\/th&gt;\n      &lt;th&gt;Course or Specialization&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>d102699385cdf42e7b669964c6754bb9</distill:md5>
       <category>Resources</category>
@@ -832,8 +832,8 @@ tibble::tribble(
 ) %&amp;gt;%
   dplyr::mutate(URL = purrr::map_chr(URL, ~paste0(&amp;quot;&amp;lt;a href=&amp;#39;&amp;quot;, .x, &amp;quot;&amp;#39;&amp;gt;&amp;quot;, .x, &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;))) %&amp;gt;%
   DT::datatable(escape = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id="htmlwidget-7f6c16a6cc342aa9243c" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
-&lt;script type="application/json" data-for="htmlwidget-7f6c16a6cc342aa9243c"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+&lt;div id="htmlwidget-0c119534a64f01de4ddd" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-0c119534a64f01de4ddd"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Fred","Quandl","Yahoo Finance","Damodaran NYU Stern","UCI Machine Learning Repository","Project Gutenberg"],["&lt;a href='https://fred.stlouisfed.org/'&gt;https://fred.stlouisfed.org/&lt;\/a&gt;","&lt;a href='https://www.quandl.com/'&gt;https://www.quandl.com/&lt;\/a&gt;","&lt;a href='https://finance.yahoo.com/'&gt;https://finance.yahoo.com/&lt;\/a&gt;","&lt;a href='http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html'&gt;http://people.stern.nyu.edu/adamodar/New_Home_Page/datacurrent.html&lt;\/a&gt;","&lt;a href='https://archive.ics.uci.edu/ml/index.php'&gt;https://archive.ics.uci.edu/ml/index.php&lt;\/a&gt;","&lt;a href='https://www.gutenberg.org/'&gt;https://www.gutenberg.org/&lt;\/a&gt;"],["Quantmod","Quandl","Quantmod","","","gutenbergr"]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;Source&lt;\/th&gt;\n      &lt;th&gt;URL&lt;\/th&gt;\n      &lt;th&gt;Package&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
 &lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
       <distill:md5>ab82faa436adf5e30180e707d2ae8b7e</distill:md5>
       <category>Resources</category>

@@ -58,7 +58,7 @@ It can be seen that the output of expand.grid() is simply all combinations, of w
 
 ### ichimoku:::grid_dup
 
-So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.0.0, <https://CRAN.R-project.org/package=ichimoku>.], expressly for this purpose. As this is a package internal function, we have to access it via ':::'.
+So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.1.0, <https://CRAN.R-project.org/package=ichimoku>.], expressly for this purpose. As this is a package internal function, we have to access it via ':::'.
 
 From the function documentation: 'create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors'.
 

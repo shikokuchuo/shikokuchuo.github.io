@@ -32,7 +32,7 @@ The use of the do.call / lapply() combination is a powerful way to leverage func
 
 Let us take an example, where we would like to calculate the ichimoku clouds for a selection of the major world stock indices, but also preserve the volume data, all in one tidy object.
 
-We use the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.0.0, <https://CRAN.R-project.org/package=ichimoku>.] which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).
+We use the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.1.0, <https://CRAN.R-project.org/package=ichimoku>.] which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).
 
 ### Setup
 

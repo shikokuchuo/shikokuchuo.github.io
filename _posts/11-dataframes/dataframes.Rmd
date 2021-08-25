@@ -36,7 +36,7 @@ This is somewhat surprising considering how much they are used, and given that t
 
 However this is the direct result of the presence of a lot of error checking and validation code, which is perhaps understandable for something as widely used. You simply don't know what is going to be thrown at the function and so it needs to try to do its best or fail gracefully.
 
-Below, we demonstrate the inefficiencies of as.data.frame() versus efficient 'data.frame' constructors from the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.0.0, <https://CRAN.R-project.org/package=ichimoku>.] coded for performance.
+Below, we demonstrate the inefficiencies of as.data.frame() versus efficient 'data.frame' constructors from the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.1.0, <https://CRAN.R-project.org/package=ichimoku>.] coded for performance.
 
 For benchmarking, the 'microbenchmark' package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 10,000 in the cases below.
 

@@ -2407,19 +2407,16 @@ d-appendix d-footnote-list a.footnote-backlink {
 <div class="nav-right">
 <a href="https://www.city.shikokuchuo.ehime.jp/">四国中央へ</a>
 <a href="../../map.html" aria-label="Map">
-<i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+<i class="fas fa-map" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/project/" aria-label="The Shikokuchuo Project">
-<i class="fas fa-folder-open" aria-hidden="true"></i>
+<i class="fas fa-paper-plane" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/light-brushing/" aria-label="Light Brushing">
 <i class="fas fa-palette" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/ichimoku/" aria-label="R">
 <i class="fab fa-r-project" aria-hidden="true"></i>
-</a>
-<a href="https://github.com/shikokuchuo/" aria-label="Github">
-<i class="fab fa-github" aria-hidden="true"></i>
 </a>
 <a href="https://shikokuchuo.net/" aria-label="shikokuchuo{net}">
 <i class="fas fa-cube" aria-hidden="true"></i>
@@ -2595,20 +2592,20 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr   min      lq     mean  median     uq      max neval
- fn_combn(1:16) 67.12 71.7215 85.82998 74.8225 83.207  778.358   100
-  fn_grid(1:16) 56.29 60.6495 94.60623 65.0205 72.428 2437.294   100</code></pre>
+           expr    min     lq     mean  median      uq      max neval
+ fn_combn(1:16) 67.804 72.342 86.40055 74.7845 76.8155 1101.617   100
+  fn_grid(1:16) 56.898 60.643 80.76222 62.4350 65.7240 1622.624   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 213.16995 275.70467 280.46208 279.51532 284.37240
-  fn_grid(1:1000)  31.09856  37.97192  44.76737  39.50963  41.90708
+             expr      min        lq      mean    median        uq
+ fn_combn(1:1000) 261.2793 273.99831 282.62780 276.69093 282.55595
+  fn_grid(1:1000)  34.2132  37.52473  43.53771  39.53565  42.04818
       max neval
- 354.8394   100
- 105.2460   100</code></pre>
+ 353.6674   100
+ 108.2568   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
@@ -2641,7 +2638,7 @@ Shikokuchuo
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.1.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

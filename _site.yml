@@ -12,10 +12,10 @@ navbar:
     - text: "四国中央へ"
       href: https://www.city.shikokuchuo.ehime.jp/
     - text: "Map"
-      icon: fas fa-map-marked-alt
+      icon: fas fa-map
       href: map.html
     - text: "The Shikokuchuo Project"
-      icon: fas fa-folder-open
+      icon: fas fa-paper-plane
       href: https://shikokuchuo.net/project/
     - text: "Light Brushing"
       icon: fas fa-palette
@@ -23,13 +23,9 @@ navbar:
     - text: "R"
       icon: fab fa-r-project
       href: https://shikokuchuo.net/ichimoku/
-    - text: "Github"
-      icon: fab fa-github
-      href: https://github.com/shikokuchuo/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
       href: https://shikokuchuo.net/
-      
 base_url: https://shikokuchuo.net/
 collections:
   posts:
