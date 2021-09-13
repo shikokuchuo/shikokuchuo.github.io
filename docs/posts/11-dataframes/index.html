@@ -2493,31 +2493,31 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>           a          b           c           d           e
-1 -0.5119839 -0.9870707  0.15532021 -0.02878793  0.69154773
-2  1.4548290 -1.0599007 -0.60399258 -1.62197446  1.24803831
-3  0.7083915  0.8019073  0.45236256 -1.35621938 -0.63065140
-4 -2.2144306  1.3308912 -1.10406196 -0.58285798 -0.57217242
-5  0.5435273  0.6958824 -0.06991749  0.41292434  0.20408855
-6 -0.5712910  0.6325538  0.63492556 -0.42040924 -0.05753722
-           f           g          h           i          j
-1 -1.2879090  0.65963989 -0.7095865  0.03117808 -0.5835876
-2 -2.1316633  0.16272059  0.2822685 -1.48903917  1.2536018
-3 -0.6195066 -0.87442214 -0.3009393  0.74723557  1.6378641
-4  0.5709960  0.03586535  0.8457497 -1.63478779 -1.1028544
-5 -1.3556147  0.89070852 -0.9869886 -1.53654206  0.2307321
-6 -0.5445391  2.20871381 -0.1736482 -0.24396089  1.8255473</code></pre>
+<pre><code>           a          b          c           d           e
+1 -0.8961569 -1.9361078 -0.3575423 -0.47233456 -1.27145483
+2 -0.3640157 -0.7236045  1.4374122  0.87418507  0.97002024
+3  0.3025398  0.7944878 -0.9100365  0.02939649  0.36748167
+4 -0.3441126 -0.4488198 -2.2665552  1.75116663  0.51858041
+5  0.6111886  0.5303838  0.8224153 -1.69407014  0.31327151
+6  1.0011440 -0.8571095 -1.1841243  1.57866701  0.06359564
+            f          g           h            i           j
+1 -0.08769499 -0.3698239 -0.61193931  0.002457263 -0.65207409
+2 -0.48725754  0.4600647  0.43107715 -1.032294929  0.52566352
+3  1.00486928  0.4786253 -0.07370084 -1.451494851  0.07309418
+4 -0.16829176 -0.4877551 -2.75762930 -0.477793273  0.10695395
+5  0.68183273 -0.9793648  0.16314497 -1.946877877 -0.44795292
+6 -0.67145932 -0.4418492 -0.85477727  1.382608578 -1.74825575</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
                   expr    min      lq     mean  median      uq
- as.data.frame(matrix) 30.587 32.7775 39.88886 34.0765 36.8530
-     matrix_df(matrix) 13.629 15.1025 19.47589 16.0290 17.2165
-       max neval
-  9982.835 10000
- 10568.216 10000</code></pre>
+ as.data.frame(matrix) 30.189 32.3255 38.26354 33.2550 34.6285
+     matrix_df(matrix) 11.717 12.9260 16.87939 13.4805 14.3245
+      max neval
+ 8989.016 10000
+ 9248.635 10000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
   <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
@@ -2525,7 +2525,7 @@ Shikokuchuo
 </div>
 <pre><code>[1] TRUE</code></pre>
 </div>
-<p>As can be seen, the outputs are identical, but <code>ichimoku::matrix_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is around twice as fast</em>.</p>
+<p>As can be seen, the outputs are identical, but <code>ichimoku::matrix_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is around 2.5x as fast</em>.</p>
 <h3 id="xts-conversion-benchmarking">xts conversion benchmarking</h3>
 <p>The ‘xts’ format is a popular choice for large time series data as each observation is indexed by a unique valid timestamp.</p>
 <p>As an example, we use the ichimoku() function from the ‘ichimoku’ package which creates ichimoku objects inheriting the ‘xts’ class. We run ichimoku() on the sample data contained within the package to create an ‘xts’ object ‘cloud’.</p>
@@ -2553,30 +2553,30 @@ Shikokuchuo
 <pre><code>            open  high   low close cd tenkan kijun senkouA senkouB
 2020-01-02 123.0 123.1 122.5 122.7 -1     NA    NA      NA      NA
 2020-01-03 122.7 122.8 122.6 122.8  1     NA    NA      NA      NA
-2020-01-05 122.8 123.4 122.4 123.3  1     NA    NA      NA      NA
-2020-01-06 123.3 124.3 123.3 124.1  1     NA    NA      NA      NA
-2020-01-07 124.1 124.8 124.0 124.8  1     NA    NA      NA      NA
-2020-01-08 124.8 125.4 124.5 125.3  1     NA    NA      NA      NA
+2020-01-06 122.8 123.4 122.4 123.3  1     NA    NA      NA      NA
+2020-01-07 123.3 124.3 123.3 124.1  1     NA    NA      NA      NA
+2020-01-08 124.1 124.8 124.0 124.8  1     NA    NA      NA      NA
+2020-01-09 124.8 125.4 124.5 125.3  1     NA    NA      NA      NA
            chikou cloudT cloudB
 2020-01-02  122.8     NA     NA
 2020-01-03  122.9     NA     NA
-2020-01-05  123.0     NA     NA
-2020-01-06  123.9     NA     NA
-2020-01-07  123.6     NA     NA
-2020-01-08  122.5     NA     NA</code></pre>
+2020-01-06  123.0     NA     NA
+2020-01-07  123.9     NA     NA
+2020-01-08  123.6     NA     NA
+2020-01-09  122.5     NA     NA</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/xts_df.html'>xts_df</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                 expr     min       lq      mean   median       uq
- as.data.frame(cloud) 230.034 238.2375 268.14722 243.7205 255.3175
-        xts_df(cloud)  32.390  36.1355  43.20153  38.0820  40.7760
+                 expr     min       lq      mean  median       uq
+ as.data.frame(cloud) 230.196 236.9875 264.12672 240.507 247.5335
+        xts_df(cloud)  29.491  32.6070  39.02587  34.270  36.3655
        max neval
- 56506.227 10000
-  7360.246 10000</code></pre>
+ 54999.799 10000
+  6943.992 10000</code></pre>
 </div>
-<p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 6x as fast</em>.</p>
+<p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 7x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>
@@ -2632,7 +2632,7 @@ Shikokuchuo
 <p>So it can be seen that in this case, not only is the performant constructor faster, it is also more fit for purpose.</p>
 <h3 id="when-to-use-performant-constructors">When to use performant constructors</h3>
 <ol type="1">
-<li><strong>Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.</strong> For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor <code>ichimoku::xts_df()</code> <em>is still around 4x as fast</em>.</li>
+<li><strong>Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.</strong> For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor <code>ichimoku::xts_df()</code> <em>is still over 4x as fast</em>.</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2641,13 +2641,13 @@ Shikokuchuo
 </div>
 <pre><code>Unit: microseconds
                     expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 232.522 251.9745 269.42433 258.6010 265.4995
- ggplot2::fortify(cloud) 132.524 152.7830 177.29574 160.7985 169.9785
-           xts_df(cloud)  33.365  38.8560  46.62228  40.9430  43.1670
+    as.data.frame(cloud) 231.736 248.6160 272.84370 254.9245 262.7640
+ ggplot2::fortify(cloud) 133.140 149.8605 172.57276 157.6810 167.0625
+           xts_df(cloud)  29.731  34.6615  39.60722  36.6090  38.5510
       max neval
- 5920.249 10000
- 8067.093 10000
- 5787.332 10000</code></pre>
+ 6119.136 10000
+ 8398.905 10000
+ 5104.159 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>
@@ -2664,25 +2664,28 @@ Shikokuchuo
 <p>What lies behind those functions? Some variation on the below:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># structure() is used to set the 'class' and other attributes on an object</span>
-<span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>vec1</span>, <span class='va'>vec2</span>, <span class='va'>vec3</span><span class='op'>)</span>,
-          class <span class='op'>=</span> <span class='st'>"data.frame"</span>,
-          row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>vec1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># The stucture underlying a data frame is simply a list</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>vec1</span>, <span class='va'>vec2</span>, <span class='va'>vec3</span><span class='op'>)</span>
+
+<span class='co'># Set the following attributes to turn the list into a data frame:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"vec1"</span>, <span class='st'>"vec2"</span>, <span class='st'>"vec3"</span><span class='op'>)</span>,
+                       class <span class='op'>=</span> <span class='st'>"data.frame"</span>,
+                       row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/base-internal.html'>.set_row_names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>vec1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <ol type="1">
 <li>A data.frame is simply a list (where each element must be the same length).</li>
 <li>It has an attribute ‘class’ which equals ‘data.frame’.</li>
-<li>It must have row names, which is usually just an integer sequence.</li>
+<li>It must have row names, which can be set by the base R internal function <code>.set_row_names()</code> which takes a single argument, the number of rows.</li>
 </ol>
 <p>Note:</p>
 <ol type="1">
 <li>The vectors in the list (vec1, vec2, vec3, etc.) must be the same length, otherwise a corrupt data.frame warning will be generated.</li>
 <li>If row names are missing then the data will still be present but dim() will show a 0-row dataframe and its print method will not work.</li>
-<li>Row names are not limited to an integer sequence. They can be dates for example. However if not an integer vector, they are first coerced to type ‘character’.</li>
+<li><code>.set_row_names()</code> sets row names efficiently using a compact internal notation used by R. They can also be assigned an integer sequence, or a series of dates for example. However if not an integer vector, they are first coerced to type ‘character’.</li>
 </ol>
-<p>In conclusion, dataframes are not complicated structures but essentially lists with a couple of constraints. Indeed you can see that the underlying data type of a dataframe is just a list:</p>
+<p>In conclusion, dataframes are not complicated structures but essentially lists with a couple of enforced constraints. Indeed you can see that the underlying data type of a dataframe is just a list:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span><span class='op'>)</span>
@@ -2701,7 +2704,7 @@ Shikokuchuo
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.1.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.1.6, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->

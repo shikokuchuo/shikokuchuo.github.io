@@ -84,7 +84,7 @@ devtools::install_github("shikokuchuo/ichimoku")
 ### Package site
 
 Hosted ourselves at: <https://shikokuchuo.net/ichimoku/>
-^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.1.0, <https://CRAN.R-project.org/package=ichimoku>.]
+^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.1.6, <https://CRAN.R-project.org/package=ichimoku>.]
 
 ### Ichimoku Kinko Hyo ^[Sasaki, H. 佐々木 英信 (1996), *一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]*. Tokyo, Japan: Toushi Radar.]
 
@@ -114,7 +114,7 @@ More subtle interpretations involve the Chikou span in particular and its action
 
 ### Context
 
-Ichimoku analysis is the latest refinement in candlestick charting techniques, which also originated from Japan back in the 18th century. Actually developed during the mid-20th century, it gained popularity especially from the late 1990s onward, and is now used on trading floors worldwide.
+Ichimoku analysis is the latest refinement in candlestick charting techniques, which also originated from Japan back in the 18th century. Developed earlier in the 20th century by 一目山人 *Ichimoku, Sanjin*, the pen name of 細田吾一 *Hosoda, Goichi*, his work was finally published in 1969 as the seminal *「一目均衡表」 [ichimoku kinkou hyou]*. It gained popularity especially after the publication of Sasaki’s *「一目均衡表の研究」 [ichimoku kinkouhyou no kenkyuu]* in 1996, and is now widely-used in technical analysis worldwide.
 
 The time periods have traditionally been calculated as 9, 26 and 52 based on manual data analysis performed in Japan in a pre-computer age where there was a 6-day working week resulting in 26 average trading days in a month. Although this bears little relevance to the current day, the use of these time periods has persisted as an ‘industry norm’ or ‘accepted practice’.
 
