@@ -2,7 +2,8 @@
 title: "Web 3.0 technologies"
 site: distill::distill_website
 ---
-<code>Use the search box above to retrieve articles.</code>
+
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<code>Use the navigation bar or else the search box above to retrieve articles.</code>
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
