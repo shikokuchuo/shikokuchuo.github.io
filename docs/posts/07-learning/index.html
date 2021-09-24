@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #20794d; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,14 +77,13 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.sc { color: #20794d; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
-
 
   <!--radix_placeholder_meta_tags-->
 <title>shikokuchuo{net}: Resources for learning</title>
@@ -134,7 +133,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["learning_files/anchor-4.2.2/anchor.min.js","learning_files/bowser-1.9.3/bowser.min.js","learning_files/crosstalk-1.1.1/css/crosstalk.css","learning_files/crosstalk-1.1.1/js/crosstalk.js","learning_files/crosstalk-1.1.1/js/crosstalk.js.map","learning_files/crosstalk-1.1.1/js/crosstalk.min.js","learning_files/crosstalk-1.1.1/js/crosstalk.min.js.map","learning_files/datatables-binding-0.18/datatables.js","learning_files/datatables-css-0.0.0/datatables-crosstalk.css","learning_files/distill-2.2.21/template.v2.js","learning_files/dt-core-1.10.20/css/jquery.dataTables.extra.css","learning_files/dt-core-1.10.20/css/jquery.dataTables.min.css","learning_files/dt-core-1.10.20/js/jquery.dataTables.min.js","learning_files/figure-html5/index-1.png","learning_files/header-attrs-2.10/header-attrs.js","learning_files/htmlwidgets-1.5.3/htmlwidgets.js","learning_files/jquery-3.5.1/jquery-AUTHORS.txt","learning_files/jquery-3.5.1/jquery.js","learning_files/jquery-3.5.1/jquery.min.js","learning_files/jquery-3.5.1/jquery.min.map","learning_files/popper-2.6.0/popper.min.js","learning_files/tippy-6.2.7/tippy-bundle.umd.min.js","learning_files/tippy-6.2.7/tippy-light-border.css","learning_files/tippy-6.2.7/tippy.css","learning_files/tippy-6.2.7/tippy.umd.min.js","learning_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["learning_files/figure-html5/index-1.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -480,7 +479,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1887,10 +1886,7 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refs = $(this).attr('data-cites').split(" ");
-      var refHtml = refs.map(function(ref) {
-        return "<p>" + $('#ref-' + ref).html() + "</p>";
-      }).join("\n");
+      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2150,12 +2146,12 @@ d-appendix {
 
 /* Optional: embed custom fonts here with `@import`          */
 /* This must remain at the top of this file.                 */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Open+Sans&family=M+PLUS+1p&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Open+Sans&family=M+PLUS+1p&display=swap');
 
 html {
   /*-- Main font sizes --*/
   --title-size:      18px;
-  --body-size:       1rem;
+  --body-size:       0.85rem;
   --code-size:       14px;
   --aside-size:      12px;
   --fig-cap-size:    12px;
@@ -2167,7 +2163,7 @@ html {
   --fig-cap-color:   #02141c;
   /*-- Specify custom fonts ~~~ must be imported above   --*/
   --heading-font:    'Open Sans', 'M PLUS 1p', sans-serif;
-  --mono-font:       'Fira Code', monospace;
+  --mono-font:       Inconsolata, monospace;
   --body-font:       'Open Sans', 'M PLUS 1p', sans-serif;
   --navbar-font:     'Open Sans', 'M PLUS 1p', sans-serif;  /* websites + blogs only */
 }
@@ -2213,7 +2209,10 @@ d-appendix {
 }
 
 /*-- Additional custom styles --*/
-/* Add any additional CSS rules below                      */</style>
+/* Add any additional CSS rules below                      */
+code {
+  font-family:       Inconsolata, monospace;
+}</style>
 <style type="text/css">
 /* base style */
 
@@ -2369,11 +2368,11 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="../../site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-  <script src="../../site_libs/jquery-3.5.1/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-  <script src="../../site_libs/datatables-binding-0.18/datatables.js"></script>
+  <script src="../../site_libs/datatables-binding-0.19/datatables.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="../../site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link href="../../site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
   <script src="../../site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -2486,8 +2485,8 @@ Shikokuchuo <br /> Iyo Mishima station
   <span class='fu'>DT</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/DT/man/datatable.html'>datatable</a></span><span class='op'>(</span>escape <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </code></pre>
 </div>
-<div id="htmlwidget-7a2ac8e784ad02a458b0" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7a2ac8e784ad02a458b0">{"x":{"filter":"none","data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["<a href='https://www.coursera.org/specializations/statistics'>https://www.coursera.org/specializations/statistics<\/a>","<a href='https://www.coursera.org/specializations/entrepreneurial-finance'>https://www.coursera.org/specializations/entrepreneurial-finance<\/a>","<a href='https://www.coursera.org/specializations/r'>https://www.coursera.org/specializations/r<\/a>","<a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'>https://www.coursera.org/learn/the-fundamental-of-data-driven-investment<\/a>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Institution<\/th>\n      <th>Course or Specialization<\/th>\n      <th>URL<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c0af35c3be5ad4c9a077" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c0af35c3be5ad4c9a077">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Duke University","Duke University","John Hopkins University","Sung Kyun Kwan University"],["Statistics with R","Entrepreneurial Finance: Strategy and Innovation","Mastering Software Development in R","The Fundamentals of Data Driven Investment"],["<a href='https://www.coursera.org/specializations/statistics'>https://www.coursera.org/specializations/statistics<\/a>","<a href='https://www.coursera.org/specializations/entrepreneurial-finance'>https://www.coursera.org/specializations/entrepreneurial-finance<\/a>","<a href='https://www.coursera.org/specializations/r'>https://www.coursera.org/specializations/r<\/a>","<a href='https://www.coursera.org/learn/the-fundamental-of-data-driven-investment'>https://www.coursera.org/learn/the-fundamental-of-data-driven-investment<\/a>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Institution<\/th>\n      <th>Course or Specialization<\/th>\n      <th>URL<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
@@ -2533,13 +2532,11 @@ Shikokuchuo <br /> Iyo Mishima station
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<!--radix_placeholder_navigation_after_body--><html><body>
+<!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+  <p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br/>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
-</body></html>
 
 
 </body>

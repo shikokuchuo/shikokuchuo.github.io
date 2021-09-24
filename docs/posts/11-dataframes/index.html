@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #20794d; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,14 +77,13 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.sc { color: #20794d; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
-
 
   <!--radix_placeholder_meta_tags-->
 <title>shikokuchuo{net}: Efficient R: Performant data.frame constructors</title>
@@ -134,7 +133,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["dataframes_files/anchor-4.2.2/anchor.min.js","dataframes_files/bowser-1.9.3/bowser.min.js","dataframes_files/distill-2.2.21/template.v2.js","dataframes_files/figure-html5/bxts-1.png","dataframes_files/figure-html5/index-1.png","dataframes_files/header-attrs-2.10/header-attrs.js","dataframes_files/jquery-1.11.3/jquery.min.js","dataframes_files/popper-2.6.0/popper.min.js","dataframes_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataframes_files/tippy-6.2.7/tippy-light-border.css","dataframes_files/tippy-6.2.7/tippy.css","dataframes_files/tippy-6.2.7/tippy.umd.min.js","dataframes_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["dataframes_files/anchor-4.2.2/anchor.min.js","dataframes_files/bowser-1.9.3/bowser.min.js","dataframes_files/distill-2.2.21/template.v2.js","dataframes_files/figure-html5/index-1.png","dataframes_files/header-attrs-2.11/header-attrs.js","dataframes_files/jquery-3.6.0/jquery-3.6.0.js","dataframes_files/jquery-3.6.0/jquery-3.6.0.min.js","dataframes_files/jquery-3.6.0/jquery-3.6.0.min.map","dataframes_files/popper-2.6.0/popper.min.js","dataframes_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataframes_files/tippy-6.2.7/tippy-light-border.css","dataframes_files/tippy-6.2.7/tippy.css","dataframes_files/tippy-6.2.7/tippy.umd.min.js","dataframes_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -480,7 +479,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1887,10 +1886,7 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refs = $(this).attr('data-cites').split(" ");
-      var refHtml = refs.map(function(ref) {
-        return "<p>" + $('#ref-' + ref).html() + "</p>";
-      }).join("\n");
+      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2150,12 +2146,12 @@ d-appendix {
 
 /* Optional: embed custom fonts here with `@import`          */
 /* This must remain at the top of this file.                 */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Open+Sans&family=M+PLUS+1p&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Open+Sans&family=M+PLUS+1p&display=swap');
 
 html {
   /*-- Main font sizes --*/
   --title-size:      18px;
-  --body-size:       1rem;
+  --body-size:       0.85rem;
   --code-size:       14px;
   --aside-size:      12px;
   --fig-cap-size:    12px;
@@ -2167,7 +2163,7 @@ html {
   --fig-cap-color:   #02141c;
   /*-- Specify custom fonts ~~~ must be imported above   --*/
   --heading-font:    'Open Sans', 'M PLUS 1p', sans-serif;
-  --mono-font:       'Fira Code', monospace;
+  --mono-font:       Inconsolata, monospace;
   --body-font:       'Open Sans', 'M PLUS 1p', sans-serif;
   --navbar-font:     'Open Sans', 'M PLUS 1p', sans-serif;  /* websites + blogs only */
 }
@@ -2213,7 +2209,10 @@ d-appendix {
 }
 
 /*-- Additional custom styles --*/
-/* Add any additional CSS rules below                      */</style>
+/* Add any additional CSS rules below                      */
+code {
+  font-family:       Inconsolata, monospace;
+}</style>
 <style type="text/css">
 /* base style */
 
@@ -2369,8 +2368,8 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2493,31 +2492,31 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>           a          b          c           d           e
-1 -0.8961569 -1.9361078 -0.3575423 -0.47233456 -1.27145483
-2 -0.3640157 -0.7236045  1.4374122  0.87418507  0.97002024
-3  0.3025398  0.7944878 -0.9100365  0.02939649  0.36748167
-4 -0.3441126 -0.4488198 -2.2665552  1.75116663  0.51858041
-5  0.6111886  0.5303838  0.8224153 -1.69407014  0.31327151
-6  1.0011440 -0.8571095 -1.1841243  1.57866701  0.06359564
-            f          g           h            i           j
-1 -0.08769499 -0.3698239 -0.61193931  0.002457263 -0.65207409
-2 -0.48725754  0.4600647  0.43107715 -1.032294929  0.52566352
-3  1.00486928  0.4786253 -0.07370084 -1.451494851  0.07309418
-4 -0.16829176 -0.4877551 -2.75762930 -0.477793273  0.10695395
-5  0.68183273 -0.9793648  0.16314497 -1.946877877 -0.44795292
-6 -0.67145932 -0.4418492 -0.85477727  1.382608578 -1.74825575</code></pre>
+<pre><code>           a          b          c           d          e          f
+1 -1.7265533 -0.2121636  0.2120625 -0.77008815 -1.2408532  0.1756870
+2  0.8638657 -0.5255354 -0.7199963 -0.08404675 -0.1823796 -0.3862565
+3  1.3454694 -2.7283600  0.9937045  1.91800019 -0.9292957 -0.9461791
+4  1.9692488  1.3879797 -1.0234856  2.12300108 -0.2878077  0.1609870
+5  0.5339806  0.3804940  0.5519434  1.78212061  0.8907432 -1.1204799
+6  0.6210506 -2.2131321 -0.9055051  0.65742290 -0.6433359 -0.8387954
+            g          h          i          j
+1 -0.03673709 -0.1540234 -1.4289760 -0.4489710
+2 -1.65585513  0.2515741 -1.1763738  0.5688973
+3 -1.21902836  1.3943568  0.3649433  0.6921326
+4  0.78689906  0.6690853  0.2705010 -0.9929070
+5  1.59182597 -0.9315454  1.9483660 -0.4018999
+6  0.76945717  0.5928455  0.1030152 -0.8797986</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                  expr    min      lq     mean  median      uq
- as.data.frame(matrix) 30.189 32.3255 38.26354 33.2550 34.6285
-     matrix_df(matrix) 11.717 12.9260 16.87939 13.4805 14.3245
-      max neval
- 8989.016 10000
- 9248.635 10000</code></pre>
+                  expr    min     lq     mean median      uq
+ as.data.frame(matrix) 30.219 32.121 39.35723 33.117 35.5505
+     matrix_df(matrix)  8.105  8.887 10.66990  9.275  9.9870
+       max neval
+ 10381.736 10000
+  9178.612 10000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
   <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
@@ -2525,7 +2524,7 @@ Shikokuchuo
 </div>
 <pre><code>[1] TRUE</code></pre>
 </div>
-<p>As can be seen, the outputs are identical, but <code>ichimoku::matrix_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is around 2.5x as fast</em>.</p>
+<p>As can be seen, the outputs are identical, but <code>ichimoku::matrix_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 3x as fast</em>.</p>
 <h3 id="xts-conversion-benchmarking">xts conversion benchmarking</h3>
 <p>The ‘xts’ format is a popular choice for large time series data as each observation is indexed by a unique valid timestamp.</p>
 <p>As an example, we use the ichimoku() function from the ‘ichimoku’ package which creates ichimoku objects inheriting the ‘xts’ class. We run ichimoku() on the sample data contained within the package to create an ‘xts’ object ‘cloud’.</p>
@@ -2569,14 +2568,14 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                 expr     min       lq      mean  median       uq
- as.data.frame(cloud) 230.196 236.9875 264.12672 240.507 247.5335
-        xts_df(cloud)  29.491  32.6070  39.02587  34.270  36.3655
+                 expr     min       lq     mean   median       uq
+ as.data.frame(cloud) 229.938 239.2715 267.0310 246.2805 255.2225
+        xts_df(cloud)  24.879  27.8455  36.0261  29.2495  31.0400
        max neval
- 54999.799 10000
-  6943.992 10000</code></pre>
+ 64740.113 10000
+  7430.907 10000</code></pre>
 </div>
-<p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 7x as fast</em>.</p>
+<p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 8x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>cloud</span><span class='op'>)</span>
@@ -2632,7 +2631,7 @@ Shikokuchuo
 <p>So it can be seen that in this case, not only is the performant constructor faster, it is also more fit for purpose.</p>
 <h3 id="when-to-use-performant-constructors">When to use performant constructors</h3>
 <ol type="1">
-<li><strong>Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.</strong> For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor <code>ichimoku::xts_df()</code> <em>is still over 4x as fast</em>.</li>
+<li><strong>Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.</strong> For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor <code>ichimoku::xts_df()</code> <em>is still around 5x as fast</em>.</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2640,14 +2639,14 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                    expr     min       lq      mean   median       uq
-    as.data.frame(cloud) 231.736 248.6160 272.84370 254.9245 262.7640
- ggplot2::fortify(cloud) 133.140 149.8605 172.57276 157.6810 167.0625
-           xts_df(cloud)  29.731  34.6615  39.60722  36.6090  38.5510
+                    expr     min       lq     mean  median       uq
+    as.data.frame(cloud) 240.915 252.4355 276.0336 257.800 265.6710
+ ggplot2::fortify(cloud) 136.139 151.1060 171.8041 158.496 167.9515
+           xts_df(cloud)  26.092  29.7450  38.4254  31.484  33.0785
       max neval
- 6119.136 10000
- 8398.905 10000
- 5104.159 10000</code></pre>
+ 7660.542 10000
+ 5724.067 10000
+ 5454.268 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>
@@ -2704,7 +2703,7 @@ Shikokuchuo
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.1.6, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.2.1, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -2750,13 +2749,11 @@ Shikokuchuo
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<!--radix_placeholder_navigation_after_body--><html><body>
+<!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+  <p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br/>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
-</body></html>
 
 
 </body>

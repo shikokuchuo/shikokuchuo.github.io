@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #20794d; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,14 +77,13 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.sc { color: #20794d; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
-
 
   <!--radix_placeholder_meta_tags-->
   <title>shikokuchuo{net}: Shikokuchuo, Japan 愛媛県四国中央市</title>
@@ -454,7 +453,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1861,10 +1860,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refs = $(this).attr('data-cites').split(" ");
-        var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
-        }).join("\n");
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2124,12 +2120,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* Optional: embed custom fonts here with `@import`          */
   /* This must remain at the top of this file.                 */
-  @import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Open+Sans&family=M+PLUS+1p&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Open+Sans&family=M+PLUS+1p&display=swap');
 
   html {
     /*-- Main font sizes --*/
     --title-size:      18px;
-    --body-size:       1rem;
+    --body-size:       0.85rem;
     --code-size:       14px;
     --aside-size:      12px;
     --fig-cap-size:    12px;
@@ -2141,7 +2137,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --fig-cap-color:   #02141c;
     /*-- Specify custom fonts ~~~ must be imported above   --*/
     --heading-font:    'Open Sans', 'M PLUS 1p', sans-serif;
-    --mono-font:       'Fira Code', monospace;
+    --mono-font:       Inconsolata, monospace;
     --body-font:       'Open Sans', 'M PLUS 1p', sans-serif;
     --navbar-font:     'Open Sans', 'M PLUS 1p', sans-serif;  /* websites + blogs only */
   }
@@ -2187,7 +2183,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   /*-- Additional custom styles --*/
-  /* Add any additional CSS rules below                      */</style>
+  /* Add any additional CSS rules below                      */
+  code {
+    font-family:       Inconsolata, monospace;
+  }</style>
   <style type="text/css">
   /* base style */
 
@@ -2343,8 +2342,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
   <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
   <script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
@@ -2421,8 +2420,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-article">
 <div class="layout-chunk" data-layout="l-screen-inset shaded">
-<div id="htmlwidget-73efff3d558c4db90aff" style="width:624px;height:384px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-73efff3d558c4db90aff">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[33.9804,133.549],14,[]]},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f1d4fe898e64e85c4a2c" style="width:624px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f1d4fe898e64e85c4a2c">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[33.9804,133.549],14,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

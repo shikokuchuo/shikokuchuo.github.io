@@ -58,7 +58,7 @@ It can be seen that the output of expand.grid() is simply all combinations, of w
 
 ### ichimoku::grid_dup
 
-So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package.^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.1.6, <https://CRAN.R-project.org/package=ichimoku>.]
+So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package.^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.2.1, <https://CRAN.R-project.org/package=ichimoku>.]
 
 From the function documentation: 'create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors'.
 
@@ -87,13 +87,11 @@ identical(combn, grid2) && all.equal(combn, grid2)
 
 'Microbenchmark' can be used to benchmark the performance, where it is usual practice to compare median values.
 
-For small vector lengths, expand.grid() is not as performant. This is somewhat to be expected given the overhead of working with data frames rather than matrices. However the absolute times are also small so any difference would not matter as much.
+For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 13, the custom algorithm using expand.grid()/grid_dup() starts to outperform.
 
-When the vector length reaches 16, the custom algorithm using expand.grid()/grid_dup() starts to outperform.
+By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.
 
-By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already c. 7x faster.
-
-It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and that is most likely why there can be such an outperformance.
+It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and this is the reason why there can be such an outperformance. In programming, where the implementation has already been tuned to be the most efficient possible, it can be useful to think whether the algorithm or code logic can be adapted for the case required.
 
 ```{r benchmark}
 fn_combn <- function(x) {
@@ -105,7 +103,7 @@ fn_grid <- function(x) {
               stringsAsFactors = FALSE)[-grid_dup(length(x), omit.id = TRUE), ]
 }
 
-microbenchmark::microbenchmark(fn_combn(1:16), fn_grid(1:16))
+microbenchmark::microbenchmark(fn_combn(1:13), fn_grid(1:13))
 microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))
 
 ```

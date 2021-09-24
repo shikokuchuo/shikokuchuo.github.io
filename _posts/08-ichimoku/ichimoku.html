@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #20794d; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,14 +77,13 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.sc { color: #20794d; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
-
 
   <!--radix_placeholder_meta_tags-->
   <title>ichimoku</title>
@@ -117,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["ichimoku_files/anchor-4.2.2/anchor.min.js","ichimoku_files/bowser-1.9.3/bowser.min.js","ichimoku_files/distill-2.2.21/template.v2.js","ichimoku_files/figure-html5/index-1.png","ichimoku_files/figure-html5/plot themes-1.png","ichimoku_files/figure-html5/plot themes-2.png","ichimoku_files/figure-html5/plot themes-3.png","ichimoku_files/figure-html5/plot themes-4.png","ichimoku_files/figure-html5/plot-1.png","ichimoku_files/figure-html5/plot-2.png","ichimoku_files/figure-html5/plot-3.png","ichimoku_files/figure-html5/plot-4.png","ichimoku_files/header-attrs-2.10/header-attrs.js","ichimoku_files/jquery-1.11.3/jquery.min.js","ichimoku_files/popper-2.6.0/popper.min.js","ichimoku_files/tippy-6.2.7/tippy-bundle.umd.min.js","ichimoku_files/tippy-6.2.7/tippy-light-border.css","ichimoku_files/tippy-6.2.7/tippy.css","ichimoku_files/tippy-6.2.7/tippy.umd.min.js","ichimoku_files/webcomponents-2.0.0/webcomponents.js","img/iplot.png"]}
+  {"type":"character","attributes":{},"value":["ichimoku_files/figure-html5/index-1.png","ichimoku_files/figure-html5/plot-1.png","ichimoku_files/figure-html5/plot-2.png","ichimoku_files/figure-html5/plot-3.png","img/iplot.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1264,10 +1263,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refs = $(this).attr('data-cites').split(" ");
-        var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
-        }).join("\n");
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1438,8 +1434,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="ichimoku_files/header-attrs-2.10/header-attrs.js"></script>
-  <script src="ichimoku_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="ichimoku_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="ichimoku_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="ichimoku_files/popper-2.6.0/popper.min.js"></script>
   <link href="ichimoku_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="ichimoku_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -1584,7 +1580,7 @@ Shikokuchuo
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.1.6, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p>Sasaki, H. 佐々木 英信 (1996), <em>一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]</em>. Tokyo, Japan: Toushi Radar.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>

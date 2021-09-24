@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { } /* Attribute */
+code span.at { color: #20794d; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,14 +77,13 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.sc { color: #20794d; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
-
 
   <!--radix_placeholder_meta_tags-->
 <title>shikokuchuo{net}: Efficient R: Combinations using expand.grid</title>
@@ -134,7 +133,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/header-attrs-2.10/header-attrs.js","combinations_files/jquery-1.11.3/jquery.min.js","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["combinations_files/anchor-4.2.2/anchor.min.js","combinations_files/bowser-1.9.3/bowser.min.js","combinations_files/distill-2.2.21/template.v2.js","combinations_files/figure-html5/index-1.png","combinations_files/header-attrs-2.11/header-attrs.js","combinations_files/jquery-3.6.0/jquery-3.6.0.js","combinations_files/jquery-3.6.0/jquery-3.6.0.min.js","combinations_files/jquery-3.6.0/jquery-3.6.0.min.map","combinations_files/popper-2.6.0/popper.min.js","combinations_files/tippy-6.2.7/tippy-bundle.umd.min.js","combinations_files/tippy-6.2.7/tippy-light-border.css","combinations_files/tippy-6.2.7/tippy.css","combinations_files/tippy-6.2.7/tippy.umd.min.js","combinations_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -480,7 +479,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1887,10 +1886,7 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refs = $(this).attr('data-cites').split(" ");
-      var refHtml = refs.map(function(ref) {
-        return "<p>" + $('#ref-' + ref).html() + "</p>";
-      }).join("\n");
+      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2150,12 +2146,12 @@ d-appendix {
 
 /* Optional: embed custom fonts here with `@import`          */
 /* This must remain at the top of this file.                 */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Open+Sans&family=M+PLUS+1p&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Open+Sans&family=M+PLUS+1p&display=swap');
 
 html {
   /*-- Main font sizes --*/
   --title-size:      18px;
-  --body-size:       1rem;
+  --body-size:       0.85rem;
   --code-size:       14px;
   --aside-size:      12px;
   --fig-cap-size:    12px;
@@ -2167,7 +2163,7 @@ html {
   --fig-cap-color:   #02141c;
   /*-- Specify custom fonts ~~~ must be imported above   --*/
   --heading-font:    'Open Sans', 'M PLUS 1p', sans-serif;
-  --mono-font:       'Fira Code', monospace;
+  --mono-font:       Inconsolata, monospace;
   --body-font:       'Open Sans', 'M PLUS 1p', sans-serif;
   --navbar-font:     'Open Sans', 'M PLUS 1p', sans-serif;  /* websites + blogs only */
 }
@@ -2213,7 +2209,10 @@ d-appendix {
 }
 
 /*-- Additional custom styles --*/
-/* Add any additional CSS rules below                      */</style>
+/* Add any additional CSS rules below                      */
+code {
+  font-family:       Inconsolata, monospace;
+}</style>
 <style type="text/css">
 /* base style */
 
@@ -2369,8 +2368,8 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2573,10 +2572,9 @@ Shikokuchuo
 </div>
 <h3 id="benchmarking-the-results">Benchmarking the results</h3>
 <p>‘Microbenchmark’ can be used to benchmark the performance, where it is usual practice to compare median values.</p>
-<p>For small vector lengths, expand.grid() is not as performant. This is somewhat to be expected given the overhead of working with data frames rather than matrices. However the absolute times are also small so any difference would not matter as much.</p>
-<p>When the vector length reaches 16, the custom algorithm using expand.grid()/grid_dup() starts to outperform.</p>
-<p>By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already c. 7x faster.</p>
-<p>It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and that is most likely why there can be such an outperformance.</p>
+<p>For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 13, the custom algorithm using expand.grid()/grid_dup() starts to outperform.</p>
+<p>By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.</p>
+<p>It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and this is the reason why there can be such an outperformance. In programming, where the implementation has already been tuned to be the most efficient possible, it can be useful to think whether the algorithm or code logic can be adapted for the case required.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>fn_combn</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
@@ -2588,27 +2586,24 @@ Shikokuchuo
               stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>]</span>
 <span class='op'>}</span>
 
-<span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-           expr    min      lq     mean  median      uq      max
- fn_combn(1:16) 68.291 71.6470 89.04774 73.6770 81.3600 1104.949
-  fn_grid(1:16) 55.779 59.8265 82.22014 61.9655 67.0235 1630.001
- neval
-   100
-   100</code></pre>
+           expr    min      lq     mean median      uq      max neval
+ fn_combn(1:13) 38.659 41.2165 55.68889 43.143 45.6180 1087.231   100
+  fn_grid(1:13) 36.384 39.0440 62.25098 41.099 43.8595 1836.859   100</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 263.47792 270.79163 275.92440 272.65941 275.49595
-  fn_grid(1:1000)  34.04806  37.34776  42.65135  38.44289  40.73221
-       max neval
- 329.07174   100
-  99.61415   100</code></pre>
+             expr       min        lq     mean    median        uq
+ fn_combn(1:1000) 211.81676 271.15583 275.6196 273.43943 275.25424
+  fn_grid(1:1000)  29.13142  36.05212  42.0961  37.19412  40.05095
+      max neval
+ 332.7417   100
+ 100.0834   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
@@ -2641,7 +2636,7 @@ Shikokuchuo
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.1.6, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.2.1, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 <!--radix_placeholder_article_footer-->
@@ -2687,13 +2682,11 @@ Shikokuchuo
 }</pre>
 </div>
 <!--/radix_placeholder_appendices-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<!--radix_placeholder_navigation_after_body--><html><body>
+<!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+  <p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved. <br/>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
-</body></html>
 
 
 </body>
