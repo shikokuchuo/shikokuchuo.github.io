@@ -1528,34 +1528,33 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>           a          b          c           d          e          f
-1 -1.7265533 -0.2121636  0.2120625 -0.77008815 -1.2408532  0.1756870
-2  0.8638657 -0.5255354 -0.7199963 -0.08404675 -0.1823796 -0.3862565
-3  1.3454694 -2.7283600  0.9937045  1.91800019 -0.9292957 -0.9461791
-4  1.9692488  1.3879797 -1.0234856  2.12300108 -0.2878077  0.1609870
-5  0.5339806  0.3804940  0.5519434  1.78212061  0.8907432 -1.1204799
-6  0.6210506 -2.2131321 -0.9055051  0.65742290 -0.6433359 -0.8387954
-            g          h          i          j
-1 -0.03673709 -0.1540234 -1.4289760 -0.4489710
-2 -1.65585513  0.2515741 -1.1763738  0.5688973
-3 -1.21902836  1.3943568  0.3649433  0.6921326
-4  0.78689906  0.6690853  0.2705010 -0.9929070
-5  1.59182597 -0.9315454  1.9483660 -0.4018999
-6  0.76945717  0.5928455  0.1030152 -0.8797986</code></pre>
+<pre><code>           a          b           c           d           e
+1 -0.2564852  0.7065331 -1.73133951  0.05643682  0.52054933
+2  0.9036232  1.6269398 -0.07857159 -1.57186551 -0.08464559
+3  0.8849394 -0.3802827  0.03348258 -1.07886340 -0.26355599
+4 -0.2841184 -1.0277239  1.52750383  0.08231787 -0.56077348
+5  0.3104276 -1.3066767 -0.81179648  0.21132226  1.10502326
+6 -1.2867371  0.8099163  0.09008239  0.05038630  2.47439035
+             f           g           h          i          j
+1  0.484407401  0.23559747 -0.24583719 -0.3275139  0.6017835
+2 -0.209997322 -1.24024709 -1.45803294  0.4938343  1.9149495
+3  0.006305845 -0.86170345 -0.06429787 -0.7433562  0.1498485
+4  0.347062188 -0.02291366 -0.09300306 -1.4511336  0.1043861
+5  1.632073100  1.33351170 -0.80941778 -0.3703048 -1.0557398
+6  1.326092683 -0.42321475 -0.88635606 -0.3311546 -0.3282137</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, times <span class='op'>=</span> <span class='fl'>10000</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                  expr    min     lq     mean median      uq
- as.data.frame(matrix) 30.219 32.121 39.35723 33.117 35.5505
-     matrix_df(matrix)  8.105  8.887 10.66990  9.275  9.9870
-       max neval
- 10381.736 10000
-  9178.612 10000</code></pre>
+                  expr    min     lq     mean  median      uq
+ as.data.frame(matrix) 30.828 32.635 40.90986 33.7885 36.6595
+     matrix_df(matrix)  8.102  8.903 10.89592  9.3485 10.1190
+      max neval
+ 11598.99 10000
+ 10479.24 10000</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span>, <span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/matrix_df.html'>matrix_df</a></span><span class='op'>(</span><span class='va'>matrix</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] TRUE</code></pre>
@@ -1604,12 +1603,12 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                 expr     min       lq     mean   median       uq
- as.data.frame(cloud) 229.938 239.2715 267.0310 246.2805 255.2225
-        xts_df(cloud)  24.879  27.8455  36.0261  29.2495  31.0400
+                 expr     min      lq      mean  median      uq
+ as.data.frame(cloud) 230.137 237.105 262.46329 240.932 249.302
+        xts_df(cloud)  24.468  27.592  34.79507  28.971  30.801
        max neval
- 64740.113 10000
-  7430.907 10000</code></pre>
+ 54374.991 10000
+  6955.761 10000</code></pre>
 </div>
 <p>It can be seen that <code>ichimoku::xts_df()</code>, which is designed to be a performant ‘data.frame’ constructor, <em>is over 8x as fast</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1675,14 +1674,14 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
-                    expr     min       lq     mean  median       uq
-    as.data.frame(cloud) 240.915 252.4355 276.0336 257.800 265.6710
- ggplot2::fortify(cloud) 136.139 151.1060 171.8041 158.496 167.9515
-           xts_df(cloud)  26.092  29.7450  38.4254  31.484  33.0785
+                    expr     min       lq      mean   median       uq
+    as.data.frame(cloud) 232.363 243.0635 266.82726 248.3045 255.3375
+ ggplot2::fortify(cloud) 130.024 147.1080 165.09396 154.7440 164.6180
+           xts_df(cloud)  25.169  29.0380  35.60568  30.7110  32.4305
       max neval
- 7660.542 10000
- 5724.067 10000
- 5454.268 10000</code></pre>
+ 6013.988 10000
+ 6050.913 10000
+ 7530.210 10000</code></pre>
 </div>
 <ol start="2" type="1">
 <li><p><strong>In a context where performance is critical.</strong> This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.</p></li>
@@ -1690,12 +1689,11 @@ Shikokuchuo
 </ol>
 <h3 id="when-to-question-the-use-of-performant-constructors">When to question the use of performant constructors</h3>
 <ol type="1">
-<li><p><strong>For user-facing functions.</strong> Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then proceed to use the performant constructor.</p></li>
+<li><p><strong>For user-facing functions.</strong> Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then the performant constructor can still be used.</p></li>
 <li><p><strong>When the constructor needs to handle a range of input types.</strong> as.data.frame() is actually an S3 generic with a variety of methods for different object classes. If required to handle a variety of different types of input, it may be easier (if not more performant) to rely on as.data.frame() rather than write code which handles different scenarios.</p></li>
 </ol>
 <h3 id="what-is-a-performant-constructor">What is a performant constructor</h3>
-<p>First of all, it is possible to directly use the functions matrix_df() and xts_df() which are exported from the ‘ichimoku’ package. Given the nature of the R ecosystem, this is indeed encouraged.</p>
-<p>However, having seen the advantages of using a performant constructor above, we can now turn to the ‘what’ for the curious.</p>
+<p>First of all, it is possible to directly use the functions <code>matrix_df()</code> and <code>xts_df()</code> which are exported from the ‘ichimoku’ package.</p>
 <p>What lies behind those functions? Some variation on the below:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1720,18 +1718,18 @@ Shikokuchuo
 <li>If row names are missing then the data will still be present but dim() will show a 0-row dataframe and its print method will not work.</li>
 <li><code>.set_row_names()</code> sets row names efficiently using a compact internal notation used by R. They can also be assigned an integer sequence, or a series of dates for example. However if not an integer vector, they are first coerced to type ‘character’.</li>
 </ol>
-<p>In conclusion, dataframes are not complicated structures but essentially lists with a couple of enforced constraints. Indeed you can see that the underlying data type of a dataframe is just a list:</p>
+<p>In conclusion, dataframes are not complicated structures but internally represented by lists with a couple of enforced constraints.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;data.frame&quot; &quot;data.frame&quot;</code></pre>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;list&quot; &quot;list&quot;</code></pre>
+<pre><code>[1] &quot;list&quot;</code></pre>
 </div>
 <h3 id="further-information">Further information</h3>
 <p>Documentation for the performant constructors discussed: <a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri">https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors</a>.</p>

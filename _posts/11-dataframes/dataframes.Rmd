@@ -58,8 +58,7 @@ head(matrix)
 
 microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)
 
-identical(as.data.frame(matrix), matrix_df(matrix)) &&
-  all.equal(as.data.frame(matrix), matrix_df(matrix))
+identical(as.data.frame(matrix), matrix_df(matrix))
 
 ```
 
@@ -124,15 +123,13 @@ microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), tim
 
 ### When to question the use of performant constructors
 
-1. **For user-facing functions.** Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then proceed to use the performant constructor.
+1. **For user-facing functions.** Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then the performant constructor can still be used.
 
 2. **When the constructor needs to handle a range of input types.** as.data.frame() is actually an S3 generic with a variety of methods for different object classes. If required to handle a variety of different types of input, it may be easier (if not more performant) to rely on as.data.frame() rather than write code which handles different scenarios.
 
 ### What is a performant constructor
 
-First of all, it is possible to directly use the functions matrix_df() and xts_df() which are exported from the 'ichimoku' package. Given the nature of the R ecosystem, this is indeed encouraged.
-
-However, having seen the advantages of using a performant constructor above, we can now turn to the 'what' for the curious.
+First of all, it is possible to directly use the functions `matrix_df()` and `xts_df()` which are exported from the 'ichimoku' package.
 
 What lies behind those functions? Some variation on the below:
 
@@ -158,12 +155,12 @@ Note:
 2. If row names are missing then the data will still be present but dim() will show a 0-row dataframe and its print method will not work.
 3. `.set_row_names()` sets row names efficiently using a compact internal notation used by R. They can also be assigned an integer sequence, or a series of dates for example. However if not an integer vector, they are first coerced to type 'character'.
 
-In conclusion, dataframes are not complicated structures but essentially lists with a couple of enforced constraints. Indeed you can see that the underlying data type of a dataframe is just a list:
+In conclusion, dataframes are not complicated structures but internally represented by lists with a couple of enforced constraints.
 
 ```{r list}
 
-c(class(df1), class(df2))
-c(typeof(df1), typeof(df2))
+class(df1)
+typeof(df1)
 
 ```
 

@@ -5,7 +5,7 @@ site: distill::distill_website
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <code>Use the navigation bar for projects<br />
-&nbsp;or <br />
-&nbsp;&nbsp;the search box to retrieve articles</code>
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+&nbsp;&nbsp;or <br />
+&nbsp;&nbsp;&nbsp;&nbsp;the search box to retrieve articles</code>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
