@@ -5,4 +5,6 @@ site: distill::distill_website
 <div class="l-screen">
 <img alt="Dawn over Shikokuchuo, from Mishima Park" src="img/SKC.jpg" />
 </div>
-<code>Welcome to Shikokuchuo. Use the navbar for projects, search box for articles.</code>
+```{r echo=FALSE}
+cat("Welcome to Shikokuchuo. Use the navbar for projects, search box for articles.")
+```
