@@ -29,7 +29,7 @@ data.frame(sha256 = develop(photos))
 
 An implementation in R of the Ichimoku Kinkō Hyō (一目均衡表) charting system, also commonly known as 'cloud charts'.
 
-The technique is a refinement on candlestick charting originating from Japan, now in widespread use in technical analysis worldwide. Translating to 'one-glance equilibrium chart', it allows the price action and market structure of financial securities to be determined 'at-a-glance'.
+The technique is a refinement on candlestick charting, originating from Japan and now in widespread use in technical analysis worldwide. Translating to 'one-glance equilibrium chart', it allows the price action and market structure of financial securities to be determined 'at-a-glance'.
 
 ### Example
 
@@ -44,6 +44,7 @@ TKR <- sample_ohlc_data
 
 ```{r ichimoku}
 cloud <- ichimoku(TKR)
+summary(cloud)
 ```
 
 `iplot()` for fully-interactive cloud charts:
@@ -51,14 +52,14 @@ cloud <- ichimoku(TKR)
 ```{r iplot, eval=FALSE}
 iplot(cloud)
 ```
-<img alt = "ichimoku iplot" src="img/iplot.png" width="700" height="600" />
+<img alt="ichimoku iplot" src="img/iplot.png" />
 
-`plot()` for production-quality static cloud charts:
+`plot()` for static cloud charts:
 
 ```{r plot}
-plot(cloud, window = "2020-04/", theme = "solarized")
-plot(cloud, window = "2020-04/", theme = "dark")
-plot(cloud, window = "2020-04/", theme = "mono")
+plot(cloud, window = "2020-05/", theme = "solarized")
+plot(cloud, window = "2020-05/", theme = "dark")
+plot(cloud, window = "2020-05/", theme = "mono")
 ```
 
 ### Installation
@@ -84,7 +85,7 @@ devtools::install_github("shikokuchuo/ichimoku")
 ### Package site
 
 Hosted ourselves at: <https://shikokuchuo.net/ichimoku/>
-^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.0.0, <https://CRAN.R-project.org/package=ichimoku>.]
+^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.2.4, <https://CRAN.R-project.org/package=ichimoku>.]
 
 ### Ichimoku Kinko Hyo ^[Sasaki, H. 佐々木 英信 (1996), *一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]*. Tokyo, Japan: Toushi Radar.]
 
@@ -114,7 +115,7 @@ More subtle interpretations involve the Chikou span in particular and its action
 
 ### Context
 
-Ichimoku analysis is the latest refinement in candlestick charting techniques, which also originated from Japan back in the 18th century. Developed earlier in the 20th century by 一目山人 *Ichimoku, Sanjin*, the pen name of 細田吾一 *Hosoda, Goichi*, his work was finally published in 1969 as the seminal *「一目均衡表」 [ichimoku kinkou hyou]*. It gained popularity especially after the publication of Sasaki’s *「一目均衡表の研究」 [ichimoku kinkouhyou no kenkyuu]* in 1996, and is now widely-used in technical analysis worldwide.
+Ichimoku analysis is the latest refinement in candlestick charting techniques, which also originated from Japan. Developed by 一目山人 *Ichimoku, Sanjin*, the pen name of 細田吾一 *Hosoda, Goichi*, his work was published in 1969 as the seminal *「一目均衡表」 [ichimoku kinkou hyou]*. It gained popularity in Japan especially after the publication of Sasaki’s *「一目均衡表の研究」 [ichimoku kinkouhyou no kenkyuu]* in 1996, and is now widely-used in technical analysis worldwide.
 
 The time periods have traditionally been calculated as 9, 26 and 52 based on manual data analysis performed in Japan in a pre-computer age where there was a 6-day working week resulting in 26 average trading days in a month. Although this bears little relevance to the current day, the use of these time periods has persisted as an ‘industry norm’ or ‘accepted practice’.
 

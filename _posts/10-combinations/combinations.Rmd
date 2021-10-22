@@ -58,7 +58,7 @@ It can be seen that the output of expand.grid() is simply all combinations, of w
 
 ### ichimoku::grid_dup
 
-So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package.^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.2.1, <https://CRAN.R-project.org/package=ichimoku>.]
+So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package.^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.2.4, <https://CRAN.R-project.org/package=ichimoku>.]
 
 From the function documentation: 'create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors'.
 
@@ -87,7 +87,7 @@ identical(combn, grid2) && all.equal(combn, grid2)
 
 'Microbenchmark' can be used to benchmark the performance, where it is usual practice to compare median values.
 
-For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 13, the custom algorithm using expand.grid()/grid_dup() starts to outperform.
+For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 12, the custom algorithm using expand.grid()/grid_dup() starts to outperform.
 
 By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.
 
@@ -103,7 +103,7 @@ fn_grid <- function(x) {
               stringsAsFactors = FALSE)[-grid_dup(length(x), omit.id = TRUE), ]
 }
 
-microbenchmark::microbenchmark(fn_combn(1:13), fn_grid(1:13))
+microbenchmark::microbenchmark(fn_combn(1:12), fn_grid(1:12))
 microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))
 
 ```
