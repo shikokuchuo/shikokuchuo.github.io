@@ -53,7 +53,7 @@ d-appendix {
   --text-color:       #02141c;
   --text-size:        13px;
   --hover-color:      #dd424c;
-  --bkgd-color:       #ffffff;
+  --bkgd-color:       rgba(250, 250, 251, 0.8);
 }
 
 .distill-site-footer {
@@ -67,8 +67,4 @@ d-appendix {
 /* Add any additional CSS rules below                      */
 code {
   font-family: Inconsolata, monospace;
-}
-
-.d-title {
-  display: none;
 }

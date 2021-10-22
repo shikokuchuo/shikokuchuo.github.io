@@ -2,9 +2,14 @@
 title: "Web 3.0 technologies"
 site: distill::distill_website
 ---
+
+<style>
+  .d-title {display: none}
+</style>
 <div class="l-screen">
-<img alt="Dawn over Shikokuchuo, from Mishima Park" src="img/SKC.jpg" />
+  <img alt="Dawn over Shikokuchuo, from Mishima Park" src="img/SKC.jpg" />
 </div>
+
 ```{r echo=FALSE}
 cat("Welcome to Shikokuchuo. Use the navbar for projects, search box for articles.")
 ```

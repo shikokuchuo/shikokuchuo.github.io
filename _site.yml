@@ -34,7 +34,6 @@ collections:
     custom: _custom.html
     feed_items_max: false
 rss:
-  full_content: true
   categories:
     - R
     - Resources
