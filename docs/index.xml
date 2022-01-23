@@ -12,7 +12,7 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 23 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Aug 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Installing an R Build Environment on Solaris</title>
       <dc:creator>shikokuchuo</dc:creator>
@@ -20,7 +20,7 @@
       <description>Run R CMD check or devtools::check() on a local Solaris VM</description>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/14-r-on-solaris</guid>
-      <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Aug 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/14-r-on-solaris/r-on-solaris_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
@@ -81,7 +81,7 @@
       <category>R</category>
       <category>Quantitative Finance</category>
       <guid>https://shikokuchuo.net/posts/08-ichimoku</guid>
-      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>

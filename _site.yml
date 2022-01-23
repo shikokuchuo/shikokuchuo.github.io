@@ -20,9 +20,12 @@ navbar:
     - text: "Light Brushing"
       icon: fas fa-palette
       href: https://shikokuchuo.net/light-brushing/
-    - text: "R"
+    - text: "r-ichimoku"
       icon: fab fa-r-project
       href: https://shikokuchuo.net/ichimoku/
+    - text: "r-nanonext"
+      icon: fas fa-chevron-right
+      href: https://shikokuchuo.net/nanonext/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
       href: https://shikokuchuo.net/
