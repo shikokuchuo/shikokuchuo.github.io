@@ -26,6 +26,9 @@ navbar:
     - text: "r-nanonext"
       icon: fas fa-chevron-right
       href: https://shikokuchuo.net/nanonext/
+    - text: "r-mirai"
+      icon: fas fa-retweet
+      href: https://shikokuchuo.net/mirai/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
       href: https://shikokuchuo.net/
