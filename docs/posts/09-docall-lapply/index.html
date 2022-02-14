@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>shikokuchuo{net}: Efficient R: do.call / lapply</title>
@@ -133,7 +134,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["docall-lapply_files/figure-html5/index-1.png"]}
+  {"type":"character","attributes":{},"value":["docall-lapply_files/anchor-4.2.2/anchor.min.js","docall-lapply_files/bowser-1.9.3/bowser.min.js","docall-lapply_files/distill-2.2.21/template.v2.js","docall-lapply_files/figure-html5/index-1.png","docall-lapply_files/header-attrs-2.11/header-attrs.js","docall-lapply_files/jquery-3.6.0/jquery-3.6.0.js","docall-lapply_files/jquery-3.6.0/jquery-3.6.0.min.js","docall-lapply_files/jquery-3.6.0/jquery-3.6.0.min.map","docall-lapply_files/popper-2.6.0/popper.min.js","docall-lapply_files/tippy-6.2.7/tippy-bundle.umd.min.js","docall-lapply_files/tippy-6.2.7/tippy-light-border.css","docall-lapply_files/tippy-6.2.7/tippy.css","docall-lapply_files/tippy-6.2.7/tippy.umd.min.js","docall-lapply_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2456,14 +2457,12 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="docall-lapply_files/figure-html5/index-1.png" width="624" /></p>
-<pre><code>                                                            sha256
-1 2074954df14cc65b017b3e9d4b291353151672d450f2b623acc2a5d253767e42</code></pre>
 </div>
 <aside>
 Shikokuchuo
 </aside>
 <h3 id="use-case">Use case</h3>
-<p>The use of the do.call / lapply() combination is a powerful way to leverage functional programming in R. In short, you write a function that performs some actions and apply it to a list of inputs, which can then be fed into a function that combines everything into a single object.</p>
+<p>The use of the do.call / lapply() combination is a powerful way to leverage functional programming in R. In short, write a function that performs some actions and apply it to a list of inputs, which is then combined into a single object.</p>
 <p>Let us take an example, where we would like to calculate the ichimoku clouds for a selection of the major world stock indices, but also preserve the volume data, all in one tidy object.</p>
 <p>We use the ‘ichimoku’ package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).</p>
 <h3 id="setup">Setup</h3>
@@ -2541,11 +2540,11 @@ Note: the original pricing data is preserved within the ichimoku object.
 <p>To explain:</p>
 <ul>
 <li><p>First lapply() applies to a list or list-like object (‘tickers’), a function (‘process’). The arguments to the function are supplied immediately afterwards. lapply always returns a list.</p></li>
-<li><p>This can then be fed into do.call(), which calls a function (‘rbind’) on a list of arguments (the output of ‘lapply’, which is a list). This creates a matrix.</p></li>
+<li><p>This is then fed into do.call(), which calls a function (‘rbind’) on a list of arguments (the output of ‘lapply’, a list). This creates a matrix.</p></li>
 </ul>
 <p>The use of do.call / lapply() provides for a far more succinct and distinctive coding style.</p>
 <p>The added bonus is that of the ‘apply’ family of functions, lapply() is almost always the fastest and most performant as the output type is fixed and it does not try to do things with names or simplify the output structure.</p>
-<p>For a more structured format rather than a list, lapply() can be fed into a do.call() with:</p>
+<p>For a more structured format than a list, lapply() can be fed into a do.call() with:</p>
 <ul>
 <li>c() to form a vector</li>
 <li>cbind() or rbind() to form a matrix</li>
@@ -2594,11 +2593,11 @@ Ticker                 &quot;SPX500_USD&quot;       </code></pre>
 Note: Each element of the matrix is wrapped as a list so that they are of equal length. To access the underlying object, the ichimoku object in this case, we simply extract it using [[1]].
 </aside>
 <p><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Gao, C. (2021), <em>ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies</em>. R package version 1.1.0, <a href="https://CRAN.R-project.org/package=ichimoku" class="uri">https://CRAN.R-project.org/package=ichimoku</a>. Note that since version 1.2.0 additional data such as volume may be retained within the ichimoku object itself.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2" role="doc-endnote"><p>Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course <a href="https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/" class="uri">https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
@@ -2648,7 +2647,8 @@ Note: Each element of the matrix is wrapped as a list so that they are of equal 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved.<br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021-22 The creators of shikokuchuo.net. All rights reserved.<br>
+注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>

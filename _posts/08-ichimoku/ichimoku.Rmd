@@ -17,12 +17,8 @@ output:
 ```{r index, echo=FALSE}
 
 photos <- file.path("_images", list.files("_images"))
-develop <- function(x) {
-  plot(imager::load.image(x), axes = FALSE)
-  paste0(openssl::sha256(file(x)))
-}
 par(mar = c(0, 0, 0, 0))
-data.frame(sha256 = develop(photos))
+plot(imager::load.image(photos), axes = FALSE)
 
 ```
 <aside> Shikokuchuo </aside>
@@ -70,21 +66,15 @@ Install the released version of ichimoku from CRAN:
 install.packages("ichimoku")
 ```
 
-Or the latest development version from rOpenSci R-universe binaries:
+Or the latest development version from rOpenSci R-universe:
 
 ``` r
 install.packages("ichimoku", repos = "https://shikokuchuo.r-universe.dev")
 ```
 
-Or the latest development version from the Github source:
+### Package
 
-``` r
-devtools::install_github("shikokuchuo/ichimoku")
-```
-
-### Package site
-
-Hosted ourselves at: <https://shikokuchuo.net/ichimoku/>
+Website: <https://shikokuchuo.net/ichimoku/>
 ^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.2.4, <https://CRAN.R-project.org/package=ichimoku>.]
 
 ### Ichimoku Kinko Hyo ^[Sasaki, H. 佐々木 英信 (1996), *一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]*. Tokyo, Japan: Toushi Radar.]

@@ -1,0 +1,85 @@
+---
+title: "nanonext for Cross-language Data Exchange"
+description: |
+  A clean and robust approach to R / Python interoperability
+author:
+  - name: shikokuchuo
+date: 2022-02-14
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(photos), axes = FALSE)
+
+```
+<aside>Shikokuchuo</aside>
+
+{nanonext} is an R package available on CRAN which provides bindings to the C library NNG (Nanomsg Next Gen), a successor to ZeroMQ. 
+
+Designed for performance and reliability, the NNG library is written in C and {nanonext} is a lightweight wrapper depending on no other packages.
+
+It provides a fast and reliable data interface between different programming languages where NNG has a binding, including C, C++, Java, Python, Go, Rust etc. 
+
+The following example demonstrates the exchange of numerical data between R and Python (NumPy), two of the most commonly-used languages for data science and machine learning. 
+
+Using a messaging interface provides a clean and robust approach that is light on resources and offers limited and identifiable points of failure. This is especially relevant when processing real-time data, as an example.
+
+This approach can also serve as an interface / pipe between different processes written in the same or different languages, running on the same computer or distributed across networks, and is an enabler of modular software design as espoused by the Unix philosophy.
+
+Create socket in Python using the NNG binding 'pynng':
+
+```{python rnpy1, eval=FALSE}
+import numpy as np
+import pynng
+socket = pynng.Pair0(listen="ipc:///tmp/nanonext")
+```
+
+Create nano object in R using {nanonext}, then send a vector of 'doubles', specifying mode as 'raw':
+
+```{r rnpy2, eval=FALSE}
+library(nanonext)
+n <- nano("pair", dial = "ipc:///tmp/nanonext")
+n$send(c(1.1, 2.2, 3.3, 4.4, 5.5), mode = "raw")
+#>  [1] 9a 99 99 99 99 99 f1 3f 9a 99 99 99 99 99 01 40 66 66 66 66 66 66 0a 40 9a
+#> [26] 99 99 99 99 99 11 40 00 00 00 00 00 00 16 40
+```
+
+Receive in Python as a NumPy array of 'floats', and send back to R:
+
+```{python rnpy3, eval=FALSE}
+raw = socket.recv()
+array = np.frombuffer(raw)
+print(array)
+#> [1.1 2.2 3.3 4.4 5.5]
+msg = array.tobytes()
+socket.send(msg)
+```
+
+Receive in R, specifying the receive mode as 'double':
+
+```{r rnpy4, eval=FALSE}
+n$recv(mode = "double")
+#> $raw
+#>  [1] 9a 99 99 99 99 99 f1 3f 9a 99 99 99 99 99 01 40 66 66 66 66 66 66 0a 40 9a
+#> [26] 99 99 99 99 99 11 40 00 00 00 00 00 00 16 40
+#> 
+#> $data
+#> [1] 1.1 2.2 3.3 4.4 5.5
+```
+
+### Links
+
+nanonext on CRAN: <https://cran.r-project.org/package=nanonext><br />
+Package website: <https://shikokuchuo.net/nanonext/><br />
+
+NNG website: <https://nng.nanomsg.org/><br />
+NNG documentation: <https://nng.nanomsg.org/man/tip/><br />
+

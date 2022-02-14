@@ -16,12 +16,8 @@ output:
 ```{r index, echo=FALSE}
 
 photos <- file.path("_images", list.files("_images"))
-develop <- function(x) {
-  plot(imager::load.image(x), axes = FALSE)
-  paste0(openssl::sha256(file(x)))
-}
 par(mar = c(0, 0, 0, 0))
-data.frame(sha256 = develop(photos))
+plot(imager::load.image(photos), axes = FALSE)
 
 ```
 <aside> Shikokuchuo </aside>
@@ -83,5 +79,3 @@ Other functions to access the OANDA fxTrade API are included in the ichimoku pac
 ichimoku R package site: <https://shikokuchuo.net/ichimoku/>
 
 ichimoku OANDA fxTrade API vignette: <https://shikokuchuo.net/ichimoku/articles/xoanda.html>
-
-OANDA fxTrade API developer website: <https://developer.oanda.com/>

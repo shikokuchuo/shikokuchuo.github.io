@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:distill="https://distill.pub/journal/" version="2.0">
   <channel>
     <title>shikokuchuo{net}</title>
     <link>https://shikokuchuo.net/</link>
@@ -12,22 +12,194 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 22 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>nanonext for Cross-language Data Exchange</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/15-nanonext-exchange</link>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/15-nanonext-exchange/nanonext-exchange_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;p&gt;{nanonext} is an R package available on CRAN which provides bindings to the C library NNG (Nanomsg Next Gen), a successor to ZeroMQ.&lt;/p&gt;
+&lt;p&gt;Designed for performance and reliability, the NNG library is written in C and {nanonext} is a lightweight wrapper depending on no other packages.&lt;/p&gt;
+&lt;p&gt;It provides a fast and reliable data interface between different programming languages where NNG has a binding, including C, C++, Java, Python, Go, Rust etc.&lt;/p&gt;
+&lt;p&gt;The following example demonstrates the exchange of numerical data between R and Python (NumPy), two of the most commonly-used languages for data science and machine learning.&lt;/p&gt;
+&lt;p&gt;Using a messaging interface provides a clean and robust approach that is light on resources and offers limited and identifiable points of failure. This is especially relevant when processing real-time data, as an example.&lt;/p&gt;
+&lt;p&gt;This approach can also serve as an interface / pipe between different processes written in the same or different languages, running on the same computer or distributed across networks, and is an enabler of modular software design as espoused by the Unix philosophy.&lt;/p&gt;
+&lt;p&gt;Create socket in Python using the NNG binding ‘pynng’:&lt;/p&gt;
+&lt;pre class="python"&gt;&lt;code&gt;import numpy as np
+import pynng
+socket = pynng.Pair0(listen=&amp;quot;ipc:///tmp/nanonext&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create nano object in R using {nanonext}, then send a vector of ‘doubles’, specifying mode as ‘raw’:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(nanonext)
+n &amp;lt;- nano(&amp;quot;pair&amp;quot;, dial = &amp;quot;ipc:///tmp/nanonext&amp;quot;)
+n$send(c(1.1, 2.2, 3.3, 4.4, 5.5), mode = &amp;quot;raw&amp;quot;)
+#&amp;gt;  [1] 9a 99 99 99 99 99 f1 3f 9a 99 99 99 99 99 01 40 66 66 66 66 66 66 0a 40 9a
+#&amp;gt; [26] 99 99 99 99 99 11 40 00 00 00 00 00 00 16 40&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Receive in Python as a NumPy array of ‘floats’, and send back to R:&lt;/p&gt;
+&lt;pre class="python"&gt;&lt;code&gt;raw = socket.recv()
+array = np.frombuffer(raw)
+print(array)
+#&amp;gt; [1.1 2.2 3.3 4.4 5.5]
+msg = array.tobytes()
+socket.send(msg)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Receive in R, specifying the receive mode as ‘double’:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;n$recv(mode = &amp;quot;double&amp;quot;)
+#&amp;gt; $raw
+#&amp;gt;  [1] 9a 99 99 99 99 99 f1 3f 9a 99 99 99 99 99 01 40 66 66 66 66 66 66 0a 40 9a
+#&amp;gt; [26] 99 99 99 99 99 11 40 00 00 00 00 00 00 16 40
+#&amp;gt; 
+#&amp;gt; $data
+#&amp;gt; [1] 1.1 2.2 3.3 4.4 5.5&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="links"&gt;Links&lt;/h3&gt;
+&lt;p&gt;nanonext on CRAN: &lt;a href="https://cran.r-project.org/package=nanonext" class="uri"&gt;https://cran.r-project.org/package=nanonext&lt;/a&gt;&lt;br /&gt; Package website: &lt;a href="https://shikokuchuo.net/nanonext/" class="uri"&gt;https://shikokuchuo.net/nanonext/&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;NNG website: &lt;a href="https://nng.nanomsg.org/" class="uri"&gt;https://nng.nanomsg.org/&lt;/a&gt;&lt;br /&gt; NNG documentation: &lt;a href="https://nng.nanomsg.org/man/tip/" class="uri"&gt;https://nng.nanomsg.org/man/tip/&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">b454bb366ccda39fd62a517499f768b9</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/15-nanonext-exchange</guid>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/15-nanonext-exchange/nanonext-exchange_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Installing an R Build Environment on Solaris</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/14-r-on-solaris</link>
-      <description>Run R CMD check or devtools::check() on a local Solaris VM</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/14-r-on-solaris/r-on-solaris_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="setup"&gt;Setup&lt;/h3&gt;
+&lt;p&gt;The R-hub solarischeck repository&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;, provides a full set of instructions by Gábor Csárdi for setting up R on a Solaris system. However, due to the ever-evolving software landscape, the instructions as they stand are no longer likely to produce a working system.&lt;/p&gt;
+&lt;p&gt;This guide builds on and completes the set of instructions so that a full build system can be set up with relative ease, complete with ‘devtools’ installed and ready for package testing on a CRAN-like Solaris environment.&lt;/p&gt;
+&lt;p&gt;Where ‘&lt;em&gt;Instructions&lt;/em&gt;’ are mentioned below, they refer to those found at the original solarischeck repository:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/r-hub/solarischeck/tree/master/packer" target="_blank"&gt;https://github.com/r-hub/solarischeck/tree/master/packer&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[1]&lt;/p&gt;
+&lt;p&gt;Follow steps 1-3 of the &lt;em&gt;Instructions&lt;/em&gt;, including installing the latest Packer version from its website. The website provides clear guidance on the best installation method - for example, for Ubuntu Linux users, a PPA is provided for a straightforward install process.&lt;/p&gt;
+&lt;p&gt;[2]&lt;/p&gt;
+&lt;p&gt;Follow step 4 of the &lt;em&gt;Instructions&lt;/em&gt; and edit ‘solaris10.json’ to point to the locations of the downloaded Solaris 10 iso and Oracle Developer Studio tar.bz2.&lt;/p&gt;
+&lt;p&gt;In addition, find the following line in ‘solaris10.json’:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;quot;iso_checksum_type&amp;quot;: &amp;quot;sha1&amp;quot;,&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It appears twice. Delete both of these lines.&lt;/p&gt;
+&lt;p&gt;[3]&lt;/p&gt;
+&lt;p&gt;Open up a terminal and &lt;code&gt;cd&lt;/code&gt; to where the ‘solaris10.json’ file is located. Execute the following command to create an updated Packer configuration from the json file:&lt;/p&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;packer hcl2_upgrade solaris10.json&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You should get a confirmation message such as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Successfully created solaris10.json.pkr.hcl. Exit 0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;[4]&lt;/p&gt;
+&lt;p&gt;Follow step 5 of the &lt;em&gt;Instructions&lt;/em&gt; and make sure VirtualBox or VMware is installed.&lt;/p&gt;
+&lt;p&gt;[5]&lt;/p&gt;
+&lt;p&gt;From where your &lt;code&gt;solaris10.json&lt;/code&gt; is located, execute:&lt;/p&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;packer build .&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The automated build will now run for a while, with the console showing the commands as they are run.&lt;/p&gt;
+&lt;p&gt;As per step 7 of the &lt;em&gt;Instructions&lt;/em&gt;, do not attempt to interact with the VM window. Even if it appears static, processes will be running in the background.&lt;/p&gt;
+&lt;p&gt;Wait for the build to finish.&lt;/p&gt;
+&lt;p&gt;[6]&lt;/p&gt;
+&lt;p&gt;Complete the remaining installation steps 8-10 from the &lt;em&gt;Instructions&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For those using VirtualBox: you should have a successfully-imported virtual machine at this point. Before launching it, first choose ‘settings’. On the ‘system’ tab feel free to allocate some more base memory (staying within the recommended green band). On the ‘display tab’, similarly allocate some more video memory - this is important otherwise increasing the screen resolution later may fail.&lt;/p&gt;
+&lt;p&gt;[7]&lt;/p&gt;
+&lt;p&gt;Launch the virtual machine and log in using the ‘rhub’ account as per the &lt;em&gt;Instructions&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Choose the Sun Java Desktop Environment (however much you are tempted to use the awesome CDE). Once you arrive at a desktop, right click and set the desired screen resolution. (Here, if not enough video memory was allocated in the previous step you may get a black screen. If you do not get back to a usable dektop, power off the VM and try again.)&lt;/p&gt;
+&lt;p&gt;[8]&lt;/p&gt;
+&lt;p&gt;Open a terminal window and install the following packages from openCSW, the Solaris open source software repository, by issuing the following command:&lt;/p&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;sudo pkgutil -y -i cmake gmake curl libcurl_dev libssh2_dev libssl_dev libxml2_dev libiconv_dev&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These are utilities and system libraries that are required to install the various dependencies of ‘devtools’.&lt;/p&gt;
+&lt;p&gt;[19]&lt;/p&gt;
+&lt;p&gt;‘libgit2’ is required but not available on openCSW, and hence must be built. In a terminal window, execute the commands in the following instructions by Jeroen Ooms:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://gist.github.com/jeroen/4f13ff48596b449283ca98af7b95601d" target="_blank"&gt;https://gist.github.com/jeroen/4f13ff48596b449283ca98af7b95601d&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Start from &lt;code&gt;# Download latest release&lt;/code&gt; as we have already installed the dependencies as part of the previous step.&lt;/p&gt;
+&lt;p&gt;[10]&lt;/p&gt;
+&lt;p&gt;For the final step, load up a terminal window. Enter the following to set the environment variable:&lt;/p&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;export MAKE=gmake&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;From the same terminal window, launch R:&lt;/p&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;R&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At the R prompt, proceed to install the ‘devtools’ package:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;devtools&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You will be prompted if you would like to use and create a personal library. Proceed with ‘yes’ both times.&lt;/p&gt;
+&lt;p&gt;All the dependencies of ‘devtools’ will now be downloaded and install will take a while.&lt;/p&gt;
+&lt;p&gt;The installation should complete successfully leaving you with a full R development environment on Solaris.&lt;/p&gt;
+&lt;h3 id="bonus"&gt;Bonus&lt;/h3&gt;
+&lt;p&gt;Install the last released Firefox build 52.0esr for Solaris - this allows modern websites such as Github to load.&lt;/p&gt;
+&lt;p&gt;Open up a terminal and enter the following:&lt;/p&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;cd Desktop
+
+# Download file
+curl -OL https://ftp.mozilla.org/pub/firefox/releases/52.0esr/contrib/solaris_pkgadd/firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2
+
+# Decompress file
+bzip2 -d firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2
+
+# Install package
+sudo pkgadd -d ./firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Respond ‘yes’ to all install prompts.&lt;/p&gt;
+&lt;p&gt;It does not overwrite the bundled version, so set up a shortcut by right-clicking on the desktop, and select ‘Create Launcher’.&lt;/p&gt;
+&lt;p&gt;For ‘Name’ enter &lt;code&gt;Firefox&lt;/code&gt;, for ‘Command’ enter &lt;code&gt;/opt/sfw/lib/firefox/firefox&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Double-click the new launcher icon on the desktop to bring up Firefox.&lt;/p&gt;
+&lt;h3 id="power-off"&gt;Power off&lt;/h3&gt;
+&lt;p&gt;To turn off the VM, open up a terminal window and issue:&lt;/p&gt;
+&lt;pre class="bash"&gt;&lt;code&gt;sudo poweroff&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;–&lt;/p&gt;
+&lt;p xmlns:cc="http://creativecommons.org/ns#"&gt;
+This article (excluding the photograph) is licensed under &lt;a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;"&gt;CC BY 4.0&lt;img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"&gt;&lt;img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"&gt;&lt;/a&gt;
+&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Copyright, the &lt;a href="https://www.r-consortium.org/"&gt;R Consortium&lt;/a&gt;&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">fd9aed8c135758e49250a05fd0b1e794</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/14-r-on-solaris</guid>
-      <pubDate>Sun, 22 Aug 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/14-r-on-solaris/r-on-solaris_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Reverting Git Commits</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/13-reverting</link>
-      <description>Procedure to roll back both local and remote changes</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/13-reverting/reverting_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="reverting-local-git-commits"&gt;Reverting Local Git Commits&lt;/h3&gt;
+&lt;p&gt;You have made a commit.&lt;/p&gt;
+&lt;p&gt;You discover a mistake or something you left out straight after the commit.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git reset HEAD~&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is a soft reset. Your changes are preserved. The commit is removed from the record.&lt;/p&gt;
+&lt;p&gt;Make the additional changes you need. Add files. Commit.&lt;/p&gt;
+&lt;h3 id="reverting-commits-pushed-to-remote-e.g.-github"&gt;Reverting Commits Pushed to Remote (e.g. Github)&lt;/h3&gt;
+&lt;p&gt;Copy your folder to a backup location.&lt;/p&gt;
+&lt;p&gt;The following is a hard reset, which rolls back to the previous commit. Changes since that commit will be lost. Force push it to the remote.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git reset HEAD^ --hard
+git push origin -f&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Both local and remote should now be in sync at the previous commit. You may check with:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git status&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you have Github Actions that are triggered by commits, they will be triggered again despite this being a roll-back. So go and stop those runs if necessary.&lt;/p&gt;
+&lt;p&gt;Next, if you have another branch such as ‘gh-pages’ that builds automatically on each commit, roll back that branch as well so it keeps in sync. As this branch has been building on the remote, do a git pull to ensure that your local copy is up to date first before resetting.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git checkout gh-pages
+git pull
+
+git reset HEAD^ --hard
+git push -f origin gh-pages&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check status. Switch back to ‘main’ branch (substitute whatever branch you were on).&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git status
+git checkout main&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Copy back the files with changes you made previously from your backup location.&lt;/p&gt;
+&lt;p&gt;Make the additional changes you need. Add files. Commit.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">66afa054e8360f0b5c4f788bd1bf2426</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/13-reverting</guid>
       <pubDate>Thu, 12 Aug 2021 00:00:00 +0000</pubDate>
@@ -37,7 +209,52 @@
       <title>R Shiny interface for the OANDA fxTrade API</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/12-oanda-studio</link>
-      <description>ichimoku::oanda_studio()</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/oanda-studio_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="about-ichimoku"&gt;About ichimoku&lt;/h3&gt;
+&lt;p&gt;The ichimoku R package&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; provides tools for creating and visualising Ichimoku Kinko Hyo (cloud chart) strategies.&lt;/p&gt;
+&lt;p&gt;It features in the &lt;a href="https://cran.r-project.org/view=Finance"&gt;Empirical Finance CRAN Task View&lt;/a&gt;, and was selected as one of &lt;a href="https://rviews.rstudio.com/2021/06/24/may-2021-top-40-new-cran-packages/"&gt;RStudio’s Top 40 New CRAN Packages&lt;/a&gt; for May 2021.&lt;/p&gt;
+&lt;p&gt;The latest version incorporates an interface to the OANDA fxTrade API&lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id="about-the-oanda-fxtrade-api"&gt;About the OANDA fxTrade API&lt;/h3&gt;
+&lt;p&gt;OANDA is an authoritative source of foreign exchange data utilised by both governments and global corporations alike. OANDA offers a few APIs, including its rates for business, but the fxTrade API is perhaps the most comprehensive, built upon its retail and professional trading offering of the same name. Access to the fxTrade API is free but requires registration for a practice/demo account.&lt;/p&gt;
+&lt;p&gt;The API can be used for retrieving historical and live streaming price data for major currencies, metals, commodities, government bonds and stock indices. It is a rich source of financial data with excellent availability, for instance daily OHLC pricing data for major forex pairs from the start of 2005, and data granularity ranging from 5 seconds to monthly.&lt;/p&gt;
+&lt;p&gt;For the total list of over 120 covered instruments please see &lt;a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html#available-instruments"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id="screenshots"&gt;Screenshots&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Click on an image to view in full resolution.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Showcased here is the function &lt;code&gt;oanda_studio()&lt;/code&gt;, the implementation in R Shiny. As a Shiny app, the function may be called without specifying any parameters; the full range of options can be selected interactively from within the web interface.&lt;/p&gt;
+&lt;p&gt;Data is live and updates at the specified refresh rate (default of every 5 secs).&lt;/p&gt;
+&lt;p&gt;The cursor infotip provides an innovative overview of the data directly from the chart (can be turned on or off as desired).&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+
+oanda_studio()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href="img/oastudio1.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio1.png" alt="oanda_studio with infotip" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Of course arguments for customisation can also be specified within the call to &lt;code&gt;oanda_studio()&lt;/code&gt; itself. Demonstrating some further options below with Soybean futures:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;oanda_studio(&amp;quot;SOYBN_USD&amp;quot;, granularity = &amp;quot;M5&amp;quot;, refresh = 10, price = &amp;quot;B&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href="img/oastudio2.png" target="_blank"&gt;&lt;img src="https://shikokuchuo.net/posts/12-oanda-studio/img/oastudio2.png" alt="oanda_studio in dark mode" width="750" height="462"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="other-functions"&gt;Other functions&lt;/h3&gt;
+&lt;p&gt;Other functions to access the OANDA fxTrade API are included in the ichimoku package. These are standard R functions for retrieving data in tabular form and charting (not reliant on Shiny), and include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://shikokuchuo.net/ichimoku/reference/oanda.html"&gt;&lt;code&gt;oanda()&lt;/code&gt;&lt;/a&gt; to retrieve price data&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://shikokuchuo.net/ichimoku/reference/oanda_stream.html"&gt;&lt;code&gt;oanda_stream()&lt;/code&gt;&lt;/a&gt; to stream a live data feed&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://shikokuchuo.net/ichimoku/reference/oanda_chart.html"&gt;&lt;code&gt;oanda_chart()&lt;/code&gt;&lt;/a&gt; to plot real-time ichimoku cloud charts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="links-and-further-information"&gt;Links and further information&lt;/h3&gt;
+&lt;p&gt;ichimoku R package site: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;ichimoku OANDA fxTrade API vignette: &lt;a href="https://shikokuchuo.net/ichimoku/articles/xoanda.html" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/xoanda.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.0.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;‘OANDA’ and ‘fxTrade’ are trademarks owned by OANDA Corporation, an entity unaffiliated with the ichimoku package.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">ebd83434c7ffca85056ac9798f09e08a</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/12-oanda-studio</guid>
       <pubDate>Mon, 26 Jul 2021 00:00:00 +0000</pubDate>
@@ -47,17 +264,341 @@
       <title>Efficient R: Performant data.frame constructors</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/11-dataframes</link>
-      <description>How and when to use an alternative to as.data.frame</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/11-dataframes/dataframes_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="about-as.data.frame"&gt;About as.data.frame&lt;/h3&gt;
+&lt;p&gt;data.frame() or as.data.frame() are such ubiquitous functions that we rarely think twice about using them to create dataframes or to convert other objects to dataframes.&lt;/p&gt;
+&lt;p&gt;However, they are slow. Extremely slow.&lt;/p&gt;
+&lt;p&gt;This is somewhat surprising considering how much they are used, and given that the ‘data.frame’ object is the &lt;em&gt;de facto&lt;/em&gt; standard for tabular data in R, for their constructors to be so inefficient.&lt;/p&gt;
+&lt;p&gt;However this is the direct result of the presence of a lot of error checking and validation code, which is perhaps understandable for something as widely used. It simply needs to handle a wide possible variety of inputs and so tries to do its best or fail gracefully.&lt;/p&gt;
+&lt;p&gt;Below, we demonstrate the inefficiencies of as.data.frame() versus efficient ‘data.frame’ constructors from the ‘ichimoku’ package&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; coded for performance.&lt;/p&gt;
+&lt;p&gt;For benchmarking, the ‘microbenchmark’ package will be used. It is usual to compare the median times averaged over a large number of runs, and we will use 10,000 in the cases below.&lt;/p&gt;
+&lt;h3 id="matrix-conversion-benchmarking"&gt;Matrix conversion benchmarking&lt;/h3&gt;
+&lt;p&gt;A 100x10 matrix of random data drawn from the normal distribution is created as the object ‘matrix’.&lt;/p&gt;
+&lt;p&gt;This will be converted into a dataframe using as.data.frame() and ichimoku::matrix_df().&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+library(microbenchmark)
+
+matrix &amp;lt;- matrix(rnorm(1000), ncol = 10, dimnames = list(1:100, letters[1:10]))
+
+dim(matrix)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 100  10&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;head(matrix)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;           a          b          c          d           e          f
+1  0.6138873  0.3170378 -0.5328510 -0.3528236  0.52209101 -1.2268578
+2 -1.2930310  0.1189165 -0.7782297 -0.9338392 -0.90217677 -1.4136583
+3  0.8720750  0.4294800  2.0869262 -0.1800324 -1.50124226  0.7689940
+4  0.4689731  1.5629332 -0.3732907 -0.2592944  0.74928566  0.2582126
+5 -0.5844237  1.2508150 -1.3934914 -0.7018443 -1.03084989 -0.4996142
+6  0.2992662 -0.5297875  1.6491023  0.4684626  0.05772412  0.1634495
+            g          h           i           j
+1 -1.01230950 -0.4125469  1.39184822  1.14040703
+2 -0.06037439 -0.1876211 -0.05852742  0.93378465
+3 -0.32924781 -0.6830150  0.68187962  0.90556193
+4 -0.09696727 -1.8871122  0.51446069  0.08886812
+5  0.13591835  0.4557328  0.05879166 -0.00161211
+6  1.82840118  0.5980388  0.68654334 -0.34517471&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(matrix), matrix_df(matrix), times = 10000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: microseconds
+                  expr    min     lq     mean  median     uq      max
+ as.data.frame(matrix) 30.165 33.013 41.78346 34.9575 44.413 21910.66
+     matrix_df(matrix)  6.329  7.366 11.33003  8.1365 10.566 20407.11
+ neval
+ 10000
+ 10000&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;identical(as.data.frame(matrix), matrix_df(matrix))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As can be seen, the outputs are identical, but &lt;code&gt;ichimoku::matrix_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 3x as fast&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id="xts-conversion-benchmarking"&gt;xts conversion benchmarking&lt;/h3&gt;
+&lt;p&gt;The ‘xts’ format is a popular choice for large time series data as each observation is indexed by a unique valid timestamp.&lt;/p&gt;
+&lt;p&gt;As an example, we use the ichimoku() function from the ‘ichimoku’ package which creates ichimoku objects inheriting the ‘xts’ class. We run ichimoku() on the sample data contained within the package to create an ‘xts’ object ‘cloud’.&lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This will be converted into a dataframe using as.data.frame() and ichimoku::xts_df().&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+library(microbenchmark)
+
+cloud &amp;lt;- ichimoku(sample_ohlc_data)
+class(cloud) &amp;lt;- c(&amp;quot;xts&amp;quot;, &amp;quot;zoo&amp;quot;)
+
+xts::is.xts(cloud)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;dim(cloud)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 281  12&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;print(cloud[1:6], plot = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;            open  high   low close cd tenkan kijun senkouA senkouB
+2020-01-02 123.0 123.1 122.5 122.7 -1     NA    NA      NA      NA
+2020-01-03 122.7 122.8 122.6 122.8  1     NA    NA      NA      NA
+2020-01-06 122.8 123.4 122.4 123.3  1     NA    NA      NA      NA
+2020-01-07 123.3 124.3 123.3 124.1  1     NA    NA      NA      NA
+2020-01-08 124.1 124.8 124.0 124.8  1     NA    NA      NA      NA
+2020-01-09 124.8 125.4 124.5 125.3  1     NA    NA      NA      NA
+           chikou cloudT cloudB
+2020-01-02  122.8     NA     NA
+2020-01-03  122.9     NA     NA
+2020-01-06  123.0     NA     NA
+2020-01-07  123.9     NA     NA
+2020-01-08  123.6     NA     NA
+2020-01-09  122.5     NA     NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: microseconds
+                 expr     min       lq      mean   median      uq
+ as.data.frame(cloud) 234.234 241.5550 265.32390 245.3000 254.310
+        xts_df(cloud)  24.344  26.8475  31.31183  28.1895  29.713
+      max neval
+ 15962.72 10000
+ 11398.24 10000&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It can be seen that &lt;code&gt;ichimoku::xts_df()&lt;/code&gt;, which is designed to be a performant ‘data.frame’ constructor, &lt;em&gt;is over 8x as fast&lt;/em&gt;.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;df1 &amp;lt;- as.data.frame(cloud)
+
+is.data.frame(df1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;str(df1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;data.frame&amp;#39;:   281 obs. of  12 variables:
+ $ open   : num  123 123 123 123 124 ...
+ $ high   : num  123 123 123 124 125 ...
+ $ low    : num  122 123 122 123 124 ...
+ $ close  : num  123 123 123 124 125 ...
+ $ cd     : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
+ $ tenkan : num  NA NA NA NA NA ...
+ $ kijun  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouA: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouB: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ chikou : num  123 123 123 124 124 ...
+ $ cloudT : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cloudB : num  NA NA NA NA NA NA NA NA NA NA ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;df2 &amp;lt;- xts_df(cloud)
+
+is.data.frame(df2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;str(df2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;data.frame&amp;#39;:   281 obs. of  13 variables:
+ $ index  : POSIXct, format: &amp;quot;2020-01-02&amp;quot; ...
+ $ open   : num  123 123 123 123 124 ...
+ $ high   : num  123 123 123 124 125 ...
+ $ low    : num  122 123 122 123 124 ...
+ $ close  : num  123 123 123 124 125 ...
+ $ cd     : num  -1 1 1 1 1 1 -1 0 -1 -1 ...
+ $ tenkan : num  NA NA NA NA NA ...
+ $ kijun  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouA: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ senkouB: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ chikou : num  123 123 123 124 124 ...
+ $ cloudT : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ cloudB : num  NA NA NA NA NA NA NA NA NA NA ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The outputs are slightly different as xts_df() preserves the date-time index of ‘xts’ objects as a new first column ‘index’ which is POSIXct in format. The default as.data.frame() constructor converts the index into the row names, which is not desirable as the dates are coerced to type ‘character’.&lt;/p&gt;
+&lt;p&gt;So it can be seen that in this case, not only is the performant constructor faster, it is also more fit for purpose.&lt;/p&gt;
+&lt;h3 id="when-to-use-performant-constructors"&gt;When to use performant constructors&lt;/h3&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;strong&gt;Data which is not already a ‘data.frame’ object being plotted using ‘ggplot2’.&lt;/strong&gt; For example if you have time series data in the ‘xts’ format, calling a ‘ggplot2’ plot method automatically converts the data into a dataframe behind the scenes as ggplot() only works with dataframes internally. Fortunately it does not use as.data.frame() but its own constructor ggplot2::fortify(). Benchmarked below, it is slightly faster than as.data.frame() but the performant constructor &lt;code&gt;ichimoku::xts_df()&lt;/code&gt; &lt;em&gt;is still around 5x as fast&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark(as.data.frame(cloud), ggplot2::fortify(cloud), xts_df(cloud), times = 10000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: microseconds
+                    expr     min       lq      mean   median       uq
+    as.data.frame(cloud) 236.230 249.2850 270.17308 255.5525 263.0860
+ ggplot2::fortify(cloud) 130.277 144.4065 174.60555 152.1530 162.0835
+           xts_df(cloud)  24.850  28.7030  37.03987  30.6795  32.2600
+        max neval
+   9598.527 10000
+ 128206.748 10000
+   8683.289 10000&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start="2" style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;In a context where performance is critical.&lt;/strong&gt; This is usually in interactive environments such as a Shiny app, perhaps with real time data where slow code can reduce responsiveness or cause bottlenecks in execution.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Within packages.&lt;/strong&gt; It is usually safe to use performant constructors within functions or for internal unexported functions. If following programming best practices the input and output types for functions are kept consistent, and so the input to the constructor can be controlled and hence its function predictable. Setting appropriate unit tests can also catch any issues early.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="when-to-question-the-use-of-performant-constructors"&gt;When to question the use of performant constructors&lt;/h3&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;For user-facing functions.&lt;/strong&gt; Having no validation or error-checking code means that a performant constructor may behave unpredictably on data that is not intended to be an input. Within a function, there is a specific or at most finite range of objects that a constructor can receive. When that limit is removed, if the input is not the intended input for a constructor then an error can be expected. As long as this is made clear to the user and there are adequate instructions on proper usage, in an environment where the occasional error message is acceptable, then the performant constructor can still be used.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;When the constructor needs to handle a range of input types.&lt;/strong&gt; as.data.frame() is actually an S3 generic with a variety of methods for different object classes. If required to handle a variety of different types of input, it may be easier (if not more performant) to rely on as.data.frame() rather than write code which handles different scenarios.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="what-is-a-performant-constructor"&gt;What is a performant constructor&lt;/h3&gt;
+&lt;p&gt;First of all, it is possible to directly use the functions &lt;code&gt;matrix_df()&lt;/code&gt; and &lt;code&gt;xts_df()&lt;/code&gt; which are exported from the ‘ichimoku’ package.&lt;/p&gt;
+&lt;p&gt;What lies behind those functions? Some variation on the below:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# The stucture underlying a data frame is simply a list
+df &amp;lt;- list(vec1, vec2, vec3)
+
+# Set the following attributes to turn the list into a data frame:
+attributes(df) &amp;lt;- list(names = c(&amp;quot;vec1&amp;quot;, &amp;quot;vec2&amp;quot;, &amp;quot;vec3&amp;quot;),
+                       class = &amp;quot;data.frame&amp;quot;,
+                       row.names = .set_row_names(length(vec1)))&lt;/code&gt;&lt;/pre&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;A data.frame is simply a list (where each element must be the same length).&lt;/li&gt;
+&lt;li&gt;It has an attribute ‘class’ which equals ‘data.frame’.&lt;/li&gt;
+&lt;li&gt;It must have row names, which can be set by the base R internal function &lt;code&gt;.set_row_names()&lt;/code&gt; which takes a single argument, the number of rows.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Note:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;The vectors in the list (vec1, vec2, vec3, etc.) must be the same length, otherwise a corrupt data.frame warning will be generated.&lt;/li&gt;
+&lt;li&gt;If row names are missing then the data will still be present but dim() will show a 0-row dataframe and its print method will not work.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.set_row_names()&lt;/code&gt; sets row names efficiently using a compact internal notation used by R. They can also be assigned an integer sequence, or a series of dates for example. However if not an integer vector, they are first coerced to type ‘character’.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In conclusion, dataframes are not complicated structures but internally represented by lists with a couple of enforced constraints.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;class(df1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;data.frame&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;typeof(df1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;list&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="further-information"&gt;Further information&lt;/h3&gt;
+&lt;p&gt;Documentation for the performant constructors discussed: &lt;a href="https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors" class="uri"&gt;https://shikokuchuo.net/ichimoku/articles/utilities.html#performant-dataframe-constructors&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.2.2, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;We then remove the ‘ichimoku’ class from the object as ‘ichimoku’ now has an efficient ‘as.data.frame’ S3 method since version 1.2.4.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">f0ee48d76a72921e4e6c435d6c5c4615</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/11-dataframes</guid>
-      <pubDate>Fri, 23 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 22 Jul 2021 00:00:00 +0000</pubDate>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/11-dataframes/dataframes_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Efficient R: Combinations using expand.grid</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/10-combinations</link>
-      <description>A faster way to generate combinations for mapply and vapply</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/10-combinations/combinations_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="introduction"&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Exhaustive combinations of two identical vectors are often desired as function inputs to mapply/vapply(). Usually, the combn() function from the ‘utils’ package serves this purpose.&lt;/p&gt;
+&lt;p&gt;utils::combn() outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;x &amp;lt;- letters[1:8]
+xlen &amp;lt;- length(x)
+
+combn &amp;lt;- utils::combn(x, 2)
+combn&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;h&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28]
+[1,] &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+[2,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="expand.grid"&gt;expand.grid&lt;/h3&gt;
+&lt;p&gt;expand.grid() from the base package is a useful function in its own right, most well-known perhaps for its use in generating hyperparameter tuning grids in machine learning models.&lt;/p&gt;
+&lt;p&gt;expand.grid() produces a data frame in columns rather than a matrix in rows like utils::combn(). Hence just for demonstration purposes to compare like-for-like, a bit of manipulation is done below to make the output exactly the same. In real world usage the output of expand.grid() can be used ‘as is’ without the additional manipulation.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;grid &amp;lt;- expand.grid(x, x, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
+grid &amp;lt;- t(as.matrix(grid))
+grid &amp;lt;- rbind(grid[2,], grid[1,])
+unname(grid)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;  
+[2,] &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28] [,29] [,30] [,31] [,32]
+[1,] &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+     [,33] [,34] [,35] [,36] [,37] [,38] [,39] [,40] [,41] [,42]
+[1,] &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;  
+[2,] &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;  
+     [,43] [,44] [,45] [,46] [,47] [,48] [,49] [,50] [,51] [,52]
+[1,] &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;  
+[2,] &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;  
+     [,53] [,54] [,55] [,56] [,57] [,58] [,59] [,60] [,61] [,62]
+[1,] &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  
+[2,] &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;a&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;  
+     [,63] [,64]
+[1,] &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  
+[2,] &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.&lt;/p&gt;
+&lt;h3 id="ichimokugrid_dup"&gt;ichimoku::grid_dup&lt;/h3&gt;
+&lt;p&gt;So how to get from the output of expand.grid() to that of utils::combn()? The answer comes courtesy of a simple algorithm coded into the grid_dup() function from the ‘ichimoku’ package.&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;From the function documentation: ‘create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors’.&lt;/p&gt;
+&lt;p&gt;Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, but their order of appearance does not matter.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+
+grid1 &amp;lt;- grid[, -grid_dup(xlen)]
+grid1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;d&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28] [,29] [,30] [,31] [,32]
+[1,] &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;  
+[2,] &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+     [,33] [,34] [,35] [,36]
+[1,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+[2,] &amp;quot;h&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the ‘omit.id = TRUE’ argument is set for grid_dup(), identical elements are also removed. ‘grid2’ should then be the same as ‘combn’ obtained above, as confirmed by the result of identical() below.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;grid2 &amp;lt;- grid[, -grid_dup(xlen, omit.id = TRUE)]
+grid2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
+[1,] &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;a&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;  &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;   &amp;quot;b&amp;quot;  
+[2,] &amp;quot;b&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;  &amp;quot;f&amp;quot;  &amp;quot;g&amp;quot;  &amp;quot;h&amp;quot;  &amp;quot;c&amp;quot;  &amp;quot;d&amp;quot;  &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+     [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22]
+[1,] &amp;quot;b&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;c&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;d&amp;quot;  
+[2,] &amp;quot;h&amp;quot;   &amp;quot;d&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;  
+     [,23] [,24] [,25] [,26] [,27] [,28]
+[1,] &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;e&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;  
+[2,] &amp;quot;f&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;g&amp;quot;   &amp;quot;h&amp;quot;   &amp;quot;h&amp;quot;  &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;identical(combn, grid2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="benchmarking-the-results"&gt;Benchmarking the results&lt;/h3&gt;
+&lt;p&gt;‘Microbenchmark’ can be used to benchmark the performance, where it is usual practice to compare median values.&lt;/p&gt;
+&lt;p&gt;For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 13, the custom algorithm using expand.grid()/grid_dup() starts to outperform.&lt;/p&gt;
+&lt;p&gt;By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already c. 7x faster.&lt;/p&gt;
+&lt;p&gt;It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and this is the reason why there can be such an outperformance. In programming, where the implementation has already been tuned to be the most efficient possible, it can be useful to think whether the algorithm or code logic can be adapted for the case required.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;fn_combn &amp;lt;- function(x) {
+  utils::combn(x, 2)
+}
+
+fn_grid &amp;lt;- function(x) {
+  expand.grid(x, x, KEEP.OUT.ATTRS = FALSE,
+              stringsAsFactors = FALSE)[-grid_dup(length(x), omit.id = TRUE), ]
+}
+
+microbenchmark::microbenchmark(fn_combn(1:13), fn_grid(1:13))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: microseconds
+           expr    min      lq     mean  median      uq     max neval
+ fn_combn(1:13) 44.515 47.3910 57.66828 49.4755 65.7610  96.824   100
+  fn_grid(1:13) 41.323 43.7795 53.95783 46.3980 53.8945 187.376   100&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: milliseconds
+             expr      min        lq      mean   median        uq
+ fn_combn(1:1000) 203.1613 208.88018 220.04292 212.8197 219.05229
+  fn_grid(1:1000)  27.4774  30.04371  35.53372  32.6394  35.41034
+      max neval
+ 338.3991   100
+ 149.1404   100&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="use-case-mapply-and-vapply"&gt;Use case: mapply() and vapply()&lt;/h3&gt;
+&lt;p&gt;This type of output is suitable for feeding into functions such as mapply() or vapply().&lt;/p&gt;
+&lt;p&gt;A standard use for mapply is when multiple arguments have to be mapped into a function. Here ‘simplify = FALSE’ is set to have mapply return a list, and fed into do.call() with c() to create a vector. This is a safer and more performant method to create a vector than relying on the built-in simplification.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;do.call(c, mapply(function(x, y) paste0(x, &amp;quot;&amp;amp;&amp;quot;, y), 
+                  grid2[1, ], grid2[2, ],
+                  SIMPLIFY = FALSE, USE.NAMES = FALSE))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt; [1] &amp;quot;a&amp;amp;b&amp;quot; &amp;quot;a&amp;amp;c&amp;quot; &amp;quot;a&amp;amp;d&amp;quot; &amp;quot;a&amp;amp;e&amp;quot; &amp;quot;a&amp;amp;f&amp;quot; &amp;quot;a&amp;amp;g&amp;quot; &amp;quot;a&amp;amp;h&amp;quot; &amp;quot;b&amp;amp;c&amp;quot; &amp;quot;b&amp;amp;d&amp;quot; &amp;quot;b&amp;amp;e&amp;quot; &amp;quot;b&amp;amp;f&amp;quot;
+[12] &amp;quot;b&amp;amp;g&amp;quot; &amp;quot;b&amp;amp;h&amp;quot; &amp;quot;c&amp;amp;d&amp;quot; &amp;quot;c&amp;amp;e&amp;quot; &amp;quot;c&amp;amp;f&amp;quot; &amp;quot;c&amp;amp;g&amp;quot; &amp;quot;c&amp;amp;h&amp;quot; &amp;quot;d&amp;amp;e&amp;quot; &amp;quot;d&amp;amp;f&amp;quot; &amp;quot;d&amp;amp;g&amp;quot; &amp;quot;d&amp;amp;h&amp;quot;
+[23] &amp;quot;e&amp;amp;f&amp;quot; &amp;quot;e&amp;amp;g&amp;quot; &amp;quot;e&amp;amp;h&amp;quot; &amp;quot;f&amp;amp;g&amp;quot; &amp;quot;f&amp;amp;h&amp;quot; &amp;quot;g&amp;amp;h&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;An equivalent example using vapply() is given below. vapply() is also a safe choice for programming as an output template is explicitly specified, here ‘character(1L)’, hence the returned values are all expected to be of type ‘character’ of length ‘1’ otherwise an error is thrown.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;vapply(seq_along(grid2[1L, ]),
+       function(i) paste0(grid2[1L, i], &amp;quot;&amp;amp;&amp;quot;, grid2[2L, i]),
+       character(1L), USE.NAMES = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt; [1] &amp;quot;a&amp;amp;b&amp;quot; &amp;quot;a&amp;amp;c&amp;quot; &amp;quot;a&amp;amp;d&amp;quot; &amp;quot;a&amp;amp;e&amp;quot; &amp;quot;a&amp;amp;f&amp;quot; &amp;quot;a&amp;amp;g&amp;quot; &amp;quot;a&amp;amp;h&amp;quot; &amp;quot;b&amp;amp;c&amp;quot; &amp;quot;b&amp;amp;d&amp;quot; &amp;quot;b&amp;amp;e&amp;quot; &amp;quot;b&amp;amp;f&amp;quot;
+[12] &amp;quot;b&amp;amp;g&amp;quot; &amp;quot;b&amp;amp;h&amp;quot; &amp;quot;c&amp;amp;d&amp;quot; &amp;quot;c&amp;amp;e&amp;quot; &amp;quot;c&amp;amp;f&amp;quot; &amp;quot;c&amp;amp;g&amp;quot; &amp;quot;c&amp;amp;h&amp;quot; &amp;quot;d&amp;amp;e&amp;quot; &amp;quot;d&amp;amp;f&amp;quot; &amp;quot;d&amp;amp;g&amp;quot; &amp;quot;d&amp;amp;h&amp;quot;
+[23] &amp;quot;e&amp;amp;f&amp;quot; &amp;quot;e&amp;amp;g&amp;quot; &amp;quot;e&amp;amp;h&amp;quot; &amp;quot;f&amp;amp;g&amp;quot; &amp;quot;f&amp;amp;h&amp;quot; &amp;quot;g&amp;amp;h&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Of the two however, mapply() is marginally faster and should normally be used when iteration is required over multiple arguments.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.2.4, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">339b1ddc10a121952629225b8ac6f82e</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/10-combinations</guid>
       <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
@@ -67,7 +608,129 @@
       <title>Efficient R: do.call / lapply</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/09-docall-lapply</link>
-      <description>A distinctive coding style</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/09-docall-lapply/docall-lapply_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="use-case"&gt;Use case&lt;/h3&gt;
+&lt;p&gt;The use of the do.call / lapply() combination is a powerful way to leverage functional programming in R. In short, write a function that performs some actions and apply it to a list of inputs, which is then combined into a single object.&lt;/p&gt;
+&lt;p&gt;Let us take an example, where we would like to calculate the ichimoku clouds for a selection of the major world stock indices, but also preserve the volume data, all in one tidy object.&lt;/p&gt;
+&lt;p&gt;We use the ‘ichimoku’ package&lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).&lt;/p&gt;
+&lt;h3 id="setup"&gt;Setup&lt;/h3&gt;
+&lt;p&gt;We could set it up as per the below:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;tickers: a vector defining the stock symbols in our portfolio&lt;/li&gt;
+&lt;li&gt;process(): a function that generates a row in a data frame or matrix&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+
+tickers &amp;lt;- c(&amp;quot;DE30_EUR&amp;quot;, &amp;quot;JP225_USD&amp;quot;, &amp;quot;SPX500_USD&amp;quot;, &amp;quot;UK100_GBP&amp;quot;)
+
+process &amp;lt;- function(x, from, to) {
+  # Use ichimoku::oanda() to retrieve data from the OANDA fxTrade API
+  pxdata &amp;lt;- oanda(x, from = from, to = to)
+  # Extract volume column
+  volume &amp;lt;- pxdata$volume
+  # Calculate the cloud by calling ichimoku::ichimoku()
+  cloud &amp;lt;- ichimoku(pxdata, ticker = x)
+  # Return a list of ticker, ichimoku cloud object, volume data
+  list(x, cloud, volume)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Note: the original pricing data is preserved within the ichimoku object.
+&lt;/aside&gt;
+&lt;p&gt;We now want to apply our function to each element of ‘tickers’ in turn, and then for the results to be combined.&lt;/p&gt;
+&lt;h3 id="loop"&gt;Loop&lt;/h3&gt;
+&lt;p&gt;One way to achieve this would be to iterate over ‘tickers’ using a loop:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# Define a list to contain the loop output, specifying the length in advance as good practice
+portfolio &amp;lt;- vector(mode = &amp;quot;list&amp;quot;, length = length(tickers))
+
+# Loop over each element in &amp;#39;tickers&amp;#39; and save in pre-defined list
+for (i in seq_along(tickers)) {
+  portfolio[[i]] &amp;lt;- process(tickers[i], from = &amp;quot;2015-09-03&amp;quot;, to = &amp;quot;2016-06-30&amp;quot;)
+}
+
+# Create output matrix by calling rbind on each element of the list
+portfolio &amp;lt;- do.call(rbind, portfolio)
+
+portfolio&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1]         [,2]          [,3]       
+[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2808 integer,209
+[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2856 integer,213
+[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2856 integer,213
+[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2808 integer,209&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This approach takes 3-4 lines of code.&lt;/p&gt;
+&lt;p&gt;Furthermore, ‘i’ remains as a leftover object in the global environment.&lt;/p&gt;
+&lt;p&gt;Somewhat messy.&lt;/p&gt;
+&lt;h3 id="do.call-lapply"&gt;do.call / lapply&lt;/h3&gt;
+&lt;p&gt;Instead we can use a do.call / lapply() combination to achieve the same result in one line:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;portfolio &amp;lt;- do.call(rbind, lapply(tickers, process, from = &amp;quot;2015-09-03&amp;quot;, to = &amp;quot;2016-06-30&amp;quot;))
+
+portfolio&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1]         [,2]          [,3]       
+[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2808 integer,209
+[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2856 integer,213
+[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2856 integer,213
+[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2808 integer,209&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are also no intermediate objects generated that clutter the global environment.&lt;/p&gt;
+&lt;p&gt;To explain:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;First lapply() applies to a list or list-like object (‘tickers’), a function (‘process’). The arguments to the function are supplied immediately afterwards. lapply always returns a list.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;This is then fed into do.call(), which calls a function (‘rbind’) on a list of arguments (the output of ‘lapply’, a list). This creates a matrix.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The use of do.call / lapply() provides for a far more succinct and distinctive coding style.&lt;/p&gt;
+&lt;p&gt;The added bonus is that of the ‘apply’ family of functions, lapply() is almost always the fastest and most performant as the output type is fixed and it does not try to do things with names or simplify the output structure.&lt;/p&gt;
+&lt;p&gt;For a more structured format than a list, lapply() can be fed into a do.call() with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;c() to form a vector&lt;/li&gt;
+&lt;li&gt;cbind() or rbind() to form a matrix&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The use of this type of combination is of particular benefit in programming where both performance and predictability of output types is paramount.&lt;/p&gt;
+&lt;h3 id="tidy-data-output"&gt;Tidy data output&lt;/h3&gt;
+&lt;pre class="r"&gt;&lt;code&gt;portfolio&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1]         [,2]          [,3]       
+[1,] &amp;quot;DE30_EUR&amp;quot;   ichimoku,2808 integer,209
+[2,] &amp;quot;JP225_USD&amp;quot;  ichimoku,2856 integer,213
+[3,] &amp;quot;SPX500_USD&amp;quot; ichimoku,2856 integer,213
+[4,] &amp;quot;UK100_GBP&amp;quot;  ichimoku,2808 integer,209&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;‘portfolio’ is a tidy matrix with a row for each ticker, and a column for each data type.&lt;/p&gt;
+&lt;p&gt;We can easily access any element of the matrix by specifying its index value, for example the ichimoku object for the S&amp;amp;P 500 Index by [3,2]. In the example below we run autostrat() on this object:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;autostrat(portfolio[3, 2][[1]], n = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;                       [,1]               
+Strategy               &amp;quot;cloudT &amp;gt; kijun&amp;quot;   
+---------------------  &amp;quot;----------&amp;quot;       
+Strategy cuml return % 7.76               
+Per period mean ret %  0.0554             
+Periods in market      74                 
+Total trades           3                  
+Average trade length   24.67              
+Trade success %        100                
+Worst trade ret %      0.81               
+---------------------  &amp;quot;----------&amp;quot;       
+Benchmark cuml ret %   3.7                
+Per period mean ret %  0.0269             
+Periods in market      135                
+---------------------  &amp;quot;----------&amp;quot;       
+Direction              &amp;quot;long&amp;quot;             
+Start                  2015-12-21 22:00:00
+End                    2016-06-29 22:00:00
+Ticker                 &amp;quot;SPX500_USD&amp;quot;       &lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Note: Each element of the matrix is wrapped as a list so that they are of equal length. To access the underlying object, the ichimoku object in this case, we simply extract it using [[1]].
+&lt;/aside&gt;
+&lt;p&gt;&lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.1.0, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;. Note that since version 1.2.0 additional data such as volume may be retained within the ichimoku object itself.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;Further examples: Youngju Nielsen of Sungkyunkwan University uses do.call / lapply to good effect in her course &lt;a href="https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/" class="uri"&gt;https://www.coursera.org/learn/the-fundamental-of-data-driven-investment/&lt;/a&gt;&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">3563f731b81f5c35fc591600dd3591c7</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/09-docall-lapply</guid>
       <pubDate>Fri, 28 May 2021 00:00:00 +0000</pubDate>
@@ -77,7 +740,77 @@
       <title>ichimoku</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/08-ichimoku</link>
-      <description>R package for Ichimoku Kinko Hyo cloud charts</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;p&gt;An implementation in R of the Ichimoku Kinkō Hyō (一目均衡表) charting system, also commonly known as ‘cloud charts’.&lt;/p&gt;
+&lt;p&gt;The technique is a refinement on candlestick charting, originating from Japan and now in widespread use in technical analysis worldwide. Translating to ‘one-glance equilibrium chart’, it allows the price action and market structure of financial securities to be determined ‘at-a-glance’.&lt;/p&gt;
+&lt;h3 id="example"&gt;Example&lt;/h3&gt;
+&lt;p&gt;Load package and sample data:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(ichimoku)
+TKR &amp;lt;- sample_ohlc_data&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;ichimoku()&lt;/code&gt; to generate the ichimoku object:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;cloud &amp;lt;- ichimoku(TKR)
+summary(cloud)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;ichimoku object with dimensions (281, 12) 
+
+            Max: 2020-07-14 [139.7]
+Start: 2020-01-02 [123]   End: 2020-12-24 [136]
+            Min: 2020-05-13 [119.1]
+
+Cloud periods: 9 26 52 
+Periodicity: 1 days 
+Ticker: TKR&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;iplot()&lt;/code&gt; for fully-interactive cloud charts:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;iplot(cloud)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img alt="ichimoku iplot" src="https://shikokuchuo.net/posts/08-ichimoku/img/iplot.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;plot()&lt;/code&gt; for static cloud charts:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-05/&amp;quot;, theme = &amp;quot;solarized&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-05/&amp;quot;, theme = &amp;quot;dark&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-2.png" width="672" /&gt;&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;plot(cloud, window = &amp;quot;2020-05/&amp;quot;, theme = &amp;quot;mono&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/plot-3.png" width="672" /&gt;&lt;/p&gt;
+&lt;h3 id="installation"&gt;Installation&lt;/h3&gt;
+&lt;p&gt;Install the released version of ichimoku from CRAN:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;ichimoku&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or the latest development version from rOpenSci R-universe:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;ichimoku&amp;quot;, repos = &amp;quot;https://shikokuchuo.r-universe.dev&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="package"&gt;Package&lt;/h3&gt;
+&lt;p&gt;Website: &lt;a href="https://shikokuchuo.net/ichimoku/" class="uri"&gt;https://shikokuchuo.net/ichimoku/&lt;/a&gt; &lt;a href="#fn1" class="footnote-ref" id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="ichimoku-kinko-hyo"&gt;Ichimoku Kinko Hyo &lt;a href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The system consists of the following chart lines added to a candlestick chart:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;転換線 &lt;strong&gt;Tenkan-sen&lt;/strong&gt; [conversion line]: the mid-point of the highest high and lowest low for the past 9 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;基準線 &lt;strong&gt;Kijun-sen&lt;/strong&gt; [base line]: the mid-point of the highest high and lowest low for the past 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;先行スパン1 &lt;strong&gt;Senkou span A&lt;/strong&gt; [leading span A]: the mid-point of Tenkan-sen and Kijun-sen plotted ahead 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;先行スパン2 &lt;strong&gt;Senkou span B&lt;/strong&gt; [leading span B]: the mid-point of the highest high and lowest low for the past 52 periods &lt;em&gt;(including the current period)&lt;/em&gt;, plotted ahead 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;遅行スパン &lt;strong&gt;Chikou span&lt;/strong&gt; [lagging span]: the current period closing price plotted behind 26 periods &lt;em&gt;(including the current period)&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The 雲 &lt;strong&gt;kumo&lt;/strong&gt; [cloud] is the area bounded by Senkou span A and Senkou span B (usually shaded on a chart).&lt;/p&gt;
+&lt;h3 id="interpretation"&gt;Interpretation&lt;/h3&gt;
+&lt;p&gt;Ichimoku Kinkō Hyō can be translated as ‘one-glance equilibrium chart’. It is designed to allow the price action and market structure of financial securities to be determined ‘at-a-glance’ in a highly visual fashion.&lt;/p&gt;
+&lt;p&gt;For example in a strongly upwards-trending market, the candlesticks will be above the Tenkan-sen, which will be above the Kijun-sen, which will be above the cloud, and the Chikou span may not have anything above it.&lt;/p&gt;
+&lt;p&gt;The lines and the cloud represent dynamic support and resistance zones relative to the price candles. Generally the thicker the cloud, the tougher the support/resistance. In our previous example, if the price now reverts downwards, it can expect support first at the Kijun-sen, then the Tenkan-sen and finally the cloud itself.&lt;/p&gt;
+&lt;p&gt;More subtle interpretations involve the Chikou span in particular and its action in relation to the cloud lines as well as the candles.&lt;/p&gt;
+&lt;h3 id="context"&gt;Context&lt;/h3&gt;
+&lt;p&gt;Ichimoku analysis is the latest refinement in candlestick charting techniques, which also originated from Japan. Developed by 一目山人 &lt;em&gt;Ichimoku, Sanjin&lt;/em&gt;, the pen name of 細田吾一 &lt;em&gt;Hosoda, Goichi&lt;/em&gt;, his work was published in 1969 as the seminal &lt;em&gt;「一目均衡表」 [ichimoku kinkou hyou]&lt;/em&gt;. It gained popularity in Japan especially after the publication of Sasaki’s &lt;em&gt;「一目均衡表の研究」 [ichimoku kinkouhyou no kenkyuu]&lt;/em&gt; in 1996, and is now widely-used in technical analysis worldwide.&lt;/p&gt;
+&lt;p&gt;The time periods have traditionally been calculated as 9, 26 and 52 based on manual data analysis performed in Japan in a pre-computer age where there was a 6-day working week resulting in 26 average trading days in a month. Although this bears little relevance to the current day, the use of these time periods has persisted as an ‘industry norm’ or ‘accepted practice’.&lt;/p&gt;
+&lt;p&gt;To use other periods would be meaningless in a sense as everyone uses these parameters and ‘market psychology’ can and often does create its own realities, independent of any fundamentals. However, there is no reason for the technique not to evolve, and to reflect changing trading realities perhaps other parameters will become more relevant in the collective psychology.&lt;/p&gt;
+&lt;p&gt;Finally, the use originated with daily candlesticks, and the most valid interpretation remains for daily data. However, it is equally used today for both shorter intra-day, e.g. 4-hour or hourly, and longer, e.g. weekly or monthly, charts.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;Gao, C. (2021), &lt;em&gt;ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies&lt;/em&gt;. R package version 1.2.4, &lt;a href="https://CRAN.R-project.org/package=ichimoku" class="uri"&gt;https://CRAN.R-project.org/package=ichimoku&lt;/a&gt;.&lt;a href="#fnref1" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;Sasaki, H. 佐々木 英信 (1996), &lt;em&gt;一目均衡表の研究 [ichimoku kinkouhyou no kenkyuu]&lt;/em&gt;. Tokyo, Japan: Toushi Radar.&lt;a href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">145ec97fdc99d17783fe168566130da8</distill:md5>
       <category>R</category>
       <category>Quantitative Finance</category>
       <guid>https://shikokuchuo.net/posts/08-ichimoku</guid>
@@ -88,7 +821,60 @@
       <title>Distill for R Markdown</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/04-distill</link>
-      <description>Web publishing optimised for scientific and technical communication</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/04-distill/distill_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="created-using-distill"&gt;Created using Distill&lt;/h3&gt;
+&lt;p&gt;This website was created using &lt;a href="https://pkgs.rstudio.com/distill/"&gt;Distill&lt;/a&gt; for R Markdown, a web publishing format optimised for scientific and technical communication.&lt;/p&gt;
+&lt;h3 id="key-advantages"&gt;Key advantages&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;R markdown to run R code (and all the possibility that brings)&lt;/li&gt;
+&lt;li&gt;Use markdown / html interchangeably&lt;/li&gt;
+&lt;li&gt;No dependency on Hugo or Jekyll, so no lock-in or need to maintain those stacks&lt;/li&gt;
+&lt;li&gt;Out-of-the-box support for mobile&lt;/li&gt;
+&lt;li&gt;Clean and attractive defaults&lt;/li&gt;
+&lt;li&gt;Mainly “just works”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="installation"&gt;Installation&lt;/h3&gt;
+&lt;p&gt;Install release version of Distill from CRAN:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;distill&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="distill-blog-hosted-on-github-pages-step-by-step-instructions"&gt;Distill blog hosted on Github Pages step-by-step instructions&lt;/h3&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;Create a new blog at /blog of your current working directory in R:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="r"&gt;&lt;code&gt;distill::create_blog(dir = &amp;quot;blog&amp;quot;, title = &amp;quot;My New Blog&amp;quot;, gh_pages = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start="2" style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;Make some inital changes to _site.yml. Select the ‘build’ tab in RStudio and hit ‘Build Website’. This will generate the website. &lt;br /&gt;&lt;br /&gt; &lt;strong&gt;Note: building the website does not generate blog posts.&lt;/strong&gt; Each time the website is re-built, only the .Rmd files in the base directory will be automatically re-generated.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Modify the yaml front matter and content of the example blog post. Then hit ‘Knit’ in RStudio to generate the post. &lt;br /&gt;&lt;br /&gt; &lt;strong&gt;Note: after every change made to posts or after creating a new post, you must knit each post separately.&lt;/strong&gt; The listings page is then automatically updated.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create README.md, license.txt and CNAME if using a customm domain.&lt;/p&gt;
+&lt;aside&gt;
+&lt;p&gt;README.md and license.txt are optional but usual practice. CNAME is a single line text file containing the domain name.&lt;/p&gt;
+&lt;/aside&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a new repository at &lt;a href="https://github.com/"&gt;Github&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;To set up git and add your new repository as a remote, bring up the command line, cd to your new blog directory and:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="r"&gt;&lt;code&gt;git init
+git add .
+git commit -m &amp;quot;initial commit&amp;quot;
+git branch -M main
+git remote add origin git@github.com:username/nameofnew.git
+git push -u origin main&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+Replace ‘username/nameofnew.git’ as appropriate.
+&lt;/aside&gt;
+&lt;ol start="7" style="list-style-type: decimal"&gt;
+&lt;li&gt;At Github, under your new repository, go to Settings &amp;gt;&amp;gt; Pages, set your source branch to ‘main’, and folder to ‘docs’.&lt;br /&gt; Tick ‘Enforce HTTPS’ (recommended). &lt;br /&gt; If using a custom domain name, it should be configured automatically if you have previously set up your DNS settings to point to Github’s servers.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Congratulations, your new website should now be online!&lt;/p&gt;
+&lt;h3 id="references"&gt;References&lt;/h3&gt;
+&lt;p&gt;The Distill Reference: &lt;a href="https://rstudio.github.io/distill/" class="uri"&gt;https://rstudio.github.io/distill/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Definitive R Markdown Guide: &lt;a href="https://bookdown.org/yihui/rmarkdown/" class="uri"&gt;https://bookdown.org/yihui/rmarkdown/&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">61c582762e7772959d596590830ef341</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/04-distill</guid>
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
@@ -98,7 +884,61 @@
       <title>Github Actions with R</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/05-ghactions</link>
-      <description>Deploy and automate your code to the cloud</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/05-ghactions/ghactions_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="github-actions-with-r"&gt;Github Actions with R&lt;/h3&gt;
+&lt;p&gt;Set up a cron job to run your R scripts at specified times.&lt;/p&gt;
+&lt;p&gt;Enabled with a simple yaml configuration file.&lt;/p&gt;
+&lt;p&gt;Save the following as main.yml in .github/workflows of your Github repository:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;name: Action
+on:
+  schedule:
+    - cron: &amp;#39;30 22 * * 1-5&amp;#39;
+jobs:
+  render:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v1
+      - name: Install dependencies
+        run: |
+          install.packages(c(&amp;quot;magrittr&amp;quot;, &amp;quot;purrr&amp;quot;), type = &amp;quot;win.binary&amp;quot;)
+        shell: Rscript {0}
+      - name: Script
+        run: Rscript nameofscript.R
+      - name: Commit files
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email &amp;quot;actions@github.com&amp;quot;
+          git add docs/*
+          git commit -am &amp;quot;commit on $(date)&amp;quot;
+          git push origin main
+        env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;This example cron job runs every Mon-Fri at 22.30.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Customize your R packages to install.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Make sure to change nameofscript.R to your actual script name.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Assumes your script writes files to the ‘docs’ directory, change if necessary.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Assumes your repository branch is ‘main’, change if necessary.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Note that this script is run on a Windows VM using Windows R binary packages. This is currently much faster than building a lot of dependencies on Linux (which is also prone to failure).&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/aside&gt;
+&lt;p&gt;To generate R Markdown documents (or for that matter render a Distill website), you will want to add the following step after ‘Set up R’:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v1&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="reference"&gt;Reference&lt;/h3&gt;
+&lt;p&gt;The Github Actions with R reference: &lt;br /&gt; &lt;a href="https://orchid00.github.io/actions_sandbox/" class="uri"&gt;https://orchid00.github.io/actions_sandbox/&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">71390ff6a8bfac1c6175f4a4d31f7c2f</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/05-ghactions</guid>
       <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
@@ -108,7 +948,87 @@
       <title>R | Selenium</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/03-rselenium</link>
-      <description>Programmatically drive a web browser</description>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/03-rselenium/rselenium_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;h3 id="use-case"&gt;Use case&lt;/h3&gt;
+&lt;p&gt;Whenever you need to programmatically drive a web browser.&lt;/p&gt;
+&lt;p&gt;Most often:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;to scrape information behind a login screen&lt;/li&gt;
+&lt;li&gt;when the http server does not return a simple html document&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="initial-setup"&gt;Initial setup&lt;/h3&gt;
+&lt;p&gt;Prerequisites: JRE or JDK installed on your system, Mozilla Firefox&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;Install the &lt;a href="https://github.com/ropensci/RSelenium"&gt;RSelenium&lt;/a&gt; package from CRAN:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;RSelenium&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start="2" style="list-style-type: decimal"&gt;
+&lt;li&gt;Go to &lt;a href="https://selenium-release.storage.googleapis.com/index.html" class="uri"&gt;https://selenium-release.storage.googleapis.com/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Download selenium-server-standalone-4.0.0-alpha-2.jar (or whatever is the latest ‘selenium-server-standalone’ file)&lt;/p&gt;
+&lt;ol start="3" style="list-style-type: decimal"&gt;
+&lt;li&gt;Go to &lt;a href="https://github.com/mozilla/geckodriver" class="uri"&gt;https://github.com/mozilla/geckodriver&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Download the latest Mozilla geckodriver release, and place in same directory as the jar file&lt;/p&gt;
+&lt;h3 id="running-selenium-webdriver"&gt;Running Selenium Webdriver&lt;/h3&gt;
+&lt;p&gt;At the terminal, first cd to the directory where your two new files are saved, then run:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;java -jar selenium-server-standalone-4.0.0-alpha-2.jar&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The selenium server must be up and running before attempting to execute the R code below.&lt;/p&gt;
+&lt;h3 id="rselenium-quickstart-code"&gt;RSelenium quickstart code&lt;/h3&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(RSelenium)
+library(keyring)
+library(rvest)
+library(magrittr)
+
+# Start Selenium Session
+remDr &amp;lt;- remoteDriver(
+  remoteServerAddr = &amp;quot;localhost&amp;quot;,
+  port = 4444L,
+  browserName = &amp;quot;firefox&amp;quot;
+)
+
+remDr$open()
+
+# Navigate to login page
+remDr$navigate(&amp;quot;https://website.com/login&amp;quot;)
+Sys.sleep(5) # Give page time to load
+
+# Find &amp;#39;username&amp;#39; element and send &amp;#39;saved_user&amp;#39; as input
+webElem1 &amp;lt;- remDr$findElement(using = &amp;quot;xpath&amp;quot;, &amp;quot;//input[@name = &amp;#39;username&amp;#39;]&amp;quot;)
+webElem1$sendKeysToElement(list(key_get(&amp;quot;saved_user&amp;quot;)))
+
+# Find &amp;#39;password&amp;#39; element and send &amp;#39;saved_pass&amp;#39; and &amp;#39;enter&amp;#39; keystroke as input
+webElem2 &amp;lt;- remDr$findElement(using = &amp;quot;xpath&amp;quot;, &amp;quot;//input[@name = &amp;#39;password&amp;#39;]&amp;quot;)
+webElem2$sendKeysToElement(list(key_get(&amp;quot;saved_pass&amp;quot;), key = &amp;quot;enter&amp;quot;))
+Sys.sleep(5) # Give page time to load
+
+# Navigate to desired page and download source
+remDr$navigate(&amp;quot;https://website.com/somepage&amp;quot;)
+Sys.sleep(5) # Give page time to load
+html &amp;lt;- remDr$getPageSource()[[1]] %&amp;gt;% read_html()
+
+# Use further rvest commands to extract required data
+# ...
+
+# End Selenium Session
+remDr$close()&lt;/code&gt;&lt;/pre&gt;
+&lt;aside&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;p&gt;Customise the URLs as required.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Customise the xpath to locate the desired input fields as they are actually named on your site.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;‘saved_user’ and ‘saved_pass’ are values already stored using the &lt;a href="https://github.com/r-lib/keyring"&gt;keyring&lt;/a&gt; package and retrieved here using the ‘key_get’ command. It is never a good idea to store plain text credentials in an R script.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/aside&gt;
+&lt;h3 id="reference"&gt;Reference&lt;/h3&gt;
+&lt;p&gt;Basic vignette: &lt;a href="https://docs.ropensci.org/RSelenium/articles/basics.html" class="uri"&gt;https://docs.ropensci.org/RSelenium/articles/basics.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">d59557b944f69af2a61821c12a30bf46</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/03-rselenium</guid>
       <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>

@@ -16,23 +16,19 @@ output:
 ```{r index, echo=FALSE}
 
 photos <- file.path("_images", list.files("_images"))
-develop <- function(x) {
-  plot(imager::load.image(x), axes = FALSE)
-  paste0(openssl::sha256(file(x)))
-}
 par(mar = c(0, 0, 0, 0))
-data.frame(sha256 = develop(photos))
+plot(imager::load.image(photos), axes = FALSE)
 
 ```
 <aside> Shikokuchuo </aside>
 
 ### Use case
 
-The use of the do.call / lapply() combination is a powerful way to leverage functional programming in R. In short, you write a function that performs some actions and apply it to a list of inputs, which can then be fed into a function that combines everything into a single object.
+The use of the do.call / lapply() combination is a powerful way to leverage functional programming in R. In short, write a function that performs some actions and apply it to a list of inputs, which is then combined into a single object.
 
 Let us take an example, where we would like to calculate the ichimoku clouds for a selection of the major world stock indices, but also preserve the volume data, all in one tidy object.
 
-We use the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.0.0, <https://CRAN.R-project.org/package=ichimoku>.] which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).
+We use the 'ichimoku' package^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.1.0, <https://CRAN.R-project.org/package=ichimoku>. Note that since version 1.2.0 additional data such as volume may be retained within the ichimoku object itself.] which not only draws the ichimoku clouds, but also provides an interface to the OANDA fxTrade API which is a rich source of high-quality financial data (free but requires registration).
 
 ### Setup
 
@@ -107,13 +103,13 @@ To explain:
 
 - First lapply() applies to a list or list-like object ('tickers'), a function ('process'). The arguments to the function are supplied immediately afterwards. lapply always returns a list.
 
-- This can then be fed into do.call(), which calls a function ('rbind') on a list of arguments (the output of 'lapply', which is a list). This creates a matrix.
+- This is then fed into do.call(), which calls a function ('rbind') on a list of arguments (the output of 'lapply', a list). This creates a matrix.
 
 The use of do.call / lapply() provides for a far more succinct and distinctive coding style.
 
 The added bonus is that of the 'apply' family of functions, lapply() is almost always the fastest and most performant as the output type is fixed and it does not try to do things with names or simplify the output structure.
 
-For a more structured format rather than a list, lapply() can be fed into a do.call() with:
+For a more structured format than a list, lapply() can be fed into a do.call() with:
 
 - c() to form a vector
 - cbind() or rbind() to form a matrix

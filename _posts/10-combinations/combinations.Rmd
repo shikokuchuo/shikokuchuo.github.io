@@ -16,19 +16,15 @@ output:
 ```{r index, echo=FALSE}
 
 photos <- file.path("_images", list.files("_images"))
-develop <- function(x) {
-  plot(imager::load.image(x), axes = FALSE)
-  paste0(openssl::sha256(file(x)))
-}
 par(mar = c(0, 0, 0, 0))
-data.frame(sha256 = develop(photos))
+plot(imager::load.image(photos), axes = FALSE)
 
 ```
 <aside> Shikokuchuo </aside>
 
 ### Introduction
 
-It seems that there is no base R function to generate exhaustive combinations of two identical vectors, sometimes desired as function inputs to mapply/vapply(). The combn() function from the 'utils' package is required.
+Exhaustive combinations of two identical vectors are often desired as function inputs to mapply/vapply(). Usually, the combn() function from the 'utils' package serves this purpose.
 
 utils::combn() outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8. 
 
@@ -50,19 +46,18 @@ expand.grid() produces a data frame in columns rather than a matrix in rows like
 grid <- expand.grid(x, x, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
 grid <- t(as.matrix(grid))
 grid <- rbind(grid[2,], grid[1,])
-rownames(grid) <- NULL
-grid
+unname(grid)
 ```
 
 It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.
 
 ### ichimoku::grid_dup
 
-So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the 'ichimoku' package.^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.2.4, <https://CRAN.R-project.org/package=ichimoku>.]
+So how to get from the output of expand.grid() to that of utils::combn()? The answer comes courtesy of a simple algorithm coded into the grid_dup() function from the 'ichimoku' package.^[Gao, C. (2021), *ichimoku: Visualization and Tools for Ichimoku Kinko Hyo Strategies*. R package version 1.2.4, <https://CRAN.R-project.org/package=ichimoku>.]
 
 From the function documentation: 'create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors'.
 
-Using the function as per the below, 'grid1' contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order of appearance does not matter.
+Using the function as per the below, 'grid1' contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, but their order of appearance does not matter.
 
 ```{r duplicate}
 library(ichimoku)
@@ -72,24 +67,22 @@ grid1
 
 ```
 
-If the 'omit.id = TRUE' argument is set for grid_dup(), identical elements are also removed. 'grid2' should then be the same as 'combn' obtained above.
-
-Indeed it can be seen that both identical() and all.equal() below return TRUE.
+If the 'omit.id = TRUE' argument is set for grid_dup(), identical elements are also removed. 'grid2' should then be the same as 'combn' obtained above, as confirmed by the result of identical() below.
 
 ```{r allequal}
 grid2 <- grid[, -grid_dup(xlen, omit.id = TRUE)]
 grid2
 
-identical(combn, grid2) && all.equal(combn, grid2)
+identical(combn, grid2)
 ```
 
 ### Benchmarking the results
 
 'Microbenchmark' can be used to benchmark the performance, where it is usual practice to compare median values.
 
-For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 12, the custom algorithm using expand.grid()/grid_dup() starts to outperform.
+For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 13, the custom algorithm using expand.grid()/grid_dup() starts to outperform.
 
-By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.
+By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already c. 7x faster.
 
 It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and this is the reason why there can be such an outperformance. In programming, where the implementation has already been tuned to be the most efficient possible, it can be useful to think whether the algorithm or code logic can be adapted for the case required.
 
@@ -103,7 +96,7 @@ fn_grid <- function(x) {
               stringsAsFactors = FALSE)[-grid_dup(length(x), omit.id = TRUE), ]
 }
 
-microbenchmark::microbenchmark(fn_combn(1:12), fn_grid(1:12))
+microbenchmark::microbenchmark(fn_combn(1:13), fn_grid(1:13))
 microbenchmark::microbenchmark(fn_combn(1:1000), fn_grid(1:1000))
 
 ```

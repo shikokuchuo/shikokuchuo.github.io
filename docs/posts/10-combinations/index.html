@@ -2457,14 +2457,12 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="combinations_files/figure-html5/index-1.png" width="624" /></p>
-<pre><code>                                                            sha256
-1 96e41b3b0fa827b7c9c1f4a7765667064026f9448a78327415264112f7f54dbe</code></pre>
 </div>
 <aside>
 Shikokuchuo
 </aside>
 <h3 id="introduction">Introduction</h3>
-<p>It seems that there is no base R function to generate exhaustive combinations of two identical vectors, sometimes desired as function inputs to mapply/vapply(). The combn() function from the ‘utils’ package is required.</p>
+<p>Exhaustive combinations of two identical vectors are often desired as function inputs to mapply/vapply(). Usually, the combn() function from the ‘utils’ package serves this purpose.</p>
 <p>utils::combn() outputs the unique set of combinations, so for the example below where the first 8 letters of the alphabet are used, the combination {a, b} appears, but {b, a} does not. Similarly the cases where the two elements are identical such as {a, a} also do not feature. It can be seen that there are 28 (or 8 choose 2) unique combinations for the vector of length 8.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2493,8 +2491,7 @@ Shikokuchuo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>x</span>, KEEP.OUT.ATTRS <span class='op'>=</span> <span class='cn'>FALSE</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>[</span><span class='fl'>2</span>,<span class='op'>]</span>, <span class='va'>grid</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
-<span class='va'>grid</span>
+<span class='fu'><a href='https://rdrr.io/r/base/unname.html'>unname</a></span><span class='op'>(</span><span class='va'>grid</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
@@ -2521,9 +2518,9 @@ Shikokuchuo
 </div>
 <p>It can be seen that the output of expand.grid() is simply all combinations, of which there are 8^2 = 64 in total.</p>
 <h3 id="ichimokugrid_dup">ichimoku::grid_dup</h3>
-<p>So how to get from the output of expand.grid() to that of utils::combn()? Well, with the help of a simple algorithm, which has been coded into the grid_dup() function from the ‘ichimoku’ package.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>So how to get from the output of expand.grid() to that of utils::combn()? The answer comes courtesy of a simple algorithm coded into the grid_dup() function from the ‘ichimoku’ package.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>From the function documentation: ‘create a vector of element positions of duplicates in the output of expand.grid on 2 identical vectors’.</p>
-<p>Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, and simply that the order of appearance does not matter.</p>
+<p>Using the function as per the below, ‘grid1’ contains all unique combinations and also those where the two elements are identical. This is sometimes the desired output if two of the same elements is still considered a unique combination, but their order of appearance does not matter.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shikokuchuo.net/ichimoku/'>ichimoku</a></span><span class='op'>)</span>
@@ -2545,8 +2542,7 @@ Shikokuchuo
 [1,] &quot;f&quot;   &quot;g&quot;   &quot;g&quot;   &quot;h&quot;  
 [2,] &quot;h&quot;   &quot;g&quot;   &quot;h&quot;   &quot;h&quot;  </code></pre>
 </div>
-<p>If the ‘omit.id = TRUE’ argument is set for grid_dup(), identical elements are also removed. ‘grid2’ should then be the same as ‘combn’ obtained above.</p>
-<p>Indeed it can be seen that both identical() and all.equal() below return TRUE.</p>
+<p>If the ‘omit.id = TRUE’ argument is set for grid_dup(), identical elements are also removed. ‘grid2’ should then be the same as ‘combn’ obtained above, as confirmed by the result of identical() below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>grid2</span> <span class='op'>&lt;-</span> <span class='va'>grid</span><span class='op'>[</span>, <span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='va'>xlen</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>]</span>
@@ -2563,15 +2559,15 @@ Shikokuchuo
 [1,] &quot;e&quot;   &quot;e&quot;   &quot;e&quot;   &quot;f&quot;   &quot;f&quot;   &quot;g&quot;  
 [2,] &quot;f&quot;   &quot;g&quot;   &quot;h&quot;   &quot;g&quot;   &quot;h&quot;   &quot;h&quot;  </code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>combn</span>, <span class='va'>grid2</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>combn</span>, <span class='va'>grid2</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>combn</span>, <span class='va'>grid2</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] TRUE</code></pre>
 </div>
 <h3 id="benchmarking-the-results">Benchmarking the results</h3>
 <p>‘Microbenchmark’ can be used to benchmark the performance, where it is usual practice to compare median values.</p>
-<p>For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 12, the custom algorithm using expand.grid()/grid_dup() starts to outperform.</p>
-<p>By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already over 7x faster.</p>
+<p>For small vector lengths, expand.grid() is not as performant. However the absolute times are also small so any difference would not matter as much. When the vector length reaches 13, the custom algorithm using expand.grid()/grid_dup() starts to outperform.</p>
+<p>By the time the vector length reaches 1,000, this implies total unique combinations of 499,500 and the custom algorithm is already c. 7x faster.</p>
 <p>It should be noted that the custom algorithm is tailored for the special case of combn(x, m) where m = 2 and this is the reason why there can be such an outperformance. In programming, where the implementation has already been tuned to be the most efficient possible, it can be useful to think whether the algorithm or code logic can be adapted for the case required.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2584,13 +2580,13 @@ Shikokuchuo
               stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://shikokuchuo.net/ichimoku/reference/grid_dup.html'>grid_dup</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, omit.id <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='op'>]</span>
 <span class='op'>}</span>
 
-<span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>microbenchmark</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html'>microbenchmark</a></span><span class='op'>(</span><span class='fu'>fn_combn</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>)</span>, <span class='fu'>fn_grid</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>13</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>Unit: microseconds
            expr    min      lq     mean  median      uq      max
- fn_combn(1:12) 41.675 46.1675 61.24359 48.6555 53.1375 1092.681
-  fn_grid(1:12) 37.551 41.4295 64.09115 44.2935 48.4495 1595.505
+ fn_combn(1:13) 38.927 41.6245 51.37336 43.0385 45.0745  686.700
+  fn_grid(1:13) 35.883 38.2090 60.74484 39.6740 43.0570 1762.119
  neval
    100
    100</code></pre>
@@ -2599,12 +2595,12 @@ Shikokuchuo
 </code></pre>
 </div>
 <pre><code>Unit: milliseconds
-             expr       min        lq      mean    median        uq
- fn_combn(1:1000) 269.26011 277.06576 286.83364 282.81347 289.87136
-  fn_grid(1:1000)  33.96047  36.82861  43.54413  38.84493  41.82783
-      max neval
- 359.2839   100
- 107.3631   100</code></pre>
+             expr       min       lq     mean    median        uq
+ fn_combn(1:1000) 201.59798 207.6833 214.4459 210.29602 213.29315
+  fn_grid(1:1000)  27.23142  30.1157  35.8723  31.56724  34.42106
+       max neval
+ 272.82774   100
+  90.80061   100</code></pre>
 </div>
 <h3 id="use-case-mapply-and-vapply">Use case: mapply() and vapply()</h3>
 <p>This type of output is suitable for feeding into functions such as mapply() or vapply().</p>
@@ -2633,7 +2629,7 @@ Shikokuchuo
 [23] &quot;e&amp;f&quot; &quot;e&amp;g&quot; &quot;e&amp;h&quot; &quot;f&amp;g&quot; &quot;f&amp;h&quot; &quot;g&amp;h&quot;</code></pre>
 </div>
 <p>Of the two however, mapply() is marginally faster and should normally be used when iteration is required over multiple arguments.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
@@ -2686,7 +2682,8 @@ Shikokuchuo
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved.<br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021-22 The creators of shikokuchuo.net. All rights reserved.<br>
+注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>

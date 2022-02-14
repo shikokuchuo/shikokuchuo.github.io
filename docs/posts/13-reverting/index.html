@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>shikokuchuo{net}: Reverting Git Commits</title>
@@ -133,7 +134,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["reverting_files/figure-html5/index-1.png"]}
+  {"type":"character","attributes":{},"value":["reverting_files/anchor-4.2.2/anchor.min.js","reverting_files/bowser-1.9.3/bowser.min.js","reverting_files/distill-2.2.21/template.v2.js","reverting_files/figure-html5/index-1.png","reverting_files/header-attrs-2.11/header-attrs.js","reverting_files/jquery-3.6.0/jquery-3.6.0.js","reverting_files/jquery-3.6.0/jquery-3.6.0.min.js","reverting_files/jquery-3.6.0/jquery-3.6.0.min.map","reverting_files/popper-2.6.0/popper.min.js","reverting_files/tippy-6.2.7/tippy-bundle.umd.min.js","reverting_files/tippy-6.2.7/tippy-light-border.css","reverting_files/tippy-6.2.7/tippy.css","reverting_files/tippy-6.2.7/tippy.umd.min.js","reverting_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2453,8 +2454,6 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="reverting_files/figure-html5/index-1.png" width="624" /></p>
-<pre><code>                                                            sha256
-1 010e16069f8858640c2bb9af4a2293b720161b71d9d6e1f375c30237ea2b4123</code></pre>
 </div>
 <aside>
 Shikokuchuo
@@ -2463,7 +2462,7 @@ Shikokuchuo
 <p>You have made a commit.</p>
 <p>You discover a mistake or something you left out straight after the commit.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>git reset HEAD<span class="sc">~</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git reset HEAD<span class="sc">~</span></span></code></pre></div>
 </div>
 <p>This is a soft reset. Your changes are preserved. The commit is removed from the record.</p>
 <p>Make the additional changes you need. Add files. Commit.</p>
@@ -2471,30 +2470,30 @@ Shikokuchuo
 <p>Copy your folder to a backup location.</p>
 <p>The following is a hard reset, which rolls back to the previous commit. Changes since that commit will be lost. Force push it to the remote.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>git reset HEAD<span class="sc">^</span> <span class="sc">--</span>hard</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>git push origin <span class="sc">-</span>f</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>git reset HEAD<span class="sc">^</span> <span class="sc">--</span>hard</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>git push origin <span class="sc">-</span>f</span></code></pre></div>
 </div>
 <p>Both local and remote should now be in sync at the previous commit. You may check with:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>git status</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>git status</span></code></pre></div>
 </div>
 <p>If you have Github Actions that are triggered by commits, they will be triggered again despite this being a roll-back. So go and stop those runs if necessary.</p>
 <p>Next, if you have another branch such as ‘gh-pages’ that builds automatically on each commit, roll back that branch as well so it keeps in sync. As this branch has been building on the remote, do a git pull to ensure that your local copy is up to date first before resetting.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>git checkout gh<span class="sc">-</span>pages</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>git pull</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>git reset HEAD<span class="sc">^</span> <span class="sc">--</span>hard</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>git push <span class="sc">-</span>f origin gh<span class="sc">-</span>pages</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>git checkout gh<span class="sc">-</span>pages</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>git pull</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>git reset HEAD<span class="sc">^</span> <span class="sc">--</span>hard</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>git push <span class="sc">-</span>f origin gh<span class="sc">-</span>pages</span></code></pre></div>
 </div>
 <p>Check status. Switch back to ‘main’ branch (substitute whatever branch you were on).</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>git status</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>git checkout main</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>git status</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>git checkout main</span></code></pre></div>
 </div>
 <p>Copy back the files with changes you made previously from your backup location.</p>
 <p>Make the additional changes you need. Add files. Commit.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p class="social_footer">
@@ -2541,7 +2540,8 @@ Shikokuchuo
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved.<br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021-22 The creators of shikokuchuo.net. All rights reserved.<br>
+注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>

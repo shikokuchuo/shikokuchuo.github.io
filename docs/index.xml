@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:distill="https://distill.pub/journal/" version="2.0">
   <channel>
     <title>shikokuchuo{net}</title>
     <link>https://shikokuchuo.net/</link>
@@ -12,7 +12,59 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 22 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>nanonext for Cross-language Data Exchange</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/15-nanonext-exchange</link>
+      <description>
+
+
+&lt;img src="file666430a6e73c_files/figure-html/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;p&gt;{nanonext} is an R package available on CRAN which provides bindings to the C library NNG (Nanomsg Next Gen), a successor to ZeroMQ.&lt;/p&gt;
+&lt;p&gt;Designed for performance and reliability, the NNG library is written in C and {nanonext} is a lightweight wrapper depending on no other packages.&lt;/p&gt;
+&lt;p&gt;It provides a fast and reliable data interface between different programming languages where NNG has a binding, including C, C++, Java, Python, Go, Rust etc.&lt;/p&gt;
+&lt;p&gt;The following example demonstrates the exchange of numerical data between R and Python (NumPy), two of the most commonly-used languages for data science and machine learning.&lt;/p&gt;
+&lt;p&gt;Using a messaging interface provides a clean and robust approach that is light on resources and offers limited and identifiable points of failure. This is especially relevant when processing real-time data, as an example.&lt;/p&gt;
+&lt;p&gt;This approach can also serve as an interface / pipe between different processes written in the same or different languages, running on the same computer or distributed across networks, and is an enabler of modular software design as espoused by the Unix philosophy.&lt;/p&gt;
+&lt;p&gt;Create socket in Python using the NNG binding ‘pynng’:&lt;/p&gt;
+&lt;pre class="python"&gt;&lt;code&gt;import numpy as np
+import pynng
+socket = pynng.Pair0(listen=&amp;quot;ipc:///tmp/nanonext&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create nano object in R using {nanonext}, then send a vector of ‘doubles’, specifying mode as ‘raw’:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(nanonext)
+n &amp;lt;- nano(&amp;quot;pair&amp;quot;, dial = &amp;quot;ipc:///tmp/nanonext&amp;quot;)
+n$send(c(1.1, 2.2, 3.3, 4.4, 5.5), mode = &amp;quot;raw&amp;quot;)
+#&amp;gt;  [1] 9a 99 99 99 99 99 f1 3f 9a 99 99 99 99 99 01 40 66 66 66 66 66 66 0a 40 9a
+#&amp;gt; [26] 99 99 99 99 99 11 40 00 00 00 00 00 00 16 40&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Receive in Python as a NumPy array of ‘floats’, and send back to R:&lt;/p&gt;
+&lt;pre class="python"&gt;&lt;code&gt;raw = socket.recv()
+array = np.frombuffer(raw)
+print(array)
+#&amp;gt; [1.1 2.2 3.3 4.4 5.5]
+msg = array.tobytes()
+socket.send(msg)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Receive in R, specifying the receive mode as ‘double’:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;n$recv(mode = &amp;quot;double&amp;quot;)
+#&amp;gt; $raw
+#&amp;gt;  [1] 9a 99 99 99 99 99 f1 3f 9a 99 99 99 99 99 01 40 66 66 66 66 66 66 0a 40 9a
+#&amp;gt; [26] 99 99 99 99 99 11 40 00 00 00 00 00 00 16 40
+#&amp;gt; 
+#&amp;gt; $data
+#&amp;gt; [1] 1.1 2.2 3.3 4.4 5.5&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="links"&gt;Links&lt;/h3&gt;
+&lt;p&gt;nanonext on CRAN: &lt;a href="https://cran.r-project.org/package=nanonext" class="uri"&gt;https://cran.r-project.org/package=nanonext&lt;/a&gt;&lt;br /&gt; Package website: &lt;a href="https://shikokuchuo.net/nanonext/" class="uri"&gt;https://shikokuchuo.net/nanonext/&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;NNG website: &lt;a href="https://nng.nanomsg.org/" class="uri"&gt;https://nng.nanomsg.org/&lt;/a&gt;&lt;br /&gt; NNG documentation: &lt;a href="https://nng.nanomsg.org/man/tip/" class="uri"&gt;https://nng.nanomsg.org/man/tip/&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>b454bb366ccda39fd62a517499f768b9</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/15-nanonext-exchange</guid>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/15-nanonext-exchange/nanonext-exchange_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Installing an R Build Environment on Solaris</title>
       <dc:creator>shikokuchuo</dc:creator>
@@ -20,7 +72,7 @@
       <description>Run R CMD check or devtools::check() on a local Solaris VM</description>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/14-r-on-solaris</guid>
-      <pubDate>Sun, 22 Aug 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 23 Aug 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/14-r-on-solaris/r-on-solaris_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>

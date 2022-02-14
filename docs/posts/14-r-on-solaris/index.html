@@ -2455,8 +2455,6 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="r-on-solaris_files/figure-html5/index-1.png" width="624" /></p>
-<pre><code>                                                            sha256
-1 6019ae519a7e66506bedd541440c2eb115163b6e0ea4c2b77538bfd64639b669</code></pre>
 </div>
 <aside>
 Shikokuchuo
@@ -2476,7 +2474,7 @@ Shikokuchuo
 <p>[3]</p>
 <p>Open up a terminal and <code>cd</code> to where the ‘solaris10.json’ file is located. Execute the following command to create an updated Packer configuration from the json file:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packer</span> hcl2_upgrade solaris10.json</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packer</span> hcl2_upgrade solaris10.json</span></code></pre></div>
 </div>
 <p>You should get a confirmation message such as:</p>
 <pre><code>Successfully created solaris10.json.pkr.hcl. Exit 0</code></pre>
@@ -2485,7 +2483,7 @@ Shikokuchuo
 <p>[5]</p>
 <p>From where your <code>solaris10.json</code> is located, execute:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packer</span> build .</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">packer</span> build .</span></code></pre></div>
 </div>
 <p>The automated build will now run for a while, with the console showing the commands as they are run.</p>
 <p>As per step 7 of the <em>Instructions</em>, do not attempt to interact with the VM window. Even if it appears static, processes will be running in the background.</p>
@@ -2499,7 +2497,7 @@ Shikokuchuo
 <p>[8]</p>
 <p>Open a terminal window and install the following packages from openCSW, the Solaris open source software repository, by issuing the following command:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pkgutil <span class="at">-y</span> <span class="at">-i</span> cmake gmake curl libcurl_dev libssh2_dev libssl_dev libxml2_dev libiconv_dev</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pkgutil <span class="at">-y</span> <span class="at">-i</span> cmake gmake curl libcurl_dev libssh2_dev libssl_dev libxml2_dev libiconv_dev</span></code></pre></div>
 </div>
 <p>These are utilities and system libraries that are required to install the various dependencies of ‘devtools’.</p>
 <p>[19]</p>
@@ -2509,11 +2507,11 @@ Shikokuchuo
 <p>[10]</p>
 <p>For the final step, load up a terminal window. Enter the following to set the environment variable:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MAKE</span><span class="op">=</span>gmake</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MAKE</span><span class="op">=</span>gmake</span></code></pre></div>
 </div>
 <p>From the same terminal window, launch R:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span></code></pre></div>
 </div>
 <p>At the R prompt, proceed to install the ‘devtools’ package:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2529,16 +2527,16 @@ Shikokuchuo
 <p>Install the last released Firefox build 52.0esr for Solaris - this allows modern websites such as Github to load.</p>
 <p>Open up a terminal and enter the following:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Desktop</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Download file</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-OL</span> https://ftp.mozilla.org/pub/firefox/releases/52.0esr/contrib/solaris_pkgadd/firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Decompress file</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bzip2</span> <span class="at">-d</span> firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Install package</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pkgadd <span class="at">-d</span> ./firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Desktop</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Download file</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-OL</span> https://ftp.mozilla.org/pub/firefox/releases/52.0esr/contrib/solaris_pkgadd/firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Decompress file</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bzip2</span> <span class="at">-d</span> firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg.bz2</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Install package</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pkgadd <span class="at">-d</span> ./firefox-52.0esr.en-US.solaris-10-fcs-i386-pkg</span></code></pre></div>
 </div>
 <p>Respond ‘yes’ to all install prompts.</p>
 <p>It does not overwrite the bundled version, so set up a shortcut by right-clicking on the desktop, and select ‘Create Launcher’.</p>
@@ -2547,13 +2545,13 @@ Shikokuchuo
 <h3 id="power-off">Power off</h3>
 <p>To turn off the VM, open up a terminal window and issue:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> poweroff</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> poweroff</span></code></pre></div>
 </div>
 <p>–</p>
 <p xmlns:cc="http://creativecommons.org/ns#">
 This article (excluding the photograph) is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a>
 </p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
@@ -2606,7 +2604,8 @@ This article (excluding the photograph) is licensed under <a href="http://creati
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved.<br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021-22 The creators of shikokuchuo.net. All rights reserved.<br>
+注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>

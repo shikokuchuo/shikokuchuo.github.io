@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>shikokuchuo{net}: Distill for R Markdown</title>
@@ -133,7 +134,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["distill_files/figure-html5/index-1.png"]}
+  {"type":"character","attributes":{},"value":["distill_files/anchor-4.2.2/anchor.min.js","distill_files/bowser-1.9.3/bowser.min.js","distill_files/distill-2.2.21/template.v2.js","distill_files/figure-html5/index-1.png","distill_files/header-attrs-2.11/header-attrs.js","distill_files/jquery-3.6.0/jquery-3.6.0.js","distill_files/jquery-3.6.0/jquery-3.6.0.min.js","distill_files/jquery-3.6.0/jquery-3.6.0.min.map","distill_files/popper-2.6.0/popper.min.js","distill_files/tippy-6.2.7/tippy-bundle.umd.min.js","distill_files/tippy-6.2.7/tippy-light-border.css","distill_files/tippy-6.2.7/tippy.css","distill_files/tippy-6.2.7/tippy.umd.min.js","distill_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2456,8 +2457,6 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="distill_files/figure-html5/index-1.png" width="624" /></p>
-<pre><code>                                                            sha256
-1 db79682f8bee39d7ed9231200fd076ebed92a4471a9f3ce611d0a5a28bb984a3</code></pre>
 </div>
 <aside>
 Shikokuchuo
@@ -2502,12 +2501,12 @@ Shikokuchuo
 <li><p>To set up git and add your new repository as a remote, bring up the command line, cd to your new blog directory and:</p></li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>git init</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>git add .</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>git commit <span class="sc">-</span>m <span class="st">&quot;initial commit&quot;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>git branch <span class="sc">-</span>M main</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>git remote add origin git<span class="sc">@</span>github.com<span class="sc">:</span>username<span class="sc">/</span>nameofnew.git</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>git push <span class="sc">-</span>u origin main</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git init</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>git add .</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>git commit <span class="sc">-</span>m <span class="st">&quot;initial commit&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>git branch <span class="sc">-</span>M main</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>git remote add origin git<span class="sc">@</span>github.com<span class="sc">:</span>username<span class="sc">/</span>nameofnew.git</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>git push <span class="sc">-</span>u origin main</span></code></pre></div>
 </div>
 <aside>
 Replace ‘username/nameofnew.git’ as appropriate.
@@ -2519,7 +2518,7 @@ Replace ‘username/nameofnew.git’ as appropriate.
 <h3 id="references">References</h3>
 <p>The Distill Reference: <a href="https://rstudio.github.io/distill/" class="uri">https://rstudio.github.io/distill/</a></p>
 <p>The Definitive R Markdown Guide: <a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">
   <p class="social_footer">
@@ -2566,7 +2565,8 @@ Replace ‘username/nameofnew.git’ as appropriate.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <!--radix_placeholder_navigation_after_body--><html><body>
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021 The creators of shikokuchuo.net. All rights reserved.<br>注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021-22 The creators of shikokuchuo.net. All rights reserved.<br>
+注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 </body></html>
