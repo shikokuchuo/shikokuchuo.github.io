@@ -14,12 +14,12 @@ navbar:
     - text: "Map"
       icon: fas fa-map
       href: map.html
+    - text: "Light Brushing"
+      icon: fa fa-camera-retro
+      href: https://shikokuchuo.net/light-brushing/
     - text: "The Shikokuchuo Project"
       icon: fas fa-paper-plane
       href: https://shikokuchuo.net/project/
-    - text: "Light Brushing"
-      icon: fas fa-palette
-      href: https://shikokuchuo.net/light-brushing/
     - text: "r-ichimoku"
       icon: fab fa-r-project
       href: https://shikokuchuo.net/ichimoku/
@@ -27,7 +27,7 @@ navbar:
       icon: fas fa-chevron-right
       href: https://shikokuchuo.net/nanonext/
     - text: "r-mirai"
-      icon: fas fa-retweet
+      icon: fa fa-refresh
       href: https://shikokuchuo.net/mirai/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
