@@ -12,7 +12,82 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 14 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Introducing mirai - a minimalist async evaluation framework for R</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/16-introducing-mirai</link>
+      <description>
+
+
+&lt;img src="filef6925572a8f8_files/figure-html/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;p&gt;&lt;br /&gt; {mirai} is a minimalist async evaluation framework for R, released this week to CRAN.&lt;/p&gt;
+&lt;p&gt;未来 みらい mirai is Japanese for ‘future’.&lt;/p&gt;
+&lt;p&gt;It provides an extremely simple and lightweight method for concurrent / parallel code execution.&lt;/p&gt;
+&lt;h3 id="design-notes"&gt;Design Notes&lt;/h3&gt;
+&lt;p&gt;Whilst frameworks for parallelisation exist for R, {mirai} is designed for simplicity.&lt;/p&gt;
+&lt;p&gt;The package provides just 2 functions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;eval_mirai()&lt;/code&gt; to evaluate async&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;call_mirai()&lt;/code&gt; to call the result&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;{mirai} has a tiny pure R code base, relying on a single package - {nanonext}. {nanonext} itself is a lightweight wrapper for the NNG C library with zero package dependencies.&lt;/p&gt;
+&lt;p&gt;Background R processes are created and evaluation occurs independently. mirai employs nanonext/NNG as a concurrency framework - a blazing-fast, lightweight solution for moving data between these processes seamlessly. Crucially it provides a true cross-platform abstraction layer across Linux, Windows, MacOS, the BSDs, Solaris, Illumos etc. i.e. everywhere R can go. This means that we can just call the above two functions without worrying about the underlying system implementation.&lt;/p&gt;
+&lt;p&gt;This means there is no need to specify core counts, devise work plans and the such beforehand. Also no need to separate writing code that is ready for parallel execution from how it is ultimately executed. Just wrap your expressions in &lt;code&gt;eval_mirai()&lt;/code&gt; and run them in another process.&lt;/p&gt;
+&lt;p&gt;For scripts, this provides the ultimate control as you can map specific code to a specific process. For example if you have 8 model fits to run, you can send each one to it’s own process. This provides a simpler and more robust solution than leaving it to the system to decide, which also runs the risk of over-optimisation - you may wish to refer to this classic presentation on Python’s GIL (global interpreter lock): &lt;a href="http://www.dabeaz.com/python/GIL.pdf" class="uri"&gt;http://www.dabeaz.com/python/GIL.pdf&lt;/a&gt;. R inherits similar limitations being an interpreted language.&lt;/p&gt;
+&lt;p&gt;It can be equally handy for interactive work - if you have specified a model, are now ready to fit it and know this will take an hour to run, simply &lt;code&gt;eval_mirai()&lt;/code&gt; and have it run in the background whilst you continue with your work. When you need the results just &lt;code&gt;call_mirai()&lt;/code&gt; for the return value.&lt;/p&gt;
+&lt;h3 id="use-cases"&gt;Use Cases&lt;/h3&gt;
+&lt;p&gt;Minimise execution times by performing long-running tasks concurrently in separate processes.&lt;/p&gt;
+&lt;p&gt;Ensure execution flow of the main process is not blocked.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(mirai)&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="example-1-compute-intensive-operations"&gt;Example 1: Compute-intensive Operations&lt;/h4&gt;
+&lt;p&gt;Multiple long computes (model fits etc.) would take more time than if performed concurrently on available computing cores.&lt;/p&gt;
+&lt;p&gt;Use &lt;code&gt;eval_mirai()&lt;/code&gt; to evaluate an expression in a separate R process asynchronously.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All named objects are passed through to a clean environment&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A ‘mirai’ object is returned immediately.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;mirai &amp;lt;- eval_mirai(rnorm(n) + m, n = 1e8, m = runif(1))
+
+mirai
+#&amp;gt; &amp;lt; mirai &amp;gt;
+#&amp;gt;  ~ use call_mirai() to resolve&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Continue running code concurrent to the async operation.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# do more...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use &lt;code&gt;call_mirai()&lt;/code&gt; to retrieve the evaluated result when required.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;call_mirai(mirai)
+
+mirai
+#&amp;gt; &amp;lt; mirai &amp;gt;
+#&amp;gt;  - $value for evaluated result
+
+str(mirai$value)
+#&amp;gt; num [1:100000000] 1.485 -0.804 0.965 -0.128 -0.555 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="example-2-io-bound-operations"&gt;Example 2: I/O-bound Operations&lt;/h4&gt;
+&lt;p&gt;Processing high-frequency real-time data, writing results to file/database can be slow and potentially disrupt the execution flow.&lt;/p&gt;
+&lt;p&gt;Cache data in memory and use &lt;code&gt;eval_mirai()&lt;/code&gt; to perform periodic write operations in a separate process.&lt;/p&gt;
+&lt;p&gt;A ‘mirai’ object is returned immediately.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;mirai &amp;lt;- eval_mirai(write.csv(x, file = file), x = rnorm(1e8), file = tempfile())&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Use &lt;code&gt;call_mirai()&lt;/code&gt; to confirm the operation has completed.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;This will wait for the operation to complete if it is still ongoing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="r"&gt;&lt;code&gt;call_mirai(mirai)$value
+#&amp;gt; NULL&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Above, the return value is called directly. NULL is the expected return value for &lt;code&gt;write.csv()&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id="links"&gt;Links&lt;/h3&gt;
+&lt;p&gt;{mirai} website: &lt;a href="https://shikokuchuo.net/mirai/" class="uri"&gt;https://shikokuchuo.net/mirai/&lt;/a&gt;&lt;br /&gt; {mirai} on CRAN: &lt;a href="https://cran.r-project.org/package=mirai" class="uri"&gt;https://cran.r-project.org/package=mirai&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;{nanonext} website: &lt;a href="https://shikokuchuo.net/nanonext/" class="uri"&gt;https://shikokuchuo.net/nanonext/&lt;/a&gt;&lt;br /&gt; {nanonext} on CRAN: &lt;a href="https://cran.r-project.org/package=nanonext" class="uri"&gt;https://cran.r-project.org/package=nanonext&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">30e247135e8b25538ad50ff2a381c04e</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/16-introducing-mirai</guid>
+      <pubDate>Fri, 18 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/16-introducing-mirai/introducing-mirai_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>nanonext for Cross-language Data Exchange</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
