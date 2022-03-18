@@ -88,27 +88,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>shikokuchuo{net}: Web 3.0 technologies</title>
+  <title>shikokuchuo{net}: shikokuchuo.net</title>
 
 
   <link rel="icon" type="image/png" href="favicon.png"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="shikokuchuo{net}: Web 3.0 technologies"/>
+  <meta property="og:title" content="shikokuchuo{net}: shikokuchuo.net"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="shikokuchuo{net}"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="shikokuchuo{net}: Web 3.0 technologies"/>
+  <meta property="twitter:title" content="shikokuchuo{net}: shikokuchuo.net"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":["Web 3.0 technologies"]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["posts"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo.net"]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["posts"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -1862,6 +1862,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
           return "<p>" + $('#ref-' + ref).html() + "</p>";
@@ -2338,7 +2344,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2358,7 +2364,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Web 3.0 technologies","authors":[]}
+{"title":"shikokuchuo.net","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2537,7 +2543,26 @@ function init_posts_list() {
 
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
-<h1 class="posts-list-caption" data-caption="Web 3.0 technologies">Web 3.0 technologies</h1>
+<h1 class="posts-list-caption" data-caption="shikokuchuo.net">shikokuchuo.net</h1>
+<a href="posts/17-nanonext-concurrency/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 18, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/17-nanonext-concurrency/nanonext-concurrency_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>nanonext - how it provides a concurrency framework for R</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>True async with automatic resolution</p>
+</div>
+</a>
 <a href="posts/16-introducing-mirai/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["R"]}</script>
 <div class="metadata">
@@ -2623,7 +2648,7 @@ function init_posts_list() {
 </div>
 </div>
 <div class="thumbnail">
-<img src="posts/12-oanda-studio/oanda-studio_files/figure-html5/index-1.png"/>
+<img data-src="posts/12-oanda-studio/oanda-studio_files/figure-html5/index-1.png"/>
 </div>
 <div class="description">
 <h2>R Shiny interface for the OANDA fxTrade API</h2>
@@ -2860,7 +2885,7 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 <ul>
 <li>
 <a href="#category:Articles">Articles</a>
-<span class="category-count">(16)</span>
+<span class="category-count">(17)</span>
 </li>
 <li>
 <a href="#category:Cryptography">Cryptography</a>
@@ -2884,7 +2909,7 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 </li>
 <li>
 <a href="#category:R">R</a>
-<span class="category-count">(12)</span>
+<span class="category-count">(13)</span>
 </li>
 <li>
 <a href="#category:Resources">Resources</a>
@@ -2904,7 +2929,7 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 <!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>Web 3.0 technologies</h1>
+<h1>shikokuchuo.net</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2912,7 +2937,8 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2928,7 +2954,9 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021-22 The creators of shikokuchuo.net. All rights reserved.<br /> 注意：shikokuchuo.net は四国中央市役所と関係がありません。</p>
+<p>Copyright (C) 2021-22 The creators of shikokuchuo.net. All rights
+reserved.<br /> 注意：shikokuchuo.net
+は四国中央市役所と関係がありません。</p>
 </div>
 <!--/radix_placeholder_navigation_after_body-->
 

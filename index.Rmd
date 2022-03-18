@@ -1,5 +1,5 @@
 ---
-title: "Web 3.0 technologies"
+title: "shikokuchuo.net"
 site: distill::distill_website
 listing: posts
 ---

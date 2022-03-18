@@ -1,0 +1,150 @@
+---
+title: "nanonext - how it provides a concurrency framework for R"
+description: |
+  True async with automatic resolution
+author:
+  - name: shikokuchuo
+date: 2022-03-18
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(photos), axes = FALSE)
+
+```
+<aside>Shikokuchuo</aside>
+
+The [nanonext](https://cran.r-project.org/package=nanonext) package, featured in RStudio's [Top 40 New CRAN Packages for January 2022](https://rviews.rstudio.com/2022/02/28/january-2022-top-40-new-cran-packages/) has been steadily evolving, adding significant new features, with the aysnc 'Aio' interface now considered complete since release 0.3.0 hit CRAN earlier in March.
+
+Hence, time to introduce why this is a 'concurrency framework' and not 'just' messaging.
+
+[nanonext](https://cran.r-project.org/package=nanonext) is a lightweight binding for the NNG (nanomsg next gen) C library, written in a combination of R and C with no package dependencies. For the experts who need no further introduction, they may wish to skip straight to the pkgdown site which contains a more systematic exposition of the features: <https://shikokuchuo.net/nanonext/>.
+
+### Aios
+
+These are self-resolving objects containing the results of an async operation.
+
+The purpose of this section is really to highlight that this is true async - the real thing. No event loops, nor any other similar constraints. This provides the freedom to be much more expressive when coding. Below, we perform actions out of order - receive before we send - and it is all totally fine.
+
+```{r async}
+# loading the package and creating sockets
+library(nanonext)
+s1 <- socket("pair", listen = "inproc://nano")
+s2 <- socket("pair", dial = "inproc://nano")
+
+# an async receive is requested, but no messages are waiting (yet to be sent)
+msg <- s2 |> recv_aio()
+msg
+msg$data
+
+```
+
+`send_aio()` and `recv_aio()` functions return immediately with an 'Aio' object, but perform their operations async. An 'Aio' object returns an 'unresolved' logical NA value whilst its asynchronous operation is ongoing. This is an actual NA value, and Shiny will, for example, recognise it as being 'non-truthy'.
+
+Next we perform a send, and the 'Aio' resolves immediately once we do that. ^[Or more precisely, the Aio will resolve the next time it is queried - but practically this is the same thing, as the value cannot be used unless it is queried. This is akin to 'Schrödinger's Cat' - if we never look into the box, we simply don't know the state, but as soon as we look, we will get a resolution one way or another. Here, if the value is never used, it could remain in a state of 'superposition' but as soon as it is required (even if we are only seeking metadata such as its length rather than the actual value), it will resolve either to an 'unresolved' NA or its actual value.]
+
+```{r async2}
+
+res <- s1 |> send_aio(data.frame(a = 1, b = 2))
+
+# now that a message has been sent, the 'recvAio' automatically resolves
+msg$data
+msg$raw
+
+```
+
+So isn't this still 'just' messaging?
+
+Well, we can start with introducing a little helper function `unresolved()`. This allows us to perform actions which depend on resolution of the Aio (completion of the async operation), both before and after. This means there is no need to ever wait (block) for an Aio to resolve, as the below demonstrates:
+
+```{r async5}
+
+msg <- recv_aio(s2)
+
+# unresolved() queries for resolution itself so no need to use it again within the while loop
+while (unresolved(msg)) {
+  # do real stuff here not just the toy actions below
+  cat("unresolved")
+  send_aio(s1, "resolved")
+  Sys.sleep(0.1)  
+}
+# resolution of the Aio exits the while loop - now do the stuff which depends on its value
+msg$data
+```
+
+Alternatively, an Aio may also be called explicitly by wrapping it in `call_aio()`. This will wait for completion of the Aio (blocking) if it is yet to resolve.
+
+```{r async7}
+
+# to access the resolved value directly (waiting if required)
+call_aio(msg)$data
+
+```
+
+The above two methods provide full flexibility for handling async operations as desired.
+
+```{r async8, echo=FALSE}
+
+close(s1)
+close(s2)
+
+```
+
+### RPC
+
+So we move closer to explaining how this is a 'concurrency framework'. And this involves explaining a little about NNG's 'scalability protocols' - so-called as they are designed to be masssively scalable.
+
+These can be thought of as communications patterns built on top of raw bytestream connections. So a socket of a certain type will always interact with another in a prescribed way. No matter the platform, and no matter the language binding.
+
+Probably the most classic pattern for NNG is the req/rep (request/reply). This is a guaranteed communications pattern that will not drop messages, retrying under the hood if messages cannot be delivered for whatever reason. This can be utilised to implement 'traditional' RPC (remote prodecure calls), a bastion of systems/distributed computing. ^[Although the generic term includes 'remote', obviously everything can also happen on the same machine in separate processes.]
+
+This is where a requestor (client) sends a message to an executor (server), which performs the requested action and sends back a reply. {nanonext} provides the convenience functions `request()` and `reply()` which implements this logic for use between 2 R processes, where the requestor supplies data to the reply node, to which it applies an arbitrary function before sending back the return value.
+
+This can be meaningfully used to perform computationally-expensive calculations or I/O-bound operations such as writing large amounts of data to disk in a separate 'server' process running concurrently.
+
+Server process: `reply()` will wait for a message and apply a function, in this case `rnorm()`, before sending back the result.
+
+```{r rpcserver, eval=FALSE}
+# This code block is run in a separate R process to knit this document
+
+library(nanonext)
+rep <- socket("rep", listen = "tcp://127.0.0.1:6546")
+ctxp <- context(rep)
+reply(ctxp, execute = rnorm, send_mode = "raw") 
+
+```
+
+Client process: `request()` performs an async send and receive request and returns immediately with an Aio object.
+
+```{r rpcclient}
+
+library(nanonext)
+req <- socket("req", dial = "tcp://127.0.0.1:6546")
+ctxq <- context(req)
+aio <- request(ctxq, data = 1e8, recv_mode = "double", keep.raw = FALSE)
+
+```
+
+At this point, the client can run additional code concurrent with the server processing the request. The Aio will then resolve automatically or can be called as required.
+
+```{r rpcclient3}
+
+call_aio(aio)$data |> str()
+
+```
+
+And this is how [nanonext](https://cran.r-project.org/package=nanonext) provides a true concurrency framework. The package provides the necessary tools to implement anything from a walkie-talkie to distributed computing clusters and everything in between.
+
+### mirai
+
+A small (tiny) package has also been released to CRAN in February 2022 that exposes the functionality of executing arbitrary R expressions asynchronously for use on a single machine. It is called '[mirai](https://cran.r-project.org/package=mirai)', the Japanese for 'future'. Everything revolves around one single function. It is very minimalistic. Designed to be intuitive to use, a short intro can be found here: <https://shikokuchuo.net/mirai/>.
+
+
