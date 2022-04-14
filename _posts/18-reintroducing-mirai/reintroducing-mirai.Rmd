@@ -1,0 +1,135 @@
+---
+title: "Re-introducing mirai - a minimalist async evaluation framework for R"
+description: |
+  Concurrent code execution with maximum flexibility and automatic resolution
+author:
+  - name: shikokuchuo
+date: 2022-04-14
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(photos), axes = FALSE)
+
+```
+<aside>Shikokuchuo</aside>
+<br />
+{mirai} is a minimalist async evaluation framework for R.
+
+未来 みらい mirai is Japanese for 'future'.
+
+[mirai](https://cran.r-project.org/package=mirai) provides an extremely simple and lightweight method for concurrent / parallel code execution.
+
+Since the original ['introduction' article](https://shikokuchuo.net/posts/16-introducing-mirai/) two months ago, mirai is currently in its fourth incarnation, hence the need for a re-introduction. In this time, the package has also featured in RStudio's [Top 40 New CRAN Packages for February 2022](https://rviews.rstudio.com/2022/03/28/february-2022-top-40-new-cran-packages/).
+
+We outline some of the main visible innovations below, but suffice to say that the backend (especially the code behind the [nanonext](https://cran.r-project.org/package=nanonext) package) has been very much optimised over the course of this time as well.
+
+### 1. Two Functions -> One Function
+
+Originally, the package revolved around 2 functions - `eval_mirai()` and `call_mirai()`. Those are still there, and work the same way - however the package has managed to become even more minimalist with only one being required now.
+
+This one function is simply called `mirai()`.
+
+(`eval_mirai()` maps to it as an alias.)
+
+Using `mirai()` returns a ‘mirai’ object immediately.
+
+A mirai evaluates an arbitrary expression asynchronously, resolving automatically upon completion.
+
+### 2. Automatic Resolution
+
+Yes, resolving automatically, hence `call_mirai()` is no longer needed (although it can still sometimes be useful to call and wait for results).
+
+The evaluated result of a mirai is stored at `$data`. If the asynchronous operation has yet to complete then this will return an 'unresolved' logical NA value. That is an actual NA value of type logical classed as 'unresolved'.
+
+As soon as it resolves, then `$data` will return the actual value of the evaluated expression.
+
+Enter `unresolved()`, a helper function that can be used in control flow statements to allow you to do things before and after resolution of a mirai. This means that you never have to actually just *wait* on a mirai.
+
+The code output below probably serves as a better demonstration than a lengthy explanation:
+
+#### Example using a while loop:
+
+```{r unresolved}
+library(mirai)
+
+m <- mirai({is.null(Sys.sleep(n)) && return(TRUE)}, n = 0.01)
+m$data
+while (unresolved(m)) {
+  cat("unresolved\n")
+  Sys.sleep(0.05)
+} 
+m$data
+
+```
+
+#### Equivalent using a repeat loop:
+
+```{r unresolved2}
+
+m <- mirai({is.null(Sys.sleep(n)) && return(TRUE)}, n = 0.01)
+m$data
+repeat {
+  unresolved(m) || break
+  cat("unresolved\n")
+  Sys.sleep(0.05)
+} 
+m$data
+
+```
+
+### 3. Arbitrary expressions
+
+You may have noticed in the above examples that the expression being evaluated was wrapped in `{ }`. mirai supports this being an arbitrarily-long, possibly multi-line expression. Similarly there is no limit to the number of arguments supplied to the call.
+
+To supply objects that are already present in the calling environment, these may simply be passed in as per the below:
+
+
+```{r passing in variables}
+mat <- matrix(c(1, 2, 3, 4), ncol = 2)
+mat
+
+m <- mirai({
+  x <- t(x)
+  as.data.frame(x)
+}, x = mat)
+
+call_mirai(m)$data
+
+```
+
+### 4. Daemons
+
+The default behaviour is to just spin up background processes as required. This offers maximum simplicity and ease of use - no need to consider the backend at all.
+
+First of all this is remarkable in itself, in that mirai simply works on all platforms R can be installed - across Linux, Windows, Mac, Solaris etc. and this is down to the cross-platform support built in to the underlying NNG C library that [nanonext](https://cran.r-project.org/package=nanonext) provides a binding for.
+
+Second, the startup time is relatively tiny as a completely clean background R process with '--vanilla' settings is started each time. However for the highest performance applications, there is now the option to start up a set number of processes (daemons) upfront, and these will be ready to wait for instructions, achieveing even more minimal latency.
+
+Setting daemons is as simple as:
+
+```{r daemons, eval=FALSE}
+daemons(8)
+#> [1] 8
+```
+.. and 8 daemons are created.
+
+### Wrap-up
+
+We presented above 4 key updates for the fourth version of [mirai](https://cran.r-project.org/package=mirai) (v0.4.0). We invite you to try it out for yourselves:
+
+```{r install, eval=FALSE}
+install.packages("mirai")
+```
+
+Any issues/comments please feed back at Github: <https://github.com/shikokuchuo/mirai>
+
+Package website: <https://shikokuchuo.net/mirai/>

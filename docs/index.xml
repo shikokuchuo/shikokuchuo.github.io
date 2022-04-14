@@ -12,187 +12,158 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 18 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 13 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Re-introducing mirai - a minimalist async evaluation framework for R</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/18-reintroducing-mirai</link>
+      <description>
+
+
+&lt;img src="file4d0a650425fc_files/figure-html/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;p&gt;&lt;br /&gt; {mirai} is a minimalist async evaluation framework for R.&lt;/p&gt;
+&lt;p&gt;未来 みらい mirai is Japanese for ‘future’.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://cran.r-project.org/package=mirai"&gt;mirai&lt;/a&gt; provides
+an extremely simple and lightweight method for concurrent / parallel
+code execution.&lt;/p&gt;
+&lt;p&gt;Since the original &lt;a
+href="https://shikokuchuo.net/posts/16-introducing-mirai/"&gt;‘introduction’
+article&lt;/a&gt; two months ago, mirai is currently in its fourth
+incarnation, hence the need for a re-introduction. In this time, the
+package has also featured in RStudio’s &lt;a
+href="https://rviews.rstudio.com/2022/03/28/february-2022-top-40-new-cran-packages/"&gt;Top
+40 New CRAN Packages for February 2022&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We outline some of the main visible innovations below, but suffice to
+say that the backend (especially the code behind the &lt;a
+href="https://cran.r-project.org/package=nanonext"&gt;nanonext&lt;/a&gt; package)
+has been very much optimised over the course of this time as well.&lt;/p&gt;
+&lt;h3 id="two-functions---one-function"&gt;1. Two Functions -&amp;gt; One
+Function&lt;/h3&gt;
+&lt;p&gt;Originally, the package revolved around 2 functions -
+&lt;code&gt;eval_mirai()&lt;/code&gt; and &lt;code&gt;call_mirai()&lt;/code&gt;. Those are still
+there, and work the same way - however the package has managed to become
+even more minimalist with only one being required now.&lt;/p&gt;
+&lt;p&gt;This one function is simply called &lt;code&gt;mirai()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;(&lt;code&gt;eval_mirai()&lt;/code&gt; maps to it as an alias.)&lt;/p&gt;
+&lt;p&gt;Using &lt;code&gt;mirai()&lt;/code&gt; returns a ‘mirai’ object immediately.&lt;/p&gt;
+&lt;p&gt;A mirai evaluates an arbitrary expression asynchronously, resolving
+automatically upon completion.&lt;/p&gt;
+&lt;h3 id="automatic-resolution"&gt;2. Automatic Resolution&lt;/h3&gt;
+&lt;p&gt;Yes, resolving automatically, hence &lt;code&gt;call_mirai()&lt;/code&gt; is no
+longer needed (although it can still sometimes be useful to call and
+wait for results).&lt;/p&gt;
+&lt;p&gt;The evaluated result of a mirai is stored at &lt;code&gt;$data&lt;/code&gt;. If
+the asynchronous operation has yet to complete then this will return an
+‘unresolved’ logical NA value. That is an actual NA value of type
+logical classed as ‘unresolved’.&lt;/p&gt;
+&lt;p&gt;As soon as it resolves, then &lt;code&gt;$data&lt;/code&gt; will return the
+actual value of the evaluated expression.&lt;/p&gt;
+&lt;p&gt;Enter &lt;code&gt;unresolved()&lt;/code&gt;, a helper function that can be used
+in control flow statements to allow you to do things before and after
+resolution of a mirai. This means that you never have to actually just
+&lt;em&gt;wait&lt;/em&gt; on a mirai.&lt;/p&gt;
+&lt;p&gt;The code output below probably serves as a better demonstration than
+a lengthy explanation:&lt;/p&gt;
+&lt;h4 id="example-using-a-while-loop"&gt;Example using a while loop:&lt;/h4&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(mirai)
+
+m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 0.01)
+m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;unresolved&amp;#39; logi NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;while (unresolved(m)) {
+  cat(&amp;quot;unresolved\n&amp;quot;)
+  Sys.sleep(0.05)
+} &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;unresolved
+unresolved
+unresolved
+unresolved
+unresolved&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="equivalent-using-a-repeat-loop"&gt;Equivalent using a repeat
+loop:&lt;/h4&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 0.01)
+m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;unresolved&amp;#39; logi NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;repeat {
+  unresolved(m) || break
+  cat(&amp;quot;unresolved\n&amp;quot;)
+  Sys.sleep(0.05)
+} &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;unresolved
+unresolved
+unresolved
+unresolved
+unresolved&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="arbitrary-expressions"&gt;3. Arbitrary expressions&lt;/h3&gt;
+&lt;p&gt;You may have noticed in the above examples that the expression being
+evaluated was wrapped in &lt;code&gt;{ }&lt;/code&gt;. mirai supports this being an
+arbitrarily-long, possibly multi-line expression. Similarly there is no
+limit to the number of arguments supplied to the call.&lt;/p&gt;
+&lt;p&gt;To supply objects that are already present in the calling
+environment, these may simply be passed in as per the below:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;mat &amp;lt;- matrix(c(1, 2, 3, 4), ncol = 2)
+mat&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2]
+[1,]    1    3
+[2,]    2    4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({
+  x &amp;lt;- t(x)
+  as.data.frame(x)
+}, x = mat)
+
+call_mirai(m)$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;  V1 V2
+1  1  2
+2  3  4&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="daemons"&gt;4. Daemons&lt;/h3&gt;
+&lt;p&gt;The default behaviour is to just spin up background processes as
+required. This offers maximum simplicity and ease of use - no need to
+consider the backend at all.&lt;/p&gt;
+&lt;p&gt;First of all this is remarkable in itself, in that mirai simply works
+on all platforms R can be installed - across Linux, Windows, Mac,
+Solaris etc. and this is down to the cross-platform support built in to
+the underlying NNG C library that &lt;a
+href="https://cran.r-project.org/package=nanonext"&gt;nanonext&lt;/a&gt; provides
+a binding for.&lt;/p&gt;
+&lt;p&gt;Second, the startup time is relatively tiny as a completely clean
+background R process with ‘–vanilla’ settings is started each time.
+However for the highest performance applications, there is now the
+option to start up a set number of processes (daemons) upfront, and
+these will be ready to wait for instructions, achieveing even more
+minimal latency.&lt;/p&gt;
+&lt;p&gt;Setting daemons is as simple as:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;daemons(8)
+#&amp;gt; [1] 8&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;.. and 8 daemons are created.&lt;/p&gt;
+&lt;h3 id="wrap-up"&gt;Wrap-up&lt;/h3&gt;
+&lt;p&gt;We presented above 4 key updates for the fourth version of &lt;a
+href="https://cran.r-project.org/package=mirai"&gt;mirai&lt;/a&gt; (v0.4.0). We
+invite you to try it out for yourselves:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;mirai&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Any issues/comments please feed back at Github: &lt;a
+href="https://github.com/shikokuchuo/mirai"
+class="uri"&gt;https://github.com/shikokuchuo/mirai&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Package website: &lt;a href="https://shikokuchuo.net/mirai/"
+class="uri"&gt;https://shikokuchuo.net/mirai/&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>d1eb1f090c12df6af430f1faf3b8d703</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/18-reintroducing-mirai</guid>
+      <pubDate>Wed, 13 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/18-reintroducing-mirai/reintroducing-mirai_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>nanonext - how it provides a concurrency framework for R</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/17-nanonext-concurrency</link>
-      <description>
-
-
-&lt;img src="file735218c29929_files/figure-html/index-1.png" width="672" /&gt;
-&lt;aside&gt;
-Shikokuchuo
-&lt;/aside&gt;
-&lt;p&gt;The &lt;a
-href="https://cran.r-project.org/package=nanonext"&gt;nanonext&lt;/a&gt; package,
-featured in RStudio’s &lt;a
-href="https://rviews.rstudio.com/2022/02/28/january-2022-top-40-new-cran-packages/"&gt;Top
-40 New CRAN Packages for January 2022&lt;/a&gt; has been steadily evolving,
-adding significant new features, with the aysnc ‘Aio’ interface now
-considered complete since release 0.3.0 hit CRAN earlier in March.&lt;/p&gt;
-&lt;p&gt;Hence, time to introduce why this is a ‘concurrency framework’ and
-not ‘just’ messaging.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://cran.r-project.org/package=nanonext"&gt;nanonext&lt;/a&gt; is
-a lightweight binding for the NNG (nanomsg next gen) C library, written
-in a combination of R and C with no package dependencies. For the
-experts who need no further introduction, they may wish to skip straight
-to the pkgdown site which contains a more systematic exposition of the
-features: &lt;a href="https://shikokuchuo.net/nanonext/"
-class="uri"&gt;https://shikokuchuo.net/nanonext/&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id="aios"&gt;Aios&lt;/h3&gt;
-&lt;p&gt;These are self-resolving objects containing the results of an async
-operation.&lt;/p&gt;
-&lt;p&gt;The purpose of this section is really to highlight that this is true
-async - the real thing. No event loops, nor any other similar
-constraints. This provides the freedom to be much more expressive when
-coding. Below, we perform actions out of order - receive before we send
-- and it is all totally fine.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;# loading the package and creating sockets
-library(nanonext)
-s1 &amp;lt;- socket(&amp;quot;pair&amp;quot;, listen = &amp;quot;inproc://nano&amp;quot;)
-s2 &amp;lt;- socket(&amp;quot;pair&amp;quot;, dial = &amp;quot;inproc://nano&amp;quot;)
-
-# an async receive is requested, but no messages are waiting (yet to be sent)
-msg &amp;lt;- s2 |&amp;gt; recv_aio()
-msg&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt; recvAio &amp;gt;
- - $data for message data
- - $raw for raw message&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;msg$data&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;&amp;#39;unresolved&amp;#39; logi NA&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;send_aio()&lt;/code&gt; and &lt;code&gt;recv_aio()&lt;/code&gt; functions return
-immediately with an ‘Aio’ object, but perform their operations async. An
-‘Aio’ object returns an ‘unresolved’ logical NA value whilst its
-asynchronous operation is ongoing. This is an actual NA value, and Shiny
-will, for example, recognise it as being ‘non-truthy’.&lt;/p&gt;
-&lt;p&gt;Next we perform a send, and the ‘Aio’ resolves immediately once we do
-that. &lt;a href="#fn1" class="footnote-ref"
-id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;res &amp;lt;- s1 |&amp;gt; send_aio(data.frame(a = 1, b = 2))
-
-# now that a message has been sent, the &amp;#39;recvAio&amp;#39; automatically resolves
-msg$data&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;  a b
-1 1 2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;msg$raw&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;  [1] 58 0a 00 00 00 03 00 04 01 03 00 03 05 00 00 00 00 05 55 54 46
- [22] 2d 38 00 00 03 13 00 00 00 02 00 00 00 0e 00 00 00 01 3f f0 00
- [43] 00 00 00 00 00 00 00 00 0e 00 00 00 01 40 00 00 00 00 00 00 00
- [64] 00 00 04 02 00 00 00 01 00 04 00 09 00 00 00 05 6e 61 6d 65 73
- [85] 00 00 00 10 00 00 00 02 00 04 00 09 00 00 00 01 61 00 04 00 09
-[106] 00 00 00 01 62 00 00 04 02 00 00 00 01 00 04 00 09 00 00 00 05
-[127] 63 6c 61 73 73 00 00 00 10 00 00 00 01 00 04 00 09 00 00 00 0a
-[148] 64 61 74 61 2e 66 72 61 6d 65 00 00 04 02 00 00 00 01 00 04 00
-[169] 09 00 00 00 09 72 6f 77 2e 6e 61 6d 65 73 00 00 00 0d 00 00 00
-[190] 02 80 00 00 00 ff ff ff ff 00 00 00 fe&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So isn’t this still ‘just’ messaging?&lt;/p&gt;
-&lt;p&gt;Well, we can start with introducing a little helper function
-&lt;code&gt;unresolved()&lt;/code&gt;. This allows us to perform actions which
-depend on resolution of the Aio (completion of the async operation),
-both before and after. This means there is no need to ever wait (block)
-for an Aio to resolve, as the below demonstrates:&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;msg &amp;lt;- recv_aio(s2)
-
-# unresolved() queries for resolution itself so no need to use it again within the while loop
-while (unresolved(msg)) {
-  # do real stuff here not just the toy actions below
-  cat(&amp;quot;unresolved&amp;quot;)
-  send_aio(s1, &amp;quot;resolved&amp;quot;)
-  Sys.sleep(0.1)  
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;unresolved&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class="r"&gt;&lt;code&gt;# resolution of the Aio exits the while loop - now do the stuff which depends on its value
-msg$data&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;resolved&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Alternatively, an Aio may also be called explicitly by wrapping it in
-&lt;code&gt;call_aio()&lt;/code&gt;. This will wait for completion of the Aio
-(blocking) if it is yet to resolve.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;# to access the resolved value directly (waiting if required)
-call_aio(msg)$data&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;resolved&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The above two methods provide full flexibility for handling async
-operations as desired.&lt;/p&gt;
-&lt;h3 id="rpc"&gt;RPC&lt;/h3&gt;
-&lt;p&gt;So we move closer to explaining how this is a ‘concurrency
-framework’. And this involves explaining a little about NNG’s
-‘scalability protocols’ - so-called as they are designed to be
-masssively scalable.&lt;/p&gt;
-&lt;p&gt;These can be thought of as communications patterns built on top of
-raw bytestream connections. So a socket of a certain type will always
-interact with another in a prescribed way. No matter the platform, and
-no matter the language binding.&lt;/p&gt;
-&lt;p&gt;Probably the most classic pattern for NNG is the req/rep
-(request/reply). This is a guaranteed communications pattern that will
-not drop messages, retrying under the hood if messages cannot be
-delivered for whatever reason. This can be utilised to implement
-‘traditional’ RPC (remote prodecure calls), a bastion of
-systems/distributed computing. &lt;a href="#fn2" class="footnote-ref"
-id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;This is where a requestor (client) sends a message to an executor
-(server), which performs the requested action and sends back a reply.
-{nanonext} provides the convenience functions &lt;code&gt;request()&lt;/code&gt; and
-&lt;code&gt;reply()&lt;/code&gt; which implements this logic for use between 2 R
-processes, where the requestor supplies data to the reply node, to which
-it applies an arbitrary function before sending back the return
-value.&lt;/p&gt;
-&lt;p&gt;This can be meaningfully used to perform computationally-expensive
-calculations or I/O-bound operations such as writing large amounts of
-data to disk in a separate ‘server’ process running concurrently.&lt;/p&gt;
-&lt;p&gt;Server process: &lt;code&gt;reply()&lt;/code&gt; will wait for a message and
-apply a function, in this case &lt;code&gt;rnorm()&lt;/code&gt;, before sending back
-the result.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;# This code block is run in a separate R process to knit this document
-
-library(nanonext)
-rep &amp;lt;- socket(&amp;quot;rep&amp;quot;, listen = &amp;quot;tcp://127.0.0.1:6546&amp;quot;)
-ctxp &amp;lt;- context(rep)
-reply(ctxp, execute = rnorm, send_mode = &amp;quot;raw&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Client process: &lt;code&gt;request()&lt;/code&gt; performs an async send and
-receive request and returns immediately with an Aio object.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;library(nanonext)
-req &amp;lt;- socket(&amp;quot;req&amp;quot;, dial = &amp;quot;tcp://127.0.0.1:6546&amp;quot;)
-ctxq &amp;lt;- context(req)
-aio &amp;lt;- request(ctxq, data = 1e8, recv_mode = &amp;quot;double&amp;quot;, keep.raw = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;At this point, the client can run additional code concurrent with the
-server processing the request. The Aio will then resolve automatically
-or can be called as required.&lt;/p&gt;
-&lt;pre class="r"&gt;&lt;code&gt;call_aio(aio)$data |&amp;gt; str()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt; num [1:100000000] 0.143 1.37 2.568 -1.206 -0.136 ...&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And this is how &lt;a
-href="https://cran.r-project.org/package=nanonext"&gt;nanonext&lt;/a&gt; provides
-a true concurrency framework. The package provides the necessary tools
-to implement anything from a walkie-talkie to distributed computing
-clusters and everything in between.&lt;/p&gt;
-&lt;h3 id="mirai"&gt;mirai&lt;/h3&gt;
-&lt;p&gt;A small (tiny) package has also been released to CRAN in February
-2022 that exposes the functionality of executing arbitrary R expressions
-asynchronously for use on a single machine. It is called ‘&lt;a
-href="https://cran.r-project.org/package=mirai"&gt;mirai&lt;/a&gt;’, the Japanese
-for ‘future’. Everything revolves around one single function. It is very
-minimalistic. Designed to be intuitive to use, a short intro can be
-found here: &lt;a href="https://shikokuchuo.net/mirai/"
-class="uri"&gt;https://shikokuchuo.net/mirai/&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div class="footnotes footnotes-end-of-document"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Or more precisely, the Aio will resolve the next time it
-is queried - but practically this is the same thing, as the value cannot
-be used unless it is queried. This is akin to ‘Schrödinger’s Cat’ - if
-we never look into the box, we simply don’t know the state, but as soon
-as we look, we will get a resolution one way or another. Here, if the
-value is never used, it could remain in a state of ‘superposition’ but
-as soon as it is required (even if we are only seeking metadata such as
-its length rather than the actual value), it will resolve either to an
-‘unresolved’ NA or its actual value.&lt;a href="#fnref1"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn2"&gt;&lt;p&gt;Although the generic term includes ‘remote’, obviously
-everything can also happen on the same machine in separate processes.&lt;a
-href="#fnref2" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-      <distill:md5>e64fa3febe2f583c0d6cd5109e3a4515</distill:md5>
+      <description>True async with automatic resolution</description>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/17-nanonext-concurrency</guid>
       <pubDate>Fri, 18 Mar 2022 00:00:00 +0000</pubDate>

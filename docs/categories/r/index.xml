@@ -12,7 +12,153 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 18 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Re-introducing mirai - a minimalist async evaluation framework for R</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/18-reintroducing-mirai</link>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/18-reintroducing-mirai/reintroducing-mirai_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;p&gt;&lt;br /&gt; {mirai} is a minimalist async evaluation framework for R.&lt;/p&gt;
+&lt;p&gt;未来 みらい mirai is Japanese for ‘future’.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://cran.r-project.org/package=mirai"&gt;mirai&lt;/a&gt; provides
+an extremely simple and lightweight method for concurrent / parallel
+code execution.&lt;/p&gt;
+&lt;p&gt;Since the original &lt;a
+href="https://shikokuchuo.net/posts/16-introducing-mirai/"&gt;‘introduction’
+article&lt;/a&gt; two months ago, mirai is currently in its fourth
+incarnation, hence the need for a re-introduction. In this time, the
+package has also featured in RStudio’s &lt;a
+href="https://rviews.rstudio.com/2022/03/28/february-2022-top-40-new-cran-packages/"&gt;Top
+40 New CRAN Packages for February 2022&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We outline some of the main visible innovations below, but suffice to
+say that the backend (especially the code behind the &lt;a
+href="https://cran.r-project.org/package=nanonext"&gt;nanonext&lt;/a&gt; package)
+has been very much optimised over the course of this time as well.&lt;/p&gt;
+&lt;h3 id="two-functions---one-function"&gt;1. Two Functions -&amp;gt; One
+Function&lt;/h3&gt;
+&lt;p&gt;Originally, the package revolved around 2 functions -
+&lt;code&gt;eval_mirai()&lt;/code&gt; and &lt;code&gt;call_mirai()&lt;/code&gt;. Those are still
+there, and work the same way - however the package has managed to become
+even more minimalist with only one being required now.&lt;/p&gt;
+&lt;p&gt;This one function is simply called &lt;code&gt;mirai()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;(&lt;code&gt;eval_mirai()&lt;/code&gt; maps to it as an alias.)&lt;/p&gt;
+&lt;p&gt;Using &lt;code&gt;mirai()&lt;/code&gt; returns a ‘mirai’ object immediately.&lt;/p&gt;
+&lt;p&gt;A mirai evaluates an arbitrary expression asynchronously, resolving
+automatically upon completion.&lt;/p&gt;
+&lt;h3 id="automatic-resolution"&gt;2. Automatic Resolution&lt;/h3&gt;
+&lt;p&gt;Yes, resolving automatically, hence &lt;code&gt;call_mirai()&lt;/code&gt; is no
+longer needed (although it can still sometimes be useful to call and
+wait for results).&lt;/p&gt;
+&lt;p&gt;The evaluated result of a mirai is stored at &lt;code&gt;$data&lt;/code&gt;. If
+the asynchronous operation has yet to complete then this will return an
+‘unresolved’ logical NA value. That is an actual NA value of type
+logical classed as ‘unresolved’.&lt;/p&gt;
+&lt;p&gt;As soon as it resolves, then &lt;code&gt;$data&lt;/code&gt; will return the
+actual value of the evaluated expression.&lt;/p&gt;
+&lt;p&gt;Enter &lt;code&gt;unresolved()&lt;/code&gt;, a helper function that can be used
+in control flow statements to allow you to do things before and after
+resolution of a mirai. This means that you never have to actually just
+&lt;em&gt;wait&lt;/em&gt; on a mirai.&lt;/p&gt;
+&lt;p&gt;The code output below probably serves as a better demonstration than
+a lengthy explanation:&lt;/p&gt;
+&lt;h4 id="example-using-a-while-loop"&gt;Example using a while loop:&lt;/h4&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(mirai)
+
+m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 0.01)
+m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;unresolved&amp;#39; logi NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;while (unresolved(m)) {
+  cat(&amp;quot;unresolved\n&amp;quot;)
+  Sys.sleep(0.05)
+} &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;unresolved
+unresolved
+unresolved
+unresolved
+unresolved&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="equivalent-using-a-repeat-loop"&gt;Equivalent using a repeat
+loop:&lt;/h4&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 0.01)
+m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;unresolved&amp;#39; logi NA&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;repeat {
+  unresolved(m) || break
+  cat(&amp;quot;unresolved\n&amp;quot;)
+  Sys.sleep(0.05)
+} &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;unresolved
+unresolved
+unresolved
+unresolved
+unresolved&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="arbitrary-expressions"&gt;3. Arbitrary expressions&lt;/h3&gt;
+&lt;p&gt;You may have noticed in the above examples that the expression being
+evaluated was wrapped in &lt;code&gt;{ }&lt;/code&gt;. mirai supports this being an
+arbitrarily-long, possibly multi-line expression. Similarly there is no
+limit to the number of arguments supplied to the call.&lt;/p&gt;
+&lt;p&gt;To supply objects that are already present in the calling
+environment, these may simply be passed in as per the below:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;mat &amp;lt;- matrix(c(1, 2, 3, 4), ncol = 2)
+mat&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     [,1] [,2]
+[1,]    1    3
+[2,]    2    4&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({
+  x &amp;lt;- t(x)
+  as.data.frame(x)
+}, x = mat)
+
+call_mirai(m)$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;  V1 V2
+1  1  2
+2  3  4&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="daemons"&gt;4. Daemons&lt;/h3&gt;
+&lt;p&gt;The default behaviour is to just spin up background processes as
+required. This offers maximum simplicity and ease of use - no need to
+consider the backend at all.&lt;/p&gt;
+&lt;p&gt;First of all this is remarkable in itself, in that mirai simply works
+on all platforms R can be installed - across Linux, Windows, Mac,
+Solaris etc. and this is down to the cross-platform support built in to
+the underlying NNG C library that &lt;a
+href="https://cran.r-project.org/package=nanonext"&gt;nanonext&lt;/a&gt; provides
+a binding for.&lt;/p&gt;
+&lt;p&gt;Second, the startup time is relatively tiny as a completely clean
+background R process with ‘–vanilla’ settings is started each time.
+However for the highest performance applications, there is now the
+option to start up a set number of processes (daemons) upfront, and
+these will be ready to wait for instructions, achieveing even more
+minimal latency.&lt;/p&gt;
+&lt;p&gt;Setting daemons is as simple as:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;daemons(8)
+#&amp;gt; [1] 8&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;.. and 8 daemons are created.&lt;/p&gt;
+&lt;h3 id="wrap-up"&gt;Wrap-up&lt;/h3&gt;
+&lt;p&gt;We presented above 4 key updates for the fourth version of &lt;a
+href="https://cran.r-project.org/package=mirai"&gt;mirai&lt;/a&gt; (v0.4.0). We
+invite you to try it out for yourselves:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;mirai&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Any issues/comments please feed back at Github: &lt;a
+href="https://github.com/shikokuchuo/mirai"
+class="uri"&gt;https://github.com/shikokuchuo/mirai&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Package website: &lt;a href="https://shikokuchuo.net/mirai/"
+class="uri"&gt;https://shikokuchuo.net/mirai/&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">d1eb1f090c12df6af430f1faf3b8d703</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/18-reintroducing-mirai</guid>
+      <pubDate>Wed, 14 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/18-reintroducing-mirai/reintroducing-mirai_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>nanonext - how it provides a concurrency framework for R</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -20,7 +166,7 @@
       <description>
 
 
-&lt;img src="https://shikokuchuo.net/posts/17-nanonext-concurrency/figure-html/index-1.png" width="672" /&gt;
+&lt;img src="https://shikokuchuo.net/posts/17-nanonext-concurrency/nanonext-concurrency_files/figure-html5/index-1.png" width="672" /&gt;
 &lt;aside&gt;
 Shikokuchuo
 &lt;/aside&gt;
