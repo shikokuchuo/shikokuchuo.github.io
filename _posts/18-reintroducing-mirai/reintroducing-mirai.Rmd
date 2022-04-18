@@ -4,7 +4,7 @@ description: |
   Concurrent code execution with maximum flexibility and automatic resolution
 author:
   - name: shikokuchuo
-date: 2022-04-14
+date: 2022-04-18
 categories:
   - R
 output:
@@ -61,11 +61,11 @@ The code output below probably serves as a better demonstration than a lengthy e
 ```{r unresolved}
 library(mirai)
 
-m <- mirai({is.null(Sys.sleep(n)) && return(TRUE)}, n = 0.01)
+m <- mirai({is.null(Sys.sleep(n)) && return(TRUE)}, n = 1)
 m$data
 while (unresolved(m)) {
   cat("unresolved\n")
-  Sys.sleep(0.05)
+  Sys.sleep(1)
 } 
 m$data
 
@@ -75,12 +75,12 @@ m$data
 
 ```{r unresolved2}
 
-m <- mirai({is.null(Sys.sleep(n)) && return(TRUE)}, n = 0.01)
+m <- mirai({is.null(Sys.sleep(n)) && return(TRUE)}, n = 1)
 m$data
 repeat {
   unresolved(m) || break
   cat("unresolved\n")
-  Sys.sleep(0.05)
+  Sys.sleep(1)
 } 
 m$data
 

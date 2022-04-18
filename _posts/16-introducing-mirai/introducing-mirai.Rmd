@@ -127,3 +127,7 @@ Above, the return value is called directly. NULL is the expected return value fo
 
 {nanonext} website: <https://shikokuchuo.net/nanonext/><br />
 {nanonext} on CRAN: <https://cran.r-project.org/package=nanonext>
+
+### Update
+
+The following article provides an update: [re-introducting mirai](https://shikokuchuo.net/posts/18-reintroducing-mirai/)

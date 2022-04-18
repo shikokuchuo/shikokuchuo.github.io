@@ -95,8 +95,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <link rel="icon" type="image/png" href="../../favicon.png"/>
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2022-04-14"/>
-<meta property="article:created" itemprop="dateCreated" content="2022-04-14"/>
+<meta property="article:published" itemprop="datePublished" content="2022-04-18"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-04-18"/>
 <meta name="article:author" content="shikokuchuo"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -122,14 +122,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
 <meta name="citation_title" content="shikokuchuo{net}: Re-introducing mirai - a minimalist async evaluation framework for R"/>
 <meta name="citation_fulltext_html_url" content="https://shikokuchuo.net/posts/18-reintroducing-mirai/"/>
-<meta name="citation_online_date" content="2022/04/14"/>
-<meta name="citation_publication_date" content="2022/04/14"/>
+<meta name="citation_online_date" content="2022/04/18"/>
+<meta name="citation_publication_date" content="2022/04/18"/>
 <meta name="citation_author" content="shikokuchuo"/>
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Re-introducing mirai - a minimalist async evaluation framework for R"]},{"type":"character","attributes":{},"value":["Concurrent code execution with maximum flexibility and automatic resolution"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo"]}]}]},{"type":"character","attributes":{},"value":["2022-04-14"]},{"type":"character","attributes":{},"value":["R"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["https://shikokuchuo.net/posts/18-reintroducing-mirai/"]},{"type":"character","attributes":{},"value":["https://shikokuchuo.net/posts/18-reintroducing-mirai/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Re-introducing mirai - a minimalist async evaluation framework for R"]},{"type":"character","attributes":{},"value":["Concurrent code execution with maximum flexibility and automatic resolution"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo"]}]}]},{"type":"character","attributes":{},"value":["2022-04-18"]},{"type":"character","attributes":{},"value":["R"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]},{"type":"character","attributes":{},"value":["https://shikokuchuo.net/posts/18-reintroducing-mirai/"]},{"type":"character","attributes":{},"value":["https://shikokuchuo.net/posts/18-reintroducing-mirai/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2390,7 +2390,7 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Re-introducing mirai - a minimalist async evaluation framework for R","description":"Concurrent code execution with maximum flexibility and automatic resolution","authors":[{"author":"shikokuchuo","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-04-14T00:00:00.000+01:00","citationText":"shikokuchuo, 2022"}
+{"title":"Re-introducing mirai - a minimalist async evaluation framework for R","description":"Concurrent code execution with maximum flexibility and automatic resolution","authors":[{"author":"shikokuchuo","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-04-18T00:00:00.000+01:00","citationText":"shikokuchuo, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2449,7 +2449,7 @@ resolution</p></p>
 <div class="d-byline">
   shikokuchuo  
   
-<br/>2022-04-14
+<br/>2022-04-18
 </div>
 
 <div class="d-article">
@@ -2520,7 +2520,7 @@ a lengthy explanation:</p>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shikokuchuo.net/mirai/'>mirai</a></span><span class='op'>)</span>
 
-<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shikokuchuo.net/mirai/reference/eval_mirai.html'>mirai</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>}</span>, n <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shikokuchuo.net/mirai/reference/eval_mirai.html'>mirai</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>}</span>, n <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>m</span><span class='op'>$</span><span class='va'>data</span>
 </code></pre>
 </div>
@@ -2528,7 +2528,7 @@ a lengthy explanation:</p>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>while</span> <span class='op'>(</span><span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/unresolved.html'>unresolved</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"unresolved\n"</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>}</span> 
 </code></pre>
 </div>
@@ -2544,7 +2544,7 @@ unresolved</code></pre>
 loop:</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shikokuchuo.net/mirai/reference/eval_mirai.html'>mirai</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>}</span>, n <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shikokuchuo.net/mirai/reference/eval_mirai.html'>mirai</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span> <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>}</span>, n <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='va'>m</span><span class='op'>$</span><span class='va'>data</span>
 </code></pre>
 </div>
@@ -2553,12 +2553,11 @@ loop:</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>repeat</span> <span class='op'>{</span>
   <span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/unresolved.html'>unresolved</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span> <span class='op'>||</span> <span class='kw'>break</span>
   <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"unresolved\n"</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>}</span> 
 </code></pre>
 </div>
 <pre><code>unresolved
-unresolved
 unresolved</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m</span><span class='op'>$</span><span class='va'>data</span>
@@ -2670,7 +2669,7 @@ class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"><
 <div class="appendix-bottom">
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">shikokuchuo (2022, April 14). shikokuchuo{net}: Re-introducing mirai - a minimalist async evaluation framework for R. Retrieved from https://shikokuchuo.net/posts/18-reintroducing-mirai/</pre>
+  <pre class="citation-appendix short">shikokuchuo (2022, April 18). shikokuchuo{net}: Re-introducing mirai - a minimalist async evaluation framework for R. Retrieved from https://shikokuchuo.net/posts/18-reintroducing-mirai/</pre>
   <p>BibTeX citation</p>
   <pre class="citation-appendix long">@misc{shikokuchuo2022re-introducing,
   author = {shikokuchuo, },

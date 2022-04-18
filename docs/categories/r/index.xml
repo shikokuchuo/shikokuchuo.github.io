@@ -12,7 +12,7 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 14 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Apr 2022 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Re-introducing mirai - a minimalist async evaluation framework for R</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -70,34 +70,28 @@ a lengthy explanation:&lt;/p&gt;
 &lt;h4 id="example-using-a-while-loop"&gt;Example using a while loop:&lt;/h4&gt;
 &lt;pre class="r"&gt;&lt;code&gt;library(mirai)
 
-m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 0.01)
+m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 1)
 m$data&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;&amp;#39;unresolved&amp;#39; logi NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;while (unresolved(m)) {
   cat(&amp;quot;unresolved\n&amp;quot;)
-  Sys.sleep(0.05)
+  Sys.sleep(1)
 } &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;unresolved
-unresolved
-unresolved
-unresolved
 unresolved&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;m$data&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id="equivalent-using-a-repeat-loop"&gt;Equivalent using a repeat
 loop:&lt;/h4&gt;
-&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 0.01)
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({is.null(Sys.sleep(n)) &amp;amp;&amp;amp; return(TRUE)}, n = 1)
 m$data&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;&amp;#39;unresolved&amp;#39; logi NA&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;repeat {
   unresolved(m) || break
   cat(&amp;quot;unresolved\n&amp;quot;)
-  Sys.sleep(0.05)
+  Sys.sleep(1)
 } &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;unresolved
-unresolved
-unresolved
-unresolved
 unresolved&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;m$data&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
@@ -156,7 +150,7 @@ class="uri"&gt;https://shikokuchuo.net/mirai/&lt;/a&gt;&lt;/p&gt;
       <distill:md5 xmlns:distill="https://distill.pub/journal/">d1eb1f090c12df6af430f1faf3b8d703</distill:md5>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/18-reintroducing-mirai</guid>
-      <pubDate>Wed, 14 Apr 2022 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 Apr 2022 00:00:00 +0000</pubDate>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/18-reintroducing-mirai/reintroducing-mirai_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
