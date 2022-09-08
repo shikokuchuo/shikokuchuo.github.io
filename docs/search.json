@@ -5,21 +5,21 @@
       "title": "Web 3.0 technologies",
       "author": [],
       "contents": "\n\n\n\n\nWelcome to Shikokuchuo. Use the navbar for projects, search box for articles.\n\n\n\n\n",
-      "last_modified": "2022-04-18T11:05:40+01:00"
+      "last_modified": "2022-09-08T19:17:34+01:00"
     },
     {
       "path": "index.html",
       "title": "shikokuchuo.net",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2022-04-18T11:05:41+01:00"
+      "last_modified": "2022-09-08T19:17:35+01:00"
     },
     {
       "path": "map.html",
       "title": "Shikokuchuo, Japan 愛媛県四国中央市",
       "author": [],
-      "contents": "\n\n\n{\"x\":{\"options\":{\"crs\":{\"crsClass\":\"L.CRS.EPSG3857\",\"code\":null,\"proj4def\":null,\"projectedBounds\":null,\"options\":{}}},\"calls\":[{\"method\":\"addTiles\",\"args\":[\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\",null,null,{\"minZoom\":0,\"maxZoom\":18,\"tileSize\":256,\"subdomains\":\"abc\",\"errorTileUrl\":\"\",\"tms\":false,\"noWrap\":false,\"zoomOffset\":0,\"zoomReverse\":false,\"opacity\":1,\"zIndex\":1,\"detectRetina\":false,\"attribution\":\"&copy; <a href=\\\"https://openstreetmap.org\\\">OpenStreetMap<\\/a> contributors, <a href=\\\"https://creativecommons.org/licenses/by-sa/2.0/\\\">CC-BY-SA<\\/a>\"}]}],\"setView\":[[33.9804,133.549],14,[]]},\"evals\":[],\"jsHooks\":[]}\n\n\n\n",
-      "last_modified": "2022-04-18T11:05:41+01:00"
+      "contents": "\n\n\n\n\n\n\n",
+      "last_modified": "2022-09-08T19:17:35+01:00"
     }
   ],
   "collections": ["posts/posts.json"]

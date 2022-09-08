@@ -1,0 +1,140 @@
+---
+title: "nanonext - a web toolkit"
+description: |
+  async https and secure websocket client and cryptographic hashing
+author:
+  - name: shikokuchuo
+date: 2022-09-08
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(photos), axes = FALSE)
+
+```
+<aside>Shikokuchuo</aside>
+<br />
+The previous two articles have centered on the main uses which led to the creation of Nanonext - the desire to bridge code written in different languages, as well as the ability to perform actions concurrently.
+
+This article aims to highlight the additional features that have been built around the core capabilities in the NNG library that actually make it a very good tool for interacting with the web.
+
+This is especially relevant as version 0.5.5 just released to CRAN integrates the 'mbedtls' library providing TLS support for secure websites and websocket connections across all platforms.
+
+The package has also made it into the 'Web Technologies' CRAN Task View under 'Core Tools For HTTP Requests': <https://cran.r-project.org/web/views/WebTechnologies.html>
+
+```{r load}
+library(nanonext)
+```
+
+### ncurl - a minimalist (async) http(s) client
+
+For normal use, it takes just the URL.
+
+It can follow redirects.
+
+```{r ncurl}
+
+ncurl("https://httpbin.org/headers")
+
+```
+
+Whilst it is designed to be minimalist and easy to use, the real power however lies in its ability to use other methods such as POST or PUT, and the ability of the arguments 'headers' and 'data' to take arbitrary values that are sent in the HTTP request.
+
+This makes it perfect as a client for making REST API calls, and is indeed a rather performant solution.
+
+```{r ncurl rest}
+res <- ncurl("http://httpbin.org/post",
+             async = TRUE,
+             convert = FALSE,
+             method = "POST",
+             headers = c(`Content-Type` = "application/json", Authorization = "Bearer APIKEY"),
+             data = '{"key": "value"}',
+             request = c("Date", "Server"))
+```
+
+Above:
+
+- 'async' is set to TRUE to return an 'ncurlAio' object immediately, with the request happening asynchronously. The data will be available once resolved, or if called explicitly (which will wait).
+
+- 'convert' is set to FALSE so time is not wasted converting the raw data to characters, which is useful when, for example, a JSON parser can directly parse the raw bytes.
+
+- 'request' is specified to return the requested response headers.
+
+```{r ncurl result}
+res
+
+call_aio(res)$status
+res$headers
+res$raw
+```
+
+The function is named 'ncurl' after the ubiquitous 'curl', but it uses a completely different technology stack, leveraging the 'NNG' and 'MbedTLS' libraries instead.
+
+### stream - websocket client
+
+`stream()` exposes NNG’s low-level byte stream interface for communicating with raw sockets. This may be used for connecting to arbitrary non-NNG endpoints.
+
+Perhaps its most important use (in connection with the web at least), is for communicating with (secure) websocket servers. The argument textframes = TRUE can be specified where the websocket server uses text rather than binary frames, which is often the case.
+
+```{r stream}
+
+# official demo API key used below
+s <- stream(dial = "wss://ws.eodhistoricaldata.com/ws/forex?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX",
+            textframes = TRUE)
+s
+
+```
+
+`send()` and `recv()`, as well as their asynchronous counterparts `send_aio()` and `recv_aio()` can be used on Streams in the same way as Sockets.
+
+This affords a great deal of flexibility in ingesting, manipulating and processing streaming data.
+
+```{r stream2}
+s |> recv(keep.raw = FALSE)
+
+s |> send('{"action": "subscribe", "symbols": "EURUSD"}')
+
+s |> recv(keep.raw = FALSE)
+
+s |> recv(keep.raw = FALSE)
+
+close(s)
+```
+
+### sha[224|256|384|512] - cryptographic hash and HMAC algorithms
+
+As 'nanonext' now links to the 'mbedtls' library as well as 'NNG', the series of SHA-2 crypographic hash functions have been added to the package: `sha224()`, `sha256()`, `sha384()` and `sha512()`.
+
+These call the secure, optimized implementations from the 'MbedTLS' library and return a hash as a raw vector. These can be compared directly for authentication. Alternatively, `as.character()` may be used to return a character string of the hash value.
+
+To generate an HMAC (hash-based message authentication code), simply supply the value 'key' to use as the secret key. Many REST APIs require the request strings to be signed, and now the 'nanonext' package provides a fast and reliable method of generating a SHA-256 HMAC for this purpose.
+
+```{r sha}
+sha256("hello world!")
+
+as.character(sha256("hello world!"))
+
+sha256("hello world!", key = "MY_SECRET")
+
+```
+
+### messenger - console-based instant messaging
+
+There is also `messenger()` which is not so easy to demonstrate here as it is by nature interactive, but it is in effect a 2-way walkie talkie which can be connected to a TCP/IP or other socket address. This is a rather fun demonstration of how a multi-threaded application can be built using the NNG framework.
+
+Whilst this function has been around for quite a few versions of 'nanonext', the recent addition of authentication based on a pre-shared key makes it a somewhat viable solution rather than just something for fun. We encourage you to give it a try and play around with it.
+
+```{r messenger}
+?messenger
+```
+
+Package website: <https://shikokuchuo.net/nanonext/>
+On CRAN: <https://cran.r-project.org/package=nanonext>
