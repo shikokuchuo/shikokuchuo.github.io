@@ -1,0 +1,73 @@
+---
+title: "nanonext - High Performance Persistent HTTP Sessions"
+description: |
+  ncurl sessions
+author:
+  - name: shikokuchuo
+date: 2023-01-26
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r index, echo=FALSE}
+
+photos <- file.path("_images", list.files("_images"))
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(photos), axes = FALSE)
+
+```
+<aside>Shikokuchuo</aside>
+<br />
+Persistent http(s) sessions is a new feature added in nanonext 0.7.3.
+
+This allows for efficient polling by keeping an open connection with the server, transacting as and when needed. 
+
+Provides an ideal, low-latency solution to requesting real time data over a REST API, especially when there are limits in place for the frequency of new connections.
+
+### ncurl_session()
+
+Create a session (persistent connection):
+
+```{r ncurl rest}
+
+library(nanonext)
+sess <- ncurl_session("https://httpbin.org/headers")
+
+```
+
+### transact()
+
+Transact over the session (repeatedly if required):
+
+```{r ncurl result}
+
+res <- transact(sess)
+res
+
+```
+
+### Timing
+
+Allows much lower latencies in returning results:
+
+```{r ncurl timing}
+
+library(microbenchmark)
+
+microbenchmark(transact(sess), ncurl("https://httpbin.org/headers"))
+
+```
+
+### Links
+
+{nanonext} package website: <https://shikokuchuo.net/nanonext/>
+<br />On CRAN: <https://cran.r-project.org/package=nanonext>
+
+{nanonext} features in the 'Web Technologies' CRAN Task View under 'Core Tools For HTTP Requests': <https://cran.r-project.org/view=WebTechnologies>
+and also in the 'High Performance Computing' CRAN Task View:
+<https://cran.r-project.org/view=HighPerformanceComputing>
+

@@ -12,7 +12,81 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 07 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 26 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>nanonext - High Performance Persistent HTTP Sessions</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/20-ncurl-sessions</link>
+      <description>
+
+
+&lt;img src="https://shikokuchuo.net/posts/20-ncurl-sessions/ncurl-sessions_files/figure-html5/index-1.png" width="672" /&gt;
+&lt;aside&gt;
+Shikokuchuo
+&lt;/aside&gt;
+&lt;p&gt;&lt;br /&gt; Persistent http(s) sessions is a new feature added in nanonext
+0.7.3.&lt;/p&gt;
+&lt;p&gt;This allows for efficient polling by keeping an open connection with
+the server, transacting as and when needed.&lt;/p&gt;
+&lt;p&gt;Provides an ideal, low-latency solution to requesting real time data
+over a REST API, especially when there are limits in place for the
+frequency of new connections.&lt;/p&gt;
+&lt;h3 id="ncurl_session"&gt;ncurl_session()&lt;/h3&gt;
+&lt;p&gt;Create a session (persistent connection):&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(nanonext)
+sess &amp;lt;- ncurl_session(&amp;quot;https://httpbin.org/headers&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="transact"&gt;transact()&lt;/h3&gt;
+&lt;p&gt;Transact over the session (repeatedly if required):&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;res &amp;lt;- transact(sess)
+res&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;$status
+[1] 200
+
+$headers
+NULL
+
+$raw
+  [1] 7b 0a 20 20 22 68 65 61 64 65 72 73 22 3a 20 7b 0a 20 20 20 20
+ [22] 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22
+ [43] 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65 2d
+ [64] 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 64 32 64 65 61 35
+ [85] 2d 30 64 63 64 38 61 66 37 36 34 64 34 65 65 38 34 35 37 63 39
+[106] 34 64 32 36 22 0a 20 20 7d 0a 7d 0a
+
+$data
+[1] &amp;quot;{\n  \&amp;quot;headers\&amp;quot;: {\n    \&amp;quot;Host\&amp;quot;: \&amp;quot;httpbin.org\&amp;quot;, \n    \&amp;quot;X-Amzn-Trace-Id\&amp;quot;: \&amp;quot;Root=1-63d2dea5-0dcd8af764d4ee8457c94d26\&amp;quot;\n  }\n}\n&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="timing"&gt;Timing&lt;/h3&gt;
+&lt;p&gt;Allows much lower latencies in returning results:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(microbenchmark)
+
+microbenchmark(transact(sess), ncurl(&amp;quot;https://httpbin.org/headers&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Unit: milliseconds
+                                 expr       min        lq     mean
+                       transact(sess)  81.16248  83.44756 153.3151
+ ncurl(&amp;quot;https://httpbin.org/headers&amp;quot;) 476.65439 489.24140 569.3550
+    median       uq       max neval
+  87.31694 127.2824  855.6107   100
+ 497.40339 602.0486 1557.0635   100&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="links"&gt;Links&lt;/h3&gt;
+&lt;p&gt;{nanonext} package website: &lt;a
+href="https://shikokuchuo.net/nanonext/"
+class="uri"&gt;https://shikokuchuo.net/nanonext/&lt;/a&gt; &lt;br /&gt;On CRAN: &lt;a
+href="https://cran.r-project.org/package=nanonext"
+class="uri"&gt;https://cran.r-project.org/package=nanonext&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;{nanonext} features in the ‘Web Technologies’ CRAN Task View under
+‘Core Tools For HTTP Requests’: &lt;a
+href="https://cran.r-project.org/view=WebTechnologies"
+class="uri"&gt;https://cran.r-project.org/view=WebTechnologies&lt;/a&gt; and also
+in the ‘High Performance Computing’ CRAN Task View: &lt;a
+href="https://cran.r-project.org/view=HighPerformanceComputing"
+class="uri"&gt;https://cran.r-project.org/view=HighPerformanceComputing&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">694b6233eccc144b7ba7c9d41d2cfa6d</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/20-ncurl-sessions</guid>
+      <pubDate>Thu, 26 Jan 2023 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/20-ncurl-sessions/ncurl-sessions_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>nanonext - a web toolkit</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -36,8 +110,8 @@ integrates the ‘mbedtls’ library providing TLS support for secure
 websites and websocket connections across all platforms.&lt;/p&gt;
 &lt;p&gt;The package has also made it into the ‘Web Technologies’ CRAN Task
 View under ‘Core Tools For HTTP Requests’: &lt;a
-href="https://cran.r-project.org/web/views/WebTechnologies.html"
-class="uri"&gt;https://cran.r-project.org/web/views/WebTechnologies.html&lt;/a&gt;&lt;/p&gt;
+href="https://cran.r-project.org/view=WebTechnologies"
+class="uri"&gt;https://cran.r-project.org/view=WebTechnologies&lt;/a&gt;&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;library(nanonext)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="ncurl---a-minimalist-async-https-client"&gt;ncurl - a minimalist
 (async) http(s) client&lt;/h3&gt;
@@ -54,12 +128,12 @@ $raw
   [1] 7b 0a 20 20 22 68 65 61 64 65 72 73 22 3a 20 7b 0a 20 20 20 20
  [22] 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22
  [43] 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65 2d
- [64] 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 31 61 34 39 65 30
- [85] 2d 33 33 65 63 64 35 32 65 37 38 37 30 31 38 33 36 30 61 66 31
-[106] 65 63 63 30 22 0a 20 20 7d 0a 7d 0a
+ [64] 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 64 32 64 65 65 66
+ [85] 2d 31 61 66 38 32 38 39 33 35 39 61 62 61 30 32 33 37 39 66 31
+[106] 36 33 66 63 22 0a 20 20 7d 0a 7d 0a
 
 $data
-[1] &amp;quot;{\n  \&amp;quot;headers\&amp;quot;: {\n    \&amp;quot;Host\&amp;quot;: \&amp;quot;httpbin.org\&amp;quot;, \n    \&amp;quot;X-Amzn-Trace-Id\&amp;quot;: \&amp;quot;Root=1-631a49e0-33ecd52e787018360af1ecc0\&amp;quot;\n  }\n}\n&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+[1] &amp;quot;{\n  \&amp;quot;headers\&amp;quot;: {\n    \&amp;quot;Host\&amp;quot;: \&amp;quot;httpbin.org\&amp;quot;, \n    \&amp;quot;X-Amzn-Trace-Id\&amp;quot;: \&amp;quot;Root=1-63d2deef-1af8289359aba02379f163fc\&amp;quot;\n  }\n}\n&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Whilst it is designed to be minimalist and easy to use, the real
 power however lies in its ability to use other methods such as POST or
 PUT, and the ability of the arguments ‘headers’ and ‘data’ to take
@@ -72,7 +146,7 @@ indeed a rather performant solution.&lt;/p&gt;
              method = &amp;quot;POST&amp;quot;,
              headers = c(`Content-Type` = &amp;quot;application/json&amp;quot;, Authorization = &amp;quot;Bearer APIKEY&amp;quot;),
              data = &amp;#39;{&amp;quot;key&amp;quot;: &amp;quot;value&amp;quot;}&amp;#39;,
-             request = c(&amp;quot;Date&amp;quot;, &amp;quot;Server&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+             response = c(&amp;quot;Date&amp;quot;, &amp;quot;Server&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Above:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;‘async’ is set to TRUE to return an ‘ncurlAio’ object
@@ -82,20 +156,20 @@ wait).&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;‘convert’ is set to FALSE so time is not wasted converting the
 raw data to characters, which is useful when, for example, a JSON parser
 can directly parse the raw bytes.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;‘request’ is specified to return the requested response
+&lt;li&gt;&lt;p&gt;‘response’ is specified to return the requested response
 headers.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre class="r"&gt;&lt;code&gt;res&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt; ncurlAio &amp;gt;
  - $status for response status code
- - $headers for requested response headers
+ - $headers for response headers
  - $raw for raw message
  - $data for message data&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;call_aio(res)$status&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] 200&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;res$headers&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;$Date
-[1] &amp;quot;Thu, 08 Sep 2022 20:00:32 GMT&amp;quot;
+[1] &amp;quot;Thu, 26 Jan 2023 20:13:36 GMT&amp;quot;
 
 $Server
 [1] &amp;quot;gunicorn/19.9.0&amp;quot;&lt;/code&gt;&lt;/pre&gt;
@@ -112,9 +186,9 @@ $Server
 [190] 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 22 2c 20 0a 20 20 20
 [211] 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67
 [232] 22 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65
-[253] 2d 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 31 61 34 39 65
-[274] 30 2d 32 61 64 64 36 35 65 39 36 32 34 35 37 36 63 64 36 66 33
-[295] 34 38 38 31 62 22 0a 20 20 7d 2c 20 0a 20 20 22 6a 73 6f 6e 22
+[253] 2d 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 64 32 64 65 65
+[274] 66 2d 37 31 34 37 66 32 63 33 30 61 37 35 66 38 34 62 35 36 34
+[295] 36 64 35 65 34 22 0a 20 20 7d 2c 20 0a 20 20 22 6a 73 6f 6e 22
 [316] 3a 20 7b 0a 20 20 20 20 22 6b 65 79 22 3a 20 22 76 61 6c 75 65
 [337] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22
 [358] 31 38 35 2e 32 32 35 2e 34 35 2e 34 39 22 2c 20 0a 20 20 22 75
@@ -136,9 +210,9 @@ s &amp;lt;- stream(dial = &amp;quot;wss://ws.eodhistoricaldata.com/ws/forex?api_
             textframes = TRUE)
 s&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt; nanoStream &amp;gt;
- - type: dialer 
- - url: wss://ws.eodhistoricaldata.com/ws/forex?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX 
- - textframes: TRUE &lt;/code&gt;&lt;/pre&gt;
+ - type: dialer
+ - url: wss://ws.eodhistoricaldata.com/ws/forex?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX
+ - textframes: TRUE&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;code&gt;send()&lt;/code&gt; and &lt;code&gt;recv()&lt;/code&gt;, as well as their
 asynchronous counterparts &lt;code&gt;send_aio()&lt;/code&gt; and
 &lt;code&gt;recv_aio()&lt;/code&gt; can be used on Streams in the same way as
@@ -148,13 +222,11 @@ and processing streaming data.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;s |&amp;gt; recv(keep.raw = FALSE)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] &amp;quot;{\&amp;quot;status_code\&amp;quot;:200,\&amp;quot;message\&amp;quot;:\&amp;quot;Authorized\&amp;quot;}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;s |&amp;gt; send(&amp;#39;{&amp;quot;action&amp;quot;: &amp;quot;subscribe&amp;quot;, &amp;quot;symbols&amp;quot;: &amp;quot;EURUSD&amp;quot;}&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt; [1] 7b 22 61 63 74 69 6f 6e 22 3a 20 22 73 75 62 73 63 72 69 62 65 22
-[23] 2c 20 22 73 79 6d 62 6f 6c 73 22 3a 20 22 45 55 52 55 53 44 22 7d
-[45] 00&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 0&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;s |&amp;gt; recv(keep.raw = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;{\&amp;quot;s\&amp;quot;:\&amp;quot;EURUSD\&amp;quot;,\&amp;quot;a\&amp;quot;:0.99985,\&amp;quot;b\&amp;quot;:0.99978,\&amp;quot;dc\&amp;quot;:\&amp;quot;0.0090\&amp;quot;,\&amp;quot;dd\&amp;quot;:\&amp;quot;0.0001\&amp;quot;,\&amp;quot;ppms\&amp;quot;:false,\&amp;quot;t\&amp;quot;:1662667233000}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;{\&amp;quot;s\&amp;quot;:\&amp;quot;EURUSD\&amp;quot;,\&amp;quot;a\&amp;quot;:1.08901,\&amp;quot;b\&amp;quot;:1.08899,\&amp;quot;dc\&amp;quot;:\&amp;quot;-0.2792\&amp;quot;,\&amp;quot;dd\&amp;quot;:\&amp;quot;-0.0030\&amp;quot;,\&amp;quot;ppms\&amp;quot;:false,\&amp;quot;t\&amp;quot;:1674764017000}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;s |&amp;gt; recv(keep.raw = FALSE)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;[1] &amp;quot;{\&amp;quot;s\&amp;quot;:\&amp;quot;EURUSD\&amp;quot;,\&amp;quot;a\&amp;quot;:0.99984,\&amp;quot;b\&amp;quot;:0.99977,\&amp;quot;dc\&amp;quot;:\&amp;quot;0.0080\&amp;quot;,\&amp;quot;dd\&amp;quot;:\&amp;quot;0.0001\&amp;quot;,\&amp;quot;ppms\&amp;quot;:false,\&amp;quot;t\&amp;quot;:1662667234000}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;{\&amp;quot;s\&amp;quot;:\&amp;quot;EURUSD\&amp;quot;,\&amp;quot;a\&amp;quot;:1.089,\&amp;quot;b\&amp;quot;:1.08898,\&amp;quot;dc\&amp;quot;:\&amp;quot;-0.2801\&amp;quot;,\&amp;quot;dd\&amp;quot;:\&amp;quot;-0.0030\&amp;quot;,\&amp;quot;ppms\&amp;quot;:false,\&amp;quot;t\&amp;quot;:1674764017000}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;close(s)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3
 id="sha224256384512---cryptographic-hash-and-hmac-algorithms"&gt;sha[224|256|384|512]
@@ -173,11 +245,11 @@ the request strings to be signed, and now the ‘nanonext’ package
 provides a fast and reliable method of generating a SHA-256 HMAC for
 this purpose.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;sha256(&amp;quot;hello world!&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;75 09 e5 bd a0 c7 62 d2 ba c7 f9 0d 75 8b 5b 22 63 fa 01 cc bc 54 2a b5 e3 df 16 3b e0 8e 6c a9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;7509e5bda0c762d2bac7f90d758b5b2263fa01ccbc542ab5e3df163be08e6ca9&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;as.character(sha256(&amp;quot;hello world!&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;[1] &amp;quot;7509e5bda0c762d2bac7f90d758b5b2263fa01ccbc542ab5e3df163be08e6ca9&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class="r"&gt;&lt;code&gt;sha256(&amp;quot;hello world!&amp;quot;, key = &amp;quot;MY_SECRET&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;d8 f0 e2 d3 68 ff 63 26 82 d5 5e 2c 1c cd 49 c1 5f 8a 6a 38 62 d8 eb 68 f1 90 6b 6e e6 58 89 0a&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;d8f0e2d368ff632682d55e2c1ccd49c15f8a6a3862d8eb68f1906b6ee658890a&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="messenger---console-based-instant-messaging"&gt;messenger -
 console-based instant messaging&lt;/h3&gt;
 &lt;p&gt;There is also &lt;code&gt;messenger()&lt;/code&gt; which is not so easy to

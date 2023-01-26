@@ -28,7 +28,7 @@ This article aims to highlight the additional features that have been built arou
 
 This is especially relevant as version 0.5.5 just released to CRAN integrates the 'mbedtls' library providing TLS support for secure websites and websocket connections across all platforms.
 
-The package has also made it into the 'Web Technologies' CRAN Task View under 'Core Tools For HTTP Requests': <https://cran.r-project.org/web/views/WebTechnologies.html>
+The package has also made it into the 'Web Technologies' CRAN Task View under 'Core Tools For HTTP Requests': <https://cran.r-project.org/view=WebTechnologies>
 
 ```{r load}
 library(nanonext)
@@ -57,7 +57,7 @@ res <- ncurl("http://httpbin.org/post",
              method = "POST",
              headers = c(`Content-Type` = "application/json", Authorization = "Bearer APIKEY"),
              data = '{"key": "value"}',
-             request = c("Date", "Server"))
+             response = c("Date", "Server"))
 ```
 
 Above:
@@ -66,7 +66,7 @@ Above:
 
 - 'convert' is set to FALSE so time is not wasted converting the raw data to characters, which is useful when, for example, a JSON parser can directly parse the raw bytes.
 
-- 'request' is specified to return the requested response headers.
+- 'response' is specified to return the requested response headers.
 
 ```{r ncurl result}
 res

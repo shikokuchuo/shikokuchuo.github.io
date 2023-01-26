@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["nanonext-webtools_files/anchor-4.2.2/anchor.min.js","nanonext-webtools_files/bowser-1.9.3/bowser.min.js","nanonext-webtools_files/distill-2.2.21/template.v2.js","nanonext-webtools_files/figure-html5/index-1.png","nanonext-webtools_files/header-attrs-2.16/header-attrs.js","nanonext-webtools_files/jquery-3.6.0/jquery-3.6.0.js","nanonext-webtools_files/jquery-3.6.0/jquery-3.6.0.min.js","nanonext-webtools_files/jquery-3.6.0/jquery-3.6.0.min.map","nanonext-webtools_files/popper-2.6.0/popper.min.js","nanonext-webtools_files/tippy-6.2.7/tippy-bundle.umd.min.js","nanonext-webtools_files/tippy-6.2.7/tippy-light-border.css","nanonext-webtools_files/tippy-6.2.7/tippy.css","nanonext-webtools_files/tippy-6.2.7/tippy.umd.min.js","nanonext-webtools_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["nanonext-webtools_files/anchor-4.2.2/anchor.min.js","nanonext-webtools_files/bowser-1.9.3/bowser.min.js","nanonext-webtools_files/distill-2.2.21/template.v2.js","nanonext-webtools_files/figure-html5/index-1.png","nanonext-webtools_files/header-attrs-2.16/header-attrs.js","nanonext-webtools_files/header-attrs-2.20/header-attrs.js","nanonext-webtools_files/jquery-3.6.0/jquery-3.6.0.js","nanonext-webtools_files/jquery-3.6.0/jquery-3.6.0.min.js","nanonext-webtools_files/jquery-3.6.0/jquery-3.6.0.min.map","nanonext-webtools_files/popper-2.6.0/popper.min.js","nanonext-webtools_files/tippy-6.2.7/tippy-bundle.umd.min.js","nanonext-webtools_files/tippy-6.2.7/tippy-light-border.css","nanonext-webtools_files/tippy-6.2.7/tippy.css","nanonext-webtools_files/tippy-6.2.7/tippy.umd.min.js","nanonext-webtools_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1475,7 +1475,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="nanonext-webtools_files/header-attrs-2.16/header-attrs.js"></script>
+  <script src="nanonext-webtools_files/header-attrs-2.20/header-attrs.js"></script>
   <script src="nanonext-webtools_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="nanonext-webtools_files/popper-2.6.0/popper.min.js"></script>
   <link href="nanonext-webtools_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1543,7 +1543,7 @@ Shikokuchuo
 The previous two articles have centered on the main uses which led to the creation of Nanonext - the desire to bridge code written in different languages, as well as the ability to perform actions concurrently.</p>
 <p>This article aims to highlight the additional features that have been built around the core capabilities in the NNG library that actually make it a very good tool for interacting with the web.</p>
 <p>This is especially relevant as version 0.5.5 just released to CRAN integrates the ‘mbedtls’ library providing TLS support for secure websites and websocket connections across all platforms.</p>
-<p>The package has also made it into the ‘Web Technologies’ CRAN Task View under ‘Core Tools For HTTP Requests’: <a href="https://cran.r-project.org/web/views/WebTechnologies.html" class="uri">https://cran.r-project.org/web/views/WebTechnologies.html</a></p>
+<p>The package has also made it into the ‘Web Technologies’ CRAN Task View under ‘Core Tools For HTTP Requests’: <a href="https://cran.r-project.org/view=WebTechnologies" class="uri">https://cran.r-project.org/view=WebTechnologies</a></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://shikokuchuo.net/nanonext/'>nanonext</a></span><span class='op'>)</span></span></code></pre>
@@ -1566,12 +1566,12 @@ $raw
   [1] 7b 0a 20 20 22 68 65 61 64 65 72 73 22 3a 20 7b 0a 20 20 20 20
  [22] 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22
  [43] 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65 2d
- [64] 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 31 61 34 39 64 36
- [85] 2d 31 63 63 30 36 63 37 61 33 36 65 65 64 39 30 36 32 34 31 32
-[106] 39 62 62 61 22 0a 20 20 7d 0a 7d 0a
+ [64] 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 64 32 64 65 61 31
+ [85] 2d 32 64 66 34 30 61 36 34 30 35 33 33 64 33 34 65 30 34 39 64
+[106] 37 61 30 63 22 0a 20 20 7d 0a 7d 0a
 
 $data
-[1] &quot;{\n  \&quot;headers\&quot;: {\n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;X-Amzn-Trace-Id\&quot;: \&quot;Root=1-631a49d6-1cc06c7a36eed90624129bba\&quot;\n  }\n}\n&quot;</code></pre>
+[1] &quot;{\n  \&quot;headers\&quot;: {\n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;X-Amzn-Trace-Id\&quot;: \&quot;Root=1-63d2dea1-2df40a640533d34e049d7a0c\&quot;\n  }\n}\n&quot;</code></pre>
 </div>
 <p>Whilst it is designed to be minimalist and easy to use, the real power however lies in its ability to use other methods such as POST or PUT, and the ability of the arguments ‘headers’ and ‘data’ to take arbitrary values that are sent in the HTTP request.</p>
 <p>This makes it perfect as a client for making REST API calls, and is indeed a rather performant solution.</p>
@@ -1583,14 +1583,14 @@ $data
 <span>             method <span class='op'>=</span> <span class='st'>"POST"</span>,</span>
 <span>             headers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>`Content-Type` <span class='op'>=</span> <span class='st'>"application/json"</span>, Authorization <span class='op'>=</span> <span class='st'>"Bearer APIKEY"</span><span class='op'>)</span>,</span>
 <span>             data <span class='op'>=</span> <span class='st'>'{"key": "value"}'</span>,</span>
-<span>             request <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Date"</span>, <span class='st'>"Server"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span>             response <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Date"</span>, <span class='st'>"Server"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>Above:</p>
 <ul>
 <li><p>‘async’ is set to TRUE to return an ‘ncurlAio’ object immediately, with the request happening asynchronously. The data will be available once resolved, or if called explicitly (which will wait).</p></li>
 <li><p>‘convert’ is set to FALSE so time is not wasted converting the raw data to characters, which is useful when, for example, a JSON parser can directly parse the raw bytes.</p></li>
-<li><p>‘request’ is specified to return the requested response headers.</p></li>
+<li><p>‘response’ is specified to return the requested response headers.</p></li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1598,7 +1598,7 @@ $data
 </div>
 <pre><code>&lt; ncurlAio &gt;
  - $status for response status code
- - $headers for requested response headers
+ - $headers for response headers
  - $raw for raw message
  - $data for message data</code></pre>
 <div class="sourceCode">
@@ -1609,7 +1609,7 @@ $data
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>res</span><span class='op'>$</span><span class='va'>headers</span></span></code></pre>
 </div>
 <pre><code>$Date
-[1] &quot;Thu, 08 Sep 2022 20:00:23 GMT&quot;
+[1] &quot;Thu, 26 Jan 2023 20:12:17 GMT&quot;
 
 $Server
 [1] &quot;gunicorn/19.9.0&quot;</code></pre>
@@ -1628,9 +1628,9 @@ $Server
 [190] 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 22 2c 20 0a 20 20 20
 [211] 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67
 [232] 22 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65
-[253] 2d 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 31 61 34 39 64
-[274] 37 2d 36 64 34 62 32 38 65 34 33 65 37 36 39 36 30 34 33 66 63
-[295] 66 66 38 37 31 22 0a 20 20 7d 2c 20 0a 20 20 22 6a 73 6f 6e 22
+[253] 2d 49 64 22 3a 20 22 52 6f 6f 74 3d 31 2d 36 33 64 32 64 65 61
+[274] 31 2d 35 66 62 35 36 64 66 38 31 61 31 65 30 33 64 32 31 32 61
+[295] 32 35 33 34 64 22 0a 20 20 7d 2c 20 0a 20 20 22 6a 73 6f 6e 22
 [316] 3a 20 7b 0a 20 20 20 20 22 6b 65 79 22 3a 20 22 76 61 6c 75 65
 [337] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22
 [358] 31 38 35 2e 32 32 35 2e 34 35 2e 34 39 22 2c 20 0a 20 20 22 75
@@ -1649,9 +1649,9 @@ $Server
 <span><span class='va'>s</span></span></code></pre>
 </div>
 <pre><code>&lt; nanoStream &gt;
- - type: dialer 
- - url: wss://ws.eodhistoricaldata.com/ws/forex?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX 
- - textframes: TRUE </code></pre>
+ - type: dialer
+ - url: wss://ws.eodhistoricaldata.com/ws/forex?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX
+ - textframes: TRUE</code></pre>
 </div>
 <p><code>send()</code> and <code>recv()</code>, as well as their asynchronous counterparts <code>send_aio()</code> and <code>recv_aio()</code> can be used on Streams in the same way as Sockets.</p>
 <p>This affords a great deal of flexibility in ingesting, manipulating and processing streaming data.</p>
@@ -1663,17 +1663,15 @@ $Server
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>s</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/send.html'>send</a></span><span class='op'>(</span><span class='st'>'{"action": "subscribe", "symbols": "EURUSD"}'</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code> [1] 7b 22 61 63 74 69 6f 6e 22 3a 20 22 73 75 62 73 63 72 69 62 65 22
-[23] 2c 20 22 73 79 6d 62 6f 6c 73 22 3a 20 22 45 55 52 55 53 44 22 7d
-[45] 00</code></pre>
+<pre><code>[1] 0</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>s</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/recv.html'>recv</a></span><span class='op'>(</span>keep.raw <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] &quot;{\&quot;s\&quot;:\&quot;EURUSD\&quot;,\&quot;a\&quot;:0.99982,\&quot;b\&quot;:0.99978,\&quot;dc\&quot;:\&quot;0.0060\&quot;,\&quot;dd\&quot;:\&quot;0.0001\&quot;,\&quot;ppms\&quot;:false,\&quot;t\&quot;:1662667227000}&quot;</code></pre>
+<pre><code>[1] &quot;{\&quot;s\&quot;:\&quot;EURUSD\&quot;,\&quot;a\&quot;:1.08901,\&quot;b\&quot;:1.08894,\&quot;dc\&quot;:\&quot;-0.2792\&quot;,\&quot;dd\&quot;:\&quot;-0.0030\&quot;,\&quot;ppms\&quot;:false,\&quot;t\&quot;:1674763938000}&quot;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>s</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/recv.html'>recv</a></span><span class='op'>(</span>keep.raw <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] &quot;{\&quot;s\&quot;:\&quot;EURUSD\&quot;,\&quot;a\&quot;:0.99983,\&quot;b\&quot;:0.99979,\&quot;dc\&quot;:\&quot;0.0070\&quot;,\&quot;dd\&quot;:\&quot;0.0001\&quot;,\&quot;ppms\&quot;:false,\&quot;t\&quot;:1662667229000}&quot;</code></pre>
+<pre><code>[1] &quot;{\&quot;s\&quot;:\&quot;EURUSD\&quot;,\&quot;a\&quot;:1.08901,\&quot;b\&quot;:1.08899,\&quot;dc\&quot;:\&quot;-0.2792\&quot;,\&quot;dd\&quot;:\&quot;-0.0030\&quot;,\&quot;ppms\&quot;:false,\&quot;t\&quot;:1674763938000}&quot;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>close</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -1686,7 +1684,7 @@ $Server
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/sha256.html'>sha256</a></span><span class='op'>(</span><span class='st'>"hello world!"</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>75 09 e5 bd a0 c7 62 d2 ba c7 f9 0d 75 8b 5b 22 63 fa 01 cc bc 54 2a b5 e3 df 16 3b e0 8e 6c a9</code></pre>
+<pre><code>[1] &quot;7509e5bda0c762d2bac7f90d758b5b2263fa01ccbc542ab5e3df163be08e6ca9&quot;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/sha256.html'>sha256</a></span><span class='op'>(</span><span class='st'>"hello world!"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -1694,7 +1692,7 @@ $Server
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://shikokuchuo.net/nanonext/reference/sha256.html'>sha256</a></span><span class='op'>(</span><span class='st'>"hello world!"</span>, key <span class='op'>=</span> <span class='st'>"MY_SECRET"</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>d8 f0 e2 d3 68 ff 63 26 82 d5 5e 2c 1c cd 49 c1 5f 8a 6a 38 62 d8 eb 68 f1 90 6b 6e e6 58 89 0a</code></pre>
+<pre><code>[1] &quot;d8f0e2d368ff632682d55e2c1ccd49c15f8a6a3862d8eb68f1906b6ee658890a&quot;</code></pre>
 </div>
 <h3 id="messenger---console-based-instant-messaging">messenger - console-based instant messaging</h3>
 <p>There is also <code>messenger()</code> which is not so easy to demonstrate here as it is by nature interactive, but it is in effect a 2-way walkie talkie which can be connected to a TCP/IP or other socket address. This is a rather fun demonstration of how a multi-threaded application can be built using the NNG framework.</p>
