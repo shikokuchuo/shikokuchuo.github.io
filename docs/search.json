@@ -5,27 +5,27 @@
       "title": "Web 3.0 technologies",
       "author": [],
       "contents": "\n\n\n\n\nWelcome to Shikokuchuo. Use the navbar for projects, search box for articles.\n\n\n\n\n",
-      "last_modified": "2023-01-26T20:17:14+00:00"
+      "last_modified": "2023-04-04T12:30:04+01:00"
     },
     {
       "path": "index.html",
       "title": "shikokuchuo.net",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2023-01-26T20:17:14+00:00"
+      "last_modified": "2023-04-04T12:30:05+01:00"
     },
     {
       "path": "map.html",
       "title": "Shikokuchuo, Japan 愛媛県四国中央市",
       "author": [],
       "contents": "\n\n\n\n\n\n\n",
-      "last_modified": "2023-01-26T20:17:15+00:00"
+      "last_modified": "2023-04-04T12:30:05+01:00"
     },
     {
       "path": "README.html",
       "author": [],
       "contents": "\nshikokuchuo{net}\nhttps://shikokuchuo.net/\nWeb 3.0 technologies\n–\nAll content copyright (C) 2021-2022 The creators of shikokuchuo.net. All rights reserved.\n\n\n",
-      "last_modified": "2023-01-26T20:17:15+00:00"
+      "last_modified": "2023-04-04T12:30:05+01:00"
     }
   ],
   "collections": ["posts/posts.json"]
