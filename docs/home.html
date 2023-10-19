@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
   <meta name="generator" content="distill" />
+  <link rel="alternate" type="application/rss+xml" href="https://shikokuchuo.net/index.xml" />
 
   <style type="text/css">
   /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
@@ -88,27 +89,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>shikokuchuo{net}: Web 3.0 technologies</title>
+  <title>shikokuchuo{net}: shikokuchuo.net</title>
 
 
   <link rel="icon" type="image/png" href="favicon.png"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="shikokuchuo{net}: Web 3.0 technologies"/>
+  <meta property="og:title" content="shikokuchuo{net}: shikokuchuo.net"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="shikokuchuo{net}"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="shikokuchuo{net}: Web 3.0 technologies"/>
+  <meta property="twitter:title" content="shikokuchuo{net}: shikokuchuo.net"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","css"]}},"value":[{"type":"character","attributes":{},"value":["Web 3.0 technologies"]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["index.css"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site","listing"]}},"value":[{"type":"character","attributes":{},"value":["shikokuchuo.net"]},{"type":"character","attributes":{},"value":["distill::distill_website"]},{"type":"character","attributes":{},"value":["posts"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2411,16 +2412,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
-  <link rel="stylesheet" href="index.css" type="text/css"/>
 
 </head>
 
-<body>
+<body class="layout-listing">
 
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Web 3.0 technologies","authors":[]}
+{"title":"shikokuchuo.net","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2464,9 +2464,585 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
+<!--radix_placeholder_article_listing-->
+
+
+<script type="application/javascript">
+
+function init_posts_list() {
+
+  function load_image(img) {
+    var src = $(img).attr('data-src');
+    if (src) {
+      $(img).attr('src', src);
+      $(img).on("load", function() {
+        img.removeAttribute('data-src');
+      });
+    }
+  }
+
+  function set_posts_visible(posts, visible) {
+    if (visible) {
+
+      // show bottom border by default
+      $(posts).removeClass('post-preview-last');
+
+      // apply limits if need be
+      var max_posts = 25;
+      var apply_limits = $('.posts-container').hasClass('posts-apply-limit');
+      if (apply_limits && posts.length > max_posts) {
+        posts = $(posts).slice(0, max_posts);
+      } else {
+        $('.posts-more a').addClass('hidden');
+      }
+
+      // apply last style
+      $(posts.slice(-1)[0]).addClass('post-preview-last');
+
+      $(posts).removeClass('hidden');
+      $(posts).find('img[data-src]').each(function(i, img) {
+        load_image(img);
+      });
+    } else {
+      $(posts).addClass('hidden');
+    }
+  }
+
+  function apply_hash_filter() {
+
+    // clear active state
+    $('.categories .active').removeClass('active');
+
+    // mark all posts invisible to start
+    set_posts_visible($('.posts-list').children('a'), false);
+
+    // if we have a hash filter
+    if (window.location.hash && window.location.hash.startsWith("#category:")) {
+
+      // mark posts that match the category visible
+      var page_category = window.location.hash.replace(/^#category:/, "");
+      page_category = decodeURIComponent(page_category)
+      var posts = $('.post-metadata').map(function(idx, script) {
+        var metadata = $.parseJSON($(script).html());
+        var post = null;
+        $.each(metadata.categories, function(idx, category) {
+          category = category.replace(/ /g,"_");
+          if ((page_category || '').toLowerCase() === "articles" || category === page_category) {
+            post = $(script).parent().get();
+            return false;
+          }
+        });
+        return post;
+      });
+      set_posts_visible(posts, true);
+
+      // mark the hash active
+      $('.categories li>a[href="' + decodeURIComponent(window.location.hash) + '"]').addClass('active');
+
+      // update the list_caption
+      var list_caption = $('.posts-list-caption');
+      var caption = (page_category || '').toLowerCase() === "articles"
+        ? list_caption.attr('data-caption')
+        : ('Category: ' + page_category.replace(/_/g," "));
+      list_caption.text(caption);
+
+    } else {
+
+      // no hash filter, make all posts visible (subject to max display)
+      set_posts_visible($('.posts-list').children(), true);
+
+      // reset list caption
+      var list_caption = $('.posts-list-caption');
+      list_caption.text(list_caption.attr('data-caption'));
+
+
+    }
+  }
+
+  // more articles
+  function apply_post_limits(apply) {
+    if (apply) {
+      $('.posts-container').addClass('posts-apply-limit');
+      $('.posts-more a').removeClass('hidden');
+    } else {
+      $('.posts-container').removeClass('posts-apply-limit');
+      $('.posts-more a').addClass('hidden');
+    }
+  }
+
+  // click handling for tags
+  $('.dt-tag').click(function(ev) {
+    window.location.hash = '#category:' + $(this).text().replace(/ /g, "_");
+    return false;
+  })
+
+  // hash filter handling
+  apply_hash_filter();
+  $(window).on('hashchange',function() {
+    apply_post_limits(true);
+    apply_hash_filter();
+  });
+
+  // more articles link
+  $('.posts-more a').click(function(e) {
+    e.preventDefault();
+    apply_post_limits(false);
+    apply_hash_filter();
+    return false;
+  });
+
+}
+
+</script>
+
+
+
+<div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
+<div class="posts-list">
+<h1 class="posts-list-caption" data-caption="shikokuchuo.net">shikokuchuo.net</h1>
+<a href="posts/20-ncurl-sessions/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">Jan. 26, 2023</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/20-ncurl-sessions/ncurl-sessions_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>nanonext - High Performance Persistent HTTP Sessions</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>ncurl sessions</p>
+</div>
+</a>
+<a href="posts/19-nanonext-webtools/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">Sept. 8, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/19-nanonext-webtools/nanonext-webtools_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>nanonext - a web toolkit</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>async https and secure websocket client and cryptographic hashing</p>
+</div>
+</a>
+<a href="posts/18-reintroducing-mirai/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">April 18, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/18-reintroducing-mirai/reintroducing-mirai_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Re-introducing mirai - a minimalist async evaluation framework for R</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Concurrent code execution with maximum flexibility and automatic resolution</p>
+</div>
+</a>
+<a href="posts/17-nanonext-concurrency/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 18, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/17-nanonext-concurrency/nanonext-concurrency_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>nanonext - how it provides a concurrency framework for R</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>True async with automatic resolution</p>
+</div>
+</a>
+<a href="posts/16-introducing-mirai/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">Feb. 18, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img src="posts/16-introducing-mirai/introducing-mirai_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Introducing mirai - a minimalist async evaluation framework for R</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Concurrency and parallel code execution</p>
+</div>
+</a>
+<a href="posts/15-nanonext-exchange/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">Feb. 14, 2022</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/15-nanonext-exchange/nanonext-exchange_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>nanonext for Cross-language Data Exchange</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>A clean and robust approach to R / Python interoperability</p>
+</div>
+</a>
+<a href="posts/14-r-on-solaris/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">Aug. 23, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/14-r-on-solaris/r-on-solaris_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Installing an R Build Environment on Solaris</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Run R CMD check or devtools::check() on a local Solaris VM</p>
+</div>
+</a>
+<a href="posts/13-reverting/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">Aug. 12, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/13-reverting/reverting_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Reverting Git Commits</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Procedure to roll back both local and remote changes</p>
+</div>
+</a>
+<a href="posts/12-oanda-studio/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">July 26, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/12-oanda-studio/oanda-studio_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>R Shiny interface for the OANDA fxTrade API</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>ichimoku::oanda_studio()</p>
+</div>
+</a>
+<a href="posts/11-dataframes/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">July 23, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/11-dataframes/dataframes_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Efficient R: Performant data.frame constructors</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>How and when to use an alternative to as.data.frame</p>
+</div>
+</a>
+<a href="posts/10-combinations/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">June 17, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/10-combinations/combinations_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Efficient R: Combinations using expand.grid</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>A faster way to generate combinations for mapply and vapply</p>
+</div>
+</a>
+<a href="posts/09-docall-lapply/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 28, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/09-docall-lapply/docall-lapply_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Efficient R: do.call / lapply</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>A distinctive coding style</p>
+</div>
+</a>
+<a href="posts/08-ichimoku/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R","Quantitative Finance"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 19, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/08-ichimoku/ichimoku_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>ichimoku</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+<div class="dt-tag">Quantitative Finance</div>
+</div>
+<p>R package for Ichimoku Kinko Hyo cloud charts</p>
+</div>
+</a>
+<a href="posts/07-learning/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Resources","Learning"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 14, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/07-learning/learning_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Resources for learning</h2>
+<div class="dt-tags">
+<div class="dt-tag">Resources</div>
+<div class="dt-tag">Learning</div>
+</div>
+<p>A curated selection of online MOOCs</p>
+</div>
+</a>
+<a href="posts/06-datasets/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Resources","Data"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 5, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/06-datasets/datasets_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Datasets</h2>
+<div class="dt-tags">
+<div class="dt-tag">Resources</div>
+<div class="dt-tag">Data</div>
+</div>
+<p>For Econometrics and Machine Learning</p>
+</div>
+</a>
+<a href="posts/04-distill/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 4, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/04-distill/distill_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Distill for R Markdown</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Web publishing optimised for scientific and technical communication</p>
+</div>
+</a>
+<a href="posts/05-ghactions/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 4, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/05-ghactions/ghactions_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Github Actions with R</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Deploy and automate your code to the cloud</p>
+</div>
+</a>
+<a href="posts/03-rselenium/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 3, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/03-rselenium/rselenium_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>R | Selenium</h2>
+<div class="dt-tags">
+<div class="dt-tag">R</div>
+</div>
+<p>Programmatically drive a web browser</p>
+</div>
+</a>
+<a href="posts/02-resources/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Resources","Sustainability"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 2, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/02-resources/resources_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Resources for global sustainability</h2>
+<div class="dt-tags">
+<div class="dt-tag">Resources</div>
+<div class="dt-tag">Sustainability</div>
+</div>
+<p>A compendium</p>
+</div>
+</a>
+<a href="posts/01-authenticating/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["Photography","Cryptography"]}</script>
+<div class="metadata">
+<div class="publishedDate">May 1, 2021</div>
+<div class="dt-authors">
+<div class="dt-author">shikokuchuo</div>
+</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/01-authenticating/authenticating_files/figure-html5/index-1.png"/>
+</div>
+<div class="description">
+<h2>Authenticating photography using cryptographic hashing</h2>
+<div class="dt-tags">
+<div class="dt-tag">Photography</div>
+<div class="dt-tag">Cryptography</div>
+</div>
+<p>A proof of concept using R</p>
+</div>
+</a>
+</div>
+<div class="posts-sidebar">
+<div><div class="sidebar-section custom">
+R developer <a href="https://developer.r-project.org/blosxom.cgi/R-devel/NEWS">news</a>
+<br />
+Posts at <a href="https://www.r-bloggers.com">r-bloggers</a><br />
+Posts at <a href="https://rweekly.org">RWeekly.org</a>
+</div></div>
+<div class="sidebar-section categories">
+<h3>Categories</h3>
+<ul>
+<li>
+<a href="#category:Articles">Articles</a>
+<span class="category-count">(20)</span>
+</li>
+<li>
+<a href="#category:Cryptography">Cryptography</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:Data">Data</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:Learning">Learning</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:Photography">Photography</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:Quantitative_Finance">Quantitative Finance</a>
+<span class="category-count">(1)</span>
+</li>
+<li>
+<a href="#category:R">R</a>
+<span class="category-count">(16)</span>
+</li>
+<li>
+<a href="#category:Resources">Resources</a>
+<span class="category-count">(3)</span>
+</li>
+<li>
+<a href="#category:Sustainability">Sustainability</a>
+<span class="category-count">(1)</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="posts-more">
+<a href="#">More articles &raquo;</a>
+</div>
+</div>
+<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>Web 3.0 technologies</h1>
+<h1>shikokuchuo.net</h1>
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
@@ -2475,13 +3051,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<div class="l-screen">
-<p><img alt="Dawn over Shikokuchuo, from Mishima Park" src="img/SKC.jpg" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<pre><code>Welcome to Shikokuchuo. Use the navbar for projects, search box for articles.</code></pre>
-</div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
