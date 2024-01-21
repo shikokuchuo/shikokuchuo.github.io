@@ -21,7 +21,7 @@ navbar:
       icon: fas fa-paper-plane
       href: https://shikokuchuo.net/project/
     - text: "r-ichimoku"
-      icon: fab fa-r-project
+      icon: fa fa-mountain
       href: https://shikokuchuo.net/ichimoku/
     - text: "r-nanonext"
       icon: fas fa-chevron-right
@@ -29,6 +29,9 @@ navbar:
     - text: "r-mirai"
       icon: fa fa-refresh
       href: https://shikokuchuo.net/mirai/
+    - text: "r-secretbase"
+      icon: fa fa-key
+      href: https://shikokuchuo.net/secretbase/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
       href: https://shikokuchuo.net/
