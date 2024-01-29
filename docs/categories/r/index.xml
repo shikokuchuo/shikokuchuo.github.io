@@ -12,7 +12,173 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 26 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>mirai Parallel Clusters</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/21-mirai-parallel-clusters</link>
+      <description>
+
+
+&lt;h4 id="a-surprise"&gt;A surprise&lt;/h4&gt;
+&lt;p&gt;I came to write this post because I was surprised by its
+findings.&lt;/p&gt;
+&lt;p&gt;The seed for it came from a somewhat obscure source: the Tokyo.R
+slack channel.&lt;/p&gt;
+&lt;p&gt;This is actually a fairly vibrant R community. In any case, there was
+a post by an R user suprised to find parallel computation much slower
+than the sequential alternative - even though he had thousands, tens of
+thousands of ‘embarassingly parallel’ iterations to compute.&lt;/p&gt;
+&lt;p&gt;He demonstrated this with a simple benchmarking exercise, which
+showed a variety of parallel map functions from various packages (which
+shall remain nameless), each slower than the last, and (much) slower
+than the non-parallel versions.&lt;/p&gt;
+&lt;p&gt;The replies to this post could be anticipated, and mostly aimed to
+impart some of the received wisdom: namely that you need computations to
+be sufficiently complex to benefit from parallel processing, due to the
+extra overhead from sending and coordinating information to and from
+workers. For simple functions, it is just not worth the effort.&lt;/p&gt;
+&lt;p&gt;And this is indeed the ‘received wisdom’…&lt;/p&gt;
+&lt;p&gt;and I thought about it… and the benchmarking results continued to
+look really embarassing.&lt;/p&gt;
+&lt;p&gt;The implicit answer was just not particularly satisfying:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;‘sometimes it works, you just have to judge when’.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;And it didn’t really answer the original poster either - for he just
+attemped to expose the problem by using a simple example, not that his
+real usage was as simple.&lt;/p&gt;
+&lt;p&gt;The parallel methods just didn’t work. Or rather didn’t ‘just
+work’&lt;sup&gt;TM&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;And this is what sparked off The Investigation.&lt;/p&gt;
+&lt;h4 id="the-investigation"&gt;The Investigation&lt;/h4&gt;
+&lt;p&gt;It didn’t seem right that there should be such a high bar before
+parallel computations become beneficial in R.&lt;/p&gt;
+&lt;p&gt;My starting point would be &lt;a
+href="https://shikokuchuo.net/mirai"&gt;mirai&lt;/a&gt;, somewhat naturally (as
+I’m the author). I also knew that &lt;code&gt;mirai&lt;/code&gt; would be fast, as
+it was designed to be minimalist.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mirai&lt;/code&gt;? That’s みらい or Japanese for ‘future’. All you
+need to know for now is that it’s a package that can create its own
+special type of parallel clusters.&lt;/p&gt;
+&lt;p&gt;I had not done such a benchmarking exercise before as performance
+itself was not its &lt;em&gt;raison d’être&lt;/em&gt;. More than anything else, it
+was built as a reliable scheduler for distributed computing. It is the
+engine that powers &lt;a
+href="https://cran.r-project.org/package=crew"&gt;crew&lt;/a&gt;, the high
+performance computing element of &lt;a
+href="https://cran.r-project.org/package=targets"&gt;targets&lt;/a&gt;, where it
+is used in industrial-scale reproducible pipelines.&lt;/p&gt;
+&lt;p&gt;And this is what I found:&lt;/p&gt;
+&lt;h5
+id="applying-the-statistical-function-rpois-over-10000-iterations"&gt;Applying
+the statistical function &lt;code&gt;rpois()&lt;/code&gt; over 10,000
+iterations:&lt;/h5&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(parallel)
+library(mirai)
+
+base &amp;lt;- parallel::makeCluster(4)
+mirai &amp;lt;- mirai::make_cluster(4)
+
+x &amp;lt;- 1:10000
+
+res &amp;lt;- microbenchmark::microbenchmark(
+  parLapply(base, x, rpois, n = 1),
+  lapply(x, rpois, n = 1),
+  parLapply(mirai, x, rpois, n = 1)
+)
+
+ggplot2::autoplot(res) + ggplot2::theme_minimal()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/21-mirai-parallel-clusters/mirai-parallel-clusters_files/figure-html5/rpois-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;Using the ‘mirai’ cluster resulted in faster results than the simple
+non-parallel &lt;code&gt;lapply()&lt;/code&gt;, which was then in turn much faster
+than the base default parallel cluster.&lt;/p&gt;
+&lt;p&gt;Faster!&lt;/p&gt;
+&lt;p&gt;I’m only showing the comparison with base R functions. They’re often
+the most performant after all. The other packages that had featured in
+the original benchmarking suffer from an even greater overhead than that
+of base R, so there’s little point showing them above.&lt;/p&gt;
+&lt;p&gt;Let’s confirm with an even simpler function…&lt;/p&gt;
+&lt;h5 id="applying-the-base-function-sum-over-10000-iterations"&gt;Applying
+the base function &lt;code&gt;sum()&lt;/code&gt; over 10,000 iterations:&lt;/h5&gt;
+&lt;pre class="r"&gt;&lt;code&gt;res &amp;lt;- microbenchmark::microbenchmark(
+  parLapply(base, x, sum),
+  lapply(x, sum),
+  parLapply(mirai, x, sum)
+)
+
+ggplot2::autoplot(res) + ggplot2::theme_minimal()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/21-mirai-parallel-clusters/mirai-parallel-clusters_files/figure-html5/sum-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mirai&lt;/code&gt; holds its own! Not much faster than sequential,
+but not slower either.&lt;/p&gt;
+&lt;p&gt;But what if the data being transmitted back and forth is larger,
+would that make a difference? Well, let’s change up the original
+&lt;code&gt;rpois()&lt;/code&gt; example, but instead of iterating over lamba, have
+it return increasingly large vectors instead.&lt;/p&gt;
+&lt;h5
+id="applying-the-statistical-function-rpois-to-generate-random-vectors-around-length-10000"&gt;Applying
+the statistical function &lt;code&gt;rpois()&lt;/code&gt; to generate random vectors
+around length 10,000:&lt;/h5&gt;
+&lt;pre class="r"&gt;&lt;code&gt;x &amp;lt;- 9900:10100
+
+res &amp;lt;- microbenchmark::microbenchmark(
+  parLapplyLB(base, x, rpois, lambda = 1),
+  lapply(x, rpois, lambda = 1),
+  parLapplyLB(mirai, x, rpois, lambda = 1)
+)
+
+ggplot2::autoplot(res) + ggplot2::theme_minimal()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/21-mirai-parallel-clusters/mirai-parallel-clusters_files/figure-html5/rpois2-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;The advantage is maintained! &lt;a href="#fn1" class="footnote-ref"
+id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;So ultimately, what does this all mean?&lt;/p&gt;
+&lt;p&gt;Well, quite significantly, that virtually any place you have
+‘embarassingly parallel’ code where you would use &lt;code&gt;lapply()&lt;/code&gt;
+or &lt;code&gt;purrr::map()&lt;/code&gt;, you can now confidently replace with a
+parallel &lt;code&gt;parLapply()&lt;/code&gt; using a ‘mirai’ cluster.&lt;/p&gt;
+&lt;p&gt;The answer is &lt;strong&gt;no longer&lt;/strong&gt; &lt;em&gt;‘sometimes it works, you
+just have to judge when’&lt;/em&gt;, but:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;‘yes, it works!’.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id="what-is-this-magic"&gt;What is this Magic&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;mirai&lt;/code&gt; uses the latest &lt;a
+href="https://nng.nanomsg.org/"&gt;NNG&lt;/a&gt; (Nanomsg Next Generation)
+technology, a lightweight messaging library and concurrency framework &lt;a
+href="#fn2" class="footnote-ref" id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; - which
+means that the communications layer is so fast that this no longer
+creates a bottleneck.&lt;/p&gt;
+&lt;p&gt;The package leverages new connection types such as IPC (inter-process
+communications), that are not available to base R. As part of R Project
+Sprint 2023, R Core invited participants to provide alternative
+commnunications backends for the &lt;code&gt;parallel&lt;/code&gt; package, and
+‘mirai’ clusters were born as a result.&lt;/p&gt;
+&lt;p&gt;A ‘mirai’ cluster is simply another type of ‘parallel’ cluster, and
+are persistent background processes utilising cores on your own machine,
+or on other machines across the network (HPCs or even the cloud).&lt;/p&gt;
+&lt;p&gt;I’ll leave it here for this post. You’re welcome to give
+&lt;code&gt;mirai&lt;/code&gt; a try, it’s available on CRAN and at &lt;a
+href="https://github.com/shikokuchuo/mirai"
+class="uri"&gt;https://github.com/shikokuchuo/mirai&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="footnotes footnotes-end-of-document"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn1"&gt;&lt;p&gt;The load-balanced version &lt;code&gt;parLapplyLB()&lt;/code&gt; is
+used to show that this variant works equally well.&lt;a href="#fnref1"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id="fn2"&gt;&lt;p&gt;Through the &lt;a
+href="https://shikokuchuo.net/nanonext"&gt;nanonext&lt;/a&gt; package, a
+high-performance R binding.&lt;a href="#fnref2"
+class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">f7cb9fbb06a980b938e0c849695c1d04</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/21-mirai-parallel-clusters</guid>
+      <pubDate>Mon, 29 Jan 2024 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/21-mirai-parallel-clusters/mirai-parallel-clusters_files/figure-html5/rpois-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>nanonext - High Performance Persistent HTTP Sessions</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>

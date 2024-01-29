@@ -1,5 +1,5 @@
 ---
-title: "Web 3.0 technologies"
+title: "Advanced R technologies"
 site: distill::distill_website
 css: index.css
 ---

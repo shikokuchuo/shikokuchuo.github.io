@@ -12,7 +12,17 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 26 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>mirai Parallel Clusters</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/21-mirai-parallel-clusters</link>
+      <description>Making parallel processing work (better) in R</description>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/21-mirai-parallel-clusters</guid>
+      <pubDate>Mon, 29 Jan 2024 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/21-mirai-parallel-clusters/mirai-parallel-clusters_files/figure-html5/rpois-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>nanonext - High Performance Persistent HTTP Sessions</title>
       <dc:creator>shikokuchuo</dc:creator>
