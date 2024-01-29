@@ -113,7 +113,7 @@ ggplot2::autoplot(res) + ggplot2::theme_minimal()&lt;/code&gt;&lt;/pre&gt;
 but not slower either.&lt;/p&gt;
 &lt;p&gt;But what if the data being transmitted back and forth is larger,
 would that make a difference? Well, let’s change up the original
-&lt;code&gt;rpois()&lt;/code&gt; example, but instead of iterating over lamba, have
+&lt;code&gt;rpois()&lt;/code&gt; example, but instead of iterating over lambda, have
 it return increasingly large vectors instead.&lt;/p&gt;
 &lt;h5
 id="applying-the-statistical-function-rpois-to-generate-random-vectors-around-length-10000"&gt;Applying
