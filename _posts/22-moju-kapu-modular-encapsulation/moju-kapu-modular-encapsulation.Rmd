@@ -32,7 +32,7 @@ A layered engineering approach is advocated, where functionality can be filled a
 
 {mirai} [^1] is a package implementing asynchronous evaluation for R [^2] – fast parallel code execution and distributed computing. It follows the 'moju-kapu' paradigm by creating a tight core proposition, with extensions enabled by a complement of external interfaces.
 
-[^1]: Gao (2024), mirai: Asynchronous Evaluation for R, <https://doi.org/10.5281/zenodo.7912722>, <https://github.com/shikokuchuo/mirai>
+[^1]: Gao (2024), mirai: Minimalist Async Evaluation Framework for R, <https://doi.org/10.5281/zenodo.7912722>, <https://github.com/shikokuchuo/mirai>
 
 [^2]: R Core Team (2023), R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>
 

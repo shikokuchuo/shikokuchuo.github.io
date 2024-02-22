@@ -20,7 +20,7 @@
       <description>
 
 
-&lt;p&gt;&lt;img src="file9e7f1ed73a0f_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="file4fe41e9934e0_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
 &lt;h4 id="introduction"&gt;Introduction&lt;/h4&gt;
 &lt;p&gt;Moju-kapu （モジュカプ） is shorthand for modular encapsulation
 （モジュラーカプセル化）.&lt;/p&gt;
@@ -111,8 +111,8 @@ than it would be solely as a modular ‘tool’.&lt;/p&gt;
 &lt;div class="footnotes footnotes-end-of-document"&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao (2024), mirai: Asynchronous Evaluation for R, &lt;a
-href="https://doi.org/10.5281/zenodo.7912722"
+&lt;li id="fn1"&gt;&lt;p&gt;Gao (2024), mirai: Minimalist Async Evaluation Framework
+for R, &lt;a href="https://doi.org/10.5281/zenodo.7912722"
 class="uri"&gt;https://doi.org/10.5281/zenodo.7912722&lt;/a&gt;, &lt;a
 href="https://github.com/shikokuchuo/mirai"
 class="uri"&gt;https://github.com/shikokuchuo/mirai&lt;/a&gt;&lt;a href="#fnref1"
