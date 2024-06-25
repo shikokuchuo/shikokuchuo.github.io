@@ -42,7 +42,7 @@ their own blog post.&lt;/p&gt;
 &lt;p&gt;The print method for a &lt;code&gt;mirai&lt;/code&gt; has been pared back to one
 line. There is simply no reason to take up any more screen real
 estate.&lt;/p&gt;
-&lt;p&gt;More recently, it actually indicates if a mirai has resoved or not.
+&lt;p&gt;More recently, it actually indicates if a mirai has resolved or not.
 This is possible as the check is so optimised (on the nanosecond scale)
 that it doesn’t very well make sense &lt;em&gt;not&lt;/em&gt; to include it.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;(m &amp;lt;- mirai({})) # unresolved&lt;/code&gt;&lt;/pre&gt;

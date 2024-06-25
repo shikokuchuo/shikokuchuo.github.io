@@ -31,7 +31,7 @@ Here, I want to recap on some of the little things that have changed since aroun
 
 The print method for a `mirai` has been pared back to one line. There is simply no reason to take up any more screen real estate.
 
-More recently, it actually indicates if a mirai has resoved or not. This is possible as the check is so optimised (on the nanosecond scale) that it doesn't very well make sense *not* to include it.
+More recently, it actually indicates if a mirai has resolved or not. This is possible as the check is so optimised (on the nanosecond scale) that it doesn't very well make sense *not* to include it.
 
 ```{r miraiunres, echo=TRUE}
 (m <- mirai({})) # unresolved
