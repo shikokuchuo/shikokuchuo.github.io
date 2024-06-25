@@ -25,7 +25,7 @@ plot(imager::load.image(file.path("_images", list.files("_images"))), axes = FAL
 
 The last couple of quarters have been somwhat of a whirlwind for [`mirai`](https://shikokuchuo.net/mirai/). Whether that's been working with Joe Cheng (CTO, Posit and creator of the Shiny framework) to implement the next generation of promises, introducing `mirai_map()` as an 'async-native' map function, or reaching 1.0.0 release and being accepted for full presentations at useR!2024 and Posit::conf. But the flagship features can all wait to be reviewed in depth.
 
-Here, I want to recap on some of the little things that have changed since around v0.12 released in January of this year. Things that really improve the quality of life for new and loyal [`mirai`](https://shikokuchuo.net/mirai/) users alike. Sometimes it's these that make the biggest difference, as we strive to take a somewhat thoughtful approach to incoporating new features and requests. I've picked 10 items, in no particular order, with the only proviso being that they are small enough not to merit their own blog post.
+Here, I want to recap on some of the little things that have changed since around v0.12 released in January of this year. Things that really improve the quality of life for new and loyal [`mirai`](https://shikokuchuo.net/mirai/) users alike. Sometimes it's these that make the biggest difference, as we strive to take a somewhat thoughtful approach to incorporating new features and requests. I've picked 10 items, in no particular order, with the only proviso being that they are small enough not to merit their own blog post.
 
 #### 1. Minimalism
 
