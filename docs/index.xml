@@ -12,147 +12,22 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 21 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>mirai - Quality of Life Updates</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/23-mirai-quality-of-life-updates</link>
+      <description>Ten Small Improvements</description>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/23-mirai-quality-of-life-updates</guid>
+      <pubDate>Tue, 25 Jun 2024 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/23-mirai-quality-of-life-updates/mirai-quality-of-life-updates_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Moju-kapu（モジュカプ）Modular Encapsulation</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/22-moju-kapu-modular-encapsulation</link>
-      <description>
-
-
-&lt;p&gt;&lt;img src="file4fe41e9934e0_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
-&lt;h4 id="introduction"&gt;Introduction&lt;/h4&gt;
-&lt;p&gt;Moju-kapu （モジュカプ） is shorthand for modular encapsulation
-（モジュラーカプセル化）.&lt;/p&gt;
-&lt;p&gt;It is a software design paradigm which emphasises the inherent
-balance in building effective stand-alone tools that together form
-entire integrated systems. It requires modularity such that each piece
-of software is self-contained, contributing unique functionality in its
-own right, but at the same time extensible and readily encapsulated by
-other systems.&lt;/p&gt;
-&lt;p&gt;Moju-kapu is about building out core functionality, and recognising
-the natural limits of a piece of software such that it does not become
-monolithic, but harks to the Unix philosophy of doing one thing and
-doing it well. However it extends this idea with providing interfaces
-for developers as well as end-users, to enable the software to be easily
-extended in foreseeable ways.&lt;/p&gt;
-&lt;p&gt;A layered engineering approach is advocated, where functionality can
-be filled at any layer, with interfaces to solutions, existing or
-future, at others. It does not attempt to simplistically define software
-as modular tools, nor as empty encompassing frameworks.&lt;/p&gt;
-&lt;h4 id="example"&gt;Example&lt;/h4&gt;
-&lt;p&gt;{mirai} &lt;a href="#fn1" class="footnote-ref"
-id="fnref1"&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; is a package implementing asynchronous
-evaluation for R &lt;a href="#fn2" class="footnote-ref"
-id="fnref2"&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; – fast parallel code execution and
-distributed computing. It follows the ‘moju-kapu’ paradigm by creating a
-tight core proposition, with extensions enabled by a complement of
-external interfaces.&lt;/p&gt;
-&lt;h5 id="modular"&gt;Modular&lt;/h5&gt;
-&lt;p&gt;The package has an inherently modular internal design. The adoption
-of ‘compute profiles’, allows each to keep its own internal state. In
-the terminology of the package, it allows different ‘daemons’ settings
-concurrently, where ‘daemons’ are background processes (local or remote)
-that accept computations.&lt;/p&gt;
-&lt;p&gt;This internal modularity allows it to scale massively, and fits
-workflows where certain computations need to be sent to specific workers
-with special resources such as GPUs or accelerators. It also allows
-segregating different types of usage such that the user interface may
-function independently of those created by other packages using {mirai}
-as a backend (see below).&lt;/p&gt;
-&lt;p&gt;This is functionality that is essential to {mirai} and implemented at
-its core.&lt;/p&gt;
-&lt;h5 id="encapsulation"&gt;Encapsulation&lt;/h5&gt;
-&lt;p&gt;The package has the following explicit external interfaces:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;user interface - minimalist consisting mainly of two functions -
-&lt;code&gt;mirai()&lt;/code&gt; and &lt;code&gt;daemons()&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;developer interface - functions that provide an interface
-specfically for extension packages.&lt;/li&gt;
-&lt;li&gt;‘parallel’ &lt;a href="#fn3" class="footnote-ref"
-id="fnref3"&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt; interface - creates ‘cluster’ objects that
-provide a backend for the ‘parallel’ base R package.&lt;/li&gt;
-&lt;li&gt;‘promises’ &lt;a href="#fn4" class="footnote-ref"
-id="fnref4"&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt; interface - provides a method that enables
-‘mirai’ to be used as ‘promises’.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The last two interfaces are not inherent to the functionality of the
-package itself, hence would not exist if modularity were the sole design
-goal. However, they provide the necessary interfaces for mirai to be
-encapsulated by packages that already provide fundamental building
-blocks in the R ecosystem. Putting in these interfaces enhances these
-existing packages by making them more performant, or extending their
-functionality to distributed computing etc.&lt;/p&gt;
-&lt;p&gt;It allows, for example, {shiny} &lt;a href="#fn5" class="footnote-ref"
-id="fnref5"&gt;&lt;sup&gt;5&lt;/sup&gt;&lt;/a&gt; and {plumber} &lt;a href="#fn6"
-class="footnote-ref" id="fnref6"&gt;&lt;sup&gt;6&lt;/sup&gt;&lt;/a&gt;, both promises-powered
-packages, to easily scale and distribute long-running tasks to servers
-over the network.&lt;/p&gt;
-&lt;p&gt;The developer interface provides safe and easy (read-only) access to
-mirai internals (the modular compute profiles) for extension packages
-that provide alternative launchers of ‘daemon’ processes. This has been
-designed for use by extension packages, and has notably been used by
-{crew} &lt;a href="#fn7" class="footnote-ref" id="fnref7"&gt;&lt;sup&gt;7&lt;/sup&gt;&lt;/a&gt;,
-the new default for high-performance computing in {targets} &lt;a
-href="#fn8" class="footnote-ref" id="fnref8"&gt;&lt;sup&gt;8&lt;/sup&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;{crew} extends {mirai} to different computing environments such as
-traditional clusters or the cloud. It also has functionality for
-auto-scaling daemons according to demand, which is important due to the
-potential cost of resources in these high-powered environments. This is
-a key example of functionality being filled at the most appropriate
-layer - in this case {crew} where it is most applicable, rather than at
-{mirai} where it would be an under-utilised feature in the majority of
-contexts.&lt;/p&gt;
-&lt;h4 id="conclusion"&gt;Conclusion&lt;/h4&gt;
-&lt;p&gt;By adopting ‘moju-kapu’ as its overall design ethos, {mirai} serves a
-much wider section of the R ecosystem, and is inherently more impactful
-than it would be solely as a modular ‘tool’.&lt;/p&gt;
-&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;div class="footnotes footnotes-end-of-document"&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id="fn1"&gt;&lt;p&gt;Gao (2024), mirai: Minimalist Async Evaluation Framework
-for R, &lt;a href="https://doi.org/10.5281/zenodo.7912722"
-class="uri"&gt;https://doi.org/10.5281/zenodo.7912722&lt;/a&gt;, &lt;a
-href="https://github.com/shikokuchuo/mirai"
-class="uri"&gt;https://github.com/shikokuchuo/mirai&lt;/a&gt;&lt;a href="#fnref1"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn2"&gt;&lt;p&gt;R Core Team (2023), R: A Language and Environment for
-Statistical Computing. R Foundation for Statistical Computing, Vienna,
-Austria. &lt;a href="https://www.R-project.org/"
-class="uri"&gt;https://www.R-project.org/&lt;/a&gt;&lt;a href="#fnref2"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn3"&gt;&lt;p&gt;&lt;a
-href="https://shikokuchuo.net/mirai/articles/parallel.html"
-class="uri"&gt;https://shikokuchuo.net/mirai/articles/parallel.html&lt;/a&gt;&lt;a
-href="#fnref3" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn4"&gt;&lt;p&gt;&lt;a
-href="https://shikokuchuo.net/mirai/articles/promises.html"
-class="uri"&gt;https://shikokuchuo.net/mirai/articles/promises.html&lt;/a&gt;&lt;a
-href="#fnref4" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn5"&gt;&lt;p&gt;&lt;a
-href="https://shikokuchuo.net/mirai/articles/shiny.html"
-class="uri"&gt;https://shikokuchuo.net/mirai/articles/shiny.html&lt;/a&gt;&lt;a
-href="#fnref5" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn6"&gt;&lt;p&gt;&lt;a
-href="https://shikokuchuo.net/mirai/articles/plumber.html"
-class="uri"&gt;https://shikokuchuo.net/mirai/articles/plumber.html&lt;/a&gt;&lt;a
-href="#fnref6" class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn7"&gt;&lt;p&gt;Landau WM (2023), crew: A Distributed Worker Launcher
-Framework, &lt;a href="https://wlandau.github.io/crew/"
-class="uri"&gt;https://wlandau.github.io/crew/&lt;/a&gt;, &lt;a
-href="https://github.com/wlandau/crew"
-class="uri"&gt;https://github.com/wlandau/crew&lt;/a&gt;&lt;a href="#fnref7"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id="fn8"&gt;&lt;p&gt;Landau, W. M., (2021), The targets R package: a dynamic
-Make-like function-oriented pipeline toolkit for reproducibility and
-high-performance computing. Journal of Open Source Software, 6(57),
-2959, &lt;a href="https://doi.org/10.21105/joss.02959"
-class="uri"&gt;https://doi.org/10.21105/joss.02959&lt;/a&gt;&lt;a href="#fnref8"
-class="footnote-back"&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;</description>
-      <distill:md5>90927767ad51d4a063dea7c264b1d348</distill:md5>
+      <description>A New Software Design Paradigm</description>
       <category>R</category>
       <guid>https://shikokuchuo.net/posts/22-moju-kapu-modular-encapsulation</guid>
       <pubDate>Wed, 21 Feb 2024 00:00:00 +0000</pubDate>

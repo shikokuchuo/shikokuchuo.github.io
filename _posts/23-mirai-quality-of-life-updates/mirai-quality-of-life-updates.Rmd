@@ -1,0 +1,161 @@
+---
+title: "mirai - Quality of Life Updates"
+description: |
+  Ten Small Improvements
+author:
+  - name: shikokuchuo
+date: 2024-06-25
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(mirai)
+```
+
+```{r index, echo=FALSE}
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(file.path("_images", list.files("_images"))), axes = FALSE)
+```
+
+The last couple of quarters have been somwhat of a whirlwind for [`mirai`](https://shikokuchuo.net/mirai/). Whether that's been working with Joe Cheng (CTO, Posit and creator of the Shiny framework) to implement the next generation of promises, introducing `mirai_map()` as an 'async-native' map function, or reaching 1.0.0 release and being accepted for full presentations at useR!2024 and Posit::conf. But the flagship features can all wait to be reviewed in depth.
+
+Here, I want to recap on some of the little things that have changed since around v0.12 released in January of this year. Things that really improve the quality of life for new and loyal [`mirai`](https://shikokuchuo.net/mirai/) users alike. Sometimes it's these that make the biggest difference, as we strive to take a somewhat thoughtful approach to incoporating new features and requests. I've picked 10 items, in no particular order, with the only proviso being that they are small enough not to merit their own blog post.
+
+#### 1. Minimalism
+
+The print method for a `mirai` has been pared back to one line. There is simply no reason to take up any more screen real estate.
+
+More recently, it actually indicates if a mirai has resoved or not. This is possible as the check is so optimised (on the nanosecond scale) that it doesn't very well make sense *not* to include it.
+
+```{r miraiunres, echo=TRUE}
+(m <- mirai({})) # unresolved
+```
+
+```{r miraires, echo=TRUE}
+(call_mirai(m)) # resolved
+```
+
+#### 2. Unseen Improvements
+
+Since the start of the year, the package has been made robust to memory leaks along error paths. We're confident in making this claim as test coverage is 100% for the package - rounded up (:
+
+This was a massive engineering effort over the Christmas break, mostly in the underlying [`nanonext`](https://shikokuchuo.net/nanonext/) package, that included delving into the depths of R's C API for gems like `R_UnwindProtect()`, and verifying the results using 'Valgrind'. The entire effort was inspired by this post by Hiroaki Yutani: <https://yutani.rbind.io/post/dont-panic-we-can-unwind/>
+
+#### 3. More Signalling
+
+Those familiar with the operation of mirai know that it adopts a completely event-driven approach, relying on synchronization primitives and events, such as message completion, being signalled from different threads. There are no loops which constantly check for updates. This means we achieve both zero latency and no resource utilization while waiting, which was always a tradeoff between the two using the dated polling approach.
+
+But even more signalling?! Well, actually the ability to pass a signal value such as `tools::SIGINT` to the 'autoexit' parameter of `daemon()`. This is a feature that makes `mirai` more fit for certain use cases.
+
+``` r
+daemons(8, autoexit = tools::SIGINT)
+```
+
+The default behaviour for daemons is that even if the host process ends, daemons finish what they are doing before exiting. This is perfect for tasks such as checkpointing deep learning models where you want such tasks to finish regardless of what happens in the main process, precisely because you know the main process is liable to instability.
+
+However for working on a lengthy linear pipeline performing Bayesian statistics on expensive cloud servers, you would want such processes to end immediately if the main process dies. This is now possible by supplying an appropriate interrupt.
+
+#### 4. Less surprising by default
+
+The `...` and `.args` arguments to `mirai()` previously kind of fulfilled the same purpose. And `.args` could awkardly take both a named or unnamed list.
+
+Now, they have clearly delineated uses. In fact, for simplicity we now encourage only the use of `...`.
+
+This is as using `...` won't give surprises.
+
+By design, mirai evaluation occurs in a new clean environment, where `.args` parameters are put. For those used to working with scripts within the global environment and expecting behaviours to carry over in mirai evaluations, this could cause surprises when supplying functions defined with variables that live in the global environment. As `...` parameters are explicitly placed into the global environment of the daemon processes, the expected behaviour then carries over.
+
+However, by enabling `...`. and `.args` to do different things, the interface becomes more parsimonious and allows mirai to retain the flexibility and best of both worlds. All while still trying to be a little less surprising by default...
+
+#### 5. Environment convenience
+
+The `...` and `.args` arguments to `mirai()` now both accept an environment as the first/only argument.
+
+This allows conveniently passing all the objects defined in a local environment or a script, without having to list each one individually. A pertinent use case is with Shiny ExtendedTask:
+
+``` r
+task <- shiny::ExtendedTask$new(
+  function(a, b, c, x, y, z) mirai({ a * b * c + x + y - z }, environment())
+)
+```
+
+All the variables defined by the anonymous function arguments are passed through to the mirai when it is invoked.
+
+#### 6. Vectorization
+
+The functions `unresolved()`, `call_mirai()`, `collect_mirai()` and `stop_mirai()` now all accept a list of mirai. This is ostensibly for compatibility with `mirai_map()`, but extends to any list of mirai objects.
+
+So no need for any more statements like:
+
+``` r
+lapply(list_of_mirai, .subset2, "data")
+```
+
+This is now a clean, efficient (and faster):
+
+``` r
+collect_mirai(list_of_mirai)
+```
+
+#### 7. The mirai `[]` method
+
+Previously, collecting the value of a mirai involved a call to `call_mirai()`, which waits for the mirai to resolve, but then returns the mirai itself. So to access the data at `$data` requires:
+
+```{r miraicall, echo=TRUE}
+m <- mirai(TRUE)
+call_mirai(m)$data
+```
+
+Of course, we also had to remember to use `call_mirai_()` if we wanted this operation to be user-interruptible.
+
+Now we recommend the use of `x[]` which waits for and returns the value of a mirai `x` directly.
+
+```{r miraicall2, echo=TRUE}
+m <- mirai(TRUE)
+m[]
+```
+
+This makes the user interface even more minimal. The function `mirai()` is all that is required. This method is also user-interruptible to avoid any potential surprises.
+
+#### 8. The `with()` method for `daemons()`
+
+Designed for a Shiny `runApp()` call, the `with()` method can be used to conveniently run any series of mirai calls with daemons settings which are then automatically torn down when they finish.
+
+This can help to more clearly define intent within blocks of code. In the Shiny context, it can be confusing where to put the `daemons()` call in a Shiny app - at the top level or within the server component etc.
+
+The recommended Shiny workflow is to first create a Shiny app object, and then run it like so:
+
+``` r
+app <- shinyApp(server, ui, session)
+with(daemons(8), runApp(app))
+```
+
+#### 9. Error stack traces
+
+Implementing a request by Joe Cheng, a 'miraiError' now returns the stack trace of the daemon process to aid debugging. It is simply available on the 'miraiError' object at `$stack.trace`.
+
+```{r stack, echo=TRUE}
+m <- mirai({func1 <- function() func2(); func2 <- function() func3(); func1()})
+m[]
+m$data$stack.trace
+```
+
+This is elegantly implemented behind the scenes using a combination of R's calling handler and restart system, direct descendants of R's Common Lisp heritage.
+
+#### 10. Retry and resilience
+
+Again, aiming for behaviour to be less suprising, the built-in automatic retry mechanism in the underlying 'NNG' C library is now turned off by default. Disabling features? Well, sometimes 'less is more'.
+
+Previously, for the non-dispatcher case, the retry behaviour was governed by the argument 'resilience' at `daemons()`, with default TRUE. This unfortunately meant that if a piece of buggy code caused a crash, it would be re-tried and crash all connected daemons. This is now disabled for the non-dispatcher case, with the mirai returning an 'errorValue' instead.
+
+When using dispatcher, the behaviour is slightly different as the problematic code would be isolated at a particular daemon instance. This provided much more control over how to handle such errors, with the ability to manually cancel such tasks using `saisei()`. However a 'retry' argument has now been added at `dispatcher()` with a default of FALSE. This is as a mirai could remain unresolved indefinitely if retries are enabled. This is something that is not always obvious to check for, although possible by inspecting `status()`.
+
+This behavioural update will be completed with the imminent release of mirai version 1.1.1, closely co-ordinated with updates to `crew` by Will Landau, a package that extends mirai and integrates it as the high performance computing backend for `targets` reproducible workflows.
+
+<br /> And that's it! A whistle-stop tour of lots of different types of improvement. All designed to ensure that [`mirai`](https://shikokuchuo.net/mirai/) remains best in class for everything it does. If you have any comments or suggestions, please post in the issues or discussions at the package repository: <https://github.com/shikokuchuo/mirai/>

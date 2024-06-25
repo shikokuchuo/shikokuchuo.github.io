@@ -12,7 +12,205 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 21 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tues, 25 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>mirai - Quality of Life Updates</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/23-mirai-quality-of-life-updates</link>
+      <description>
+
+
+&lt;p&gt;&lt;img src="https://shikokuchuo.net/posts/23-mirai-quality-of-life-updates/23-mirai-quality-of-life-updates_files/figure-html5/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;The last couple of quarters have been somwhat of a whirlwind for &lt;a
+href="https://shikokuchuo.net/mirai/"&gt;&lt;code&gt;mirai&lt;/code&gt;&lt;/a&gt;. Whether
+that’s been working with Joe Cheng (CTO, Posit and creator of the Shiny
+framework) to implement the next generation of promises, introducing
+&lt;code&gt;mirai_map()&lt;/code&gt; as an ‘async-native’ map function, or reaching
+1.0.0 release and being accepted for full presentations at useR!2024 and
+Posit::conf. But the flagship features can all wait to be reviewed in
+depth.&lt;/p&gt;
+&lt;p&gt;Here, I want to recap on some of the little things that have changed
+since around v0.12 released in January of this year. Things that really
+improve the quality of life for new and loyal &lt;a
+href="https://shikokuchuo.net/mirai/"&gt;&lt;code&gt;mirai&lt;/code&gt;&lt;/a&gt; users
+alike. Sometimes it’s these that make the biggest difference, as we
+strive to take a somewhat thoughtful approach to incoporating new
+features and requests. I’ve picked 10 items, in no particular order,
+with the only proviso being that they are small enough not to merit
+their own blog post.&lt;/p&gt;
+&lt;h4 id="minimalism"&gt;1. Minimalism&lt;/h4&gt;
+&lt;p&gt;The print method for a &lt;code&gt;mirai&lt;/code&gt; has been pared back to one
+line. There is simply no reason to take up any more screen real
+estate.&lt;/p&gt;
+&lt;p&gt;More recently, it actually indicates if a mirai has resoved or not.
+This is possible as the check is so optimised (on the nanosecond scale)
+that it doesn’t very well make sense &lt;em&gt;not&lt;/em&gt; to include it.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;(m &amp;lt;- mirai({})) # unresolved&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt; mirai [] &amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;(call_mirai(m)) # resolved&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt; mirai [$data] &amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="unseen-improvements"&gt;2. Unseen Improvements&lt;/h4&gt;
+&lt;p&gt;Since the start of the year, the package has been made robust to
+memory leaks along error paths. We’re confident in making this claim as
+test coverage is 100% for the package - rounded up (:&lt;/p&gt;
+&lt;p&gt;This was a massive engineering effort over the Christmas break,
+mostly in the underlying &lt;a
+href="https://shikokuchuo.net/nanonext/"&gt;&lt;code&gt;nanonext&lt;/code&gt;&lt;/a&gt;
+package, that included delving into the depths of R’s C API for gems
+like &lt;code&gt;R_UnwindProtect()&lt;/code&gt;, and verifying the results using
+‘Valgrind’. The entire effort was inspired by this post by Hiroaki
+Yutani: &lt;a href="https://yutani.rbind.io/post/dont-panic-we-can-unwind/"
+class="uri"&gt;https://yutani.rbind.io/post/dont-panic-we-can-unwind/&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="more-signalling"&gt;3. More Signalling&lt;/h4&gt;
+&lt;p&gt;Those familiar with the operation of mirai know that it adopts a
+completely event-driven approach, relying on synchronization primitives
+and events, such as message completion, being signalled from different
+threads. There are no loops which constantly check for updates. This
+means we achieve both zero latency and no resource utilization while
+waiting, which was always a tradeoff between the two using the dated
+polling approach.&lt;/p&gt;
+&lt;p&gt;But even more signalling?! Well, actually the ability to pass a
+signal value such as &lt;code&gt;tools::SIGINT&lt;/code&gt; to the ‘autoexit’
+parameter of &lt;code&gt;daemon()&lt;/code&gt;. This is a feature that makes
+&lt;code&gt;mirai&lt;/code&gt; more fit for certain use cases.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;daemons(8, autoexit = tools::SIGINT)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The default behaviour for daemons is that even if the host process
+ends, daemons finish what they are doing before exiting. This is perfect
+for tasks such as checkpointing deep learning models where you want such
+tasks to finish regardless of what happens in the main process,
+precisely because you know the main process is liable to
+instability.&lt;/p&gt;
+&lt;p&gt;However for working on a lengthy linear pipeline performing Bayesian
+statistics on expensive cloud servers, you would want such processes to
+end immediately if the main process dies. This is now possible by
+supplying an appropriate interrupt.&lt;/p&gt;
+&lt;h4 id="less-surprising-by-default"&gt;4. Less surprising by default&lt;/h4&gt;
+&lt;p&gt;The &lt;code&gt;...&lt;/code&gt; and &lt;code&gt;.args&lt;/code&gt; arguments to
+&lt;code&gt;mirai()&lt;/code&gt; previously kind of fulfilled the same purpose. And
+&lt;code&gt;.args&lt;/code&gt; could awkardly take both a named or unnamed list.&lt;/p&gt;
+&lt;p&gt;Now, they have clearly delineated uses. In fact, for simplicity we
+now encourage only the use of &lt;code&gt;...&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This is as using &lt;code&gt;...&lt;/code&gt; won’t give surprises.&lt;/p&gt;
+&lt;p&gt;By design, mirai evaluation occurs in a new clean environment, where
+&lt;code&gt;.args&lt;/code&gt; parameters are put. For those used to working with
+scripts within the global environment and expecting behaviours to carry
+over in mirai evaluations, this could cause surprises when supplying
+functions defined with variables that live in the global environment. As
+&lt;code&gt;...&lt;/code&gt; parameters are explicitly placed into the global
+environment of the daemon processes, the expected behaviour then carries
+over.&lt;/p&gt;
+&lt;p&gt;However, by enabling &lt;code&gt;...&lt;/code&gt;. and &lt;code&gt;.args&lt;/code&gt; to do
+different things, the interface becomes more parsimonious and allows
+mirai to retain the flexibility and best of both worlds. All while still
+trying to be a little less surprising by default…&lt;/p&gt;
+&lt;h4 id="environment-convenience"&gt;5. Environment convenience&lt;/h4&gt;
+&lt;p&gt;The &lt;code&gt;...&lt;/code&gt; and &lt;code&gt;.args&lt;/code&gt; arguments to
+&lt;code&gt;mirai()&lt;/code&gt; now both accept an environment as the first/only
+argument.&lt;/p&gt;
+&lt;p&gt;This allows conveniently passing all the objects defined in a local
+environment or a script, without having to list each one individually. A
+pertinent use case is with Shiny ExtendedTask:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;task &amp;lt;- shiny::ExtendedTask$new(
+  function(a, b, c, x, y, z) mirai({ a * b * c + x + y - z }, environment())
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;All the variables defined by the anonymous function arguments are
+passed through to the mirai when it is invoked.&lt;/p&gt;
+&lt;h4 id="vectorization"&gt;6. Vectorization&lt;/h4&gt;
+&lt;p&gt;The functions &lt;code&gt;unresolved()&lt;/code&gt;, &lt;code&gt;call_mirai()&lt;/code&gt;,
+&lt;code&gt;collect_mirai()&lt;/code&gt; and &lt;code&gt;stop_mirai()&lt;/code&gt; now all
+accept a list of mirai. This is ostensibly for compatibility with
+&lt;code&gt;mirai_map()&lt;/code&gt;, but extends to any list of mirai objects.&lt;/p&gt;
+&lt;p&gt;So no need for any more statements like:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;lapply(list_of_mirai, .subset2, &amp;quot;data&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is now a clean, efficient (and faster):&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;collect_mirai(list_of_mirai)&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="the-mirai-method"&gt;7. The mirai &lt;code&gt;[]&lt;/code&gt; method&lt;/h4&gt;
+&lt;p&gt;Previously, collecting the value of a mirai involved a call to
+&lt;code&gt;call_mirai()&lt;/code&gt;, which waits for the mirai to resolve, but
+then returns the mirai itself. So to access the data at
+&lt;code&gt;$data&lt;/code&gt; requires:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai(TRUE)
+call_mirai(m)$data&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Of course, we also had to remember to use &lt;code&gt;call_mirai_()&lt;/code&gt;
+if we wanted this operation to be user-interruptible.&lt;/p&gt;
+&lt;p&gt;Now we recommend the use of &lt;code&gt;x[]&lt;/code&gt; which waits for and
+returns the value of a mirai &lt;code&gt;x&lt;/code&gt; directly.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai(TRUE)
+m[]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This makes the user interface even more minimal. The function
+&lt;code&gt;mirai()&lt;/code&gt; is all that is required. This method is also
+user-interruptible to avoid any potential surprises.&lt;/p&gt;
+&lt;h4 id="the-with-method-for-daemons"&gt;8. The &lt;code&gt;with()&lt;/code&gt; method
+for &lt;code&gt;daemons()&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;Designed for a Shiny &lt;code&gt;runApp()&lt;/code&gt; call, the
+&lt;code&gt;with()&lt;/code&gt; method can be used to conveniently run any series of
+mirai calls with daemons settings which are then automatically torn down
+when they finish.&lt;/p&gt;
+&lt;p&gt;This can help to more clearly define intent within blocks of code. In
+the Shiny context, it can be confusing where to put the
+&lt;code&gt;daemons()&lt;/code&gt; call in a Shiny app - at the top level or within
+the server component etc.&lt;/p&gt;
+&lt;p&gt;The recommended Shiny workflow is to first create a Shiny app object,
+and then run it like so:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;app &amp;lt;- shinyApp(server, ui, session)
+with(daemons(8), runApp(app))&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="error-stack-traces"&gt;9. Error stack traces&lt;/h4&gt;
+&lt;p&gt;Implementing a request by Joe Cheng, a ‘miraiError’ now returns the
+stack trace of the daemon process to aid debugging. It is simply
+available on the ‘miraiError’ object at &lt;code&gt;$stack.trace&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({func1 &amp;lt;- function() func2(); func2 &amp;lt;- function() func3(); func1()})
+m[]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;miraiError&amp;#39; chr Error in func3(): could not find function &amp;quot;func3&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m$data$stack.trace&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[[1]]
+[1] &amp;quot;function() func2()&amp;quot;
+
+[[2]]
+[1] &amp;quot;func1()&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is elegantly implemented behind the scenes using a combination
+of R’s calling handler and restart system, direct descendants of R’s
+Common Lisp heritage.&lt;/p&gt;
+&lt;h4 id="retry-and-resilience"&gt;10. Retry and resilience&lt;/h4&gt;
+&lt;p&gt;Again, aiming for behaviour to be less suprising, the built-in
+automatic retry mechanism in the underlying ‘NNG’ C library is now
+turned off by default. Disabling features? Well, sometimes ‘less is
+more’.&lt;/p&gt;
+&lt;p&gt;Previously, for the non-dispatcher case, the retry behaviour was
+governed by the argument ‘resilience’ at &lt;code&gt;daemons()&lt;/code&gt;, with
+default TRUE. This unfortunately meant that if a piece of buggy code
+caused a crash, it would be re-tried and crash all connected daemons.
+This is now disabled for the non-dispatcher case, with the mirai
+returning an ‘errorValue’ instead.&lt;/p&gt;
+&lt;p&gt;When using dispatcher, the behaviour is slightly different as the
+problematic code would be isolated at a particular daemon instance. This
+provided much more control over how to handle such errors, with the
+ability to manually cancel such tasks using &lt;code&gt;saisei()&lt;/code&gt;.
+However a ‘retry’ argument has now been added at
+&lt;code&gt;dispatcher()&lt;/code&gt; with a default of FALSE. This is as a mirai
+could remain unresolved indefinitely if retries are enabled. This is
+something that is not always obvious to check for, although possible by
+inspecting &lt;code&gt;status()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This behavioural update will be completed with the imminent release
+of mirai version 1.1.1, closely co-ordinated with updates to
+&lt;code&gt;crew&lt;/code&gt; by Will Landau, a package that extends mirai and
+integrates it as the high performance computing backend for
+&lt;code&gt;targets&lt;/code&gt; reproducible workflows.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt; And that’s it! A whistle-stop tour of lots of different types
+of improvement. All designed to ensure that &lt;a
+href="https://shikokuchuo.net/mirai/"&gt;&lt;code&gt;mirai&lt;/code&gt;&lt;/a&gt; remains
+best in class for everything it does. If you have any comments or
+suggestions, please post in the issues or discussions at the package
+repository: &lt;a href="https://github.com/shikokuchuo/mirai/"
+class="uri"&gt;https://github.com/shikokuchuo/mirai/&lt;/a&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">7d37b3bf7729d51b2a79440da8896520</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/23-mirai-quality-of-life-updates</guid>
+      <pubDate>Tues, 25 Jun 2024 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/23-mirai-quality-of-life-updates/mirai-quality-of-life-updates_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Moju-kapu（モジュカプ）Modular Encapsulation</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
