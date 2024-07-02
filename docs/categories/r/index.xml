@@ -12,7 +12,124 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tues, 25 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tues, 02 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Conditional LinkingTo in R</title>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/24-conditional-linkingto</link>
+      <description>
+
+
+&lt;p&gt;&lt;img src="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/24-conditional-linkingto/conditional-linkingto_files/figure-html5/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;h3 id="big-picture"&gt;Big Picture&lt;/h3&gt;
+&lt;p&gt;The success of the R language can at least in part be attributed to
+the many thousands of packages that extend the functionality of base R.
+There is a mature system of ‘Depends/Imports’ for hard dependencies and
+‘Suggests/Enhances’ for soft or conditional dependencies. In this way,
+the current ecosystem of interlinked packages has developed over
+time.&lt;/p&gt;
+&lt;p&gt;However, this has only been the case for R packages importing or
+calling exported &lt;em&gt;R&lt;/em&gt; functions from other packages.&lt;/p&gt;
+&lt;p&gt;Many packages provide interfaces at a lower level via the
+&lt;code&gt;R_RegisterCCallable&lt;/code&gt; / &lt;code&gt;R_GetCCallable&lt;/code&gt;
+mechanism, and these are almost always more performant where using them
+is possible (just avoiding re-entry back into R itself can be
+significant for fairly atomic operations). In other cases, it may
+&lt;em&gt;only&lt;/em&gt; make sense to interface at the C level.&lt;/p&gt;
+&lt;p&gt;If this is the case, then there is only the ‘LinkingTo’ approach
+described in ‘Writing R Extensions’ &lt;a
+href="https://cran.r-project.org/doc/manuals/R-exts.html#Linking-to-native-routines-in-other-packages"&gt;5.4.3
+Linking to native routines in other packages&lt;/a&gt;, which also requires
+the use of ‘Imports’ to load the dependent package for
+&lt;code&gt;R_GetCCallable&lt;/code&gt; to work. In other words, there is seemingly
+only the option to add a hard dependency.&lt;/p&gt;
+&lt;p&gt;In many cases this is simply not feasible. Taking for example code
+that provides a binding to a C library - this can be expected to have
+many uses in any number of contexts. Even if there is a compelling use
+case in any one such context, it would rarely make sense for this
+(perhaps zero-dependency) package to add a dependency, as this encumbers
+all downstream users of the package.&lt;/p&gt;
+&lt;p&gt;The unfortunate result of this state of affairs is that many such
+packages remain siloed. Sometimes package authors attempt to ‘vendor’ or
+copy across the source code of another to avoid a dependency.&lt;/p&gt;
+&lt;h3 id="the-specific-case"&gt;The Specific Case&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://github.com/shikokuchuo/mirai"&gt;mirai&lt;/a&gt; is a
+minimalist asynchronous evaluation framework for R. It is an async
+launcher of Shiny ExtendedTasks (the hot new feature of 2024), &lt;a
+href="https://www.youtube.com/watch?v=GhX0PcEm3CY&amp;amp;t=1740s"&gt;highlighted&lt;/a&gt;
+by Joe Cheng (CTO, Posit and creator of Shiny) himself.&lt;/p&gt;
+&lt;p&gt;As part of its integration with Shiny, &lt;code&gt;mirai&lt;/code&gt; goes one
+step further - as a collaborative effort, it implements &lt;a
+href="https://shikokuchuo.net/mirai/articles/promises.html"&gt;next-generation
+promises&lt;/a&gt; that are completely event-driven and non-polling - the
+first of its kind anywhere in R.&lt;/p&gt;
+&lt;p&gt;This is only available through &lt;code&gt;mirai&lt;/code&gt; as it is powered by
+a tight integration of &lt;a
+href="https://github.com/shikokuchuo/nanonext"&gt;nanonext&lt;/a&gt;’s own
+concurrency framework with the &lt;a
+href="https://github.com/r-lib/later"&gt;later&lt;/a&gt; event loop at the C
+level. This results in zero-latency promise resolution, enabling more
+responsive, and also massively-scalable Shiny apps. It allows crazy
+possibilities, such as firing off &lt;em&gt;hundreds of thousands&lt;/em&gt; of &lt;a
+href="https://shikokuchuo.net/mirai/articles/shiny.html"&gt;mirai
+promises&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The Shiny use case was compelling, hence leading to its adoption in
+the first place. However, &lt;code&gt;nanonext&lt;/code&gt;/&lt;code&gt;mirai&lt;/code&gt; is
+also used in many other scientific contexts in industry, where it acts
+as the High Performance Computing back-end for &lt;a
+href="https://github.com/ropensci/targets"&gt;targets&lt;/a&gt; through &lt;a
+href="https://github.com/wlandau/crew"&gt;crew&lt;/a&gt;. &lt;code&gt;nanonext&lt;/code&gt;
+is so incredibly lightweight that adding &lt;code&gt;later&lt;/code&gt; as a
+dependency doubled its load time, which in turn affected the performance
+of short-lived mirai processes.&lt;/p&gt;
+&lt;h3 id="a-solution"&gt;A Solution&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://github.com/shikokuchuo/nanonext"&gt;nanonext&lt;/a&gt; linked
+to &lt;a href="https://github.com/r-lib/later"&gt;later&lt;/a&gt; in the usual way
+in its 1.0.0 release. However as of v1.1.1, ‘conditional LinkingTo’ has
+been achieved, with &lt;code&gt;later&lt;/code&gt; only appearing as a ‘suggests’
+dependency of &lt;code&gt;nanonext&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The method employed by &lt;code&gt;nanonext&lt;/code&gt; consists only of the
+following steps:&lt;/p&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;Define a C function pointer with the correct signature, along with a
+dummy function &lt;a
+href="https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/init.c#L57-L68"&gt;-&amp;gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Assign the function pointer to the dummy function during package
+initialization &lt;a
+href="https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/init.c#L214"&gt;-&amp;gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;At the point where the function is called, check if the function
+pointer points to the dummy function &lt;a
+href="https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/aio.c#L1417"&gt;-&amp;gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;If so, construct and evaluate a call to load the dependent package
+&lt;a
+href="https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/aio.c#L1418-L1422"&gt;-&amp;gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Then assign the function pointer to the real function obtained by
+&lt;code&gt;R_GetCCallable&lt;/code&gt; &lt;a
+href="https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/aio.c#L1423"&gt;-&amp;gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The &lt;code&gt;later&lt;/code&gt; package / shared object is hence only loaded
+if it is actually used. This has the happy consequence of reducing the
+load time of &lt;code&gt;nanonext&lt;/code&gt; by up to half. Furthermore,
+&lt;code&gt;later&lt;/code&gt; (with its dependencies) is now not required at all
+for the installation of &lt;code&gt;nanonext&lt;/code&gt; itself, which remains a
+zero-dependency package.&lt;/p&gt;
+&lt;h3 id="concluding-remarks"&gt;Concluding Remarks&lt;/h3&gt;
+&lt;p&gt;The above presents a viable method for constructing ‘conditional
+LinkingTo’.&lt;/p&gt;
+&lt;p&gt;It should be noted that for packages to pass ‘R CMD check’, care
+should be taken to write tests conditional upon the presence of the soft
+dependency. Also, where relevant, the failure of step 4 (for example if
+the package is not installed) should also be considered and handled.&lt;/p&gt;
+&lt;p&gt;We hope that this sparks some new ideas for package authors, opening
+up avenues for innovation and collaboration, with positive external
+benefits to the R ecosystem as a whole.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5 xmlns:distill="https://distill.pub/journal/">e05fb7b585f8c3ec7581c8ac5affb610</distill:md5>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/24-conditional-linkingto</guid>
+      <pubDate>Tues, 02 Jul 2024 00:00:00 +0000</pubDate>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://shikokuchuo.net/posts/24-conditional-linkingto/conditional-linkingto_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>mirai - Quality of Life Updates</title>
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">shikokuchuo</dc:creator>
@@ -34,7 +151,7 @@ since around v0.12 released in January of this year. Things that really
 improve the quality of life for new and loyal &lt;a
 href="https://shikokuchuo.net/mirai/"&gt;&lt;code&gt;mirai&lt;/code&gt;&lt;/a&gt; users
 alike. Sometimes it’s these that make the biggest difference, as we
-strive to take a somewhat thoughtful approach to incorporating new
+strive to take a somewhat thoughtful approach to incoporating new
 features and requests. I’ve picked 10 items, in no particular order,
 with the only proviso being that they are small enough not to merit
 their own blog post.&lt;/p&gt;
@@ -42,7 +159,7 @@ their own blog post.&lt;/p&gt;
 &lt;p&gt;The print method for a &lt;code&gt;mirai&lt;/code&gt; has been pared back to one
 line. There is simply no reason to take up any more screen real
 estate.&lt;/p&gt;
-&lt;p&gt;More recently, it actually indicates if a mirai has resolved or not.
+&lt;p&gt;More recently, it actually indicates if a mirai has resoved or not.
 This is possible as the check is so optimised (on the nanosecond scale)
 that it doesn’t very well make sense &lt;em&gt;not&lt;/em&gt; to include it.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;(m &amp;lt;- mirai({})) # unresolved&lt;/code&gt;&lt;/pre&gt;

@@ -1,0 +1,70 @@
+---
+title: "Conditional LinkingTo in R"
+description: |
+  Innovations Supporting Shiny
+author:
+  - name: shikokuchuo
+date: 2024-07-02
+categories:
+  - R
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(mirai)
+```
+
+```{r index, echo=FALSE}
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(file.path("_images", list.files("_images"))), axes = FALSE)
+```
+
+### Big Picture
+
+The success of the R language can at least in part be attributed to the many thousands of packages that extend the functionality of base R. There is a mature system of 'Depends/Imports' for hard dependencies and 'Suggests/Enhances' for soft or conditional dependencies. In this way, the current ecosystem of interlinked packages has developed over time.
+
+However, this has only been the case for R packages importing or calling exported _R_ functions from other packages.
+
+Many packages provide interfaces at a lower level via the `R_RegisterCCallable` / `R_GetCCallable` mechanism, and these are almost always more performant where using them is possible (just avoiding re-entry back into R itself can be significant for fairly atomic operations). In other cases, it may _only_ make sense to interface at the C level.
+
+If this is the case, then there is only the 'LinkingTo' approach described in 'Writing R Extensions' [5.4.3 Linking to native routines in other packages](https://cran.r-project.org/doc/manuals/R-exts.html#Linking-to-native-routines-in-other-packages), which also requires the use of 'Imports' to load the dependent package for `R_GetCCallable` to work. In other words, there is seemingly only the option to add a hard dependency.
+
+In many cases this is simply not feasible. Taking for example code that provides a binding to a C library - this can be expected to have many uses in any number of contexts. Even if there is a compelling use case in any one such context, it would rarely make sense for this (perhaps zero-dependency) package to add a dependency, as this encumbers all downstream users of the package.
+
+The unfortunate result of this state of affairs is that many such packages remain siloed. Sometimes package authors attempt to 'vendor' or copy across the source code of another to avoid a dependency.
+
+### The Specific Case
+
+[mirai](https://github.com/shikokuchuo/mirai) is a minimalist asynchronous evaluation framework for R. It is an async launcher of Shiny ExtendedTasks (the hot new feature of 2024), [highlighted](https://www.youtube.com/watch?v=GhX0PcEm3CY&t=1740s) by Joe Cheng (CTO, Posit and creator of Shiny) himself.
+
+As part of its integration with Shiny, `mirai` goes one step further - as a collaborative effort, it implements [next-generation promises](https://shikokuchuo.net/mirai/articles/promises.html) that are completely event-driven and non-polling - the first of its kind anywhere in R.
+
+This is only available through `mirai` as it is powered by a tight integration of [nanonext](https://github.com/shikokuchuo/nanonext)'s own concurrency framework with the [later](https://github.com/r-lib/later) event loop at the C level. This results in zero-latency promise resolution, enabling more responsive, and also massively-scalable Shiny apps. It allows crazy possibilities, such as firing off _hundreds of thousands_ of [mirai promises](https://shikokuchuo.net/mirai/articles/shiny.html).
+
+The Shiny use case was compelling, hence leading to its adoption in the first place. However, `nanonext`/`mirai` is also used in many other scientific contexts in industry, where it acts as the High Performance Computing back-end for [targets](https://github.com/ropensci/targets) through [crew](https://github.com/wlandau/crew). `nanonext` is so incredibly lightweight that adding `later` as a dependency doubled its load time, which in turn affected the performance of short-lived mirai processes.
+
+### A Solution
+
+[nanonext](https://github.com/shikokuchuo/nanonext) linked to [later](https://github.com/r-lib/later) in the usual way in its 1.0.0 release. However as of v1.1.1, 'conditional LinkingTo' has been achieved, with `later` only appearing as a 'suggests' dependency of `nanonext`.
+
+The method employed by `nanonext` consists only of the following steps:
+
+1. Define a C function pointer with the correct signature, along with a dummy function [->](https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/init.c#L57-L68)
+2. Assign the function pointer to the dummy function during package initialization [->](https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/init.c#L214)
+3. At the point where the function is called, check if the function pointer points to the dummy function [->](https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/aio.c#L1417)
+4. If so, construct and evaluate a call to load the dependent package [->](https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/aio.c#L1418-L1422)
+5. Then assign the function pointer to the real function obtained by `R_GetCCallable` [->](https://github.com/shikokuchuo/nanonext/blob/17536aa86996308095c6814a8ab2cbec9f5354fd/src/aio.c#L1423)
+
+The `later` package / shared object is hence only loaded if it is actually used. This has the happy consequence of reducing the load time of `nanonext` by up to half. Furthermore, `later` (with its dependencies) is now not required at all for the installation of `nanonext` itself, which remains a zero-dependency package.
+
+### Concluding Remarks
+
+The above presents a viable method for constructing 'conditional LinkingTo'.
+
+It should be noted that for packages to pass 'R CMD check', care should be taken to write tests conditional upon the presence of the soft dependency. Also, where relevant, the failure of step 4 (for example if the package is not installed) should also be considered and handled.
+
+We hope that this sparks some new ideas for package authors, opening up avenues for innovation and collaboration, with positive external benefits to the R ecosystem as a whole.

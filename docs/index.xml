@@ -12,7 +12,17 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 25 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Conditional LinkingTo in R</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/24-conditional-linkingto</link>
+      <description>Innovations Supporting Shiny</description>
+      <category>R</category>
+      <guid>https://shikokuchuo.net/posts/24-conditional-linkingto</guid>
+      <pubDate>Tue, 02 Jul 2024 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/24-conditional-linkingto/conditional-linkingto_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>mirai - Quality of Life Updates</title>
       <dc:creator>shikokuchuo</dc:creator>
