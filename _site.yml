@@ -9,17 +9,6 @@ navbar:
     href: https://www.shikokuchuo.net/
   search: true
   right:
-    - text: "四国中央へ"
-      href: https://www.city.shikokuchuo.ehime.jp/
-    - text: "Map"
-      icon: fas fa-map
-      href: map.html
-    - text: "Light Brushing"
-      icon: fa fa-camera-retro
-      href: https://shikokuchuo.net/light-brushing/
-    - text: "The Shikokuchuo Project"
-      icon: fas fa-paper-plane
-      href: https://shikokuchuo.net/project/
     - text: "r-ichimoku"
       icon: fa fa-mountain
       href: https://shikokuchuo.net/ichimoku/
