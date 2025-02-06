@@ -1,5 +1,5 @@
 ---
-title: "Advanced R technologies"
+title: "Open source R tools"
 site: distill::distill_website
 css: index.css
 ---

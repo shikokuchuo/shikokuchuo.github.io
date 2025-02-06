@@ -124,16 +124,6 @@
       <media:content url="https://shikokuchuo.net/posts/14-r-on-solaris/r-on-solaris_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
-      <title>Reverting Git Commits</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/13-reverting</link>
-      <description>Procedure to roll back both local and remote changes</description>
-      <category>R</category>
-      <guid>https://shikokuchuo.net/posts/13-reverting</guid>
-      <pubDate>Thu, 12 Aug 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/13-reverting/reverting_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
       <title>R Shiny interface for the OANDA fxTrade API</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/12-oanda-studio</link>
@@ -142,36 +132,6 @@
       <guid>https://shikokuchuo.net/posts/12-oanda-studio</guid>
       <pubDate>Mon, 26 Jul 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/12-oanda-studio/oanda-studio_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Efficient R: Performant data.frame constructors</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/11-dataframes</link>
-      <description>How and when to use an alternative to as.data.frame</description>
-      <category>R</category>
-      <guid>https://shikokuchuo.net/posts/11-dataframes</guid>
-      <pubDate>Fri, 23 Jul 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/11-dataframes/dataframes_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Efficient R: Combinations using expand.grid</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/10-combinations</link>
-      <description>A faster way to generate combinations for mapply and vapply</description>
-      <category>R</category>
-      <guid>https://shikokuchuo.net/posts/10-combinations</guid>
-      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/10-combinations/combinations_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Efficient R: do.call / lapply</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/09-docall-lapply</link>
-      <description>A distinctive coding style</description>
-      <category>R</category>
-      <guid>https://shikokuchuo.net/posts/09-docall-lapply</guid>
-      <pubDate>Fri, 28 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/09-docall-lapply/docall-lapply_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>ichimoku</title>
@@ -183,69 +143,6 @@
       <guid>https://shikokuchuo.net/posts/08-ichimoku</guid>
       <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/08-ichimoku/ichimoku_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Resources for learning</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/07-learning</link>
-      <description>A curated selection of online MOOCs</description>
-      <category>Resources</category>
-      <category>Learning</category>
-      <guid>https://shikokuchuo.net/posts/07-learning</guid>
-      <pubDate>Fri, 14 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/07-learning/learning_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Datasets</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/06-datasets</link>
-      <description>For Econometrics and Machine Learning</description>
-      <category>Resources</category>
-      <category>Data</category>
-      <guid>https://shikokuchuo.net/posts/06-datasets</guid>
-      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/06-datasets/datasets_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Distill for R Markdown</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/04-distill</link>
-      <description>Web publishing optimised for scientific and technical communication</description>
-      <category>R</category>
-      <guid>https://shikokuchuo.net/posts/04-distill</guid>
-      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/04-distill/distill_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Github Actions with R</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/05-ghactions</link>
-      <description>Deploy and automate your code to the cloud</description>
-      <category>R</category>
-      <guid>https://shikokuchuo.net/posts/05-ghactions</guid>
-      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/05-ghactions/ghactions_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>R | Selenium</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/03-rselenium</link>
-      <description>Programmatically drive a web browser</description>
-      <category>R</category>
-      <guid>https://shikokuchuo.net/posts/03-rselenium</guid>
-      <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/03-rselenium/rselenium_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Resources for global sustainability</title>
-      <dc:creator>shikokuchuo</dc:creator>
-      <link>https://shikokuchuo.net/posts/02-resources</link>
-      <description>A compendium</description>
-      <category>Resources</category>
-      <category>Sustainability</category>
-      <guid>https://shikokuchuo.net/posts/02-resources</guid>
-      <pubDate>Sun, 02 May 2021 00:00:00 +0000</pubDate>
-      <media:content url="https://shikokuchuo.net/posts/02-resources/resources_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Authenticating photography using cryptographic hashing</title>

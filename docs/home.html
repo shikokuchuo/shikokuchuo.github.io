@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -457,8 +457,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
   <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
@@ -2400,7 +2400,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2802,25 +2802,6 @@ function init_posts_list() {
 <p>Run R CMD check or devtools::check() on a local Solaris VM</p>
 </div>
 </a>
-<a href="posts/13-reverting/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
-<div class="metadata">
-<div class="publishedDate">Aug. 12, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/13-reverting/reverting_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Reverting Git Commits</h2>
-<div class="dt-tags">
-<div class="dt-tag">R</div>
-</div>
-<p>Procedure to roll back both local and remote changes</p>
-</div>
-</a>
 <a href="posts/12-oanda-studio/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["R"]}</script>
 <div class="metadata">
@@ -2838,63 +2819,6 @@ function init_posts_list() {
 <div class="dt-tag">R</div>
 </div>
 <p>ichimoku::oanda_studio()</p>
-</div>
-</a>
-<a href="posts/11-dataframes/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
-<div class="metadata">
-<div class="publishedDate">July 23, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/11-dataframes/dataframes_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Efficient R: Performant data.frame constructors</h2>
-<div class="dt-tags">
-<div class="dt-tag">R</div>
-</div>
-<p>How and when to use an alternative to as.data.frame</p>
-</div>
-</a>
-<a href="posts/10-combinations/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
-<div class="metadata">
-<div class="publishedDate">June 17, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/10-combinations/combinations_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Efficient R: Combinations using expand.grid</h2>
-<div class="dt-tags">
-<div class="dt-tag">R</div>
-</div>
-<p>A faster way to generate combinations for mapply and vapply</p>
-</div>
-</a>
-<a href="posts/09-docall-lapply/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
-<div class="metadata">
-<div class="publishedDate">May 28, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/09-docall-lapply/docall-lapply_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Efficient R: do.call / lapply</h2>
-<div class="dt-tags">
-<div class="dt-tag">R</div>
-</div>
-<p>A distinctive coding style</p>
 </div>
 </a>
 <a href="posts/08-ichimoku/" class="post-preview">
@@ -2915,123 +2839,6 @@ function init_posts_list() {
 <div class="dt-tag">Quantitative Finance</div>
 </div>
 <p>R package for Ichimoku Kinko Hyo cloud charts</p>
-</div>
-</a>
-<a href="posts/07-learning/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["Resources","Learning"]}</script>
-<div class="metadata">
-<div class="publishedDate">May 14, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/07-learning/learning_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Resources for learning</h2>
-<div class="dt-tags">
-<div class="dt-tag">Resources</div>
-<div class="dt-tag">Learning</div>
-</div>
-<p>A curated selection of online MOOCs</p>
-</div>
-</a>
-<a href="posts/06-datasets/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["Resources","Data"]}</script>
-<div class="metadata">
-<div class="publishedDate">May 5, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/06-datasets/datasets_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Datasets</h2>
-<div class="dt-tags">
-<div class="dt-tag">Resources</div>
-<div class="dt-tag">Data</div>
-</div>
-<p>For Econometrics and Machine Learning</p>
-</div>
-</a>
-<a href="posts/04-distill/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
-<div class="metadata">
-<div class="publishedDate">May 4, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/04-distill/distill_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Distill for R Markdown</h2>
-<div class="dt-tags">
-<div class="dt-tag">R</div>
-</div>
-<p>Web publishing optimised for scientific and technical communication</p>
-</div>
-</a>
-<a href="posts/05-ghactions/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
-<div class="metadata">
-<div class="publishedDate">May 4, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/05-ghactions/ghactions_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Github Actions with R</h2>
-<div class="dt-tags">
-<div class="dt-tag">R</div>
-</div>
-<p>Deploy and automate your code to the cloud</p>
-</div>
-</a>
-<a href="posts/03-rselenium/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["R"]}</script>
-<div class="metadata">
-<div class="publishedDate">May 3, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/03-rselenium/rselenium_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>R | Selenium</h2>
-<div class="dt-tags">
-<div class="dt-tag">R</div>
-</div>
-<p>Programmatically drive a web browser</p>
-</div>
-</a>
-<a href="posts/02-resources/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":["Resources","Sustainability"]}</script>
-<div class="metadata">
-<div class="publishedDate">May 2, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">shikokuchuo</div>
-</div>
-</div>
-<div class="thumbnail">
-<img data-src="posts/02-resources/resources_files/figure-html5/index-1.png"/>
-</div>
-<div class="description">
-<h2>Resources for global sustainability</h2>
-<div class="dt-tags">
-<div class="dt-tag">Resources</div>
-<div class="dt-tag">Sustainability</div>
-</div>
-<p>A compendium</p>
 </div>
 </a>
 <a href="posts/01-authenticating/" class="post-preview">
@@ -3067,18 +2874,10 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 <ul>
 <li>
 <a href="#category:Articles">Articles</a>
-<span class="category-count">(24)</span>
+<span class="category-count">(14)</span>
 </li>
 <li>
 <a href="#category:Cryptography">Cryptography</a>
-<span class="category-count">(1)</span>
-</li>
-<li>
-<a href="#category:Data">Data</a>
-<span class="category-count">(1)</span>
-</li>
-<li>
-<a href="#category:Learning">Learning</a>
 <span class="category-count">(1)</span>
 </li>
 <li>
@@ -3091,15 +2890,7 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 </li>
 <li>
 <a href="#category:R">R</a>
-<span class="category-count">(20)</span>
-</li>
-<li>
-<a href="#category:Resources">Resources</a>
-<span class="category-count">(3)</span>
-</li>
-<li>
-<a href="#category:Sustainability">Sustainability</a>
-<span class="category-count">(1)</span>
+<span class="category-count">(13)</span>
 </li>
 </ul>
 </div>
@@ -3136,7 +2927,7 @@ Posts at <a href="https://rweekly.org">RWeekly.org</a>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <div class="distill-site-nav distill-site-footer">
-<p>Copyright (C) 2021-2024 The creators of shikokuchuo.net. All rights
+<p>Copyright (C) 2021-2025 The creators of shikokuchuo.net. All rights
 reserved.<br /> 注意：shikokuchuo.net
 は四国中央市役所と関係がありません。</p>
 </div>

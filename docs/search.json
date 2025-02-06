@@ -2,17 +2,17 @@
   "articles": [
     {
       "path": "home.html",
-      "title": "Advanced R technologies",
+      "title": "Open source R tools",
       "author": [],
       "contents": "\n\n\n\n\nWelcome to Shikokuchuo. Use the navbar for projects, search box for articles.\n\n\n\n\n",
-      "last_modified": "2024-07-09T23:36:29+01:00"
+      "last_modified": "2025-02-06T23:01:23+00:00"
     },
     {
       "path": "index.html",
       "title": "shikokuchuo.net",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2024-07-09T23:36:30+01:00"
+      "last_modified": "2025-02-06T23:01:31+00:00"
     },
     {
       "path": "map.html",
