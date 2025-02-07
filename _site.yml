@@ -21,6 +21,12 @@ navbar:
     - text: "r-secretbase"
       icon: fa fa-key
       href: https://shikokuchuo.net/secretbase/
+    - text: "r-later"
+      icon: fa fa-clock
+      href: https://r-lib.github.io/later/
+    - text: "r-watcher"
+      icon: fa fa-eye
+      href: https://r-lib.github.io/watcher/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
       href: https://shikokuchuo.net/
