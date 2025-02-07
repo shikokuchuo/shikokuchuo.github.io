@@ -1,0 +1,103 @@
+---
+title: "mirai v2.0"
+description: |
+  Continuous Innovation
+author: shikokuchuo
+date: 2025-02-07
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(mirai)
+```
+
+```{r index, echo=FALSE}
+par(mar = c(0, 0, 0, 0))
+plot(imager::load.image(file.path("_images", list.files("_images"))), axes = FALSE)
+```
+
+It's been some months since my last update on mirai. That hasn't of course meant that things have stood still, far from it.
+
+First I'd like to make a special point of thanking Posit for their support for the project. I'm really grateful for their contribution in so many ways, and I'm sure that this partnership will continue to yield benefits for the R community as a whole.
+
+I'd like to briefly review some of what I consider the most important updates here: (i) easier distributed computing, (ii) mirai cancellation, and (iii) tidyverse {purrr} integration.
+
+### 1. Easier distributed computing
+
+The old mirai v1.x dispatcher used an approach where you specified the number of daemons and this was then fixed, and daemons dialled in to their assigned, specific URL. Of course this all just happened in the background for local daemons, so you wouldn't need to worry about this. All you'd do is:
+
+```{r daemons, eval=FALSE}
+daemons(6)
+```
+
+Unless, that is, you had tasks to send to other machines.
+
+mirai's launchers still tried to make it relatively easy, but if you needed to manually spin up a daemon, for example in a cloud instance, you'd have to be sure that it dialled in to the correct address. Now no longer. All daemons just use the same URL. This also means that there's no longer a pre-set limit, making it much easier to add or remove daemons at any time, dynamically scaling with demand.
+
+On a quick technical aside, distributed computing previously relied on a websocket layer over HTTP, and now this has been completely stripped away to enable direct TCP-level communications, which is both faster and more reliable.
+
+The operation of `ssh_config()` has also been simplified, making SSH-tunnelled connections over the local network really easy. It's now possible to create standalone configurations that are just a list of parameters, like the below:
+
+```{r ssh}
+ssh_config(remotes = "ssh://192.168.1.10:22", port = 5555, tunnel = TRUE)
+```
+
+What this means is that for any computer where you have SSH access, mirai can now use it as a backend on which to launch daemons. It's not only simpler, but also safer, as there's no need to open any ports or change any firewall settings. This topic alone merits its own blog post, so I won't go into any more detail for now. Do check out the [documentation](https://shikokuchuo.net/mirai/articles/mirai.html#distributed-computing-launching-daemons) for further details in the meantime.
+
+### 2. Mirai cancellation
+
+This has been a long-requested feature in a Shiny context. Shiny can send a long-running ExtendedTask to run code asynchronously using mirai. In fact, mirai is the only solution that interfaces with the 'later' package at the C level to provide truly event-driven promises in Shiny, or any other context for that matter.
+
+As Shiny provides a primarily interactive experience, it's an environment where the user can often change their mind and not want to wait for the results, for example, by choosing to cancel.
+
+Previously, it's been possible for the interface to act 'as if' it were cancelled. However, on the daemon, whereever that is, the instruction would still be ongoing. This can be problematic for two reasons: (i) it still occupies resources, and can do so for an extended period if the task is long-running, or (ii) the operation has side effects e.g. it records a transaction in a database, where we don't actually want it to.
+
+Now in mirai v2.0 and newer, when a mirai is cancelled using `stop_mirai()`, an interrupt signal is sent to the daemon where the work is being done. This stops the task and frees the daemon for the next task.
+
+```{r stop}
+daemons(1)
+
+Sys.time()
+
+m <- mirai({ Sys.sleep(60); Sys.time() })
+m
+stop_mirai(m)
+m[]
+
+# if stop_mirai() did not stop evaluation of 'm', 'm2' would be blocked for 60s
+m2 <- mirai(Sys.time())
+m2[]
+# we can see from the timestamp that it was not blocked
+
+daemons(0)
+```
+
+For how to implement cancellation of a Shiny ExtendedTask, please see this [example](https://shikokuchuo.net/mirai/articles/shiny.html#shiny-extendedtask-cancellation-example).
+
+### 3. Tidyverse {purrr} integration
+
+The purrr package is a cornerstone of the tidyverse. It is _the_ functional programming toolkit. As of the current development version (post-1.0.4), mirai now provides purrr with parallel map capabilities.
+
+This means that all purrr users can now use existing purrr functions such as `purrr::map()`, just specifying `.parallel = TRUE` to take advantage of mirai under the hood. For example:
+
+```{r purrr}
+daemons(6)
+mtcars |> purrr::map_dbl(sum, .parallel = TRUE)
+daemons(0)
+```
+
+The advantage of `purrr::map()` over `mirai_map()` is that it's designed to offer the same consistency and guarantees as non-parallel purrr. It's also really convenient to parallelize existing code as you only need to add `.parallel = TRUE` to the existing call.
+
+The advantage of `mirai_map()` over `purrr::map()` is that it offers full async, in that you are free to choose whether to wait for the results / when to collect them, or even to have each map iteration trigger a promise.
+
+A fun fact is that for all the parallel functions enabled in purrr - including `map()`, `imap()`, `pmap()` and all the variations thereof - they ultimately all end up as a call to `mirai_map()` under the hood. This attests to the power and versatility of this one single function, undoubtedly one of _the_ major innovations for mirai to date.
+
+Do give development purrr a spin. Any issues or comments are very welcome at the mirai repository: <https://github.com/shikokuchuo/mirai>.
+
+<br /><br />
+
+Finally, to conclude: the mirai project has emerged from 2024 technically much stronger, and is well-positioned to build on its success in 2025. We greatly appreciate the support of our users and developers. Please feel free to share your success stories at <https://github.com/shikokuchuo/mirai/discussions>.
