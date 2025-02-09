@@ -28,7 +28,7 @@ I'd like to briefly review some of what I consider the most important updates he
 
 ### 1. Easier distributed computing
 
-The old mirai v1.x dispatcher used an approach where you specified the number of daemons and this was then fixed, and daemons dialled in to their assigned, specific URL. Of course this all just happened in the background for local daemons, so you wouldn't need to worry about this. All you'd do is:
+The old mirai v1.x dispatcher used an approach where you specified the number of daemons [= background parallel processes] and this was then fixed, and daemons dialled in to their assigned, specific URL. Of course this all just happened in the background for local daemons, so you wouldn't need to worry about this. All you'd do is:
 
 ```{r daemons, eval=FALSE}
 daemons(6)

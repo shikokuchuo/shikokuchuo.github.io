@@ -1563,7 +1563,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>First I’d like to make a special point of thanking Posit for their support for the project. I’m really grateful for their contribution in so many ways, and I’m sure that this partnership will continue to yield benefits for the R community as a whole.</p>
 <p>I’d like to briefly review some of what I consider the most important updates here: (i) easier distributed computing, (ii) mirai cancellation, and (iii) tidyverse {purrr} integration.</p>
 <h3 id="easier-distributed-computing">1. Easier distributed computing</h3>
-<p>The old mirai v1.x dispatcher used an approach where you specified the number of daemons and this was then fixed, and daemons dialled in to their assigned, specific URL. Of course this all just happened in the background for local daemons, so you wouldn’t need to worry about this. All you’d do is:</p>
+<p>The old mirai v1.x dispatcher used an approach where you specified the number of daemons [= background parallel processes] and this was then fixed, and daemons dialled in to their assigned, specific URL. Of course this all just happened in the background for local daemons, so you wouldn’t need to worry about this. All you’d do is:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://shikokuchuo.net/mirai/reference/daemons.html'>daemons</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span></span></code></pre>
@@ -1606,7 +1606,7 @@ $quote
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>[1] &quot;2025-02-07 21:21:17 GMT&quot;</code></pre>
+<pre><code>[1] &quot;2025-02-09 00:10:20 GMT&quot;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shikokuchuo.net/mirai/reference/mirai.html'>mirai</a></span><span class='op'>(</span><span class='op'>{</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>60</span><span class='op'>)</span>; <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span></span>
 <span><span class='va'>m</span></span></code></pre>
@@ -1622,7 +1622,7 @@ $quote
 <span><span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://shikokuchuo.net/mirai/reference/mirai.html'>mirai</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.time</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>m2</span><span class='op'>[</span><span class='op'>]</span></span></code></pre>
 </div>
-<pre><code>[1] &quot;2025-02-07 21:21:17 GMT&quot;</code></pre>
+<pre><code>[1] &quot;2025-02-09 00:10:20 GMT&quot;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># we can see from the timestamp that it was not blocked</span></span>
 <span></span>

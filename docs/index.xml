@@ -17,7 +17,152 @@
       <title>mirai v2.0</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/25-mirai-v2</link>
-      <description>Continuous Innovation</description>
+      <description>
+
+
+&lt;p&gt;&lt;img src="filef4656ac9fc36_files/figure-html/index-1.png" width="672" /&gt;&lt;/p&gt;
+&lt;p&gt;It’s been some months since my last update on mirai. That hasn’t of
+course meant that things have stood still, far from it.&lt;/p&gt;
+&lt;p&gt;First I’d like to make a special point of thanking Posit for their
+support for the project. I’m really grateful for their contribution in
+so many ways, and I’m sure that this partnership will continue to yield
+benefits for the R community as a whole.&lt;/p&gt;
+&lt;p&gt;I’d like to briefly review some of what I consider the most important
+updates here: (i) easier distributed computing, (ii) mirai cancellation,
+and (iii) tidyverse {purrr} integration.&lt;/p&gt;
+&lt;h3 id="easier-distributed-computing"&gt;1. Easier distributed
+computing&lt;/h3&gt;
+&lt;p&gt;The old mirai v1.x dispatcher used an approach where you specified
+the number of daemons [= background parallel processes] and this was
+then fixed, and daemons dialled in to their assigned, specific URL. Of
+course this all just happened in the background for local daemons, so
+you wouldn’t need to worry about this. All you’d do is:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;daemons(6)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Unless, that is, you had tasks to send to other machines.&lt;/p&gt;
+&lt;p&gt;mirai’s launchers still tried to make it relatively easy, but if you
+needed to manually spin up a daemon, for example in a cloud instance,
+you’d have to be sure that it dialled in to the correct address. Now no
+longer. All daemons just use the same URL. This also means that there’s
+no longer a pre-set limit, making it much easier to add or remove
+daemons at any time, dynamically scaling with demand.&lt;/p&gt;
+&lt;p&gt;On a quick technical aside, distributed computing previously relied
+on a websocket layer over HTTP, and now this has been completely
+stripped away to enable direct TCP-level communications, which is both
+faster and more reliable.&lt;/p&gt;
+&lt;p&gt;The operation of &lt;code&gt;ssh_config()&lt;/code&gt; has also been simplified,
+making SSH-tunnelled connections over the local network really easy.
+It’s now possible to create standalone configurations that are just a
+list of parameters, like the below:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;ssh_config(remotes = &amp;quot;ssh://192.168.1.10:22&amp;quot;, port = 5555, tunnel = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;$command
+[1] &amp;quot;ssh&amp;quot;
+
+$args
+$args[[1]]
+[1] &amp;quot;-R 5555:127.0.0.1:5555&amp;quot;       &amp;quot;-o ConnectTimeout=10 -fTp 22&amp;quot;
+[3] &amp;quot;192.168.1.10&amp;quot;                 &amp;quot;.&amp;quot;                           
+
+
+$rscript
+[1] &amp;quot;Rscript&amp;quot;
+
+$quote
+[1] TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What this means is that for any computer where you have SSH access,
+mirai can now use it as a backend on which to launch daemons. It’s not
+only simpler, but also safer, as there’s no need to open any ports or
+change any firewall settings. This topic alone merits its own blog post,
+so I won’t go into any more detail for now. Do check out the &lt;a
+href="https://shikokuchuo.net/mirai/articles/mirai.html#distributed-computing-launching-daemons"&gt;documentation&lt;/a&gt;
+for further details in the meantime.&lt;/p&gt;
+&lt;h3 id="mirai-cancellation"&gt;2. Mirai cancellation&lt;/h3&gt;
+&lt;p&gt;This has been a long-requested feature in a Shiny context. Shiny can
+send a long-running ExtendedTask to run code asynchronously using mirai.
+In fact, mirai is the only solution that interfaces with the ‘later’
+package at the C level to provide truly event-driven promises in Shiny,
+or any other context for that matter.&lt;/p&gt;
+&lt;p&gt;As Shiny provides a primarily interactive experience, it’s an
+environment where the user can often change their mind and not want to
+wait for the results, for example, by choosing to cancel.&lt;/p&gt;
+&lt;p&gt;Previously, it’s been possible for the interface to act ‘as if’ it
+were cancelled. However, on the daemon, whereever that is, the
+instruction would still be ongoing. This can be problematic for two
+reasons: (i) it still occupies resources, and can do so for an extended
+period if the task is long-running, or (ii) the operation has side
+effects e.g. it records a transaction in a database, where we don’t
+actually want it to.&lt;/p&gt;
+&lt;p&gt;Now in mirai v2.0 and newer, when a mirai is cancelled using
+&lt;code&gt;stop_mirai()&lt;/code&gt;, an interrupt signal is sent to the daemon
+where the work is being done. This stops the task and frees the daemon
+for the next task.&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;daemons(1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;Sys.time()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;2025-02-09 00:10:24 GMT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;m &amp;lt;- mirai({ Sys.sleep(60); Sys.time() })
+m&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt; mirai [] &amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;stop_mirai(m)
+m[]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;errorValue&amp;#39; int 20 | Operation canceled&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# if stop_mirai() did not stop evaluation of &amp;#39;m&amp;#39;, &amp;#39;m2&amp;#39; would be blocked for 60s
+m2 &amp;lt;- mirai(Sys.time())
+m2[]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] &amp;quot;2025-02-09 00:10:24 GMT&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# we can see from the timestamp that it was not blocked
+
+daemons(0)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For how to implement cancellation of a Shiny ExtendedTask, please see
+this &lt;a
+href="https://shikokuchuo.net/mirai/articles/shiny.html#shiny-extendedtask-cancellation-example"&gt;example&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id="tidyverse-purrr-integration"&gt;3. Tidyverse {purrr}
+integration&lt;/h3&gt;
+&lt;p&gt;The purrr package is a cornerstone of the tidyverse. It is
+&lt;em&gt;the&lt;/em&gt; functional programming toolkit. As of the current
+development version (post-1.0.4), mirai now provides purrr with parallel
+map capabilities.&lt;/p&gt;
+&lt;p&gt;This means that all purrr users can now use existing purrr functions
+such as &lt;code&gt;purrr::map()&lt;/code&gt;, just specifying
+&lt;code&gt;.parallel = TRUE&lt;/code&gt; to take advantage of mirai under the hood.
+For example:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;daemons(6)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 6&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;mtcars |&amp;gt; purrr::map_dbl(sum, .parallel = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;     mpg      cyl     disp       hp     drat       wt     qsec 
+ 642.900  198.000 7383.100 4694.000  115.090  102.952  571.160 
+      vs       am     gear     carb 
+  14.000   13.000  118.000   90.000 &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="r"&gt;&lt;code&gt;daemons(0)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;[1] 0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The advantage of &lt;code&gt;purrr::map()&lt;/code&gt; over
+&lt;code&gt;mirai_map()&lt;/code&gt; is that it’s designed to offer the same
+consistency and guarantees as non-parallel purrr. It’s also really
+convenient to parallelize existing code as you only need to add
+&lt;code&gt;.parallel = TRUE&lt;/code&gt; to the existing call.&lt;/p&gt;
+&lt;p&gt;The advantage of &lt;code&gt;mirai_map()&lt;/code&gt; over
+&lt;code&gt;purrr::map()&lt;/code&gt; is that it offers full async, in that you are
+free to choose whether to wait for the results / when to collect them,
+or even to have each map iteration trigger a promise.&lt;/p&gt;
+&lt;p&gt;A fun fact is that for all the parallel functions enabled in purrr -
+including &lt;code&gt;map()&lt;/code&gt;, &lt;code&gt;imap()&lt;/code&gt;, &lt;code&gt;pmap()&lt;/code&gt;
+and all the variations thereof - they ultimately all end up as a call to
+&lt;code&gt;mirai_map()&lt;/code&gt; under the hood. This attests to the power and
+versatility of this one single function, undoubtedly one of &lt;em&gt;the&lt;/em&gt;
+major innovations for mirai to date.&lt;/p&gt;
+&lt;p&gt;Do give development purrr a spin. Any issues or comments are very
+welcome at the mirai repository: &lt;a
+href="https://github.com/shikokuchuo/mirai"
+class="uri"&gt;https://github.com/shikokuchuo/mirai&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Finally, to conclude: the mirai project has emerged from 2024
+technically much stronger, and is well-positioned to build on its
+success in 2025. We greatly appreciate the support of our users and
+developers. Please feel free to share your success stories at &lt;a
+href="https://github.com/shikokuchuo/mirai/discussions"
+class="uri"&gt;https://github.com/shikokuchuo/mirai/discussions&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>ab987674cbc709aa0fcf5799a563d06f</distill:md5>
       <guid>https://shikokuchuo.net/posts/25-mirai-v2</guid>
       <pubDate>Fri, 07 Feb 2025 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/25-mirai-v2/mirai-v2_files/figure-html5/index-1.png" medium="image" type="image/png" width="1248" height="768"/>
