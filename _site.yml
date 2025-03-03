@@ -26,7 +26,7 @@ navbar:
       href: https://r-lib.github.io/later/
     - text: "r-watcher"
       icon: fa fa-eye
-      href: https://r-lib.github.io/watcher/
+      href: https://watcher.r-lib.org/
     - text: "r-sakura"
       icon: fa fa-fan
       href: https://shikokuchuo.net/sakura/
