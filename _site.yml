@@ -14,10 +14,10 @@ navbar:
       href: https://shikokuchuo.net/ichimoku/
     - text: "r-nanonext"
       icon: fas fa-chevron-right
-      href: https://shikokuchuo.net/nanonext/
+      href: https://nanonext.r-lib.org/
     - text: "r-mirai"
       icon: fa fa-refresh
-      href: https://shikokuchuo.net/mirai/
+      href: https://mirai.r-lib.org/
     - text: "r-secretbase"
       icon: fa fa-key
       href: https://shikokuchuo.net/secretbase/
