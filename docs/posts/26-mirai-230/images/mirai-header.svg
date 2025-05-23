@@ -1,0 +1,132 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <!-- Main gradient - dark theme -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1f3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effects -->
+    <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Node gradient -->
+    <radialGradient id="nodeGradient">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Filter for subtle glow -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Pattern for Japanese aesthetic - seigaiha waves -->
+    <pattern id="wavePattern" x="0" y="0" width="120" height="60" patternUnits="userSpaceOnUse">
+      <g opacity="0.2">
+        <path d="M 0,30 Q 30,0 60,30 T 120,30" stroke="#1e40af" stroke-width="1" fill="none"/>
+        <path d="M 0,60 Q 30,30 60,60 T 120,60" stroke="#1e40af" stroke-width="1" fill="none"/>
+      </g>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle wave pattern overlay -->
+  <rect width="1200" height="630" fill="url(#wavePattern)"/>
+  
+  <!-- Large background glow -->
+  <circle cx="600" cy="360" r="250" fill="url(#glowGradient)" opacity="0.5"/>
+  
+  <!-- Network visualization with more spacing -->
+  <!-- Central node -->
+  <circle cx="600" cy="360" r="28" fill="url(#nodeGradient)" filter="url(#glow)"/>
+  
+  <!-- Orbiting nodes with connecting lines -->
+  <g opacity="0.8">
+    <!-- Node connections -->
+    <line x1="600" y1="360" x2="450" y2="250" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+    <line x1="600" y1="360" x2="750" y2="250" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+    <line x1="600" y1="360" x2="450" y2="470" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+    <line x1="600" y1="360" x2="750" y2="470" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+    <line x1="600" y1="360" x2="380" y2="360" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+    <line x1="600" y1="360" x2="820" y2="360" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+    
+    <!-- Orbiting nodes -->
+    <circle cx="450" cy="250" r="18" fill="#60a5fa" filter="url(#glow)"/>
+    <circle cx="750" cy="250" r="18" fill="#60a5fa" filter="url(#glow)"/>
+    <circle cx="450" cy="470" r="18" fill="#60a5fa" filter="url(#glow)"/>
+    <circle cx="750" cy="470" r="18" fill="#60a5fa" filter="url(#glow)"/>
+    <circle cx="380" cy="360" r="18" fill="#60a5fa" filter="url(#glow)"/>
+    <circle cx="820" cy="360" r="18" fill="#60a5fa" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Animated particles representing data flow -->
+  <g opacity="0.6">
+    <circle r="4" fill="#60a5fa">
+      <animateMotion dur="3s" repeatCount="indefinite">
+        <mpath href="#path1"/>
+      </animateMotion>
+    </circle>
+    <circle r="4" fill="#60a5fa">
+      <animateMotion dur="3s" begin="0.5s" repeatCount="indefinite">
+        <mpath href="#path2"/>
+      </animateMotion>
+    </circle>
+    <circle r="4" fill="#60a5fa">
+      <animateMotion dur="3s" begin="1s" repeatCount="indefinite">
+        <mpath href="#path3"/>
+      </animateMotion>
+    </circle>
+  </g>
+  
+  <!-- Hidden paths for animation -->
+  <path id="path1" d="M 600,360 Q 525,305 450,250" fill="none"/>
+  <path id="path2" d="M 600,360 Q 675,305 750,250" fill="none"/>
+  <path id="path3" d="M 600,360 Q 490,360 380,360" fill="none"/>
+  
+  <!-- Japanese characters for "mirai" in katakana -->
+  <text x="600" y="100" font-family="'Courier New', Consolas, monospace" font-size="42" fill="#60a5fa" text-anchor="middle" opacity="0.8">ミライ</text>
+  
+  <!-- Main title with more spacing -->
+  <text x="600" y="160" font-family="'Courier New', Consolas, monospace" font-size="84" font-weight="300" fill="#ffffff" text-anchor="middle">mirai</text>
+  
+  <!-- Tagline moved down -->
+  <text x="600" y="540" font-family="'Courier New', Consolas, monospace" font-size="20" fill="#94a3b8" text-anchor="middle" letter-spacing="1">Minimalist Async Evaluation Framework for R</text>
+  
+  <!-- Decorative elements -->
+  <!-- Side brackets inspired by Japanese design -->
+  <g opacity="0.5">
+    <path d="M 80,80 L 80,120 L 120,120" stroke="#60a5fa" stroke-width="2" fill="none"/>
+    <path d="M 1120,80 L 1120,120 L 1080,120" stroke="#60a5fa" stroke-width="2" fill="none"/>
+    <path d="M 80,550 L 80,510 L 120,510" stroke="#60a5fa" stroke-width="2" fill="none"/>
+    <path d="M 1120,550 L 1120,510 L 1080,510" stroke="#60a5fa" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Subtle circle pattern (ensō-inspired) -->
+  <g opacity="0.1">
+    <circle cx="200" cy="150" r="60" stroke="#60a5fa" stroke-width="1" fill="none"/>
+    <circle cx="1000" cy="150" r="60" stroke="#60a5fa" stroke-width="1" fill="none"/>
+    <circle cx="200" cy="480" r="60" stroke="#60a5fa" stroke-width="1" fill="none"/>
+    <circle cx="1000" cy="480" r="60" stroke="#60a5fa" stroke-width="1" fill="none"/>
+  </g>
+  
+  <!-- Additional Japanese aesthetic element - subtle dots -->
+  <g opacity="0.3">
+    <circle cx="100" cy="315" r="3" fill="#60a5fa"/>
+    <circle cx="120" cy="315" r="3" fill="#60a5fa"/>
+    <circle cx="140" cy="315" r="3" fill="#60a5fa"/>
+    <circle cx="1060" cy="315" r="3" fill="#60a5fa"/>
+    <circle cx="1080" cy="315" r="3" fill="#60a5fa"/>
+    <circle cx="1100" cy="315" r="3" fill="#60a5fa"/>
+  </g>
+</svg>

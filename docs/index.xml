@@ -12,7 +12,15 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 07 Feb 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 May 2025 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>mirai 2.3.0</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/26-mirai-230</link>
+      <description>Advancing Async Computing in R</description>
+      <guid>https://shikokuchuo.net/posts/26-mirai-230</guid>
+      <pubDate>Fri, 23 May 2025 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>mirai v2.0</title>
       <dc:creator>shikokuchuo</dc:creator>
