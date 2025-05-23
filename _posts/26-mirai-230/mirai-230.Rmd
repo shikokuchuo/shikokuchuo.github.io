@@ -20,7 +20,7 @@ The R ecosystem continues to evolve with powerful tools for modern computing cha
 
 ### What Makes mirai Unique?
 
-mirai (ミライ, Japanese for "future") represents a paradigm shift in how R handles asynchronous operations. Built on the robust foundation of nanonext and NNG (Nanomsg Next Gen), mirai offers:
+mirai (ミライ, Japanese for "future") represents a paradigm shift in how R handles asynchronous operations. Built on the robust foundation of [nanonext](https://nanonext.r-lib.org) and NNG (Nanomsg Next Gen), mirai offers:
 
 - **True event-driven architecture** with non-polling promises
 - **Seamless distributed computing** over modern, scalable and secure networking
@@ -85,14 +85,14 @@ As of R 4.5, mirai is now one of the **official base R parallel cluster types**.
 cl <- parallel::makeCluster(6, type = "MIRAI")
 ```
 
-#### Shiny Support
+#### Seamless Shiny
 
 mirai's promises integrate seamlessly with Shiny applications, enabling truly responsive user interfaces.
-Developed in collaboration with Joe Cheng (creator of Shiny), it's the only event-driven solution that fully integrates with Shiny's interfaces, and also scales to complex apps with many users [Link to vignette example](https://mirai.r-lib.org/articles/v3-promises.html#shiny-extendedtask-introduction).
+Developed in collaboration with Joe Cheng (creator of Shiny), it's the only event-driven solution that fully integrates with Shiny's capabilities, and also scales to complex apps with many users [Link to vignette examples](https://mirai.r-lib.org/articles/v3-promises.html).
 
 #### Powers Purrr
 
-mirai's `mirai_map()` provides the underlying implementation for purrr's new `purrr::map(.parallel = TRUE)` and friends (currently in the development version). Purrr is one of the core tidyverse packages, and a mature functional programming tookit used by millions of data scientists and developers alike.
+mirai's `mirai_map()` provides the underlying implementation for purrr's new `purrr::map(.parallel = TRUE)` and friends (currently in the development version). Purrr is one of the core tidyverse packages, and a respected functional programming tookit that is depended upon by data scientists and developers alike.
 
 #### Science at Scale
 

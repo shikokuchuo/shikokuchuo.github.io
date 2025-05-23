@@ -34,7 +34,8 @@ sophisticated approach to async computing in R.&lt;/p&gt;
 &lt;h3 id="what-makes-mirai-unique"&gt;What Makes mirai Unique?&lt;/h3&gt;
 &lt;p&gt;mirai (ミライ, Japanese for “future”) represents a paradigm shift in
 how R handles asynchronous operations. Built on the robust foundation of
-nanonext and NNG (Nanomsg Next Gen), mirai offers:&lt;/p&gt;
+&lt;a href="https://nanonext.r-lib.org"&gt;nanonext&lt;/a&gt; and NNG (Nanomsg Next
+Gen), mirai offers:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;True event-driven architecture&lt;/strong&gt; with non-polling
 promises&lt;/li&gt;
@@ -106,20 +107,20 @@ Type&lt;/h4&gt;
 cluster types&lt;/strong&gt;.&lt;/p&gt;
 &lt;pre class="r"&gt;&lt;code&gt;# Create a miraiCluster directly
 cl &amp;lt;- parallel::makeCluster(6, type = &amp;quot;MIRAI&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id="shiny-support"&gt;Shiny Support&lt;/h4&gt;
+&lt;h4 id="seamless-shiny"&gt;Seamless Shiny&lt;/h4&gt;
 &lt;p&gt;mirai’s promises integrate seamlessly with Shiny applications,
 enabling truly responsive user interfaces. Developed in collaboration
 with Joe Cheng (creator of Shiny), it’s the only event-driven solution
-that fully integrates with Shiny’s interfaces, and also scales to
+that fully integrates with Shiny’s capabilities, and also scales to
 complex apps with many users &lt;a
-href="https://mirai.r-lib.org/articles/v3-promises.html#shiny-extendedtask-introduction"&gt;Link
-to vignette example&lt;/a&gt;.&lt;/p&gt;
+href="https://mirai.r-lib.org/articles/v3-promises.html"&gt;Link to
+vignette examples&lt;/a&gt;.&lt;/p&gt;
 &lt;h4 id="powers-purrr"&gt;Powers Purrr&lt;/h4&gt;
 &lt;p&gt;mirai’s &lt;code&gt;mirai_map()&lt;/code&gt; provides the underlying
 implementation for purrr’s new &lt;code&gt;purrr::map(.parallel = TRUE)&lt;/code&gt;
 and friends (currently in the development version). Purrr is one of the
-core tidyverse packages, and a mature functional programming tookit used
-by millions of data scientists and developers alike.&lt;/p&gt;
+core tidyverse packages, and a respected functional programming tookit
+that is depended upon by data scientists and developers alike.&lt;/p&gt;
 &lt;h4 id="science-at-scale"&gt;Science at Scale&lt;/h4&gt;
 &lt;p&gt;mirai users benefit from a longstanding collaboration with Will
 Landau at Eli Lily, where his targets package adopted crew (built on

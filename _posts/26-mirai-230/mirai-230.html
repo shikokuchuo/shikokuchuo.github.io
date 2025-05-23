@@ -1564,7 +1564,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </figure>
 <p>The R ecosystem continues to evolve with powerful tools for modern computing challenges, and <strong>mirai</strong> stands at the forefront of asynchronous evaluation frameworks. This latest release brings significant enhancements that solidify mirai’s position as the most sophisticated approach to async computing in R.</p>
 <h3 id="what-makes-mirai-unique">What Makes mirai Unique?</h3>
-<p>mirai (ミライ, Japanese for “future”) represents a paradigm shift in how R handles asynchronous operations. Built on the robust foundation of nanonext and NNG (Nanomsg Next Gen), mirai offers:</p>
+<p>mirai (ミライ, Japanese for “future”) represents a paradigm shift in how R handles asynchronous operations. Built on the robust foundation of <a href="https://nanonext.r-lib.org">nanonext</a> and NNG (Nanomsg Next Gen), mirai offers:</p>
 <ul>
 <li><strong>True event-driven architecture</strong> with non-polling promises</li>
 <li><strong>Seamless distributed computing</strong> over modern, scalable and secure networking</li>
@@ -1604,11 +1604,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p>As of R 4.5, mirai is now one of the <strong>official base R parallel cluster types</strong>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a miraiCluster directly</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> parallel<span class="sc">::</span><span class="fu">makeCluster</span>(<span class="dv">6</span>, <span class="at">type =</span> <span class="st">&quot;MIRAI&quot;</span>)</span></code></pre></div>
-<h4 id="shiny-support">Shiny Support</h4>
+<h4 id="seamless-shiny">Seamless Shiny</h4>
 <p>mirai’s promises integrate seamlessly with Shiny applications, enabling truly responsive user interfaces.
-Developed in collaboration with Joe Cheng (creator of Shiny), it’s the only event-driven solution that fully integrates with Shiny’s interfaces, and also scales to complex apps with many users <a href="https://mirai.r-lib.org/articles/v3-promises.html#shiny-extendedtask-introduction">Link to vignette example</a>.</p>
+Developed in collaboration with Joe Cheng (creator of Shiny), it’s the only event-driven solution that fully integrates with Shiny’s capabilities, and also scales to complex apps with many users <a href="https://mirai.r-lib.org/articles/v3-promises.html">Link to vignette examples</a>.</p>
 <h4 id="powers-purrr">Powers Purrr</h4>
-<p>mirai’s <code>mirai_map()</code> provides the underlying implementation for purrr’s new <code>purrr::map(.parallel = TRUE)</code> and friends (currently in the development version). Purrr is one of the core tidyverse packages, and a mature functional programming tookit used by millions of data scientists and developers alike.</p>
+<p>mirai’s <code>mirai_map()</code> provides the underlying implementation for purrr’s new <code>purrr::map(.parallel = TRUE)</code> and friends (currently in the development version). Purrr is one of the core tidyverse packages, and a respected functional programming tookit that is depended upon by data scientists and developers alike.</p>
 <h4 id="science-at-scale">Science at Scale</h4>
 <p>mirai users benefit from a longstanding collaboration with Will Landau at Eli Lily, where his targets package adopted crew (built on mirai) as its default HPC backend. The life sciences industry runs heavy-duty pipelines across HPC and cloud environments on a constant basis, providing real life assurance of mirai’s reliability.</p>
 <h3 id="getting-started-with-mirai-2.3.0">Getting Started with mirai 2.3.0</h3>
