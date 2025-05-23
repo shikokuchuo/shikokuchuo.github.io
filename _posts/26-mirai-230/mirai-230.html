@@ -1569,7 +1569,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><strong>True event-driven architecture</strong> with non-polling promises</li>
 <li><strong>Seamless distributed computing</strong> over modern, scalable and secure networking</li>
 <li><strong>Support for reference objects</strong> like Arrow Tables and torch tensors</li>
-<li><strong>First-class async by default</strong> e.g. async rather than just parallel map</li>
+<li><strong>Async-first by design</strong> e.g. async rather than just parallel map</li>
 </ul>
 <p>Unlike traditional parallel computing approaches in R, mirai handles many more tasks than available processes (and requires no file system storage) through its inherently queued architecture.</p>
 <h3 id="key-enhancements-in-version-2.3.0">Key Enhancements in Version 2.3.0</h3>
@@ -1580,7 +1580,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">long_compute_intensive_task</span>()</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}, <span class="at">.timeout =</span> <span class="dv">5000</span>)  <span class="co"># Cancels after 5 seconds</span></span></code></pre></div>
 <h4 id="improved-serialization-configuration">2. Improved Serialization Configuration</h4>
-<p><code>serial_config()</code> now accepts <strong>vector arguments</strong> to register multiple custom serialization configurations simultaneously. This enhancement simplifies working with diverse data types across distributed systems, for example with both Arrow Tables and Polars DataFrames.</p>
+<p><code>serial_config()</code> now accepts <strong>vector arguments</strong> to register multiple custom serialization configurations simultaneously.</p>
+<p>This enhancement simplifies working with diverse data types across distributed systems, for example both Arrow Tables and Polars DataFrames.</p>
 <h4 id="comprehensive-network-discovery">3. Comprehensive Network Discovery</h4>
 <p><code>host_url()</code> has been upgraded to return <strong>all local IP addresses</strong>, named by network interface. This provides a more robust solution for distributed computing setups, especially in complex network environments:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Returns all available interfaces</span></span>
@@ -1596,7 +1597,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><strong><code>daemons_set()</code></strong>: checks if daemons are set for a given compute profile</li>
 </ul>
 <h4 id="extended-support-for-hpc-environments">5. Extended Support for HPC Environments</h4>
-<p>For HPC environments, <code>daemons()</code> now supports initial synchronization exceeding 10 seconds. This enhancement is particularly valuable for large-scale distributed computing setups where network latency or resource provisioning may require longer connection times.</p>
+<p>For HPC environments, <code>daemons()</code> now supports initial synchronization exceeding 10 seconds.</p>
+<p>This enhancement is particularly valuable for large-scale distributed computing setups where network latency or resource provisioning may require longer connection times.</p>
 <h3 id="integration-with-the-r-ecosystem">Integration with the R Ecosystem</h3>
 <h4 id="official-r-parallel-cluster-type">Official R Parallel Cluster Type</h4>
 <p>As of R 4.5, mirai is now one of the <strong>official base R parallel cluster types</strong>.</p>
@@ -1604,7 +1606,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> parallel<span class="sc">::</span><span class="fu">makeCluster</span>(<span class="dv">6</span>, <span class="at">type =</span> <span class="st">&quot;MIRAI&quot;</span>)</span></code></pre></div>
 <h4 id="shiny-support">Shiny Support</h4>
 <p>mirai’s promises integrate seamlessly with Shiny applications, enabling truly responsive user interfaces.
-Developed in collaboration with Joe Cheng, it’s the only event-driven solution that fully integrates with Shiny’s interfaces, and also scales to complex apps with many users <a href="https://mirai.r-lib.org/articles/v3-promises.html#shiny-extendedtask-introduction">Link to vignette example</a>.</p>
+Developed in collaboration with Joe Cheng (creator of Shiny), it’s the only event-driven solution that fully integrates with Shiny’s interfaces, and also scales to complex apps with many users <a href="https://mirai.r-lib.org/articles/v3-promises.html#shiny-extendedtask-introduction">Link to vignette example</a>.</p>
 <h4 id="powers-purrr">Powers Purrr</h4>
 <p>mirai’s <code>mirai_map()</code> provides the underlying implementation for purrr’s new <code>purrr::map(.parallel = TRUE)</code> and friends (currently in the development version). Purrr is one of the core tidyverse packages, and a mature functional programming tookit used by millions of data scientists and developers alike.</p>
 <h4 id="science-at-scale">Science at Scale</h4>

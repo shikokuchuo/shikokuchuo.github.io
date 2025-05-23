@@ -25,7 +25,7 @@ mirai (ミライ, Japanese for "future") represents a paradigm shift in how R ha
 - **True event-driven architecture** with non-polling promises
 - **Seamless distributed computing** over modern, scalable and secure networking
 - **Support for reference objects** like Arrow Tables and torch tensors
-- **First-class async by default**  e.g. async rather than just parallel map
+- **Async-first by design**  e.g. async rather than just parallel map
 
 Unlike traditional parallel computing approaches in R, mirai handles many more tasks than available processes (and requires no file system storage) through its inherently queued architecture.
 
@@ -44,7 +44,9 @@ m <- mirai({
 
 #### 2. Improved Serialization Configuration
 
-`serial_config()` now accepts **vector arguments** to register multiple custom serialization configurations simultaneously. This enhancement simplifies working with diverse data types across distributed systems, for example with both Arrow Tables and Polars DataFrames.
+`serial_config()` now accepts **vector arguments** to register multiple custom serialization configurations simultaneously.
+
+This enhancement simplifies working with diverse data types across distributed systems, for example both Arrow Tables and Polars DataFrames.
 
 #### 3. Comprehensive Network Discovery
 
@@ -68,7 +70,9 @@ Three new functions enhance the developer experience:
 
 #### 5. Extended Support for HPC Environments
 
-For HPC environments, `daemons()` now supports initial synchronization exceeding 10 seconds. This enhancement is particularly valuable for large-scale distributed computing setups where network latency or resource provisioning may require longer connection times.
+For HPC environments, `daemons()` now supports initial synchronization exceeding 10 seconds.
+
+This enhancement is particularly valuable for large-scale distributed computing setups where network latency or resource provisioning may require longer connection times.
 
 ### Integration with the R Ecosystem
 
@@ -84,7 +88,7 @@ cl <- parallel::makeCluster(6, type = "MIRAI")
 #### Shiny Support
 
 mirai's promises integrate seamlessly with Shiny applications, enabling truly responsive user interfaces.
-Developed in collaboration with Joe Cheng, it's the only event-driven solution that fully integrates with Shiny's interfaces, and also scales to complex apps with many users [Link to vignette example](https://mirai.r-lib.org/articles/v3-promises.html#shiny-extendedtask-introduction).
+Developed in collaboration with Joe Cheng (creator of Shiny), it's the only event-driven solution that fully integrates with Shiny's interfaces, and also scales to complex apps with many users [Link to vignette example](https://mirai.r-lib.org/articles/v3-promises.html#shiny-extendedtask-introduction).
 
 #### Powers Purrr
 
