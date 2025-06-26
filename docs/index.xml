@@ -12,14 +12,192 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 26 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Jun 2025 00:00:00 +0000</lastBuildDate>
     <item>
       <title>mirai 2.4.0</title>
       <dc:creator>shikokuchuo</dc:creator>
       <link>https://shikokuchuo.net/posts/27-mirai-240</link>
-      <description>First Class Async and High-Performance Computing</description>
+      <description>
+
+
+&lt;div class="float"&gt;
+&lt;img src="https://shikokuchuo.net//posts/27-mirai-240/images/cms.jpg"
+alt="mirai 2.4.0: First Class Async and High-Performance Computing" /&gt;
+&lt;div class="figcaption"&gt;mirai 2.4.0: First Class Async and
+High-Performance Computing&lt;/div&gt;
+&lt;/div&gt;
+&lt;h3 id="state-of-async-in-the-ecosystem"&gt;State of Async in the
+Ecosystem&lt;/h3&gt;
+&lt;p&gt;I gave a talk at Posit Conf last year (2024) on bringing first-class
+(real, event-driven) async to R, jointly with Will Landau, a long-time
+collaborator. At the time his crew package was the only practical way to
+use mirai in High-Performance Computing (HPC) environments, and it
+continues to be a great solution for HPC and cloud platforms, powering
+all distributed targets pipelines.&lt;/p&gt;
+&lt;p&gt;Since then, we at Posit have been delivering this vision to you.
+First we now have event-driven async in our popular packages httr2 and
+ellmer. We’ve also added event-driven file watching capability to
+auto-reload Shiny in its latest (1.11.0) release. But did you know that
+the seed for all these capabilities originated with mirai?&lt;/p&gt;
+&lt;p&gt;mirai is now recognized as a primary async backend for Shiny (in
+1.11.0), and we’re updating our promises documentation as this post goes
+to publication to provide additional support for users. It also powers
+parallel execution in purrr, with a shiny new &lt;code&gt;in_parallel()&lt;/code&gt;
+adverb that’s in a version on the verge of being released. It’s also the
+async evaluator behind the &lt;code&gt;@async&lt;/code&gt; tag in plumber2 (still
+experimental at the posit-dev GitHub organization).&lt;/p&gt;
+&lt;p&gt;As mirai now underpins much of this ecosystem, it was about time that
+HPC got first-class treatment within mirai itself. We’re really pleased
+to bring this to you, and we’re really excited with what we’ve been
+seeing in terms of how efficiently mirai scales.&lt;/p&gt;
+&lt;h3 id="whats-new-cluster_config-hpc-integration"&gt;What’s New:
+cluster_config() HPC Integration&lt;/h3&gt;
+&lt;p&gt;The headline feature of mirai 2.4.0 is the addition of
+&lt;code&gt;cluster_config()&lt;/code&gt;, a flexible launcher designed specifically
+for HPC environments. This allows R users to easily deploy mirai daemons
+across HPC clusters using familiar resource management systems.&lt;/p&gt;
+&lt;h4 id="supported-hpc-resource-managers"&gt;Supported HPC Resource
+Managers&lt;/h4&gt;
+&lt;p&gt;The new &lt;code&gt;cluster_config()&lt;/code&gt; supports all major HPC
+schedulers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Slurm&lt;/strong&gt; (using &lt;code&gt;sbatch&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SGE&lt;/strong&gt; (Sun Grid Engine, using &lt;code&gt;qsub&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Torque/PBS&lt;/strong&gt; (using &lt;code&gt;qsub&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LSF&lt;/strong&gt; (Load Sharing Facility, using
+&lt;code&gt;bsub&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="simple-yet-powerful-configuration"&gt;Simple Yet Powerful
+Configuration&lt;/h4&gt;
+&lt;p&gt;The beauty of &lt;code&gt;cluster_config()&lt;/code&gt; lies in its simplicity.
+With just three parameters, you can configure complex HPC
+deployments:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;cluster_config(
+  command = &amp;quot;sbatch&amp;quot;,    # The scheduler command
+  options = &amp;quot;&amp;quot;,          # Scheduler-specific options
+  rscript = &amp;quot;Rscript&amp;quot;    # Path to R executable
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="real-world-examples"&gt;Real-World Examples&lt;/h3&gt;
+&lt;p&gt;Here’s how you can use &lt;code&gt;cluster_config()&lt;/code&gt; with different
+HPC systems:&lt;/p&gt;
+&lt;h4 id="slurm-configuration"&gt;Slurm Configuration&lt;/h4&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# Configure for Slurm with resource specifications
+slurm_config &amp;lt;- cluster_config(
+  command = &amp;quot;sbatch&amp;quot;,
+  options = &amp;quot;#SBATCH --job-name=mirai
+             #SBATCH --mem=10G
+             #SBATCH --output=job.out
+             module load R/4.5.0&amp;quot;,
+  rscript = file.path(R.home(&amp;quot;bin&amp;quot;), &amp;quot;Rscript&amp;quot;)
+)
+
+# Launch daemons using the configuration
+daemons(
+  n = 100,
+  url = host_url(),
+  remote = slurm_config
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="sge-configuration"&gt;SGE Configuration&lt;/h4&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# Configure for SGE
+sge_config &amp;lt;- cluster_config(
+  command = &amp;quot;qsub&amp;quot;,
+  options = &amp;quot;#$ -N mirai
+             #$ -l mem_free=10G
+             #$ -o job.out
+             module load R/4.5.0&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id="lsf-configuration"&gt;LSF Configuration&lt;/h4&gt;
+&lt;pre class="r"&gt;&lt;code&gt;# Configure for LSF
+lsf_config &amp;lt;- cluster_config(
+  command = &amp;quot;bsub&amp;quot;,
+  options = &amp;quot;#BSUB -J mirai
+             #BSUB -M 10000
+             #BSUB -o job.out
+             module load R/4.5.0&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="why-this-matters-for-hpc-users"&gt;Why This Matters for HPC
+Users&lt;/h3&gt;
+&lt;p&gt;The introduction of &lt;code&gt;cluster_config()&lt;/code&gt; represents a
+significant milestone for R users working in HPC environments.
+Previously, setting up distributed computing across cluster nodes
+required manual script writing and configuration. Now, mirai provides a
+unified R interface that abstracts away the complexity, while
+maintaining the full power and flexibility of setting any available
+options.&lt;/p&gt;
+&lt;h4 id="key-benefits"&gt;Key Benefits:&lt;/h4&gt;
+&lt;ol style="list-style-type: decimal"&gt;
+&lt;li&gt;&lt;strong&gt;Unified Interface&lt;/strong&gt;: One function works across all
+major HPC schedulers&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Native Integration&lt;/strong&gt;: No need for external scripts or
+complex setup procedures&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flexible Configuration&lt;/strong&gt;: Full access to
+scheduler-specific options and commands&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Seamless Scaling&lt;/strong&gt;: Easy deployment from single nodes
+to hundreds of cores&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resource Management&lt;/strong&gt;: Support for memory limits,
+logging and other requirements&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="additional-enhancements"&gt;Additional Enhancements&lt;/h3&gt;
+&lt;p&gt;Beyond the headline &lt;code&gt;cluster_config()&lt;/code&gt; launcher, version
+2.4.0 introduces several important improvements:&lt;/p&gt;
+&lt;h4 id="developer-friendly-features"&gt;Developer-Friendly Features&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;New &lt;code&gt;require_daemons()&lt;/code&gt; Function&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Provides an elegant way to prompt users to set up daemons when
+needed, complete with clickable function links (leveraging the cli
+package where available).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="behavioural-improvements"&gt;Behavioural Improvements&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Enhanced Daemon Management&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Daemons now exit immediately when the host process terminates.&lt;/li&gt;
+&lt;li&gt;Protection against recursive local daemon spawning during
+&lt;code&gt;mirai_map()&lt;/code&gt; operations.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Simplified Remote Launches&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;launch_remote()&lt;/code&gt; commands are now simpler, as daemons
+retrieve RNG streams directly from the dispatcher rather than requiring
+a unique &lt;code&gt;rs&lt;/code&gt; argument. This allows easier manual
+deployment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="getting-started"&gt;Getting Started&lt;/h3&gt;
+&lt;p&gt;To take advantage of these new features, update to mirai 2.4.0:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;install.packages(&amp;quot;mirai&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For HPC users, the path to distributed computing with mirai has never
+been clearer:&lt;/p&gt;
+&lt;pre class="r"&gt;&lt;code&gt;library(mirai)
+
+# Configure your HPC environment
+config &amp;lt;- cluster_config(
+  command = &amp;quot;sbatch&amp;quot;,  # or qsub, bsub as appropriate
+  options = &amp;quot;your_scheduler_options_here&amp;quot;
+)
+
+# Launch distributed daemons
+daemons(n = 10, url = host_url(), remote = config)
+
+# Start computing at scale
+results &amp;lt;- mirai_map(1:1000, expensive_function)&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="looking-forward"&gt;Looking Forward&lt;/h3&gt;
+&lt;p&gt;We hope that mirai 2.4.0 allows HPC computing to become more
+accessible to a broader range of R users, democratizing high-performance
+computing capabilities across the community.&lt;/p&gt;
+&lt;p&gt;Whether you’re processing large datasets, running complex
+simulations, or conducting extensive model training, mirai 2.4.0’s HPC
+integration provides the tooling you need to scale your R workflows
+efficiently and elegantly.&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;mirai&lt;/em&gt; of async computing in R is here, and it’s more
+accessible than ever.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Learn more about mirai and its capabilities at the &lt;a
+href="https://mirai.r-lib.org/"&gt;official documentation&lt;/a&gt; or explore
+the source code on &lt;a
+href="https://github.com/r-lib/mirai"&gt;GitHub&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;pre class="r distill-force-highlighting-css"&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</description>
+      <distill:md5>ca3a5e3b020e7c6fd4b26ab34ba0e6ce</distill:md5>
       <guid>https://shikokuchuo.net/posts/27-mirai-240</guid>
-      <pubDate>Thu, 26 Jun 2025 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 25 Jun 2025 00:00:00 +0000</pubDate>
       <media:content url="https://shikokuchuo.net/posts/27-mirai-240/images/cms.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>

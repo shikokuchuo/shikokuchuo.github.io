@@ -23,7 +23,7 @@ I gave a talk at Posit Conf last year (2024) on bringing first-class (real, even
 
 Since then, we at Posit have been delivering this vision to you. First we now have event-driven async in our popular packages httr2 and ellmer. We've also added event-driven file watching capability to auto-reload Shiny in its latest (1.11.0) release. But did you know that the seed for all these capabilities originated with mirai?
 
-mirai is now a primary async backend for Shiny (in 1.11.0), and we're updating our promises documentation as this post goes to publication to provide additional support for users. It also powers parallel execution in purrr, with a shiny new `in_parallel()` adverb that's in a version on the verge of being released. It's also the async evaluator behind the `@async` tag in plumber2 (still experimental at the posit-dev GitHub organization).
+mirai is now recognized as a primary async backend for Shiny (in 1.11.0), and we're updating our promises documentation as this post goes to publication to provide additional support for users. It also powers parallel execution in purrr, with a shiny new `in_parallel()` adverb that's in a version on the verge of being released. It's also the async evaluator behind the `@async` tag in plumber2 (still experimental at the posit-dev GitHub organization).
 
 As mirai now underpins much of this ecosystem, it was about time that HPC got first-class treatment within mirai itself. We're really pleased to bring this to you, and we're really excited with what we've been seeing in terms of how efficiently mirai scales.
 
