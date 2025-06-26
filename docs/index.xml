@@ -12,7 +12,16 @@
       <link>https://shikokuchuo.net/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 23 May 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 26 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>mirai 2.4.0</title>
+      <dc:creator>shikokuchuo</dc:creator>
+      <link>https://shikokuchuo.net/posts/27-mirai-240</link>
+      <description>First Class Async and High-Performance Computing</description>
+      <guid>https://shikokuchuo.net/posts/27-mirai-240</guid>
+      <pubDate>Thu, 26 Jun 2025 00:00:00 +0000</pubDate>
+      <media:content url="https://shikokuchuo.net/posts/27-mirai-240/images/cms.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>mirai 2.3.0</title>
       <dc:creator>shikokuchuo</dc:creator>
