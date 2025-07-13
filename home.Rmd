@@ -13,13 +13,3 @@ htmltools::div(
   cat("Welcome to Shikokuchuo. Use the navbar for projects, search box for articles.")
 )
 ```
-
-```{r echo=FALSE}
-htmltools::div(
-  htmltools::a(
-    fontawesome::fa("camera"),
-    href = "https://shikokuchuo.net/light-brushing"
-  ),
-  align = "right"
-)
-```

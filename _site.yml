@@ -16,7 +16,7 @@ navbar:
       icon: fas fa-chevron-right
       href: https://nanonext.r-lib.org/
     - text: "r-mirai"
-      icon: fa fa-refresh
+      icon: fa fa-fan
       href: https://mirai.r-lib.org/
     - text: "r-secretbase"
       icon: fa fa-key
@@ -27,9 +27,9 @@ navbar:
     - text: "r-watcher"
       icon: fa fa-eye
       href: https://watcher.r-lib.org/
-    - text: "r-sakura"
-      icon: fa fa-fan
-      href: https://shikokuchuo.net/sakura/
+    - text: "r-mcptools"
+      icon: fas fa-network-wired
+      href: https://posit-dev.github.io/mcptools/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
       href: https://shikokuchuo.net/

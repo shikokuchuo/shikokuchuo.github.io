@@ -4,22 +4,22 @@
       "path": "home.html",
       "title": "Open source R tools",
       "author": [],
-      "contents": "\n\n\n\n\nWelcome to Shikokuchuo. Use the navbar for projects, search box for articles.\n\n\n\n\n\n\n\n\n\n\n",
-      "last_modified": "2025-06-26T15:26:05+01:00"
+      "contents": "\n\n\n\n\nWelcome to Shikokuchuo. Use the navbar for projects, search box for articles.\n\n\n\n\n\n",
+      "last_modified": "2025-07-13T13:14:52+01:00"
     },
     {
       "path": "index.html",
       "title": "shikokuchuo.net",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2025-06-26T15:26:05+01:00"
+      "last_modified": "2025-07-13T13:14:52+01:00"
     },
     {
       "path": "map.html",
       "title": "Shikokuchuo, Japan 愛媛県四国中央市",
       "author": [],
       "contents": "\n\n\n\n\n\n\n",
-      "last_modified": "2025-06-26T15:26:05+01:00"
+      "last_modified": "2025-07-13T13:14:52+01:00"
     }
   ],
   "collections": ["posts/posts.json"]
