@@ -30,6 +30,20 @@ navbar:
     - text: "r-mcptools"
       icon: fas fa-network-wired
       href: https://posit-dev.github.io/mcptools/
+    - text: "talks"
+      menu:
+        - text: "useR! 2025"
+          href: https://shikokuchuo.net/user2025/
+        - text: "ShinyConf 2025"
+          href: https://shikokuchuo.net/shinyconf2025/
+        - text: "posit::conf(2024)"
+          href: https://shikokuchuo.net/posit2024/
+        - text: "useR! 2024"
+          href: https://shikokuchuo.net/user2024-conference/
+        - text: "SatRdays London 2024"
+          href: https://shikokuchuo.net/satRdays-London-2024/
+        - text: "useR! 2022"
+          href: https://shikokuchuo.net/user2022-conference/
     - text: "shikokuchuo{net}"
       icon: fas fa-cube
       href: https://shikokuchuo.net/
