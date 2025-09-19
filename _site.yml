@@ -32,6 +32,8 @@ navbar:
       href: https://posit-dev.github.io/mcptools/
     - text: "talks"
       menu:
+        - text: "posit::conf(2025)"
+          href: https://shikokuchuo-posit2025.share.connect.posit.cloud/
         - text: "useR! 2025"
           href: https://shikokuchuo.net/user2025/
         - text: "ShinyConf 2025"
