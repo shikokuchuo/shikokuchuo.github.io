@@ -30,8 +30,16 @@ navbar:
     - text: "r-mcptools"
       icon: fas fa-network-wired
       href: https://posit-dev.github.io/mcptools/
+    - text: "r-automerge"
+      icon: fa fa-code-merge
+      href: https://posit-dev.github.io/automerge-r/
+    - text: "quarto2"
+      icon: fa fa-book-open
+      href: https://github.com/quarto-dev/q2
     - text: "talks"
       menu:
+        - text: "Japan R 2025 (Keynote)"
+          href: https://japanr.connpass.com/event/374714/
         - text: "Shiny in Production 2025"
           href: https://shikokuchuo.net/sip2025/
         - text: "posit::conf(2025)"
