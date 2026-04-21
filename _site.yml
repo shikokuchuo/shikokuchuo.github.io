@@ -36,6 +36,9 @@ navbar:
     - text: "quarto2"
       icon: fa fa-book-open
       href: https://github.com/quarto-dev/q2
+    - text: "mori"
+      icon: fa fa-tree
+      href: https://shikokuchuo.net/mori/
     - text: "talks"
       menu:
         - text: "Japan R 2025 (Keynote)"
