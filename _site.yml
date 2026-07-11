@@ -41,6 +41,8 @@ navbar:
       href: https://shikokuchuo.net/mori/
     - text: "talks"
       menu:
+        - text: "useR! 2026"
+          href: https://shikokuchuo.net/user2026/
         - text: "Japan R 2025 (Keynote)"
           href: https://japanr.connpass.com/event/374714/
         - text: "Shiny in Production 2025"
