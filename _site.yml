@@ -38,9 +38,18 @@ navbar:
       href: https://github.com/quarto-dev/q2
     - text: "mori"
       icon: fa fa-tree
-      href: https://shikokuchuo.net/mori/
+      href: https://mori.r-lib.org/
+    - text: "mizu"
+      icon: fa fa-water
+      href: https://shikokuchuo.net/mizu/
     - text: "talks"
       menu:
+        - text: "Statistical Society of Australia 2026"
+          href: https://shikokuchuo.net/ssa2026/
+        - text: "Tokyo R (122) 2026"
+          href: https://tokyor.connpass.com/event/407749/
+        - text: "posit::conf(2026)"
+          href: https://shikokuchuo.net/posit2026/
         - text: "useR! 2026"
           href: https://shikokuchuo.net/user2026/
         - text: "Japan R 2025 (Keynote)"
